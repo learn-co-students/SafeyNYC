@@ -10,6 +10,7 @@
 
 @interface RUFIConstants : UIView
 
+//40.705443, -74.014002
 extern NSString *const GOOGLE_API_KEY;
 
 @end
