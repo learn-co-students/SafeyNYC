@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import "RUFIConstants.h"
+
+@import GoogleMaps;
 
 @interface AppDelegate ()
 
@@ -16,7 +19,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    [GMSServices provideAPIKey:GOOGLE_API_KEY];
     return YES;
 }
 
