@@ -38,6 +38,8 @@
         for (NSDictionary *crimeSingleDictionary in crimeDictionaries) {
             [self.crimeDataArray addObject:[RUFICrimes crimeFromDictionary:crimeSingleDictionary]];
         }
+        
+        NSLog(@"%@", self.crimeDataArray);
         completionBlock(YES);
     }];
 }

@@ -27,14 +27,15 @@
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *dateOneYearAgo = [formatter stringFromDate:oneYearAgo];
     
-    NSString *cityDataUrl = [NSString stringWithFormat:@"https://data.cityofnewyork.us/resource/dvh8-u7es.json?%@&$where=occurrence_date>='%@T00:00:00' AND within_circle(location_1, %@, %@, 201)&$order=occurrence_date", CITY_CRIME_APP_TOKEN, sharedData.userLatitude, sharedData.userLongitude, dateOneYearAgo];
+//    NSString *cityDataUrl = [NSString stringWithFormat:@"https://data.cityofnewyork.us/resource/dvh8-u7es.json?%@&$where=occurrence_date>='%@T00:00:00' AND within_circle(location_1, %@, %@, 201)&$order=occurrence_date", CITY_CRIME_APP_TOKEN, sharedData.userLatitude, sharedData.userLongitude, dateOneYearAgo];
     
-    
-//    NSString *githubURL = [NSString stringWithFormat:@"%@/repositories?client_id=%@&client_secret=%@",GITHUB_API_URL,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET];
+    NSString *cityDataUrl = @"https://data.cityofnewyork.us/resource/dvh8-u7es.json?$$app_token=7wq8JZEbZGGNxPWQ0LFQQbNir&$where=occurrence_date>='2015-03-29T00:00:00' AND within_circle(location_1, 40.706953, -74.012288, 201)&$order=occurrence_date";
+    NSString *cityDataUrLEncoded = [cityDataUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
-    [manager GET:cityDataUrl
+    [manager GET:cityDataUrLEncoded
       parameters:nil
         progress:nil
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
