@@ -21,28 +21,9 @@
     [super viewDidLoad];
     
     self.longitude = -74.014002;
-    self.latitude = 40.705443;
+    self.latitude = 40.805443;
     
-//    [self promptForLocationServices];
-    NSLog(@"About to update the map in the view controller!!!!!!");
-    NSLog(@"%f", self.longitude);
-    NSLog(@"%f", self.latitude);
-    [self updateMapWithCoordinates];
-    
-}
-
-//-(void)viewDidAppear:(BOOL)animated{
-//
-//    [super viewDidAppear: YES];
-//    
-//    [self promptForLocationServices];
-//
-//   [self updateMapWithCoordinates];
-//
-//}
-
--(void)updateMapWithCoordinates{
-
+    [self promptForLocationServices];
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
                                                             longitude: self.longitude
                                                                  zoom: 17];
@@ -50,12 +31,17 @@
     mapView_.myLocationEnabled = YES;
     self.view = mapView_;
     GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
+    //marker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
     marker.title = @"New York";
     marker.snippet = @"USA";
+
     marker.map = mapView_;
+    
+}
 
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    [self findTheCurrentLocation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,65 +56,29 @@
     
     if ([[self locationManager] respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         [[self locationManager] requestWhenInUseAuthorization];
-        NSLog(@"looks like this shit works!");
     }
-    
+    NSLog(@"we are about to find the location!!!!!");
     [self.locationManager startUpdatingLocation];
-    
-    
+
 }
-
-
-//- (IBAction)getCurrentLocation:(id)sender {
-//    
-//    [self findTheCurrentLocation];
-//}
 
 -(void)promptForLocationServices{
     
     BOOL locationAllowed = [CLLocationManager locationServicesEnabled];
     
-    if (!locationAllowed) {
-        
-        NSLog(@"LOCAtion not ALLOWED!!!!!");
-        
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Enable Location Services"
-                                                                       message:@"To enable, please go to Settings and turn on Location Services for this app."
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction * action) {
-                                                                  
-                                                                  
-                                                              }];
-        
-        [alert addAction:defaultAction];
-        [self presentViewController:alert animated:YES completion:nil];
-        
-        
-    }
-    else{
-        
-        NSLog(@"WE WILL NOW MAKE THE MANAGER");
+    if (locationAllowed) {
         
         self.locationManager = [[CLLocationManager alloc]init];
-        self.geocoder = [[CLGeocoder alloc]init];
-        
         [self findTheCurrentLocation];
         
     }
-    
-    
-    
-    
 }
 
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     
-    NSLog(@"Here's the error: %@", error);
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                   message:@"Failed to get the damn coordinates mein.."
+                                                                   message:@"There was an error retrieving your location"
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
@@ -143,31 +93,22 @@
     CLLocation *location = locations.lastObject;
     
     self.latitude = location.coordinate.latitude;
-    NSLog(@"the latitude is : %.6f", self.latitude);
     self.longitude = location.coordinate.longitude;
-    NSLog(@"the longitude is : %.6f", self.longitude);
-//
-//            [self.geocoder reverseGeocodeLocation: location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-//    
-//                NSLog(@"The placemarks were found!!!!!!!");
-//    
-//                if ((error == nil && placemarks.count > 0)) {
-//                    self.placemark = placemarks.lastObject;
-//    
-//                    self.currentAddress= [NSString stringWithFormat:@"Address: %@ %@\n%@ %@\n%@\n%@",
-//                                              self.placemark.subThoroughfare, self.placemark.thoroughfare,
-//                                              self.placemark.postalCode, self.placemark.locality,
-//                                              self.placemark.administrativeArea,
-//                                              self.placemark.country];
-//    
-//                } else {
-//                    NSLog(@"%@", error.debugDescription);
-//                }
-//            }];
-
     
+    [self animateMap];
+
     [self.locationManager stopUpdatingLocation];
     
+    NSLog(@"lat is now: %f", self.latitude);
+    NSLog(@"long is now: %f", self.longitude);
+
+    
+
+}
+
+-(void)animateMap{
+    
+    [mapView_ animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
     
 }
 

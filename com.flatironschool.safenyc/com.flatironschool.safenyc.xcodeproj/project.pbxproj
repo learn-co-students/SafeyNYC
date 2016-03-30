@@ -21,6 +21,7 @@
 		A707E4DB1CAB0239002F37C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A707E4D91CAB0239002F37C5 /* LaunchScreen.storyboard */; };
 		A707E4E61CAB0239002F37C5 /* com_flatironschool_safenycTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4E51CAB0239002F37C5 /* com_flatironschool_safenycTests.m */; };
 		A707E4F11CAB0239002F37C5 /* com_flatironschool_safenycUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4F01CAB0239002F37C5 /* com_flatironschool_safenycUITests.m */; };
+		A707E5021CAC24D1002F37C5 /* IrinaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */; };
 		EB55C3C11CAB1F460020C1CD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		A707E4F01CAB0239002F37C5 /* com_flatironschool_safenycUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = com_flatironschool_safenycUITests.m; sourceTree = "<group>"; };
 		A707E4F21CAB0239002F37C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A707E4FE1CAB02FE002F37C5 /* RUFIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIConstants.h; sourceTree = "<group>"; };
+		A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IrinaStoryboard.storyboard; sourceTree = "<group>"; };
 		EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -155,6 +157,7 @@
 				7322697C1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.h */,
 				7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */,
 				A707E4D11CAB0239002F37C5 /* Main.storyboard */,
+				A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */,
 				A707E4D71CAB0239002F37C5 /* Assets.xcassets */,
 				A707E4D91CAB0239002F37C5 /* LaunchScreen.storyboard */,
 				A707E4DC1CAB0239002F37C5 /* Info.plist */,
@@ -261,7 +264,7 @@
 				TargetAttributes = {
 					A707E4C41CAB0238002F37C5 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = T6W38YLN79;
+						DevelopmentTeam = B9NU7FF5WD;
 					};
 					A707E4E01CAB0239002F37C5 = {
 						CreatedOnToolsVersion = 7.3;
@@ -301,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A707E4DB1CAB0239002F37C5 /* LaunchScreen.storyboard in Resources */,
+				A707E5021CAC24D1002F37C5 /* IrinaStoryboard.storyboard in Resources */,
 				A707E4D81CAB0239002F37C5 /* Assets.xcassets in Resources */,
 				A707E4D31CAB0239002F37C5 /* Main.storyboard in Resources */,
 			);
