@@ -17,4 +17,6 @@
 
 + (instancetype)sharedDataStore;
 
+-(void)getCrimeDataWithCompletion:(void (^)(BOOL finished))completionBlock;
+
 @end

@@ -32,7 +32,7 @@
     return self;
 }
 
--(void)getCrimeDataWithCompletion:(void (^)(BOOL))completionBlock
+-(void)getCrimeDataWithCompletion:(void (^)(BOOL finished))completionBlock
 {
     [RUFICrimeDataAPI getCrimeDataWithCompletion:^(NSArray *crimeDictionaries)  {
         for (NSDictionary *crimeSingleDictionary in crimeDictionaries) {
