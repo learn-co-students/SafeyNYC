@@ -20,6 +20,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSDate *now = [NSDate date];
+    NSDateComponents *minusHundredYears = [NSDateComponents new];
+    minusHundredYears.year = -1;
+    NSDate *hundredYearsAgo = [[NSCalendar currentCalendar] dateByAddingComponents:minusHundredYears
+                                                                            toDate:now
+                                                                        options:0];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSLog(@"Today's Date is %@", [formatter stringFromDate:now]);
+    NSLog(@"DATE FROM A YEAR AGO IS %@", [formatter stringFromDate:hundredYearsAgo]);
+    
     self.longitude = -74.014002;
     self.latitude = 40.705443;
     
