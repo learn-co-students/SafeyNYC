@@ -7,6 +7,8 @@
 //
 
 #import "RUFIDataStore.h"
+#import "RUFICrimeDataAPI.h"
+#import "RUFICrimes.h"
 
 @implementation RUFIDataStore
 
@@ -32,9 +34,9 @@
 
 -(void)getCrimeDataWithCompletion:(void (^)(BOOL))completionBlock
 {
-    [FISGithubAPIClient getRepositoriesWithCompletion:^(NSArray *repoDictionaries) {
-        for (NSDictionary *repoDictionary in repoDictionaries) {
-            [self.crimeRepositories addObject:[FISGithubRepository repoFromDictionary:repoDictionary]];
+    [RUFICrimeDataAPI getCrimeDataWithCompletion:^(NSArray *crimeDictionaries)  {
+        for (NSDictionary *crimeSingleDictionary in crimeDictionaries) {
+            [self.crimeDataArray addObject:[RUFICrimes crimeFromDictionary:crimeSingleDictionary]];
         }
         completionBlock(YES);
     }];
