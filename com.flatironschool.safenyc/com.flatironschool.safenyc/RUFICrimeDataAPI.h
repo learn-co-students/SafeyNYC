@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RUFIDataStore.h"
 
 @interface RUFICrimeDataAPI : NSObject
 

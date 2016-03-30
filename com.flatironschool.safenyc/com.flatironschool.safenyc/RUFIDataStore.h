@@ -12,6 +12,8 @@
 @interface RUFIDataStore : NSObject
 
 @property (strong, nonatomic) NSMutableArray *crimeDataArray;
+@property (strong, nonatomic) NSString *userLatitude;
+@property (strong, nonatomic) NSString *userLongitude;
 
 + (instancetype)sharedDataStore;
 
