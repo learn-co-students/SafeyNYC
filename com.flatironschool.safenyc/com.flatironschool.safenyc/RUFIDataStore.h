@@ -14,7 +14,13 @@
 @property (strong, nonatomic) NSMutableArray *crimeDataArray;
 @property (strong, nonatomic) NSString *userLatitude;
 @property (strong, nonatomic) NSString *userLongitude;
-
+@property (assign, nonatomic) NSUInteger grandLarcenyCount;
+@property (assign, nonatomic) NSUInteger felonyAssaultCount;
+@property (assign, nonatomic) NSUInteger murderCount;
+@property (assign, nonatomic) NSUInteger rapeCount;
+@property (assign, nonatomic) NSUInteger robberyCount;
+@property (assign, nonatomic) NSUInteger grandLarcenyMVCount;
+@property (assign, nonatomic) NSUInteger burglaryCount;
 + (instancetype)sharedDataStore;
 
 -(void)getCrimeDataWithCompletion:(void (^)(BOOL finished))completionBlock;

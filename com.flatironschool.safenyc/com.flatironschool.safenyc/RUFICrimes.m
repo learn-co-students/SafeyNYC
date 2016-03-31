@@ -31,8 +31,11 @@
     crime.date = [NSString stringWithFormat:@"%@-%@-%@", crime.month, crime.day, crime.year];
     crime.latitude = [crimeDictionary[@"location_1"][@"latitude"] doubleValue];
     crime.longitude = [crimeDictionary[@"location_1"][@"longitude"] doubleValue];
+    crime.googleMapsIcon = [UIImage imageNamed:crimeDictionary[@"offense"]];
     
     return crime;
 }
+
+
 
 @end

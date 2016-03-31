@@ -8,8 +8,15 @@
 
 #import "PieChartDataViewController.h"
 #import <VBPieChart/VBPieChart.h>
+#import "RUFIDataStore.h"
 
 @interface PieChartDataViewController () <VBPieChartDelegate>
+@property (strong, nonatomic) IBOutlet UIImageView *pieImage;
+@property (strong, nonatomic) VBPieChart *chart;
+@property (strong, nonatomic) IBOutlet UILabel *crimeLabel;
+@property (strong,nonatomic) NSArray *chartValues;
+@property (strong, nonatomic) RUFIDataStore *dataStore;
+@property (strong, nonatomic) IBOutlet UIView *pieChartView;
 
 @end
 
@@ -17,55 +24,85 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    VBPieChart *chart = [[VBPieChart alloc] initWithFrame:CGRectMake(60, 50, 300, 300)];
-    [self.view addSubview:chart];
-    chart.delegate = self;
-    chart.allowOnlyOneAccentedPiece = YES;
     
-    [chart setLabelsPosition:VBLabelsPositionOutChart];
-    chart.maxAccentPrecent = 0.2;
+    self.dataStore = [[RUFIDataStore alloc] init];
+    
+    
+    self.chart = [[VBPieChart alloc] initWithFrame:CGRectMake(60, 50, 300, 300)];
+    [self.pieChartView addSubview:self.chart];
+    self.chart.delegate = self;
+    self.chart.allowOnlyOneAccentedPiece = YES;
+    
+    self.chart.maxAccentPrecent = 0.2;
+    
+    
+    
+    [self.chart setHoleRadiusPrecent:0.6];
+    
+    
+    
+    
+    
+    
+}
 
+-(void)viewDidAppear:(BOOL)animated {
     
-    // Setup some options:
-
-    [chart setHoleRadiusPrecent:0.8]; /* hole inside of chart */
+    [self.dataStore getCrimeDataWithCompletion:^(BOOL finished) {
+        if (finished) {
+            
+            self.chartValues = @[
+                                 @{@"name":@"MURDER & NON-NEGL. MANSLAUGHTER", @"value":[self convertValuetoNumber:self.dataStore.murderCount], @"color":[UIColor redColor], @"image" : @"murderPie"},
+                                 @{@"name":@"Felony Assault", @"value":[self convertValuetoNumber:self.dataStore.felonyAssaultCount], @"color":[UIColor orangeColor], @"image" : @"felonyPie"},
+                                 @{@"name":@"Grand Larceny", @"value":[self convertValuetoNumber:self.dataStore.grandLarcenyCount], @"color":[UIColor blueColor], @"image" : @"grandLarcenyPie"},
+                                 @{@"name":@"Grand Larceny Motor Vehicle", @"value":[self convertValuetoNumber:self.dataStore.grandLarcenyMVCount], @"color":[UIColor purpleColor], @"image" : @"grandLarcenyMVPie"},
+                                 @{@"name":@"Burglary", @"value":[self convertValuetoNumber:self.dataStore.burglaryCount], @"color":[UIColor greenColor], @"image" : @"burglaryPie"},
+                                 @{@"name":@"Rape", @"value":[self convertValuetoNumber:self.dataStore.rapeCount], @"color":[UIColor yellowColor], @"image" : @"rapePie"},
+                                 @{@"name":@"Robbery", @"value":[self convertValuetoNumber:self.dataStore.robberyCount], @"color":[UIColor brownColor], @"image" : @"robberyPie"},
+                                 ];
+            
+            
+            NSLog(@"GL; %lu", self.dataStore.grandLarcenyCount);
+            
+            [self.chart setChartValues:self.chartValues animation:YES duration:1.0 options:VBPieChartAnimationFanAll];
+            
+            
+        }
+    }];
     
-    // Prepare your data
-    NSArray *chartValues = @[
-                             @{@"name":@"Murder", @"value":@50, @"color":[UIColor redColor], @"labelColor" : [UIColor blackColor]},
-                             @{@"name":@"Felony Assault", @"value":@70, @"color":[UIColor blueColor], @"labelColor" : [UIColor blackColor]},
-                             @{@"name":@"Grand Larceny", @"value":@30, @"color":[UIColor orangeColor], @"labelColor" : [UIColor blackColor]},
-                             @{@"name":@"Grand Larceny Motor Vehicle", @"value":@35, @"color":[UIColor purpleColor], @"labelColor" : [UIColor blackColor]},
-                             @{@"name":@"Murder", @"value":@10, @"color":[UIColor greenColor], @"labelColor" : [UIColor blackColor]},
-                             @{@"name":@"Rape", @"value":@10, @"color":[UIColor yellowColor], @"labelColor" : [UIColor blackColor]},
-                             @{@"name":@"Robbery", @"value":@10, @"color":[UIColor grayColor], @"labelColor" : [UIColor blackColor]},
-                             ];
     
-    // Present pie chart with animation
     
-//    [chart setChartValues:chartValues];
     
-        [chart setChartValues:chartValues animation:YES duration:1.0 options:VBPieChartAnimationFanAll];
 }
 
 -(void)pieChart:(VBPieChart *)pieChart didTapPieceAtIndex:(NSInteger)index
 {
-    NSLog(@"you tapped piece %li", index);
+    
+    self.crimeLabel.text = [NSString stringWithFormat:@"%@: %@",[self.chartValues objectAtIndex:index][@"name"], [self.chartValues objectAtIndex:index][@"value"]];
+    
+    UIImage *pieImageView = [UIImage imageNamed:[self.chartValues objectAtIndex:index][@"image"]];
+    [self.pieImage setImage:pieImageView];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+-(NSNumber *)convertValuetoNumber:(NSUInteger) crimeCount {
+    
+    NSNumber *countNSNumber = @(crimeCount);;
+    return  countNSNumber;
+    
 }
-*/
 
 @end

@@ -112,4 +112,21 @@
     
 }
 
+#pragma method to update map with crime markers
+
+-(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
+    
+    for (RUFICrimes *crime in crimeArray){
+        GMSMarker *marker = [[GMSMarker alloc] init];
+        marker.icon = [GMSMarker markerImageWithColor:[UIColor blackColor]];
+        marker.position = CLLocationCoordinate2DMake(crime.latitude, crime.longitude);
+        marker.icon = crime.googleMapsIcon;
+        marker.appearAnimation = kGMSMarkerAnimationPop;
+        marker.title = crime.offense;
+        marker.snippet = crime.date;
+        marker.map = mapView_;
+        
+        }
+}
+
 @end

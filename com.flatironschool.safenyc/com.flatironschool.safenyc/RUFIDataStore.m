@@ -34,14 +34,75 @@
 
 -(void)getCrimeDataWithCompletion:(void (^)(BOOL finished))completionBlock
 {
+    [self resetCountsToZero];
+    
     [RUFICrimeDataAPI getCrimeDataWithCompletion:^(NSArray *crimeDictionaries)  {
         for (NSDictionary *crimeSingleDictionary in crimeDictionaries) {
+            [self checkCrimeType:crimeSingleDictionary];
             [self.crimeDataArray addObject:[RUFICrimes crimeFromDictionary:crimeSingleDictionary]];
         }
         
         NSLog(@"%@", self.crimeDataArray);
         completionBlock(YES);
     }];
+}
+
+-(void)checkCrimeType:(NSDictionary *)crimes {
+    
+    if ([crimes[@"offense"] isEqualToString:@"GRAND LARCENY"]) {
+        
+        self.grandLarcenyCount += 1;
+    
+    }
+    
+    if ([crimes[@"offense"] isEqualToString:@"FELONY ASSAULT"]) {
+        
+        self.felonyAssaultCount += 1;
+
+    }
+    
+    if ([crimes[@"offense"] isEqualToString:@"GRAND LARCENY OF MOTOR VEHICLE"]) {
+        
+        self.grandLarcenyMVCount += 1;
+        
+    }
+    
+    if ([crimes[@"offense"] isEqualToString:@"MURDER & NON-NEGL. MANSLAUGHTE"]) {
+        
+        self.murderCount += 1;
+        
+    }
+    
+    if ([crimes[@"offense"] isEqualToString:@"RAPE"]) {
+        
+        self.rapeCount += 1;
+
+    }
+    
+    if ([crimes[@"offense"] isEqualToString:@"ROBBERY"]) {
+        
+        self.robberyCount += 1;
+
+    }
+    
+    if ([crimes[@"offense"] isEqualToString:@"BURGLARY"]) {
+        
+        self.burglaryCount += 1;
+
+    }
+    
+}
+
+-(void)resetCountsToZero {
+    
+    self.burglaryCount = 0;
+    self.robberyCount = 0;
+    self.rapeCount = 0;
+    self.murderCount = 0;
+    self.grandLarcenyMVCount = 0;
+    self.felonyAssaultCount = 0;
+    self.grandLarcenyCount = 0;
+    
 }
 
 
