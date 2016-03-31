@@ -13,8 +13,6 @@
 @import GoogleMaps;
 @interface ViewController : UIViewController<CLLocationManagerDelegate>
 
-@property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) CLGeocoder *geocoder;
 @property (nonatomic, assign) double longitude;
 @property (nonatomic, assign) double latitude;
 @property (strong, nonatomic) CLPlacemark *placemark;
@@ -22,6 +20,7 @@
 @property (strong, nonatomic) GMSMapView *mapView_;
 
 -(void)reloadViewAfterSettingsScreen:(NSNotification *)notification;
+
 
 @end
 

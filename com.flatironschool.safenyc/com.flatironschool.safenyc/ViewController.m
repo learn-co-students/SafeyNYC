@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector:@selector(reloadViewAfterSettingsScreen:)
                                                  name:@"Reload Map"
@@ -168,8 +168,13 @@
 
 }
 
--(void)createMapWithCoordinates{
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
+-(void)createMapWithCoordinates{
+    
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
                                                             longitude: self.longitude
                                                                  zoom: 17];
@@ -187,15 +192,11 @@
 
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 -(void)animateMap{
 
     [self.mapView_ animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
-
+    
 }
 
 @end
