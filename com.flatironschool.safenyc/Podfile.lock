@@ -1,10 +1,13 @@
 PODS:
   - GoogleMaps (1.12.3)
+  - INTULocationManager (4.2.0)
 
 DEPENDENCIES:
   - GoogleMaps
+  - INTULocationManager
 
 SPEC CHECKSUMS:
   GoogleMaps: a4ac67918d0b5ba5f6b9893ac80487e357779e6c
+  INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
 
 COCOAPODS: 0.39.0
