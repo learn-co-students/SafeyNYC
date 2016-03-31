@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface RUFICrimes : NSObject
 
@@ -18,6 +19,7 @@
 @property (nonatomic, strong) NSString *year;
 @property (nonatomic, assign) double latitude;
 @property (nonatomic, assign) double longitude;
+@property (nonatomic, strong) UIImage *googleMapsIcon;
 
 +(RUFICrimes *)crimeFromDictionary:(NSDictionary *)crimeDictionary;
 

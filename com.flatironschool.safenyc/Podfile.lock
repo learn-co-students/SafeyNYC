@@ -15,13 +15,16 @@ PODS:
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
   - GoogleMaps (1.12.3)
+  - VBPieChart (1.2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - GoogleMaps
+  - VBPieChart (~> 1.2)
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   GoogleMaps: a4ac67918d0b5ba5f6b9893ac80487e357779e6c
+  VBPieChart: 7d46553bcb9de13afee366acb84d3afcda536929
 
 COCOAPODS: 0.39.0

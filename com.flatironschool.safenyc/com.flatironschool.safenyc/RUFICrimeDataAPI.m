@@ -29,7 +29,7 @@
     
 //    NSString *cityDataUrl = [NSString stringWithFormat:@"https://data.cityofnewyork.us/resource/dvh8-u7es.json?%@&$where=occurrence_date>='%@T00:00:00' AND within_circle(location_1, %@, %@, 201)&$order=occurrence_date", CITY_CRIME_APP_TOKEN, sharedData.userLatitude, sharedData.userLongitude, dateOneYearAgo];
     
-    NSString *cityDataUrl = @"https://data.cityofnewyork.us/resource/dvh8-u7es.json?$$app_token=7wq8JZEbZGGNxPWQ0LFQQbNir&$where=occurrence_date>='2013-03-29T00:00:00' AND within_circle(location_1, 40.705443, -74.014002, 201)&$order=occurrence_date";
+    NSString *cityDataUrl = @"https://data.cityofnewyork.us/resource/dvh8-u7es.json?$$app_token=7wq8JZEbZGGNxPWQ0LFQQbNir&$where=occurrence_date>='2015-03-29T00:00:00' AND within_circle(location_1, 40.705443, -74.014002, 201)&$order=occurrence_date";
     NSString *cityDataUrLEncoded = [cityDataUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 
     
