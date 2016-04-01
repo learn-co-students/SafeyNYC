@@ -1,13 +1,45 @@
 PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
   - DKCircleButton (1.1)
-  - GoogleMaps (1.12.3)
+  - GoogleMaps (1.13.0)
+  - INTULocationManager (4.2.0)
+  - VBPieChart (1.3.0)
 
 DEPENDENCIES:
+  - AFNetworking (~> 3.0)
   - DKCircleButton (~> 1.1)
-  - GoogleMaps (~> 1.12.3)
+  - GoogleMaps
+  - INTULocationManager
+  - VBPieChart (from `https://github.com/rtaraboo/VBPieChart.git`)
+
+EXTERNAL SOURCES:
+  VBPieChart:
+    :git: https://github.com/rtaraboo/VBPieChart.git
+
+CHECKOUT OPTIONS:
+  VBPieChart:
+    :commit: e3d836ff555ec3c4f79e1733fc3bc9306d440bc3
+    :git: https://github.com/rtaraboo/VBPieChart.git
 
 SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   DKCircleButton: 62564c9debae08ad77dabb8d9658dfeb5520f2c4
-  GoogleMaps: a4ac67918d0b5ba5f6b9893ac80487e357779e6c
+  GoogleMaps: 7a6caeb8336d7cb42982e969fc9b1b20a889fe79
+  INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
+  VBPieChart: 51d152856758845c39b10a367b36bab93e9e56c3
 
 COCOAPODS: 0.39.0

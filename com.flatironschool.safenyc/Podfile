@@ -6,8 +6,13 @@
 target 'com.flatironschool.safenyc' do
   source 'https://github.com/CocoaPods/Specs.git'
   platform :ios, '8.1'
-  pod 'GoogleMaps', '~>1.12.3'
+
   pod 'DKCircleButton', '~>1.1'
+  pod 'GoogleMaps'
+  pod 'INTULocationManager'
+  pod 'AFNetworking', '~> 3.0'
+  pod 'VBPieChart', :git => 'https://github.com/rtaraboo/VBPieChart.git'
+
 end
 
 target 'com.flatironschool.safenycTests' do

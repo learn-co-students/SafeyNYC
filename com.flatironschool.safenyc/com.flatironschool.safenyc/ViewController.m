@@ -23,20 +23,22 @@
 
 @end
 
+
 @implementation ViewController
+
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector:@selector(reloadViewAfterSettingsScreen:)
+                                                 name:@"Reload Map"
+                                               object:nil];
     
-    self.longitude = -74.014002;
-    self.latitude = 40.805443;
+    [self updateCurrentMap];
     
-    [self promptForLocationServices];
-    
-    [self updateMap];
-    
-    //[self setSearchBar];
+//    [self setSearchBar];
 
     [self setUpButtons];
 }
@@ -44,7 +46,7 @@
 -(void)viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:YES];
-    [self findTheCurrentLocation];
+    [self updateCurrentMap];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,72 +111,169 @@
     }
 }
 
-
--(void)updateMap{
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
-                                                            longitude: self.longitude
-                                                                 zoom: 17];
-    
-    self.mapView.camera = camera;
-    self.mapView.myLocationEnabled = YES;
-}
-
-
 -(void)findTheCurrentLocation{
     
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.delegate = self;
+    [self updateCurrentLocationCoordinatesWithBlock:^(BOOL success) {
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            if (success) {
+                [self createMapWithCoordinates];
+            }
+        }];
+        
+       
+    }];
     
-    if ([[self locationManager] respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        [[self locationManager] requestWhenInUseAuthorization];
+}
+
+- (void)openSettings
+{
+    BOOL canOpenSettings = (UIApplicationOpenSettingsURLString != NULL);
+    if (canOpenSettings)
+    {
+        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        [[UIApplication sharedApplication] openURL:url];
     }
-    [self.locationManager startUpdatingLocation];
+}
+
+-(void)updateCurrentMap{
+
+    [self updateCurrentLocationCoordinatesWithBlock:^(BOOL success) {
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            if (success) {
+                
+                if(self.mapView == nil){
+                    [self createMapWithCoordinates];
+                }
+                else{
+                    [self animateMap];
+                }
+
+            }
+        }];
+        
+        
+    }];
 
 }
 
--(void)promptForLocationServices{
-    
-    BOOL locationAllowed = [CLLocationManager locationServicesEnabled];
-    
-    if (locationAllowed) {
-        self.locationManager = [[CLLocationManager alloc]init];
-        [self findTheCurrentLocation];
+-(void)reloadViewAfterSettingsScreen:(NSNotification *)notification{
+
+    if ([notification.name isEqualToString: @"Reload Map"]) {
+        [self updateCurrentMap];
     }
+
+}
+
+- (NSString *)getLocationErrorDescription:(INTULocationStatus)status
+{
+    
+    if (status == INTULocationStatusServicesNotDetermined) {
+        return @"Error: User has not responded to the permissions alert.";
+    }
+    if (status == INTULocationStatusServicesDenied) {
+        return @"Error: User has denied this app permissions to access device location.\nGo to settings > Privacy > Location Services and switch on";
+    }
+    if (status == INTULocationStatusServicesRestricted) {
+        return @"Error: User is restricted from using location services by a usage policy. \nGo to settings > Privacy > Location Services and switch on";
+    }
+    if (status == INTULocationStatusServicesDisabled) {
+        return @"Error: Location services are turned off for all apps on this device.\nGo to settings > Privacy > Location Services and switch on";
+    }
+    return @"An unknown error occurred.\n(Are you using iOS Simulator with location set to 'None'?)";
+}
+
+- (void)updateCurrentLocationCoordinatesWithBlock:(void (^) (BOOL success))block {
+    INTULocationManager *locMgr = [INTULocationManager sharedInstance];
+    [locMgr requestLocationWithDesiredAccuracy: INTULocationAccuracyRoom timeout: 1.5 delayUntilAuthorized: YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        
+        if (status == INTULocationStatusSuccess) {
+            
+            self.longitude = currentLocation.coordinate.longitude;
+            self.latitude = currentLocation.coordinate.latitude;
+            block(YES);
+        }
+        
+        else if(status == INTULocationStatusTimedOut){
+            
+            self.longitude = currentLocation.coordinate.longitude;
+            self.latitude = currentLocation.coordinate.latitude;
+            block(YES);
+
+        }
+        else{
+            
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                           message: [self getLocationErrorDescription: status]
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      [self updateCurrentLocationCoordinatesWithBlock:^(BOOL success) {
+                                                                          if(success){
+                                                                          
+                                                                              if(self.mapView == nil){
+                                                                                  [self createMapWithCoordinates];
+                                                                              }
+                                                                              else{
+                                                                                  [self animateMap];
+                                                                              }
+                                                                          }
+                                                                      }];
+                                                                  }];
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Exit" style: UIAlertActionStyleDestructive
+                                                                 handler:^(UIAlertAction * action) {
+                                                                     exit(0);
+                                                                 }];
+            
+            
+            [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+            
+            if (status == INTULocationStatusServicesDisabled || status == INTULocationStatusServicesRestricted) {
+                UIAlertAction* settingsAction = [UIAlertAction actionWithTitle:@"Settings" style:UIAlertActionStyleDefault
+                                                                     handler:^(UIAlertAction * action) {
+                                                                         [self openSettings];
+                                                                     }];
+                [alert addAction: settingsAction];
+
+            }
+            
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        }
+        
+        block(NO);
+
+    }];
+
+
 }
 
 
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+-(void)createMapWithCoordinates{
     
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
-                                                                   message:@"There was an error retrieving your location"
-                                                            preferredStyle:UIAlertControllerStyleAlert];
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
+                                                            longitude: self.longitude
+                                                                 zoom: 10];
     
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {}];
+    self.mapView = [GMSMapView mapWithFrame: self.view.bounds camera:camera];
+    self.mapView.myLocationEnabled = YES;
+    self.view = self.mapView;
     
-    [alert addAction:defaultAction];
-    [self presentViewController:alert animated:YES completion:nil];
-    
-}
-
--(void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    
-    CLLocation *location = locations.lastObject;
-    
-    self.latitude = location.coordinate.latitude;
-    self.longitude = location.coordinate.longitude;
-    
-    [self animateMap];
-
-    [self.locationManager stopUpdatingLocation];
+    // Creates a marker in the center of the map.
+//    GMSMarker *marker = [[GMSMarker alloc] init];
+//    marker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
+//    marker.title = @"New York";
+//    marker.snippet = @"USA";
+//    marker.map = mapView_;
 
 }
 
 -(void)animateMap{
     [self.mapView animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
 }
-
-
 
 // Handle the user's selection. GoogleMap picker.
 - (void)viewController:(GMSAutocompleteViewController *)viewController
@@ -217,6 +316,24 @@ didFailAutocompleteWithError:(NSError *)error {
 
     self.searchBar.placeholder = @"Search Address";
     self.searchBar.delegate = self;
+}
+
+#pragma method to update map with crime markers
+
+-(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
+    
+    for (RUFICrimes *crime in crimeArray){
+        GMSMarker *marker = [[GMSMarker alloc] init];
+        marker.icon = [GMSMarker markerImageWithColor:[UIColor blackColor]];
+        marker.position = CLLocationCoordinate2DMake(crime.latitude, crime.longitude);
+        marker.icon = crime.googleMapsIcon;
+        marker.appearAnimation = kGMSMarkerAnimationPop;
+        marker.title = crime.offense;
+        marker.snippet = crime.date;
+        marker.map = self.mapView;
+        
+        }
+
 }
 
 -(void)openGooglePlacePicker {
