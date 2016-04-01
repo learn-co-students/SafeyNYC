@@ -1,10 +1,13 @@
 PODS:
+  - DKCircleButton (1.1)
   - GoogleMaps (1.12.3)
 
 DEPENDENCIES:
-  - GoogleMaps
+  - DKCircleButton (~> 1.1)
+  - GoogleMaps (~> 1.12.3)
 
 SPEC CHECKSUMS:
+  DKCircleButton: 62564c9debae08ad77dabb8d9658dfeb5520f2c4
   GoogleMaps: a4ac67918d0b5ba5f6b9893ac80487e357779e6c
 
 COCOAPODS: 0.39.0
