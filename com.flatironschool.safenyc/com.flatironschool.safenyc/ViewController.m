@@ -5,24 +5,120 @@
 //  Created by Irina Kalashnikova on 3/29/16.
 //  Copyright © 2016 Irina Kalashnikova. All rights reserved.
 //
-
 #import "ViewController.h"
+#import <GoogleMaps/GoogleMaps.h>
+#import <DKCircleButton/DKCircleButton.h>
 
-@interface ViewController ()
+@import GoogleMaps;
+
+@interface ViewController () <GMSAutocompleteViewControllerDelegate, UISearchBarDelegate>
+
+@property (strong, nonatomic) IBOutlet GMSMapView *mapView;
+@property (strong, nonatomic) UISearchBar *searchBar;
+@property (strong, nonatomic) DKCircleButton *searchButton;
+@property (strong, nonatomic) DKCircleButton *settingsButton;
+@property (strong, nonatomic) DKCircleButton *currentLocationButton;
+@property (strong, nonatomic) DKCircleButton *policeMapButton;
+@property (strong, nonatomic) DKCircleButton *emergencyButton;
+@property (strong, nonatomic) DKCircleButton *pieChartButton;
+
 
 @end
 
-@implementation ViewController{
 
-}
+@implementation ViewController
+
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
 
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector:@selector(reloadViewAfterSettingsScreen:)
                                                  name:@"Reload Map"
                                                object:nil];
+    [self createMapWithCoordinates];
+    [self updateCurrentMap];
+    
+//    [self setSearchBar];
+
+    [self setUpButtons];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:YES];
+    [self updateCurrentMap];
+}
+
+- (void)didReceiveMemoryWarning {
+    
+    [super didReceiveMemoryWarning];
+}
+
+-(void)setUpButtons{
+    
+    self.searchButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 20, 47, 47)];
+    self.settingsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 80, 47, 47)];
+    self.currentLocationButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 140, 47, 47)];
+    self.policeMapButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 200, 47, 47)];
+    self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 260, 47, 47)];
+    self.pieChartButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 320, 47, 47)];
+    
+    NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton];
+    
+    for (DKCircleButton *button in buttons) {
+
+        [self.view addSubview:button];
+        button.titleLabel.font = [UIFont systemFontOfSize:22];
+        button.backgroundColor = [UIColor whiteColor];
+        button.borderColor = [UIColor grayColor];
+        button.alpha = 0.6;
+        
+        UIImage *image = [UIImage new];
+        if(button == self.searchButton){
+            image = [UIImage imageNamed:@"search.png"];
+            button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        
+        } else if (button == self.settingsButton){
+            image = [UIImage imageNamed:@"settings.png"];
+            button.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+            
+        } else if (button == self.currentLocationButton){
+            image = [UIImage imageNamed:@"currentLocation.png"];
+            button.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+            
+        } else if (button == self.policeMapButton){
+            image = [UIImage imageNamed:@"policeMap.png"];
+            button.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+            
+        } else if (button == self.emergencyButton){
+            image = [UIImage imageNamed:@"emergency.png"];
+            button.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+            
+        } else if (button == self.pieChartButton){
+            image = [UIImage imageNamed:@"pieChart.png"];
+            button.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+            
+        }
+        [button setImage:image forState:UIControlStateNormal];
+        [button setContentMode:UIViewContentModeTop];
+
+        button.animateTap = NO;
+        [button addTarget:self action:@selector(pressedSearchButton:) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+-(void)pressedSearchButton:(DKCircleButton *)button {
+    
+    button.animateTap = YES;
+    
+    if(button == self.searchButton){
+        [self openGooglePlacePicker];
+    }
+}
+
+-(void)findTheCurrentLocation{
     
     [self updateCurrentLocationCoordinatesWithBlock:^(BOOL success) {
         
@@ -35,13 +131,6 @@
        
     }];
     
-}
-
--(void)viewDidAppear:(BOOL)animated{
-    
-    [super viewDidAppear: YES];
-    [self updateCurrentMap];
-
 }
 
 - (void)openSettings
@@ -61,7 +150,7 @@
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             if (success) {
                 
-                if(self.mapView_ == nil){
+                if(self.mapView == nil){
                     [self createMapWithCoordinates];
                 }
                 else{
@@ -131,7 +220,7 @@
                                                                       [self updateCurrentLocationCoordinatesWithBlock:^(BOOL success) {
                                                                           if(success){
                                                                           
-                                                                              if(self.mapView_ == nil){
+                                                                              if(self.mapView == nil){
                                                                                   [self createMapWithCoordinates];
                                                                               }
                                                                               else{
@@ -166,12 +255,9 @@
 
     }];
 
+
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 -(void)createMapWithCoordinates{
     
@@ -179,17 +265,89 @@
                                                             longitude: self.longitude
                                                                  zoom: 17];
     
-    self.mapView_ = [GMSMapView mapWithFrame: self.view.bounds camera:camera];
-    self.mapView_.myLocationEnabled = YES;
-    self.view = self.mapView_;
+    self.mapView = [GMSMapView mapWithFrame: self.view.bounds camera:camera];
+    self.mapView.myLocationEnabled = YES;
+    self.view = self.mapView;
 
 }
 
-
 -(void)animateMap{
+    [self.mapView animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+}
 
-    [self.mapView_ animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+// Handle the user's selection. GoogleMap picker.
+- (void)viewController:(GMSAutocompleteViewController *)viewController
+didAutocompleteWithPlace:(GMSPlace *)place {
+    // Do something with the selected place.
+    NSLog(@"Place name %@", place.name);
+    NSLog(@"Place address %@", place.formattedAddress);
+    NSLog(@"Place attributions %@", place.attributions.string);
+    [self dismissViewControllerAnimated:YES completion:nil];
     
+    
+//    GMSMarker *marker = [[GMSMarker alloc] init];
+//    marker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
+//    marker.title = place.name;
+//    marker.snippet = place.formattedAddress;
+//    marker.map = self.mapView;
+    
+}
+
+- (void)viewController:(GMSAutocompleteViewController *)viewController
+didFailAutocompleteWithError:(NSError *)error {
+    // TODO: handle the error.
+    NSLog(@"error: %ld", [error code]);
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+// User canceled the operation.
+- (void)wasCancelled:(GMSAutocompleteViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)setSearchBar{
+    
+    self.searchBar = [[UISearchBar alloc] init];
+    
+    [self.view addSubview:self.searchBar];
+    
+    self.searchBar.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.searchBar.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:14].active = YES;
+    [self.searchBar.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [self.searchBar.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+    
+    [self.searchBar setBackgroundColor:[UIColor clearColor]];
+    [self.searchBar setBackgroundImage:[UIImage new]];
+    [self.searchBar setTranslucent:YES];
+    
+    self.searchBar.userInteractionEnabled = YES;
+
+    self.searchBar.placeholder = @"Search Address";
+    self.searchBar.delegate = self;
+}
+
+#pragma method to update map with crime markers
+
+-(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
+    
+    for (RUFICrimes *crime in crimeArray){
+        GMSMarker *marker = [[GMSMarker alloc] init];
+        marker.icon = [GMSMarker markerImageWithColor:[UIColor blackColor]];
+        marker.position = CLLocationCoordinate2DMake(crime.latitude, crime.longitude);
+        marker.icon = crime.googleMapsIcon;
+        marker.appearAnimation = kGMSMarkerAnimationPop;
+        marker.title = crime.offense;
+        marker.snippet = crime.date;
+        marker.map = self.mapView;
+        
+        }
+
+}
+
+-(void)openGooglePlacePicker {
+    GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
+    acController.delegate = self;
+    [self presentViewController:acController animated:YES completion:nil];
 }
 
 @end

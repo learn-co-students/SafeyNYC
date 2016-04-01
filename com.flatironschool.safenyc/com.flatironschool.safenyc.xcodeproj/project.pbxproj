@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		17D8BBED0CC11871D2570949 /* libPods-com.flatironschool.safenyc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B4F88825A570BB5082CF6BE /* libPods-com.flatironschool.safenyc.a */; };
+		730665441CAD57C900FBB7DA /* PieChartDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 730665431CAD57C900FBB7DA /* PieChartDataViewController.m */; };
+		730665521CAD88B100FBB7DA /* rosarioStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */; };
 		732269751CAC11A600FCBAB1 /* RUFIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 732269741CAC11A600FCBAB1 /* RUFIConstants.m */; };
 		732269781CAC129E00FCBAB1 /* RUFICrimes.m in Sources */ = {isa = PBXBuildFile; fileRef = 732269771CAC129E00FCBAB1 /* RUFICrimes.m */; };
 		7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7322697A1CAC1F9A00FCBAB1 /* RUFIDataStore.m */; };
@@ -47,6 +49,9 @@
 		3117DB369A1EE2D27E505212 /* Pods-com.flatironschool.safenyc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.flatironschool.safenyc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-com.flatironschool.safenyc/Pods-com.flatironschool.safenyc.debug.xcconfig"; sourceTree = "<group>"; };
 		43FC686A0C24C774C1859C32 /* Pods-com.flatironschool.safenyc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.flatironschool.safenyc.release.xcconfig"; path = "Pods/Target Support Files/Pods-com.flatironschool.safenyc/Pods-com.flatironschool.safenyc.release.xcconfig"; sourceTree = "<group>"; };
 		6B4F88825A570BB5082CF6BE /* libPods-com.flatironschool.safenyc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-com.flatironschool.safenyc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		730665421CAD57C900FBB7DA /* PieChartDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartDataViewController.h; sourceTree = "<group>"; };
+		730665431CAD57C900FBB7DA /* PieChartDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartDataViewController.m; sourceTree = "<group>"; };
+		730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = rosarioStoryboard.storyboard; sourceTree = "<group>"; };
 		732269741CAC11A600FCBAB1 /* RUFIConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIConstants.m; sourceTree = "<group>"; };
 		732269761CAC129E00FCBAB1 /* RUFICrimes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFICrimes.h; sourceTree = "<group>"; };
 		732269771CAC129E00FCBAB1 /* RUFICrimes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFICrimes.m; sourceTree = "<group>"; };
@@ -161,6 +166,9 @@
 				7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */,
 				A707E4D11CAB0239002F37C5 /* Main.storyboard */,
 				A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */,
+				730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */,
+				730665421CAD57C900FBB7DA /* PieChartDataViewController.h */,
+				730665431CAD57C900FBB7DA /* PieChartDataViewController.m */,
 				A707E4D71CAB0239002F37C5 /* Assets.xcassets */,
 				A707E4D91CAB0239002F37C5 /* LaunchScreen.storyboard */,
 				A707E4DC1CAB0239002F37C5 /* Info.plist */,
@@ -306,6 +314,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				730665521CAD88B100FBB7DA /* rosarioStoryboard.storyboard in Resources */,
 				A707E4DB1CAB0239002F37C5 /* LaunchScreen.storyboard in Resources */,
 				A707E5021CAC24D1002F37C5 /* IrinaStoryboard.storyboard in Resources */,
 				A707E4D81CAB0239002F37C5 /* Assets.xcassets in Resources */,
@@ -386,6 +395,7 @@
 				A707E4D61CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld in Sources */,
 				A707E4D01CAB0239002F37C5 /* ViewController.m in Sources */,
 				A707E4CD1CAB0239002F37C5 /* AppDelegate.m in Sources */,
+				730665441CAD57C900FBB7DA /* PieChartDataViewController.m in Sources */,
 				A707E4CA1CAB0239002F37C5 /* main.m in Sources */,
 				7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */,
 				732269781CAC129E00FCBAB1 /* RUFICrimes.m in Sources */,
@@ -535,6 +545,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = com.flatironschool.safenyc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "self.edu.irina.com-flatironschool-safenyc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -550,6 +561,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = com.flatironschool.safenyc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "self.edu.irina.com-flatironschool-safenyc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
