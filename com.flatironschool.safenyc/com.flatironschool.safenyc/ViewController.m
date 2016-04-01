@@ -20,6 +20,8 @@
 @property (strong, nonatomic) DKCircleButton *currentLocationButton;
 @property (strong, nonatomic) DKCircleButton *policeMapButton;
 @property (strong, nonatomic) DKCircleButton *emergencyButton;
+@property (strong, nonatomic) DKCircleButton *pieChartButton;
+
 
 @end
 
@@ -35,7 +37,7 @@
                                              selector:@selector(reloadViewAfterSettingsScreen:)
                                                  name:@"Reload Map"
                                                object:nil];
-    
+    [self createMapWithCoordinates];
     [self updateCurrentMap];
     
 //    [self setSearchBar];
@@ -61,8 +63,9 @@
     self.currentLocationButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 140, 47, 47)];
     self.policeMapButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 200, 47, 47)];
     self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 260, 47, 47)];
+    self.pieChartButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 320, 47, 47)];
     
-    NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton];
+    NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton];
     
     for (DKCircleButton *button in buttons) {
 
@@ -91,6 +94,10 @@
             
         } else if (button == self.emergencyButton){
             image = [UIImage imageNamed:@"emergency.png"];
+            button.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+            
+        } else if (button == self.pieChartButton){
+            image = [UIImage imageNamed:@"pieChart.png"];
             button.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
             
         }
@@ -256,7 +263,7 @@
     
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
                                                             longitude: self.longitude
-                                                                 zoom: 10];
+                                                                 zoom: 17];
     
     self.mapView = [GMSMapView mapWithFrame: self.view.bounds camera:camera];
     self.mapView.myLocationEnabled = YES;
@@ -283,6 +290,14 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     NSLog(@"Place address %@", place.formattedAddress);
     NSLog(@"Place attributions %@", place.attributions.string);
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+//    GMSMarker *marker = [[GMSMarker alloc] init];
+//    marker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
+//    marker.title = place.name;
+//    marker.snippet = place.formattedAddress;
+//    marker.map = self.mapView;
+    
 }
 
 - (void)viewController:(GMSAutocompleteViewController *)viewController
