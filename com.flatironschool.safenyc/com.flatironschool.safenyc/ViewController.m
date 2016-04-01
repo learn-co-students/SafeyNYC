@@ -211,8 +211,7 @@
         marker.appearAnimation = kGMSMarkerAnimationPop;
         marker.title = crime.offense;
         marker.snippet = crime.date;
-#warning I commented this out (it was not running)
-//        marker.map = mapView_;
+        marker.map = self.mapView_;
         
         }
 }
