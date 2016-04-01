@@ -33,7 +33,7 @@
     self.chart.delegate = self;
     self.chart.allowOnlyOneAccentedPiece = YES;
     
-    self.chart.maxAccentPrecent = 0.2;
+    self.chart.maxAccentPrecent = 0.1;
     
     
     
@@ -52,13 +52,13 @@
         if (finished) {
             
             self.chartValues = @[
-                                 @{@"name":@"MURDER & NON-NEGL. MANSLAUGHTER", @"value":[self convertValuetoNumber:self.dataStore.murderCount], @"color":[UIColor redColor], @"image" : @"murderPie"},
-                                 @{@"name":@"Felony Assault", @"value":[self convertValuetoNumber:self.dataStore.felonyAssaultCount], @"color":[UIColor orangeColor], @"image" : @"felonyPie"},
-                                 @{@"name":@"Grand Larceny", @"value":[self convertValuetoNumber:self.dataStore.grandLarcenyCount], @"color":[UIColor blueColor], @"image" : @"grandLarcenyPie"},
-                                 @{@"name":@"Grand Larceny Motor Vehicle", @"value":[self convertValuetoNumber:self.dataStore.grandLarcenyMVCount], @"color":[UIColor purpleColor], @"image" : @"grandLarcenyMVPie"},
-                                 @{@"name":@"Burglary", @"value":[self convertValuetoNumber:self.dataStore.burglaryCount], @"color":[UIColor greenColor], @"image" : @"burglaryPie"},
-                                 @{@"name":@"Rape", @"value":[self convertValuetoNumber:self.dataStore.rapeCount], @"color":[UIColor yellowColor], @"image" : @"rapePie"},
-                                 @{@"name":@"Robbery", @"value":[self convertValuetoNumber:self.dataStore.robberyCount], @"color":[UIColor brownColor], @"image" : @"robberyPie"},
+                                 @{@"name":@"MURDER & NON-NEGL. MANSLAUGHTER", @"value":[self convertValuetoNumber:self.dataStore.murderCount], @"color":@"EC1D24", @"image" : @"murderPie"},
+                                 @{@"name":@"Felony Assault", @"value":[self convertValuetoNumber:self.dataStore.felonyAssaultCount], @"color":@"F6931D", @"image" : @"felonyPie"},
+                                 @{@"name":@"Grand Larceny", @"value":[self convertValuetoNumber:self.dataStore.grandLarcenyCount], @"color":@"2E3092", @"image" : @"grandLarcenyPie"},
+                                 @{@"name":@"Grand Larceny Motor Vehicle", @"value":[self convertValuetoNumber:self.dataStore.grandLarcenyMVCount], @"color":@"772477", @"image" : @"grandLarcenyMVPie"},
+                                 @{@"name":@"Burglary", @"value":[self convertValuetoNumber:self.dataStore.burglaryCount], @"color":@"006738", @"image" : @"burglaryPie"},
+                                 @{@"name":@"Rape", @"value":[self convertValuetoNumber:self.dataStore.rapeCount], @"color":@"F8EC31", @"image" : @"rapePie"},
+                                 @{@"name":@"Robbery", @"value":[self convertValuetoNumber:self.dataStore.robberyCount], @"color":@"A87B4F", @"image" : @"robberyPie"},
                                  ];
             
             
