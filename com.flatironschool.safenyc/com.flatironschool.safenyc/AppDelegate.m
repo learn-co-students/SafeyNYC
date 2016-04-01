@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "RUFIConstants.h"
+#import "ViewController.h"
 
 @import GoogleMaps;
 
@@ -35,6 +36,16 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    NSLog(@"HEYYYYY APP ENETERED FOREGROUND\n\n\n\n");
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"Reload Map" object: self];
+
+
+    
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"Reload Map" object: self];
+
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
