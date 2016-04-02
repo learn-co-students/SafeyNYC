@@ -21,7 +21,8 @@
 @property (strong, nonatomic) DKCircleButton *policeMapButton;
 @property (strong, nonatomic) DKCircleButton *emergencyButton;
 @property (strong, nonatomic) DKCircleButton *pieChartButton;
-
+@property (nonatomic) NSUInteger widthConstrain;
+@property (nonatomic) NSUInteger heightConstrain;
 
 @end
 
@@ -31,24 +32,33 @@
 
 - (void)viewDidLoad {
     
+    NSLog(@"START VIEW DID LOAD!!!!");
+
     [super viewDidLoad];
+    
+    self.datastore = [[RUFIDataStore alloc] init];
 
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector:@selector(reloadViewAfterSettingsScreen:)
                                                  name:@"Reload Map"
                                                object:nil];
+    self.marker = [[GMSMarker alloc]init];
     [self createMapWithCoordinates];
     [self updateCurrentMap];
     
 //    [self setSearchBar];
 
     [self setUpButtons];
+    NSLog(@"END VIEW DID LOAD!!!!");
+
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     
+    NSLog(@"START VIEW DID APPEAR!!!!!");
     [super viewDidAppear:YES];
-    [self updateCurrentMap];
+    [self animateMap];
+    NSLog(@"VIEW DID APPEAR FINISHED");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,12 +68,14 @@
 
 -(void)setUpButtons{
     
-    self.searchButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 20, 47, 47)];
-    self.settingsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 80, 47, 47)];
-    self.currentLocationButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 140, 47, 47)];
-    self.policeMapButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 200, 47, 47)];
-    self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 260, 47, 47)];
-    self.pieChartButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-60, 320, 47, 47)];
+    self.widthConstrain = self.view.frame.size.width - 60;
+    self.heightConstrain = self.view.frame.size.height - 60;
+    self.searchButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 20, 47, 47)];
+    self.settingsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 80, 47, 47)];
+    self.currentLocationButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 140, 47, 47)];
+    self.policeMapButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 200, 47, 47)];
+    self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 260, 47, 47)];
+    self.pieChartButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 320, 47, 47)];
     
     NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton];
     
@@ -102,7 +114,7 @@
             
         }
         [button setImage:image forState:UIControlStateNormal];
-        [button setContentMode:UIViewContentModeTop];
+        [button setContentMode:UIViewContentModeScaleAspectFit];
 
         button.animateTap = NO;
         [button addTarget:self action:@selector(pressedSearchButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -115,6 +127,24 @@
     
     if(button == self.searchButton){
         [self openGooglePlacePicker];
+    } else if (button == self.settingsButton){
+        
+    } else if (button == self.currentLocationButton){
+        [self updateCurrentMap];
+        
+        [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
+            [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
+        }];
+        
+        
+    } else if (button == self.policeMapButton){
+        
+    } else if (button == self.emergencyButton){
+       
+    } else if (button == self.pieChartButton){
+        
+        [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
+        
     }
 }
 
@@ -152,6 +182,8 @@
                 
                 if(self.mapView == nil){
                     [self createMapWithCoordinates];
+                    NSLog(@"MADE A NEW MAP");
+
                 }
                 else{
                     [self animateMap];
@@ -193,19 +225,26 @@
 
 - (void)updateCurrentLocationCoordinatesWithBlock:(void (^) (BOOL success))block {
     INTULocationManager *locMgr = [INTULocationManager sharedInstance];
+    
     [locMgr requestLocationWithDesiredAccuracy: INTULocationAccuracyRoom timeout: 1.5 delayUntilAuthorized: YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         
         if (status == INTULocationStatusSuccess) {
             
             self.longitude = currentLocation.coordinate.longitude;
+            self.datastore.userLongitude = [NSString stringWithFormat:@"%.6f", self.longitude];
             self.latitude = currentLocation.coordinate.latitude;
+            self.datastore.userLatitude = [NSString stringWithFormat:@"%.6f", self.latitude];
+            NSLog(@"COORDS WITH BLOCK FINISHES AND RESETS CURRENT LOCATION");
             block(YES);
+
         }
         
         else if(status == INTULocationStatusTimedOut){
             
             self.longitude = currentLocation.coordinate.longitude;
+            self.datastore.userLongitude = [NSString stringWithFormat:@"%.6f", self.longitude];
             self.latitude = currentLocation.coordinate.latitude;
+            self.datastore.userLatitude = [NSString stringWithFormat:@"%.6f", self.latitude];
             block(YES);
 
         }
@@ -234,7 +273,6 @@
                                                                      exit(0);
                                                                  }];
             
-            
             [alert addAction:defaultAction];
             [alert addAction:cancelAction];
             
@@ -252,11 +290,9 @@
         }
         
         block(NO);
-
     }];
-
-
 }
+
 
 
 -(void)createMapWithCoordinates{
@@ -269,17 +305,11 @@
     self.mapView.myLocationEnabled = YES;
     self.view = self.mapView;
     
-    // Creates a marker in the center of the map.
-//    GMSMarker *marker = [[GMSMarker alloc] init];
-//    marker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
-//    marker.title = @"New York";
-//    marker.snippet = @"USA";
-//    marker.map = mapView_;
-
 }
 
 -(void)animateMap{
     [self.mapView animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+
 }
 
 // Handle the user's selection. GoogleMap picker.
@@ -292,12 +322,18 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     [self dismissViewControllerAnimated:YES completion:nil];
     
     
-//    GMSMarker *marker = [[GMSMarker alloc] init];
-//    marker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
-//    marker.title = place.name;
-//    marker.snippet = place.formattedAddress;
-//    marker.map = self.mapView;
-    
+    CLLocationCoordinate2D currentCoordinate = place.coordinate;
+    self.latitude = currentCoordinate.latitude;
+    self.longitude = currentCoordinate.longitude;
+
+    self.marker.position = currentCoordinate;
+    self.marker.title = place.name;
+    self.marker.snippet = place.formattedAddress;
+    self.marker.appearAnimation = kGMSMarkerAnimationPop;
+    self.marker.map = self.mapView;
+    NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
+    [self animateMap];
+
 }
 
 - (void)viewController:(GMSAutocompleteViewController *)viewController
@@ -334,7 +370,6 @@ didFailAutocompleteWithError:(NSError *)error {
 }
 
 #pragma method to update map with crime markers
-
 -(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
     
     for (RUFICrimes *crime in crimeArray){
@@ -346,15 +381,46 @@ didFailAutocompleteWithError:(NSError *)error {
         marker.title = crime.offense;
         marker.snippet = crime.date;
         marker.map = self.mapView;
-        
-        }
-
+    }
 }
 
 -(void)openGooglePlacePicker {
     GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
     acController.delegate = self;
     [self presentViewController:acController animated:YES completion:nil];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+
+}
+
+#pragma mark - Transition to Size
+-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
+    NSLog(@"Transition to the different view");
+    BOOL isPortrait = size.height > size.width;
+    BOOL isLandscape = size.width > size.height;
+   
+    [UIView animateWithDuration:0.3f animations:^{
+    if(isPortrait){
+        NSLog(@"Portrait %lu", self.widthConstrain);
+        self.searchButton.frame = CGRectMake(self.widthConstrain, 20, 47, 47);
+        self.settingsButton.frame = CGRectMake(self.widthConstrain, 80, 47, 47);
+        self.currentLocationButton.frame = CGRectMake(self.widthConstrain, 140, 47, 47);
+        self.policeMapButton.frame = CGRectMake(self.widthConstrain, 200, 47, 47);
+        self.emergencyButton.frame = CGRectMake(self.widthConstrain, 260, 47, 47);
+        self.pieChartButton.frame = CGRectMake(self.widthConstrain, 320, 47, 47);
+    } else if (isLandscape) {
+        NSLog(@"landscape %lu", self.heightConstrain);
+        self.searchButton.frame = CGRectMake(self.heightConstrain, 20, 47, 47);
+        self.settingsButton.frame = CGRectMake(self.heightConstrain, 80, 47, 47);
+        self.currentLocationButton.frame = CGRectMake(self.heightConstrain, 140, 47, 47);
+        self.policeMapButton.frame = CGRectMake(self.heightConstrain, 200, 47, 47);
+        self.emergencyButton.frame = CGRectMake(self.heightConstrain, 260, 47, 47);
+        self.pieChartButton.frame = CGRectMake(self.heightConstrain, 320, 47, 47);
+    }
+    [self.view layoutIfNeeded];
+    }];
 }
 
 @end

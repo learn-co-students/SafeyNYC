@@ -28,15 +28,23 @@
     if (self) {
         
         _crimeDataArray=[NSMutableArray new];
+        _userLatitude = [NSString new];
+        _userLongitude= [NSString new];
     }
     return self;
 }
 
 -(void)getCrimeDataWithCompletion:(void (^)(BOOL finished))completionBlock
 {
+    
+    NSLog(@"GETTING TO HERE");
+    NSLog(@"AT DATA STORE %@", self.userLatitude);
+    NSLog(@"AT DATA STORE %@", self.userLongitude);
     [self resetCountsToZero];
     
-    [RUFICrimeDataAPI getCrimeDataWithCompletion:^(NSArray *crimeDictionaries)  {
+    [RUFICrimeDataAPI getCrimeDataFromLatitude:self.userLatitude longitude:self.userLongitude withCompletion:^(NSArray * crimeDictionaries) {
+        
+
         for (NSDictionary *crimeSingleDictionary in crimeDictionaries) {
             [self checkCrimeType:crimeSingleDictionary];
             [self.crimeDataArray addObject:[RUFICrimes crimeFromDictionary:crimeSingleDictionary]];
