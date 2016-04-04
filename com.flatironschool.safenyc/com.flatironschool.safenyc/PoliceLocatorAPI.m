@@ -16,7 +16,6 @@
 
 //    test values
     NSString *radius = @"1000";
-//    NSString *testKey = @"AIzaSyA3sVpYkTVZgOPiV-A0OkDQODMcnVvCYpg";
 
     NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?type=police&location=%f,%f&radius=%@&key=%@", latitude, longitude, radius,GOOGLE_PLACES_API_KEY];
     

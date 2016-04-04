@@ -11,6 +11,8 @@
 
 @interface RUFICrimeDataAPI : NSObject
 
-+(void)getCrimeDataWithCompletion:(void (^)(NSArray *crimeDictionaries))completionBlock;
+@property (nonatomic, strong) RUFIDataStore *sharedData;
+
++(void)getCrimeDataFromLatitude: (NSString *) latitude longitude: (NSString *) longitude withCompletion: (void (^)(NSArray *))completionBlock;
 
 @end
