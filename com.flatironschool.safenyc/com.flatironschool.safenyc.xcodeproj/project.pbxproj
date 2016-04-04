@@ -17,13 +17,16 @@
 		A707E4CA1CAB0239002F37C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4C91CAB0239002F37C5 /* main.m */; };
 		A707E4CD1CAB0239002F37C5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4CC1CAB0239002F37C5 /* AppDelegate.m */; };
 		A707E4D01CAB0239002F37C5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4CF1CAB0239002F37C5 /* ViewController.m */; };
-		A707E4D31CAB0239002F37C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A707E4D11CAB0239002F37C5 /* Main.storyboard */; };
+		A707E4D31CAB0239002F37C5 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A707E4D11CAB0239002F37C5 /* Settings.storyboard */; };
 		A707E4D61CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A707E4D41CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld */; };
 		A707E4D81CAB0239002F37C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A707E4D71CAB0239002F37C5 /* Assets.xcassets */; };
 		A707E4DB1CAB0239002F37C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A707E4D91CAB0239002F37C5 /* LaunchScreen.storyboard */; };
 		A707E4E61CAB0239002F37C5 /* com_flatironschool_safenycTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4E51CAB0239002F37C5 /* com_flatironschool_safenycTests.m */; };
 		A707E4F11CAB0239002F37C5 /* com_flatironschool_safenycUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4F01CAB0239002F37C5 /* com_flatironschool_safenycUITests.m */; };
 		A707E5021CAC24D1002F37C5 /* IrinaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */; };
+		A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */; };
+		A72600331CB1DB29001D9D0F /* RUFIEmergencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */; };
+		A72600361CB1E216001D9D0F /* RUFISettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */; };
 		EB55C3C11CAB1F460020C1CD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */; };
 		EB9F62C21CADD61600CEEA90 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB9F62C11CADD61600CEEA90 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
@@ -65,7 +68,7 @@
 		A707E4CC1CAB0239002F37C5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A707E4CE1CAB0239002F37C5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A707E4CF1CAB0239002F37C5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		A707E4D21CAB0239002F37C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A707E4D21CAB0239002F37C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		A707E4D51CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = com_flatironschool_safenyc.xcdatamodel; sourceTree = "<group>"; };
 		A707E4D71CAB0239002F37C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A707E4DA1CAB0239002F37C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -78,6 +81,11 @@
 		A707E4F21CAB0239002F37C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A707E4FE1CAB02FE002F37C5 /* RUFIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIConstants.h; sourceTree = "<group>"; };
 		A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IrinaStoryboard.storyboard; sourceTree = "<group>"; };
+		A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EmergencyStoryboard.storyboard; sourceTree = "<group>"; };
+		A72600311CB1DB29001D9D0F /* RUFIEmergencyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIEmergencyViewController.h; sourceTree = "<group>"; };
+		A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIEmergencyViewController.m; sourceTree = "<group>"; };
+		A72600341CB1E216001D9D0F /* RUFISettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFISettingsViewController.h; sourceTree = "<group>"; };
+		A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFISettingsViewController.m; sourceTree = "<group>"; };
 		EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		EB9F62C11CADD61600CEEA90 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,7 +172,12 @@
 				7322697A1CAC1F9A00FCBAB1 /* RUFIDataStore.m */,
 				7322697C1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.h */,
 				7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */,
-				A707E4D11CAB0239002F37C5 /* Main.storyboard */,
+				A72600311CB1DB29001D9D0F /* RUFIEmergencyViewController.h */,
+				A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */,
+				A72600341CB1E216001D9D0F /* RUFISettingsViewController.h */,
+				A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */,
+				A707E4D11CAB0239002F37C5 /* Settings.storyboard */,
+				A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */,
 				A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */,
 				730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */,
 				730665421CAD57C900FBB7DA /* PieChartDataViewController.h */,
@@ -317,9 +330,10 @@
 				730665521CAD88B100FBB7DA /* rosarioStoryboard.storyboard in Resources */,
 				A707E4DB1CAB0239002F37C5 /* LaunchScreen.storyboard in Resources */,
 				A707E5021CAC24D1002F37C5 /* IrinaStoryboard.storyboard in Resources */,
+				A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */,
 				A707E4D81CAB0239002F37C5 /* Assets.xcassets in Resources */,
 				EB9F62C21CADD61600CEEA90 /* Default-568h@2x.png in Resources */,
-				A707E4D31CAB0239002F37C5 /* Main.storyboard in Resources */,
+				A707E4D31CAB0239002F37C5 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,7 +408,9 @@
 			files = (
 				A707E4D61CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld in Sources */,
 				A707E4D01CAB0239002F37C5 /* ViewController.m in Sources */,
+				A72600331CB1DB29001D9D0F /* RUFIEmergencyViewController.m in Sources */,
 				A707E4CD1CAB0239002F37C5 /* AppDelegate.m in Sources */,
+				A72600361CB1E216001D9D0F /* RUFISettingsViewController.m in Sources */,
 				730665441CAD57C900FBB7DA /* PieChartDataViewController.m in Sources */,
 				A707E4CA1CAB0239002F37C5 /* main.m in Sources */,
 				7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */,
@@ -436,12 +452,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A707E4D11CAB0239002F37C5 /* Main.storyboard */ = {
+		A707E4D11CAB0239002F37C5 /* Settings.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A707E4D21CAB0239002F37C5 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Settings.storyboard;
 			sourceTree = "<group>";
 		};
 		A707E4D91CAB0239002F37C5 /* LaunchScreen.storyboard */ = {

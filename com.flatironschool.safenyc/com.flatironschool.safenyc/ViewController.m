@@ -8,6 +8,10 @@
 #import "ViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import <DKCircleButton/DKCircleButton.h>
+#import "PieChartDataViewController.h"
+#import "RUFIEmergencyViewController.h"
+#import "RUFISettingsViewController.h"
+#import <LocalAuthentication/LocalAuthentication.h>
 
 @import GoogleMaps;
 
@@ -31,12 +35,13 @@
 
 
 - (void)viewDidLoad {
-    
-    NSLog(@"START VIEW DID LOAD!!!!");
 
     [super viewDidLoad];
-    
-    self.datastore = [[RUFIDataStore alloc] init];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+//    [[UINavigationBar appearance] setTranslucent:YES];
+
+    self.datastore = [RUFIDataStore sharedDataStore];
 
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector:@selector(reloadViewAfterSettingsScreen:)
@@ -45,20 +50,14 @@
     self.marker = [[GMSMarker alloc]init];
     [self createMapWithCoordinates];
     [self updateCurrentMap];
-    
-//    [self setSearchBar];
-
     [self setUpButtons];
-    NSLog(@"END VIEW DID LOAD!!!!");
 
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    
-    NSLog(@"START VIEW DID APPEAR!!!!!");
+
     [super viewDidAppear:YES];
     [self animateMap];
-    NSLog(@"VIEW DID APPEAR FINISHED");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,61 +84,68 @@
         button.titleLabel.font = [UIFont systemFontOfSize:22];
         button.backgroundColor = [UIColor whiteColor];
         button.borderColor = [UIColor grayColor];
-        button.alpha = 0.6;
+        button.alpha = 0.8;
         
         UIImage *image = [UIImage new];
         if(button == self.searchButton){
             image = [UIImage imageNamed:@"search.png"];
-            button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         
         } else if (button == self.settingsButton){
             image = [UIImage imageNamed:@"settings.png"];
-            button.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
             
         } else if (button == self.currentLocationButton){
             image = [UIImage imageNamed:@"currentLocation.png"];
-            button.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
             
         } else if (button == self.policeMapButton){
             image = [UIImage imageNamed:@"policeMap.png"];
-            button.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
             
         } else if (button == self.emergencyButton){
             image = [UIImage imageNamed:@"emergency.png"];
-            button.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
             
         } else if (button == self.pieChartButton){
             image = [UIImage imageNamed:@"pieChart.png"];
-            button.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
             
         }
+        button.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
         [button setImage:image forState:UIControlStateNormal];
         [button setContentMode:UIViewContentModeScaleAspectFit];
 
         button.animateTap = NO;
-        [button addTarget:self action:@selector(pressedSearchButton:) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(pressedButton:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
--(void)pressedSearchButton:(DKCircleButton *)button {
+-(void)pressedButton:(DKCircleButton *)button {
     
     button.animateTap = YES;
     
     if(button == self.searchButton){
+        
         [self openGooglePlacePicker];
+        NSLog(@"Getting to inside the pressed button");
+        [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
+            [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
+        }];
+        
     } else if (button == self.settingsButton){
         
+        [self performSegueWithIdentifier:@"settingsSegue" sender:nil];
+
+        
     } else if (button == self.currentLocationButton){
+        
         [self updateCurrentMap];
         
         [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
             [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
         }];
         
-        
     } else if (button == self.policeMapButton){
         
     } else if (button == self.emergencyButton){
+        
+        [self checkForFingerPrint];
+        //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
        
     } else if (button == self.pieChartButton){
         
@@ -147,6 +153,14 @@
         
     }
 }
+
+
+-(void)openGooglePlacePicker {
+    GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
+    acController.delegate = self;
+    [self presentViewController:acController animated:YES completion:nil];
+}
+
 
 -(void)findTheCurrentLocation{
     
@@ -325,6 +339,8 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     CLLocationCoordinate2D currentCoordinate = place.coordinate;
     self.latitude = currentCoordinate.latitude;
     self.longitude = currentCoordinate.longitude;
+    self.datastore.userLongitude = [NSString stringWithFormat:@"%.6f", self.longitude];
+    self.datastore.userLatitude = [NSString stringWithFormat:@"%.6f", self.latitude];
 
     self.marker.position = currentCoordinate;
     self.marker.title = place.name;
@@ -384,43 +400,99 @@ didFailAutocompleteWithError:(NSError *)error {
     }
 }
 
--(void)openGooglePlacePicker {
-    GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
-    acController.delegate = self;
-    [self presentViewController:acController animated:YES completion:nil];
-}
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-
+   
+    
+    /*
+    switch(segueName){
+        case 'settingsSegue' :
+            NSLog(@"settingSegue");
+            break;
+        case 'newSBSegue' :
+            NSLog(@"settingSegue");
+            break;
+            //PieChartDataViewController *pieChartVC = segue.destinationViewController;
+            //pieChartVC.transitionCoordinator =
+        case 'emergencySegue' :
+            NSLog(@"emergencySegue");
+            break;
+        default:
+            NSLog(@"another button");
+            
+    }*/
+   
 }
 
 #pragma mark - Transition to Size
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
-    NSLog(@"Transition to the different view");
     BOOL isPortrait = size.height > size.width;
     BOOL isLandscape = size.width > size.height;
    
     [UIView animateWithDuration:0.3f animations:^{
-    if(isPortrait){
-        NSLog(@"Portrait %lu", self.widthConstrain);
-        self.searchButton.frame = CGRectMake(self.widthConstrain, 20, 47, 47);
-        self.settingsButton.frame = CGRectMake(self.widthConstrain, 80, 47, 47);
-        self.currentLocationButton.frame = CGRectMake(self.widthConstrain, 140, 47, 47);
-        self.policeMapButton.frame = CGRectMake(self.widthConstrain, 200, 47, 47);
-        self.emergencyButton.frame = CGRectMake(self.widthConstrain, 260, 47, 47);
-        self.pieChartButton.frame = CGRectMake(self.widthConstrain, 320, 47, 47);
-    } else if (isLandscape) {
-        NSLog(@"landscape %lu", self.heightConstrain);
-        self.searchButton.frame = CGRectMake(self.heightConstrain, 20, 47, 47);
-        self.settingsButton.frame = CGRectMake(self.heightConstrain, 80, 47, 47);
-        self.currentLocationButton.frame = CGRectMake(self.heightConstrain, 140, 47, 47);
-        self.policeMapButton.frame = CGRectMake(self.heightConstrain, 200, 47, 47);
-        self.emergencyButton.frame = CGRectMake(self.heightConstrain, 260, 47, 47);
-        self.pieChartButton.frame = CGRectMake(self.heightConstrain, 320, 47, 47);
-    }
-    [self.view layoutIfNeeded];
+        if(isPortrait){
+            self.searchButton.frame = CGRectMake(self.widthConstrain, 20, 47, 47);
+            self.settingsButton.frame = CGRectMake(self.widthConstrain, 80, 47, 47);
+            self.currentLocationButton.frame = CGRectMake(self.widthConstrain, 140, 47, 47);
+            self.policeMapButton.frame = CGRectMake(self.widthConstrain, 200, 47, 47);
+            self.emergencyButton.frame = CGRectMake(self.widthConstrain, 260, 47, 47);
+            self.pieChartButton.frame = CGRectMake(self.widthConstrain, 320, 47, 47);
+        } else if (isLandscape) {
+            self.searchButton.frame = CGRectMake(self.heightConstrain, 20, 47, 47);
+            self.settingsButton.frame = CGRectMake(self.heightConstrain, 80, 47, 47);
+            self.currentLocationButton.frame = CGRectMake(self.heightConstrain, 140, 47, 47);
+            self.policeMapButton.frame = CGRectMake(self.heightConstrain, 200, 47, 47);
+            self.emergencyButton.frame = CGRectMake(self.heightConstrain, 260, 47, 47);
+            self.pieChartButton.frame = CGRectMake(self.heightConstrain, 320, 47, 47);
+        }
+        [self.view layoutIfNeeded];
     }];
+}
+
+# pragma mark - touch id
+-(void)checkForFingerPrint{
+    
+    LAContext *myContext = [[LAContext alloc] init];
+    NSError *authError = nil;
+    NSString *myLocalizedReasonString = @"Touch ID is ready. Your print can be used for unlocking emergency button!";
+    
+    if ([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+        [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                  localizedReason:myLocalizedReasonString
+                            reply:^(BOOL success, NSError *error) {
+                                if (success) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        
+                                        [self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+                                    });
+                                } else {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        
+                                        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"The Access Is Denied!"
+                                                                                                       message:@"Emergency button is only for the owner of the phone."
+                                                                                                preferredStyle:UIAlertControllerStyleAlert];
+                                        
+                                        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                                              handler:^(UIAlertAction * action) {}];
+                                        
+                                        [alert addAction:defaultAction];
+                                        [self presentViewController:alert animated:YES completion:nil];
+                                    });
+                                }
+                            }];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Wrong password."
+                                                                           message:@"Try again!"
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {}];
+            
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        });
+    }
 }
 
 @end

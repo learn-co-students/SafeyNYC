@@ -17,6 +17,7 @@
 @property (strong,nonatomic) NSArray *chartValues;
 @property (strong, nonatomic) RUFIDataStore *dataStore;
 @property (strong, nonatomic) IBOutlet UIView *pieChartView;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelItem;
 
 @end
 
@@ -25,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.dataStore = [[RUFIDataStore alloc] init];
+    self.dataStore = [RUFIDataStore sharedDataStore];
     
     
     self.chart = [[VBPieChart alloc] initWithFrame:CGRectMake(60, 50, 300, 300)];
@@ -50,6 +51,8 @@
     
     [self.dataStore getCrimeDataWithCompletion:^(BOOL finished) {
         if (finished) {
+            
+            NSLog(@"Getting to Pie Chart");
             
             self.chartValues = @[
                                  @{@"name":@"MURDER & NON-NEGL. MANSLAUGHTER", @"value":[self convertValuetoNumber:self.dataStore.murderCount], @"color":@"EC1D24", @"image" : @"murderPie"},
@@ -105,4 +108,8 @@
     
 }
 
+
+- (IBAction)cancelItem:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end
