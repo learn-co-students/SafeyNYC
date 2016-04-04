@@ -103,14 +103,6 @@
  */
 
 
--(NSNumber *)convertValuetoNumber:(NSUInteger) crimeCount {
-    
-    NSNumber *countNSNumber = @(crimeCount);;
-    return  countNSNumber;
-    
-}
-
-
 - (IBAction)cancelItem:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
