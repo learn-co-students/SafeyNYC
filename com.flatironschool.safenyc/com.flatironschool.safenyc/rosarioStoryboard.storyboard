@@ -54,7 +54,6 @@
         <!--Navigation Controller-->
         <scene sceneID="w1U-dl-ynk">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="n4N-hi-teO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="rEJ-xT-fIS" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -73,6 +72,7 @@
                         <segue destination="2dL-jL-EPX" kind="relationship" relationship="rootViewController" id="tHt-Rh-OHp"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n4N-hi-teO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1123" y="393"/>
         </scene>
