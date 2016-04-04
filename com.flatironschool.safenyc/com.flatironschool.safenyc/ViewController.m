@@ -223,16 +223,16 @@
 {
     
     if (status == INTULocationStatusServicesNotDetermined) {
-        return @"Error: User has not responded to the permissions alert.";
+        return @"User has not responded to the permissions alert.";
     }
     if (status == INTULocationStatusServicesDenied) {
-        return @"Error: User has denied this app permissions to access device location.\nGo to settings > Privacy > Location Services and switch on";
+        return @"User has denied this app permissions to access device location.\nGo to settings > Privacy > Location Services and switch on";
     }
     if (status == INTULocationStatusServicesRestricted) {
-        return @"Error: User is restricted from using location services by a usage policy. \nGo to settings > Privacy > Location Services and switch on";
+        return @"User is restricted from using location services by a usage policy. \nGo to settings > Privacy > Location Services and switch on";
     }
     if (status == INTULocationStatusServicesDisabled) {
-        return @"Error: Location services are turned off for all apps on this device.\nGo to settings > Privacy > Location Services and switch on";
+        return @"Location services are turned off for all apps on this device.\nGo to settings > Privacy > Location Services and switch on";
     }
     return @"An unknown error occurred.\n(Are you using iOS Simulator with location set to 'None'?)";
 }
@@ -318,7 +318,6 @@
     self.mapView = [GMSMapView mapWithFrame: self.view.bounds camera:camera];
     self.mapView.myLocationEnabled = YES;
     self.view = self.mapView;
-    
 }
 
 -(void)animateMap{
