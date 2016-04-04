@@ -18,7 +18,6 @@
 @property (nonatomic, assign) double latitude;
 @property (strong, nonatomic) CLPlacemark *placemark;
 @property (strong, nonatomic) NSString *currentAddress;
-@property (strong, nonatomic) GMSMapView *mapView_;
 
 -(void)reloadViewAfterSettingsScreen:(NSNotification *)notification;
 
