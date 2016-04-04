@@ -8,7 +8,7 @@
         <!--Pie Chart-->
         <scene sceneID="eMk-RE-5gx">
             <objects>
-                <viewController id="2dL-jL-EPX" customClass="PieChartDataViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="rosarioStoryBoard" id="2dL-jL-EPX" customClass="PieChartDataViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sVs-FM-6jo"/>
                         <viewControllerLayoutGuide type="bottom" id="6X2-A6-z1n"/>
@@ -17,26 +17,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-Wf-pN7">
+                                <rect key="frame" x="0.0" y="64" width="568" height="269"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTE-ab-pcD">
                                 <rect key="frame" x="20" y="340" width="255" height="129"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-Wf-pN7">
-                                <rect key="frame" x="0.0" y="63" width="568" height="269"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VmX-Cx-Rzk">
-                                        <rect key="frame" x="199" y="74" width="139" height="118"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="VmX-Cx-Rzk">
+                                <rect key="frame" x="20" y="619" width="47" height="45"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pie Chart" id="o1M-6Y-kRF">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="B64-7L-Tt4">
+                        <barButtonItem key="leftBarButtonItem" image="back" style="plain" id="B64-7L-Tt4">
                             <connections>
                                 <action selector="cancelItem:" destination="2dL-jL-EPX" id="ULR-Hh-fdM"/>
                             </connections>
@@ -56,8 +54,11 @@
         <!--Navigation Controller-->
         <scene sceneID="w1U-dl-ynk">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="rEJ-xT-fIS" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n4N-hi-teO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="rEJ-xT-fIS" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fyL-ax-8z7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -72,9 +73,11 @@
                         <segue destination="2dL-jL-EPX" kind="relationship" relationship="rootViewController" id="tHt-Rh-OHp"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="n4N-hi-teO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1123" y="393"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="back" width="45" height="45"/>
+    </resources>
 </document>
