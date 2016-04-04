@@ -24,6 +24,9 @@
 		A707E4E61CAB0239002F37C5 /* com_flatironschool_safenycTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4E51CAB0239002F37C5 /* com_flatironschool_safenycTests.m */; };
 		A707E4F11CAB0239002F37C5 /* com_flatironschool_safenycUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4F01CAB0239002F37C5 /* com_flatironschool_safenycUITests.m */; };
 		A707E5021CAC24D1002F37C5 /* IrinaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */; };
+		EB2C6B1F1CB2C60D00CF5211 /* PoliceLocatorAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2C6B1E1CB2C60D00CF5211 /* PoliceLocatorAPI.m */; };
+		EB2C6B221CB2DC5C00CF5211 /* PoliceDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2C6B211CB2DC5C00CF5211 /* PoliceDataStore.m */; };
+		EB2C6B251CB2E56B00CF5211 /* PoliceLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2C6B241CB2E56B00CF5211 /* PoliceLocation.m */; };
 		EB55C3C11CAB1F460020C1CD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */; };
 		EB9F62C21CADD61600CEEA90 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB9F62C11CADD61600CEEA90 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
@@ -78,6 +81,12 @@
 		A707E4F21CAB0239002F37C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A707E4FE1CAB02FE002F37C5 /* RUFIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIConstants.h; sourceTree = "<group>"; };
 		A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IrinaStoryboard.storyboard; sourceTree = "<group>"; };
+		EB2C6B1D1CB2C60D00CF5211 /* PoliceLocatorAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceLocatorAPI.h; sourceTree = "<group>"; };
+		EB2C6B1E1CB2C60D00CF5211 /* PoliceLocatorAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoliceLocatorAPI.m; sourceTree = "<group>"; };
+		EB2C6B201CB2DC5C00CF5211 /* PoliceDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceDataStore.h; sourceTree = "<group>"; };
+		EB2C6B211CB2DC5C00CF5211 /* PoliceDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoliceDataStore.m; sourceTree = "<group>"; };
+		EB2C6B231CB2E56B00CF5211 /* PoliceLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceLocation.h; sourceTree = "<group>"; };
+		EB2C6B241CB2E56B00CF5211 /* PoliceLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoliceLocation.m; sourceTree = "<group>"; };
 		EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		EB9F62C11CADD61600CEEA90 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +173,12 @@
 				7322697A1CAC1F9A00FCBAB1 /* RUFIDataStore.m */,
 				7322697C1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.h */,
 				7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */,
+				EB2C6B1D1CB2C60D00CF5211 /* PoliceLocatorAPI.h */,
+				EB2C6B1E1CB2C60D00CF5211 /* PoliceLocatorAPI.m */,
+				EB2C6B201CB2DC5C00CF5211 /* PoliceDataStore.h */,
+				EB2C6B211CB2DC5C00CF5211 /* PoliceDataStore.m */,
+				EB2C6B231CB2E56B00CF5211 /* PoliceLocation.h */,
+				EB2C6B241CB2E56B00CF5211 /* PoliceLocation.m */,
 				A707E4D11CAB0239002F37C5 /* Main.storyboard */,
 				A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */,
 				730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */,
@@ -394,11 +409,14 @@
 			files = (
 				A707E4D61CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld in Sources */,
 				A707E4D01CAB0239002F37C5 /* ViewController.m in Sources */,
+				EB2C6B221CB2DC5C00CF5211 /* PoliceDataStore.m in Sources */,
 				A707E4CD1CAB0239002F37C5 /* AppDelegate.m in Sources */,
 				730665441CAD57C900FBB7DA /* PieChartDataViewController.m in Sources */,
 				A707E4CA1CAB0239002F37C5 /* main.m in Sources */,
 				7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */,
 				732269781CAC129E00FCBAB1 /* RUFICrimes.m in Sources */,
+				EB2C6B251CB2E56B00CF5211 /* PoliceLocation.m in Sources */,
+				EB2C6B1F1CB2C60D00CF5211 /* PoliceLocatorAPI.m in Sources */,
 				732269751CAC11A600FCBAB1 /* RUFIConstants.m in Sources */,
 				7322697E1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m in Sources */,
 			);

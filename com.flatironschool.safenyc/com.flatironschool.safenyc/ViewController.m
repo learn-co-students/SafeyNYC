@@ -43,6 +43,21 @@
 //    [self setSearchBar];
 
     [self setUpButtons];
+    
+    PoliceDataStore *store = [PoliceDataStore sharedDataStore];
+    
+//    lat = "40.76498259999999";
+////    lng = "-73.9851072";
+//    [store getPoliceLocationsLatitude: 40.76 Longitude: -73.98 WithCompletion:^(BOOL finished) {
+//        
+//        if (finished) {
+//            NSLog(@"got theeseee locations mein.........");
+//            for (PoliceLocation *location in store.policeLocationsArray) {
+//                NSLog(@"current locaation is: %@", location.locationName);
+//            }
+//        }
+//    }];
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -118,20 +133,20 @@
     }
 }
 
--(void)findTheCurrentLocation{
-    
-    [self updateCurrentLocationCoordinatesWithBlock:^(BOOL success) {
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            if (success) {
-                [self createMapWithCoordinates];
-            }
-        }];
-        
-       
-    }];
-    
-}
+//-(void)findTheCurrentLocation{
+//    
+//    [self updateCurrentLocationCoordinatesWithBlock:^(BOOL success) {
+//        
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            if (success) {
+//                [self createMapWithCoordinates];
+//            }
+//        }];
+//        
+//       
+//    }];
+//    
+//}
 
 - (void)openSettings
 {
