@@ -55,17 +55,17 @@
     NSLog(@"%lu", self.dataStore.grandLarcenyCount);
     
             self.chartValues = @[
-                                 @{@"name":@"MURDER & MANSLAUGHTER", @"value":[self convertValuetoNumber:self.dataStore.murderCount], @"color":@"EC1D24", @"image" : @"murderPie"},
-                                 @{@"name":@"FELONY ASSAULT", @"value":[self convertValuetoNumber:self.dataStore.felonyAssaultCount], @"color":@"F6931D", @"image" : @"felonyPie"},
-                                 @{@"name":@"GRAND LARCENY", @"value":[self convertValuetoNumber:self.dataStore.grandLarcenyCount], @"color":@"2E3092", @"image" : @"grandLarcenyPie"},
-                                 @{@"name":@"GRAND LARCENY OF MOTOR VEHICLE", @"value":[self convertValuetoNumber:self.dataStore.grandLarcenyMVCount], @"color":@"772477", @"image" : @"grandLarcenyMVPie"},
-                                 @{@"name":@"BURGLARY", @"value":[self convertValuetoNumber:self.dataStore.burglaryCount], @"color":@"006738", @"image" : @"burglaryPie"},
-                                 @{@"name":@"RAPE", @"value":[self convertValuetoNumber:self.dataStore.rapeCount], @"color":@"F8EC31", @"image" : @"rapePie"},
-                                 @{@"name":@"ROBBERY", @"value":[self convertValuetoNumber:self.dataStore.robberyCount], @"color":@"A87B4F", @"image" : @"robberyPie"},];
+                                 @{@"name":@"MURDER & MANSLAUGHTER", @"value":[self convertValuetoNumber:self.dataStore.murderCount], @"color":@"E34045", @"image" : @"murderPie"},
+                                 @{@"name":@"FELONY ASSAULT", @"value":[self convertValuetoNumber:self.dataStore.felonyAssaultCount], @"color":@"FBBA62", @"image" : @"felonyPie"},
+                                 @{@"name":@"GRAND LARCENY", @"value":[self convertValuetoNumber:self.dataStore.grandLarcenyCount], @"color":@"5A61A8", @"image" : @"grandLarcenyPie"},
+                                 @{@"name":@"GRAND LARCENY OF MOTOR VEHICLE", @"value":[self convertValuetoNumber:self.dataStore.grandLarcenyMVCount], @"color":@"8861A9", @"image" : @"grandLarcenyMVPie"},
+                                 @{@"name":@"BURGLARY", @"value":[self convertValuetoNumber:self.dataStore.burglaryCount], @"color":@"73B64A", @"image" : @"burglaryPie"},
+                                 @{@"name":@"RAPE", @"value":[self convertValuetoNumber:self.dataStore.rapeCount], @"color":@"FFF100", @"image" : @"rapePie"},
+                                 @{@"name":@"ROBBERY", @"value":[self convertValuetoNumber:self.dataStore.robberyCount], @"color":@"AEDEE3", @"image" : @"robberyPie"},];
             
             [self.chart setChartValues:self.chartValues animation:YES duration:1.0 options:VBPieChartAnimationFanAll];
             
-            self.crimeLabel.text = [NSString stringWithFormat:@"There has been %lu felonies commited in the quarter mile radius of where you are standing in the past two years.", self.dataStore.crimeDataArray.count];
+            self.crimeLabel.text = [NSString stringWithFormat:@"In the past two years there has been %lu felonies commited in the quarter mile radius of where you are standing.", self.dataStore.crimeDataArray.count];
 
 //        }
 //   
