@@ -23,9 +23,9 @@
 
     
     NSDate *now = [NSDate date];
-    NSDateComponents *minusOneYear = [NSDateComponents new];
-    minusOneYear.year = -2;
-    NSDate *oneYearAgo = [[NSCalendar currentCalendar] dateByAddingComponents:minusOneYear
+    NSDateComponents *minusYears = [NSDateComponents new];
+    minusYears.year = -2;
+    NSDate *oneYearAgo = [[NSCalendar currentCalendar] dateByAddingComponents:minusYears
                                                                             toDate:now
                                                                            options:0];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

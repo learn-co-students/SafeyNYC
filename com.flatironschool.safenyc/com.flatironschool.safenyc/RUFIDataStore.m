@@ -29,7 +29,9 @@
         
         _crimeDataArray=[NSMutableArray new];
         _userLatitude = [NSString new];
-        _userLongitude= [NSString new];
+        _userLongitude = [NSString new];
+        _distanceInMeters = [NSString new];
+        _yearsAgo = [NSString new];
     }
     return self;
 }
