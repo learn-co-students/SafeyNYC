@@ -18,7 +18,8 @@
     
     NSLog(@"GETTING TO HERE");
     
-    NSLog(@"%@", latitude);
+    NSLog(@"LADITUDE IN API %@", latitude);
+    NSLog(@"LONGITUDE IN API %@", latitude);
 
     
     NSDate *now = [NSDate date];

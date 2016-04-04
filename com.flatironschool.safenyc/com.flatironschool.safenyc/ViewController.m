@@ -123,9 +123,6 @@
         
         [self openGooglePlacePicker];
         NSLog(@"Getting to inside the pressed button");
-        [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
-            [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
-        }];
         
     } else if (button == self.settingsButton){
         
@@ -340,6 +337,9 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     self.longitude = currentCoordinate.longitude;
     self.datastore.userLongitude = [NSString stringWithFormat:@"%.6f", self.longitude];
     self.datastore.userLatitude = [NSString stringWithFormat:@"%.6f", self.latitude];
+    
+    NSLog(@"AT DATA STORE %@", self.datastore.userLatitude);
+    NSLog(@"AT DATA STORE %@", self.datastore.userLongitude);
 
     self.marker.position = currentCoordinate;
     self.marker.title = place.name;
@@ -347,6 +347,10 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     self.marker.appearAnimation = kGMSMarkerAnimationPop;
     self.marker.map = self.mapView;
     NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
+    [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
+        [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
+    }];
+
     [self animateMap];
 
 }

@@ -41,6 +41,7 @@
     NSLog(@"AT DATA STORE %@", self.userLatitude);
     NSLog(@"AT DATA STORE %@", self.userLongitude);
     [self resetCountsToZero];
+    [self.crimeDataArray removeAllObjects];
     
     [RUFICrimeDataAPI getCrimeDataFromLatitude:self.userLatitude longitude:self.userLongitude withCompletion:^(NSArray * crimeDictionaries) {
         

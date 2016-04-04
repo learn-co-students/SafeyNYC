@@ -26,11 +26,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //self.dataStore = [RUFIDataStore sharedDataStore];    
-    //self.chart = [[VBPieChart alloc] initWithFrame:CGRectMake(60, 50, 300, 300)];
+    self.dataStore = [RUFIDataStore sharedDataStore];    
+    self.chart = [[VBPieChart alloc] initWithFrame:CGRectMake(60, 50, 300, 300)];
 
-    self.dataStore = [[RUFIDataStore alloc] init];
-    self.chart = [[VBPieChart alloc] initWithFrame:CGRectMake(50, 20, 300, 300)];
+//    self.dataStore = [[RUFIDataStore alloc] init];
+//    self.chart = [[VBPieChart alloc] initWithFrame:CGRectMake(50, 20, 300, 300)];
     [self.pieChartView addSubview:self.chart];
     self.chart.delegate = self;
     self.chart.allowOnlyOneAccentedPiece = YES;
@@ -46,12 +46,14 @@
     
     [super viewDidAppear: YES];
     
-    [self.dataStore getCrimeDataWithCompletion:^(BOOL finished) {
-        
-        if (finished) {
-            
+//    [self.dataStore getCrimeDataWithCompletion:^(BOOL finished) {
+//        
+//        if (finished) {
+    
             NSLog(@"Getting to Pie Chart");
-            
+    
+    NSLog(@"%lu", self.dataStore.grandLarcenyCount);
+    
             self.chartValues = @[
                                  @{@"name":@"MURDER & MANSLAUGHTER", @"value":[self convertValuetoNumber:self.dataStore.murderCount], @"color":@"EC1D24", @"image" : @"murderPie"},
                                  @{@"name":@"FELONY ASSAULT", @"value":[self convertValuetoNumber:self.dataStore.felonyAssaultCount], @"color":@"F6931D", @"image" : @"felonyPie"},
@@ -65,9 +67,9 @@
             
             self.crimeLabel.text = [NSString stringWithFormat:@"There has been %lu felonies commited in the quarter mile radius of where you are standing in the past two years.", self.dataStore.crimeDataArray.count];
 
-        }
-   
-    }];
+//        }
+//   
+//    }];
     
 }
 
