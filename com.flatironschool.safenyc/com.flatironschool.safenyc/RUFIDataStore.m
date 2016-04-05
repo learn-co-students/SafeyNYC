@@ -29,7 +29,9 @@
         
         _crimeDataArray=[NSMutableArray new];
         _userLatitude = [NSString new];
-        _userLongitude= [NSString new];
+        _userLongitude = [NSString new];
+        _distanceInMeters = [NSString new];
+        _yearsAgo = [NSString new];
     }
     return self;
 }
@@ -41,6 +43,7 @@
     NSLog(@"AT DATA STORE %@", self.userLatitude);
     NSLog(@"AT DATA STORE %@", self.userLongitude);
     [self resetCountsToZero];
+    [self.crimeDataArray removeAllObjects];
     
     [RUFICrimeDataAPI getCrimeDataFromLatitude:self.userLatitude longitude:self.userLongitude withCompletion:^(NSArray * crimeDictionaries) {
         
