@@ -54,21 +54,22 @@
     [self setUpButtons];
 
 //This is for the police location feature....
-//PoliceDataStore *store = [PoliceDataStore sharedDataStore];
+PoliceDataStore *store = [PoliceDataStore sharedDataStore];
     
 //    lat = "40.76498259999999";
 ////    lng = "-73.9851072";
-//    [store getPoliceLocationsLatitude: 40.76 Longitude: -73.98 WithCompletion:^(BOOL finished) {
-//        
-//        if (finished) {
-//            NSLog(@"got theeseee locations mein.........");
-//            for (PoliceLocation *location in store.policeLocationsArray) {
-//                NSLog(@"current locaation is: %@", location.locationName);
-//            }
-//        }
-//    }];
+    [store getPoliceLocationsLatitude: 40.76 Longitude: -73.98 WithCompletion:^(BOOL finished) {
+        
+        if (finished) {
+            NSLog(@"got theeseee locations mein.........");
+            for (PoliceLocation *location in store.policeLocationsArray) {
+                NSLog(@"current locaation is: %@", location.locationName);
+            }
+        }
+    }];
 
 }
+
 
 -(void)viewDidAppear:(BOOL)animated{
 
