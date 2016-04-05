@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//iOS 9.3//EN
+N:;$displayname$;;;
+FN:$displayname$
+item1.X-ABLabel:Address
+item1.X-ABADR:US
+item2.URL;type=pref:http://maps.apple.com/maps?address=&ll=$lat$\,$long$&q=$lat$\,$long$&t=m
+item2.X-ABLabel:map url
+END:VCARD
