@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RUFISettingsViewController : UIViewController
+@interface RUFISettingsViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+
+@property (strong, nonatomic) NSString *radius;
 
 @end

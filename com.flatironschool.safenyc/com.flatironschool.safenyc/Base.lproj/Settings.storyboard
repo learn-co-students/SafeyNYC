@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Settings-->
@@ -17,27 +16,6 @@
                     <view key="view" contentMode="scaleToFill" id="bld-O0-BVl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9GZ-L1-saO">
-                                <rect key="frame" x="40" y="134" width="334" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Change the Radius of the Search (default 5 miles)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mqc-oc-aqj">
-                                <rect key="frame" x="40" y="194" width="334" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                        </subviews>
-                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="Mqc-oc-aqj" firstAttribute="leading" secondItem="bld-O0-BVl" secondAttribute="leadingMargin" constant="20" id="9jM-hJ-rGe"/>
-                            <constraint firstItem="9GZ-L1-saO" firstAttribute="top" secondItem="6Yb-wb-Dmz" secondAttribute="bottom" constant="70" id="Cru-hY-2Kv"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="9GZ-L1-saO" secondAttribute="trailing" constant="20" id="GyX-ih-IBk"/>
-                            <constraint firstItem="9GZ-L1-saO" firstAttribute="leading" secondItem="bld-O0-BVl" secondAttribute="leadingMargin" constant="20" id="f7F-r0-s7J"/>
-                            <constraint firstItem="Mqc-oc-aqj" firstAttribute="top" secondItem="9GZ-L1-saO" secondAttribute="bottom" constant="30" id="qWs-Z0-SZ6"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Mqc-oc-aqj" secondAttribute="trailing" constant="20" id="v5g-Oa-eZO"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="xv8-Nz-Jxm">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="nri-qD-uOR">

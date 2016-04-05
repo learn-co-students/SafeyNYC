@@ -25,7 +25,7 @@ DEPENDENCIES:
   - DKCircleButton (~> 1.1)
   - GoogleMaps (~> 1.13.0)
   - INTULocationManager
-  - THContactPicker
+  - THContactPicker (~> 2.0)
   - VBPieChart (from `https://github.com/rtaraboo/VBPieChart.git`)
 
 EXTERNAL SOURCES:
