@@ -537,7 +537,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
 -(void)updateFaceMarker {
     
-    NSUInteger count = self.datastore.crimeDataArray.count;
+    NSUInteger count = self.datastore.crimeDataArray.count / 2;
     
     NSLog(@"Update Face Maker: %lu", count);
     NSLog(@"Update Face Maker DS: %lu", self.datastore.crimeDataArray.count);
@@ -545,7 +545,7 @@ didFailAutocompleteWithError:(NSError *)error {
     GMSMarker *faceMarker = [[GMSMarker alloc] init];
     faceMarker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
     
-    if (count <= 100) {
+    if (count <= 50) {
         
         faceMarker.icon = [UIImage imageNamed:@"face1"];
         faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
@@ -554,7 +554,7 @@ didFailAutocompleteWithError:(NSError *)error {
         NSLog(@"Update Face Maker1: %lu", self.datastore.crimeDataArray.count);
     }
     
-    else if (count >= 101 && count <= 400) {
+    else if (count >= 51 && count <= 200) {
         
         faceMarker.icon = [UIImage imageNamed:@"face2"];
         faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
@@ -563,7 +563,7 @@ didFailAutocompleteWithError:(NSError *)error {
         NSLog(@"Update Face Maker2: %lu", self.datastore.crimeDataArray.count);
     }
     
-    else if (count >= 401 && count <= 700) {
+    else if (count >= 201 && count <= 350) {
         
         faceMarker.icon = [UIImage imageNamed:@"face3"];
         faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
@@ -572,7 +572,7 @@ didFailAutocompleteWithError:(NSError *)error {
         NSLog(@"Update Face Maker3: %lu", self.datastore.crimeDataArray.count);
     }
     
-    else if (count >= 701 && count <= 1000) {
+    else if (count >= 351 && count <= 500) {
         
         faceMarker.icon = [UIImage imageNamed:@"face4"];
         faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
