@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *firstName;
 @property (weak, nonatomic) IBOutlet UILabel *phoneNumber;
 
+
+
 @end
 
 @implementation RUFIEmergencyViewController
