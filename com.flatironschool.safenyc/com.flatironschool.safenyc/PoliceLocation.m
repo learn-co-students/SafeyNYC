@@ -13,10 +13,9 @@
 +(PoliceLocation *)createPoliceLocationWithDictionary:(NSDictionary *)locationInfo{
 
     PoliceLocation *currentLocation = [[PoliceLocation alloc] init];
-    
     currentLocation.locationName = locationInfo[@"name"];
-    currentLocation.latitude = [locationInfo[@"location"][@"lat"] doubleValue];
-    currentLocation.longitude = [locationInfo[@"location"][@"lng"] doubleValue];
+    currentLocation.latitude = [locationInfo[@"geometry"][@"location"][@"lat"] doubleValue];
+    currentLocation.longitude = [locationInfo[@"geometry"][@"location"][@"lng"] doubleValue];
     currentLocation.locationAddress = locationInfo[@"vicinity"];
     
     return currentLocation;

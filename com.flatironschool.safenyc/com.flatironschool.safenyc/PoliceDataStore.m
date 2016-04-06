@@ -43,13 +43,14 @@
 
     [PoliceLocatorAPI getPoliceLocationsLatitude: latitude  Longitude: longitude WithCompletion:^(NSArray *policeLocations) {
         
-        for (NSDictionary *currentPoliceDictionary in policeLocations) {
+
+            for (NSDictionary *currentPoliceDictionary in policeLocations) {
             
-            if ([currentPoliceDictionary[@"name"] containsString: @"Precinct"]) {
-                
+//            if ([currentPoliceDictionary[@"name"] containsString: @"Precinct"]) {
+            
                 PoliceLocation *newLocation = [PoliceLocation createPoliceLocationWithDictionary: currentPoliceDictionary];
                 [self.policeLocationsArray addObject: newLocation];
-            }
+//            }
         }
         
         NSLog(@"Police Locations array contains: %lu locations!!!!!!", self.policeLocationsArray.count);

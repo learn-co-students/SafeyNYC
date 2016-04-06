@@ -18,20 +18,21 @@
     
     NSLog(@"GETTING TO HERE");
     
-    NSLog(@"%@", latitude);
+    NSLog(@"LADITUDE IN API %@", latitude);
+    NSLog(@"LONGITUDE IN API %@", longitude);
 
     
     NSDate *now = [NSDate date];
-    NSDateComponents *minusOneYear = [NSDateComponents new];
-    minusOneYear.year = -2;
-    NSDate *oneYearAgo = [[NSCalendar currentCalendar] dateByAddingComponents:minusOneYear
+    NSDateComponents *minusYears = [NSDateComponents new];
+    minusYears.year = -2;
+    NSDate *oneYearAgo = [[NSCalendar currentCalendar] dateByAddingComponents:minusYears
                                                                             toDate:now
                                                                            options:0];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     NSString *dateOneYearAgo = [formatter stringFromDate:oneYearAgo];
     
-    NSString *cityDataUrl = [NSString stringWithFormat:@"https://data.cityofnewyork.us/resource/dvh8-u7es.json?%@&$where=occurrence_date>='%@T00:00:00' AND within_circle(location_1, %@, %@, 401)&$order=occurrence_date", CITY_CRIME_APP_TOKEN, dateOneYearAgo, latitude, longitude];
+    NSString *cityDataUrl = [NSString stringWithFormat:@"https://data.cityofnewyork.us/resource/dvh8-u7es.json?%@&$where=occurrence_date>='%@T00:00:00' AND within_circle(location_1, %@, %@, 401)&$order=occurrence_date&$limit=2000", CITY_CRIME_APP_TOKEN, dateOneYearAgo, latitude, longitude];
     
     NSString *cityDataUrLEncoded = [cityDataUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 

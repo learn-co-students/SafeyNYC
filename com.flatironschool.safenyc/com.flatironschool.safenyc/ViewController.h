@@ -22,7 +22,8 @@
 @property (strong, nonatomic) NSString *currentAddress;
 @property (strong, nonatomic) GMSMarker *marker;
 @property (strong, nonatomic) RUFIDataStore *datastore;
-@property (strong, nonatomic) UIActivityIndicatorView *activityView; 
+@property (strong, nonatomic) UIActivityIndicatorView *activityView;
+
 -(void)reloadViewAfterSettingsScreen:(NSNotification *)notification;
 
 @end

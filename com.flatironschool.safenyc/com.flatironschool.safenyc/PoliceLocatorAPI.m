@@ -15,9 +15,16 @@
                    WithCompletion:(void (^)(NSArray *policeLocations))completionBlock{
 
 //    test values
-    NSString *radius = @"1000";
-
-    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?type=police&location=%f,%f&radius=%@&key=%@", latitude, longitude, radius,GOOGLE_PLACES_API_KEY];
+//    NSString *radius = @"10000";
+    
+    //https://maps.googleapis.com/maps/api/place/nearbysearch/json?&name=new+york+city+police+department&location=40.705597,-74.013991&rankby=distance&key=AIzaSyA3sVpYkTVZgOPiV-A0OkDQODMcnVvCYpg
+    
+//    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?type=police&location=%f,%f&radius=%@&key=%@", latitude, longitude, radius,GOOGLE_PLACES_API_KEY];
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?name=%@&location=%f,%f&rankby=distance&key=%@",@"new+york+city+police+department",latitude, longitude, GOOGLE_PLACES_API_KEY];
+    
+    NSLog(@"here's the get request: %@", urlString); 
     
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
     
