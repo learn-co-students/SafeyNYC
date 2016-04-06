@@ -29,6 +29,7 @@
 		A72600361CB1E216001D9D0F /* RUFISettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */; };
 		A75CEA451CB5A11600A1EF75 /* RUFIMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A75CEA441CB5A11600A1EF75 /* RUFIMessageViewController.m */; };
 		A75CEA471CB5A13A00A1EF75 /* YuchiStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A75CEA461CB5A13A00A1EF75 /* YuchiStoryboard.storyboard */; };
+		A75CEA491CB5A37900A1EF75 /* location_template.loc.vcf in Resources */ = {isa = PBXBuildFile; fileRef = A75CEA481CB5A37900A1EF75 /* location_template.loc.vcf */; };
 		EB55C3C11CAB1F460020C1CD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +91,7 @@
 		A75CEA431CB5A11600A1EF75 /* RUFIMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIMessageViewController.h; sourceTree = "<group>"; };
 		A75CEA441CB5A11600A1EF75 /* RUFIMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIMessageViewController.m; sourceTree = "<group>"; };
 		A75CEA461CB5A13A00A1EF75 /* YuchiStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = YuchiStoryboard.storyboard; sourceTree = "<group>"; };
+		A75CEA481CB5A37900A1EF75 /* location_template.loc.vcf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = location_template.loc.vcf; sourceTree = "<group>"; };
 		EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -191,6 +193,7 @@
 				A707E4D91CAB0239002F37C5 /* LaunchScreen.storyboard */,
 				A707E4DC1CAB0239002F37C5 /* Info.plist */,
 				A707E4D41CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld */,
+				A75CEA481CB5A37900A1EF75 /* location_template.loc.vcf */,
 				EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */,
 				A707E4C81CAB0239002F37C5 /* Supporting Files */,
 			);
@@ -338,6 +341,7 @@
 				A707E5021CAC24D1002F37C5 /* IrinaStoryboard.storyboard in Resources */,
 				A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */,
 				A707E4D81CAB0239002F37C5 /* Assets.xcassets in Resources */,
+				A75CEA491CB5A37900A1EF75 /* location_template.loc.vcf in Resources */,
 				A707E4D31CAB0239002F37C5 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
