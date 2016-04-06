@@ -122,7 +122,7 @@
         
         composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location";
         
-        BOOL addedAttachment = [self addLocationAttachmentToComposeViewController:composeVC displayName:@"My Location" location:CLLocationCoordinate2DMake(40.705268, -74.013986)];
+        BOOL addedAttachment = [self addLocationAttachmentToComposeViewController:composeVC displayName:@"My Location" location:CLLocationCoordinate2DMake(self.myCurrnetLongitude, self.myCurrnetLatitude)];
         
         if(!addedAttachment) {
             NSLog(@"Seems there was an issue adding the attachment :(");
@@ -133,26 +133,32 @@
     } else if (button == self.person1){
         
         NSLog(@"Person 1!");
+        [self openContacts];
         
     } else if (button == self.person2){
         
         NSLog(@"Person 2!");
+        [self openContacts];
         
     } else if (button == self.person3){
         
         NSLog(@"Person 3!");
+        [self openContacts];
         
     } else if (button == self.person4){
         
         NSLog(@"Person 4!");
+        [self openContacts];
     
     } else if (button == self.person5){
         
         NSLog(@"Person 5!");
+        [self openContacts];
    
     } else if (button == self.person6){
         
         NSLog(@"Person 6!");
+        [self openContacts];
    
     } else if (button == self.backButton){
         
@@ -160,13 +166,19 @@
     
     } else if (button == self.addFriendsButton){
         
-        CNContactPickerViewController *picker = [[CNContactPickerViewController alloc] init];
-        picker.delegate = self;
-        picker.predicateForEnablingContact = [NSPredicate predicateWithFormat:@"phoneNumbers.@count > 0"];
-        [self presentViewController:picker animated:YES completion:nil];
+        [self openContacts];
         
     }
 }
+
+-(void) openContacts {
+    CNContactPickerViewController *picker = [[CNContactPickerViewController alloc] init];
+    picker.delegate = self;
+    picker.predicateForEnablingContact = [NSPredicate predicateWithFormat:@"phoneNumbers.@count > 0"];
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+
 
 -(void) displayHoldUntillTextField {
     self.holdUntillTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.widthOfTheScreen/2-130, 70, 300, 20)];

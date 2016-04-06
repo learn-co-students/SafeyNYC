@@ -8,7 +8,7 @@
         <!--Emegency-->
         <scene sceneID="VW7-jb-lqo">
             <objects>
-                <viewController extendedLayoutIncludesOpaqueBars="YES" id="nPD-9F-8G1" customClass="RUFIEmergencyViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="emergencyVC" extendedLayoutIncludesOpaqueBars="YES" id="nPD-9F-8G1" customClass="RUFIEmergencyViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vgq-14-zMa"/>
                         <viewControllerLayoutGuide type="bottom" id="2Ft-ff-bsa"/>

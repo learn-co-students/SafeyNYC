@@ -12,6 +12,8 @@
 
 @property (nonatomic)  NSUInteger heightOfTheScreen;
 @property (nonatomic)  NSUInteger widthOfTheScreen;
+@property (nonatomic, assign) double myCurrnetLongitude;
+@property (nonatomic, assign) double myCurrnetLatitude;
 
 @end
 

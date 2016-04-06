@@ -9,7 +9,6 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <DKCircleButton/DKCircleButton.h>
 #import "PieChartDataViewController.h"
-#import "RUFIEmergencyViewController.h"
 #import "RUFISettingsViewController.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 
@@ -37,9 +36,6 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-//    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-//    [[UINavigationBar appearance] setTranslucent:YES];
 
     self.datastore = [RUFIDataStore sharedDataStore];
 
@@ -51,8 +47,6 @@
     [self createMapWithCoordinates];
     [self updateCurrentMap];
     [self setUpButtons];
-    
-
 
 }
 
@@ -433,10 +427,6 @@ didFailAutocompleteWithError:(NSError *)error {
     }
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-}
-
 #pragma mark - Transition to Size
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
     BOOL isPortrait = size.height > size.width;
@@ -568,6 +558,19 @@ didFailAutocompleteWithError:(NSError *)error {
     faceMarker.appearAnimation = kGMSMarkerAnimationPop;
     faceMarker.map = self.mapView;
     
+}
+
+#pragma mark - Navigation
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier]  isEqualToString: @"emergencySegue"]){
+        UINavigationController *emergencyVCNav = segue.destinationViewController;
+        RUFIEmergencyViewController *emergencyVC = emergencyVCNav.topViewController;
+        NSLog(@"%f",self.latitude);
+        NSLog(@"%f", self.longitude);
+        
+        emergencyVC.myCurrnetLatitude = (double) self.latitude;
+        emergencyVC.myCurrnetLongitude = (double) self.longitude;
+    }
 }
 
 @end

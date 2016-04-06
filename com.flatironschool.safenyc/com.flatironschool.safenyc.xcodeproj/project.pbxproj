@@ -27,7 +27,6 @@
 		A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */; };
 		A72600331CB1DB29001D9D0F /* RUFIEmergencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */; };
 		A72600361CB1E216001D9D0F /* RUFISettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */; };
-		A75CEA451CB5A11600A1EF75 /* RUFIMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A75CEA441CB5A11600A1EF75 /* RUFIMessageViewController.m */; };
 		A75CEA471CB5A13A00A1EF75 /* YuchiStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A75CEA461CB5A13A00A1EF75 /* YuchiStoryboard.storyboard */; };
 		A75CEA491CB5A37900A1EF75 /* location_template.loc.vcf in Resources */ = {isa = PBXBuildFile; fileRef = A75CEA481CB5A37900A1EF75 /* location_template.loc.vcf */; };
 		EB55C3C11CAB1F460020C1CD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */; };
@@ -88,8 +87,6 @@
 		A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIEmergencyViewController.m; sourceTree = "<group>"; };
 		A72600341CB1E216001D9D0F /* RUFISettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFISettingsViewController.h; sourceTree = "<group>"; };
 		A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFISettingsViewController.m; sourceTree = "<group>"; };
-		A75CEA431CB5A11600A1EF75 /* RUFIMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIMessageViewController.h; sourceTree = "<group>"; };
-		A75CEA441CB5A11600A1EF75 /* RUFIMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIMessageViewController.m; sourceTree = "<group>"; };
 		A75CEA461CB5A13A00A1EF75 /* YuchiStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = YuchiStoryboard.storyboard; sourceTree = "<group>"; };
 		A75CEA481CB5A37900A1EF75 /* location_template.loc.vcf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = location_template.loc.vcf; sourceTree = "<group>"; };
 		EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -176,8 +173,6 @@
 				7322697A1CAC1F9A00FCBAB1 /* RUFIDataStore.m */,
 				7322697C1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.h */,
 				7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */,
-				A75CEA431CB5A11600A1EF75 /* RUFIMessageViewController.h */,
-				A75CEA441CB5A11600A1EF75 /* RUFIMessageViewController.m */,
 				A72600311CB1DB29001D9D0F /* RUFIEmergencyViewController.h */,
 				A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */,
 				A72600341CB1E216001D9D0F /* RUFISettingsViewController.h */,
@@ -423,7 +418,6 @@
 				730665441CAD57C900FBB7DA /* PieChartDataViewController.m in Sources */,
 				A707E4CA1CAB0239002F37C5 /* main.m in Sources */,
 				730A4B891CB2C520007AA8C8 /* RUFIConstants.m in Sources */,
-				A75CEA451CB5A11600A1EF75 /* RUFIMessageViewController.m in Sources */,
 				7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */,
 				732269781CAC129E00FCBAB1 /* RUFICrimes.m in Sources */,
 				7322697E1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m in Sources */,
