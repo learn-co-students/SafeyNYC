@@ -86,7 +86,7 @@
         button.titleLabel.font = [UIFont systemFontOfSize:22];
         button.backgroundColor = [UIColor whiteColor];
         button.borderColor = [UIColor grayColor];
-        button.alpha = 1.0;
+        button.alpha = 0.8;
         
         UIImage *image = [UIImage new];
         if(button == self.searchButton){
@@ -169,7 +169,6 @@
                 [self createMapWithCoordinates];
             }
         }];
-        
        
     }];
     
