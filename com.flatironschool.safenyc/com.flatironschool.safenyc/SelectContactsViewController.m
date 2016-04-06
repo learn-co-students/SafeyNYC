@@ -66,10 +66,24 @@
         NSLog(@"%@", numberString);
         
         // set the button to show the image and disable it
+        if (contactProperty.contact.thumbnailImageData == nil) {
+            NSMutableString *initals = [NSMutableString string];
+            NSString *fullName = [NSString stringWithFormat:@"%@ %@", contactProperty.contact.givenName, contactProperty.contact.familyName];
+            NSArray *characters = [fullName componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            for (NSString * character in characters) {
+                if ([character length] > 0) {
+                    NSString * firstLetter = [character substringToIndex:1];
+                    [initals appendString:[firstLetter uppercaseString]];
+                }
+            }
+            [self.contactButton1 setTitle:initals forState:UIControlStateNormal];
+        }
+        else {
         UIImage *contactImage = [UIImage imageWithData:contactProperty.contact.thumbnailImageData];
         [self.contactButton1 setTitle:@"" forState:UIControlStateNormal];
         [self.contactButton1 setImage:contactImage forState:UIControlStateNormal];
         self.contactButton1.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        }
 //        self.contactButton1.userInteractionEnabled = NO;
     }
     else {

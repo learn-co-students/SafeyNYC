@@ -6,7 +6,7 @@
 //  Copyright © 2016 Irina Kalashnikova. All rights reserved.
 //
 
-
+#import "SelectContactsViewController.h"
 #import "RUFIMessageViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MessageUI/MessageUI.h>
