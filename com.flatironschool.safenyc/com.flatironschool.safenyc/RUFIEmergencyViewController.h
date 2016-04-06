@@ -10,4 +10,8 @@
 
 @interface RUFIEmergencyViewController : UIViewController
 
+@property (nonatomic)  NSUInteger heightOfTheScreen;
+@property (nonatomic)  NSUInteger widthOfTheScreen;
+
 @end
+

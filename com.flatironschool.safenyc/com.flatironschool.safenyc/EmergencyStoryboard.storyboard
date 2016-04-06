@@ -8,7 +8,7 @@
         <!--Emegency-->
         <scene sceneID="VW7-jb-lqo">
             <objects>
-                <viewController id="nPD-9F-8G1" customClass="RUFIEmergencyViewController" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="nPD-9F-8G1" customClass="RUFIEmergencyViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vgq-14-zMa"/>
                         <viewControllerLayoutGuide type="bottom" id="2Ft-ff-bsa"/>
@@ -18,23 +18,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Emegency" id="nSo-gW-Xq7">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="O4V-qH-lsI">
-                            <connections>
-                                <action selector="cancelItem:" destination="nPD-9F-8G1" id="sBq-Cd-WRi"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Add Friends" systemItem="add" id="blp-57-59l">
-                            <connections>
-                                <action selector="addItem:" destination="nPD-9F-8G1" id="tqR-67-7FN"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Emegency" id="nSo-gW-Xq7"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-                    <connections>
-                        <outlet property="addItem" destination="blp-57-59l" id="SC3-bw-d6n"/>
-                        <outlet property="cancelItem" destination="O4V-qH-lsI" id="klA-ZX-NKS"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iL8-GH-z2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -43,7 +31,7 @@
         <!--Navigation Controller-->
         <scene sceneID="woQ-pU-0yc">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qbI-Xr-E8U" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="qbI-Xr-E8U" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="F5L-wL-6NM">

@@ -17,23 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Settings" id="xv8-Nz-Jxm">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="nri-qD-uOR">
-                            <connections>
-                                <action selector="cancelItem:" destination="G9F-DD-qzX" id="eTO-6t-UKk"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="BUg-HV-LeS">
-                            <connections>
-                                <action selector="saveItem:" destination="G9F-DD-qzX" id="QjT-h8-PNO"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Settings" id="xv8-Nz-Jxm"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-                    <connections>
-                        <outlet property="cancelItem" destination="nri-qD-uOR" id="b8q-C3-bEe"/>
-                        <outlet property="saveItem" destination="BUg-HV-LeS" id="hlk-n3-QH0"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nr3-l8-S5J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -42,7 +27,7 @@
         <!--Navigation Controller-->
         <scene sceneID="2iX-dC-ZXw">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="V1b-Ga-iDA" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="V1b-Ga-iDA" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WVI-Jv-azX">
