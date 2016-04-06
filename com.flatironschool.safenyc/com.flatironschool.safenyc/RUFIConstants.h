@@ -13,5 +13,6 @@
 //40.705443, -74.014002
 extern NSString *const GOOGLE_API_KEY;
 extern NSString *const CITY_CRIME_APP_TOKEN;
+extern NSString *const GOOGLE_PLACES_API_KEY;
 
 @end
