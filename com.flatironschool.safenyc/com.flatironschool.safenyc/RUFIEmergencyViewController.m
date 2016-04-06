@@ -25,6 +25,7 @@
 @property (nonatomic)  NSUInteger heightOfTheScreen;
 @property (nonatomic)  NSUInteger widthOfTheScreen;
 
+
 @end
 
 @implementation RUFIEmergencyViewController

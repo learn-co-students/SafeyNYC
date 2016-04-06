@@ -340,11 +340,9 @@
 }
 
 -(void)animateMap{
-    [self.mapView animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
-    
 
-    
-    
+    [self.mapView animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+
 }
 
 // Handle the user's selection. GoogleMap picker.
@@ -385,9 +383,6 @@ didAutocompleteWithPlace:(GMSPlace *)place {
 //    self.marker.appearAnimation = kGMSMarkerAnimationPop;
 //    self.marker.icon = [UIImage imageNamed:@"face"];
 //    self.marker.map = self.mapView;
-    
-
-   
 
 }
 
@@ -425,9 +420,7 @@ didFailAutocompleteWithError:(NSError *)error {
 }
 
 #pragma method to update map with crime markers
--(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
-
-    
+-(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {    
     
     for (RUFICrimes *crime in crimeArray){
         GMSMarker *marker = [[GMSMarker alloc] init];
@@ -442,26 +435,6 @@ didFailAutocompleteWithError:(NSError *)error {
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-   
-    
-    /*
-    switch(segueName){
-        case 'settingsSegue' :
-            NSLog(@"settingSegue");
-            break;
-        case 'newSBSegue' :
-            NSLog(@"settingSegue");
-            break;
-            //PieChartDataViewController *pieChartVC = segue.destinationViewController;
-            //pieChartVC.transitionCoordinator =
-        case 'emergencySegue' :
-            NSLog(@"emergencySegue");
-            break;
-        default:
-            NSLog(@"another button");
-            
-    }*/
-   
 }
 
 #pragma mark - Transition to Size
