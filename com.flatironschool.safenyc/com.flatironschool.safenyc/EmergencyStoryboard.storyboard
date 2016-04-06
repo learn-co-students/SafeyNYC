@@ -16,7 +16,7 @@
                     <view key="view" contentMode="scaleToFill" id="AiQ-QN-wEb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Emegency" id="nSo-gW-Xq7">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="O4V-qH-lsI">
