@@ -117,11 +117,12 @@
         
         composeVC.messageComposeDelegate = self;
         //add recipients
-        composeVC.recipients = @[@"9176506024"];
+        composeVC.recipients = @[@"4159874354"];
         //BODY MESSAGE
         
         composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location";
         
+        NSLog(@"%f, %f", self.myCurrnetLatitude, self.myCurrnetLongitude);
         BOOL addedAttachment = [self addLocationAttachmentToComposeViewController:composeVC displayName:@"My Location" location:CLLocationCoordinate2DMake(self.myCurrnetLongitude, self.myCurrnetLatitude)];
         
         if(!addedAttachment) {

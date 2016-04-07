@@ -563,13 +563,16 @@ didFailAutocompleteWithError:(NSError *)error {
 #pragma mark - Navigation
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier]  isEqualToString: @"emergencySegue"]){
-        UINavigationController *emergencyVCNav = segue.destinationViewController;
-        RUFIEmergencyViewController *emergencyVC = emergencyVCNav.topViewController;
+        
+        RUFIEmergencyViewController *emergencyVC = (RUFIEmergencyViewController *)segue.destinationViewController;
+//        RUFIEmergencyViewController *root = emergencyVC.viewControllers.firstObject;
+    
         NSLog(@"%f",self.latitude);
         NSLog(@"%f", self.longitude);
         
-        emergencyVC.myCurrnetLatitude = (double) self.latitude;
-        emergencyVC.myCurrnetLongitude = (double) self.longitude;
+        emergencyVC.myCurrnetLongitude = (double)self.latitude;
+        emergencyVC.myCurrnetLatitude = (double)self.longitude;
+
     }
 }
 
