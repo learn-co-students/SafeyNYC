@@ -440,9 +440,10 @@ didFailAutocompleteWithError:(NSError *)error {
         
             if (finished) {
             
-                [self getClosestPoliceLocationDirections: store.policeLocationsArray startLatitude: 40.705597  startLongitude:-74.013991 WithCompletion:^(BOOL finished) {
+                [self getClosestPoliceLocationDirections: store.policeLocationsArray startLatitude: 40.705597  startLongitude: -74.013991 WithCompletion:^(BOOL finished) {
                     
                     if (finished) {
+                
                         NSLog(@"the map should have a damn location set on it!");
                         //call method to mark map with coordinates
                     }
@@ -450,10 +451,10 @@ didFailAutocompleteWithError:(NSError *)error {
         
         }
         
-        if (finished) {
-            
-            [self drawClosestPoliceLocationstartLat: 40.705475 startLng: -74.013993 WithPoliceLocation: store.policeLocationsArray];
-        }
+//        if (finished) {
+//            
+//            [self drawClosestPoliceLocationstartLat: 40.705475 startLng: -74.013993 WithPoliceLocation: store.policeLocationsArray];
+//        }
         
     }];
      
@@ -504,6 +505,10 @@ didFailAutocompleteWithError:(NSError *)error {
 -(void)drawClosestPoliceLocationstartLat:(double)latitude startLng:(double)longitude WithPoliceLocation:(NSArray *)policeLocationsArray{
     
     PoliceLocation *closestPoliceLocation = policeLocationsArray.firstObject;
+    
+    NSLog(@"address of closest station is :%@", closestPoliceLocation.locationAddress);
+    NSLog(@"name of closest station is :%@", closestPoliceLocation.locationName);
+
     
     //origin marker
     GMSMarker *marker = [[GMSMarker alloc]init];
@@ -681,8 +686,7 @@ didFailAutocompleteWithError:(NSError *)error {
         NSLog(@"Update Face Maker5: %lu", self.datastore.crimeDataArray.count);
     }
     
-
-
+    
     faceMarker.appearAnimation = kGMSMarkerAnimationPop;
     faceMarker.map = self.mapView;
     
