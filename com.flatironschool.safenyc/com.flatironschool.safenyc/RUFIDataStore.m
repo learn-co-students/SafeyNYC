@@ -31,7 +31,10 @@
         _userLatitude = [NSString new];
         _userLongitude = [NSString new];
         _distanceInMeters = [NSString new];
-        _yearsAgo = [NSString new];
+        _distanceInMiles = @".5";
+        _yearsAgo = @"2";
+//        _distanceInMiles = [NSString new];
+//        _yearsAgo = [NSString new];
     }
     return self;
 }

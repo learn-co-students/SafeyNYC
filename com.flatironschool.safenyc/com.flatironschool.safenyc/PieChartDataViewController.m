@@ -25,6 +25,11 @@
 @property (strong, nonatomic) IBOutlet GKBarGraph *barGraph;
 @property (strong, nonatomic) NSArray *labels;
 @property (strong, nonatomic) IBOutlet UIImageView *crimeSign;
+@property (strong, nonatomic) IBOutlet UILabel *inThePastLabel;
+@property (strong, nonatomic) IBOutlet UILabel *percentLabel;
+@property (strong, nonatomic) IBOutlet UILabel *totalNumberLabel;
+
+;
 
 @end
 
@@ -55,10 +60,8 @@
     self.infoButton.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
     self.infoButton.animateTap = YES;
     self.labels = @[@"M", @"FA", @"GL", @"B", @"R", @"RB", @"GMV"];
-    self.barGraph.barWidth = 20;
-    
-    self.barGraph.marginBar = 10;
-    self.barGraph.animationDuration = 1.0;
+
+    self.barGraph.animationDuration = 2.0;
     self.barGraph.barColor = [UIColor whiteColor];
     
     
@@ -83,6 +86,8 @@
 -(void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear: YES];
+    self.inThePastLabel.textColor = [UIColor lightGrayColor];
+    self.inThePastLabel.text = [NSString stringWithFormat:@"In the past %@ years there has been %lu felonies commited in the %@ mile radius from where you are standing.", self.dataStore.yearsAgo, (unsigned long)self.dataStore.crimeDataArray.count, self.dataStore.distanceInMiles];
     
     
     CGFloat chartSuperHeight = self.chartSuper.frame.size.height;
@@ -91,6 +96,12 @@
     self.chart.frame = CGRectMake(startingPoint, 0, chartSuperHeight, chartSuperHeight);
     
     self.barGraph.barHeight = self.barGraph.frame.size.height - 20;
+    
+    CGFloat barSize = self.barGraph.frame.size.width/13;
+    
+    self.barGraph.barWidth = barSize;
+    
+    self.barGraph.marginBar = barSize;
     
     self.chartValues = @[
                          @{@"name":@"MURDER & MANSLAUGHTER", @"value":[self convertValuetoNumber:self.dataStore.murderCount], @"color":@"E34045", @"image" : @"murderSign"},
@@ -124,6 +135,13 @@
     
     UIImage *crimeImage = [UIImage imageNamed:[self.chartValues objectAtIndex:index][@"image"]];
     [self.crimeSign setImage:crimeImage];
+    self.percentLabel.text = [NSString stringWithFormat:@"Percentage of incidents: %.1f%%", percentage];
+    self.totalNumberLabel.text = [NSString stringWithFormat:@"Total number of incidents: %@", [self.chartValues objectAtIndex:index][@"value"]];
+    
+    self.percentLabel.textColor = [self.colors objectAtIndex:index];
+    self.totalNumberLabel.textColor = [self.colors objectAtIndex:index];
+    
+    
 }
 
 -(NSNumber *)convertValuetoNumber:(NSUInteger) crimeCount {

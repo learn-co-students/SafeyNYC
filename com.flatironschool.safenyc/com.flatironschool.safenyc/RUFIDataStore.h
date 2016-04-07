@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSMutableArray *crimeDataArray;
 @property (strong, nonatomic) NSString *userLatitude;
 @property (strong, nonatomic) NSString *userLongitude;
+@property (strong, nonatomic) NSString *distanceInMiles;
 @property (strong, nonatomic) NSString *distanceInMeters;
 @property (strong, nonatomic) NSString *yearsAgo;
 @property (assign, nonatomic) NSUInteger grandLarcenyCount;
