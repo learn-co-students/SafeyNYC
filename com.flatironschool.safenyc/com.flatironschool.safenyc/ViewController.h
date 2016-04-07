@@ -23,6 +23,8 @@
 @property (strong, nonatomic) GMSMarker *marker;
 @property (strong, nonatomic) RUFIDataStore *datastore;
 @property (strong, nonatomic) UIActivityIndicatorView *activityView;
+@property (strong, nonatomic) GMSPolyline *policePolyline;
+@property (strong, nonatomic) GMSMarker *policeMarker;
 
 -(void)reloadViewAfterSettingsScreen:(NSNotification *)notification;
 

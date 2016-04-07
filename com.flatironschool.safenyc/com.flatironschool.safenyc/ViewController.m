@@ -60,7 +60,6 @@
 
     [super viewDidAppear:YES];
     [self updateCurrentMap];
-    [self updateMapWithPoliceLocation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -138,6 +137,8 @@
         [self updateCurrentMap];
         
     } else if (button == self.policeMapButton){
+        
+        [self updateMapWithPoliceLocation];
         
     } else if (button == self.emergencyButton){
         
@@ -409,8 +410,6 @@ didFailAutocompleteWithError:(NSError *)error {
 #pragma method to update map with crime markers
 -(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
 
-    
-    
     for (RUFICrimes *crime in crimeArray){
         GMSMarker *marker = [[GMSMarker alloc] init];
         marker.position = CLLocationCoordinate2DMake(crime.latitude, crime.longitude);
@@ -426,35 +425,25 @@ didFailAutocompleteWithError:(NSError *)error {
 -(void)updateMapWithPoliceLocation{
    
     PoliceDataStore *store = [PoliceDataStore sharedDataStore];
-    
-//https://maps.googleapis.com/maps/api/place/nearbysearch/json?&name=new+york+city+police+department&location=40.705597,-74.013991&rankby=distance&key=AIzaSyA3sVpYkTVZgOPiV-A0OkDQODMcnVvCYpg
-    
-//    https://maps.googleapis.com/maps/api/place/nearbysearch/json?name=New+York+City+Police+Department&location=40.705597,-74.013991&key=AIzaSyA3sVpYkTVZgOPiV-A0OkDQODMcnVvCYpg
-    
 //    40.705475, -74.013993
     
-    [store getPoliceLocationsLatitude: 40.705475 Longitude: -74.013993 WithCompletion:^(BOOL finished) {
+    [store getPoliceLocationsLatitude: self.latitude Longitude: self.longitude WithCompletion:^(BOOL finished) {
         
         //this calls the distance API which provides directions (with html tags) on how to get to the
         //police location
         
             if (finished) {
             
-                [self getClosestPoliceLocationDirections: store.policeLocationsArray startLatitude: 40.705597  startLongitude: -74.013991 WithCompletion:^(BOOL finished) {
+                [self getClosestPoliceLocationDirections: store.policeLocationsArray startLatitude: self.latitude  startLongitude: self.longitude WithCompletion:^(BOOL finished) {
                     
                     if (finished) {
                 
-                        NSLog(@"the map should have a damn location set on it!");
-                        //call method to mark map with coordinates
+                        NSLog(@"let's draw a line!!!!!!!!!!");
+                        
                     }
                 }];
         
         }
-        
-//        if (finished) {
-//            
-//            [self drawClosestPoliceLocationstartLat: 40.705475 startLng: -74.013993 WithPoliceLocation: store.policeLocationsArray];
-//        }
         
     }];
      
@@ -492,6 +481,11 @@ didFailAutocompleteWithError:(NSError *)error {
         
         NSLog(@"\n\n\nhere is the response from the directions API %@", responseObject);
         
+        GMSPath *path = [GMSPath pathFromEncodedPath: responseObject[@"routes"][0][@"overview_polyline"][@"points"]];
+        
+        [self drawClosetPoliceLocationWithPath: path startLat: latitude startLng:longitude DestinationLat: closestPoliceLocation.latitude DestinationLng: closestPoliceLocation.longitude]; 
+
+        
         completionBlock(YES);
         
 
@@ -502,39 +496,43 @@ didFailAutocompleteWithError:(NSError *)error {
     }];
 }
 
--(void)drawClosestPoliceLocationstartLat:(double)latitude startLng:(double)longitude WithPoliceLocation:(NSArray *)policeLocationsArray{
+-(void)drawClosetPoliceLocationWithPath:(GMSPath *)path
+                               startLat: (double) startLatitude
+                               startLng:(double)startLongitude
+                         DestinationLat:(double)endLatitude
+                         DestinationLng:(double)endLongitude{
     
-    PoliceLocation *closestPoliceLocation = policeLocationsArray.firstObject;
-    
-    NSLog(@"address of closest station is :%@", closestPoliceLocation.locationAddress);
-    NSLog(@"name of closest station is :%@", closestPoliceLocation.locationName);
+    if (self.policePolyline && self.policeMarker) {
+        
+        NSLog(@"cleared the map of the police line and its marker!!!!!");
+        [self removeClosetPoliceLocation];
+    }
 
+    self.policePolyline = [GMSPolyline polylineWithPath: path];
+    self.policePolyline.strokeColor = [UIColor colorWithRed:0.353 green:0.38 blue:0.659 alpha:1]; 
+    self.policePolyline.strokeWidth = 5.f;
+    self.policePolyline.map = self.mapView;
     
-    //origin marker
-    GMSMarker *marker = [[GMSMarker alloc]init];
-    marker.position = CLLocationCoordinate2DMake(closestPoliceLocation.latitude, closestPoliceLocation.longitude);
-//    marker.icon=[UIImage imageNamed:@"aaa.png"] ;
-    marker.groundAnchor = CGPointMake(0.5,0.5);
-    marker.map = self.mapView;
+   
+    self.policeMarker = [[GMSMarker alloc]init];
+    self.policeMarker.position = CLLocationCoordinate2DMake(endLatitude, endLongitude);
+    self.policeMarker.icon = [UIImage imageNamed:@"policeStation"] ;
+    self.policeMarker.groundAnchor = CGPointMake(0.5,0.5);
+    self.policeMarker.map = self.mapView;
     
-    //2nd marker for destination
-    GMSMarker *marker1 = [[GMSMarker alloc]init];
-    marker1.position = CLLocationCoordinate2DMake(latitude, longitude);
-    //    marker.icon=[UIImage imageNamed:@"aaa.png"] ;
-    marker1.groundAnchor = CGPointMake(0.5,0.5);
-    marker1.map = self.mapView;
-
-    
-    GMSMutablePath *path = [GMSMutablePath path];
-    //add destination coord to set marker
-    [path addCoordinate: CLLocationCoordinate2DMake(latitude, longitude)];
-    [path addCoordinate: CLLocationCoordinate2DMake(closestPoliceLocation.latitude, closestPoliceLocation.longitude)];
-//    [path addCoordinate:CLLocationCoordinate2DMake(@(16.7).doubleValue,@(73.8567).doubleValue)];
-    GMSPolyline *rectangle = [GMSPolyline polylineWithPath: path];
-    rectangle.strokeWidth = 2.f;
-    rectangle.map = self.mapView;
     [self animateMap];
+    
+
 }
+
+-(void)removeClosetPoliceLocation{
+    
+    [self.policePolyline setMap:nil];
+    [self.policeMarker setMap: nil];
+
+}
+
+
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
