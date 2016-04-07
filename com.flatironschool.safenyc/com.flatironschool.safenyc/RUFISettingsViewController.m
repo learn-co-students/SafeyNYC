@@ -9,6 +9,7 @@
 #import "RUFISettingsViewController.h"
 #import <DKCircleButton/DKCircleButton.h>
 #import "RUFIEmergencyViewController.h"
+#import "RUFIDataStore.h"
 
 
 @interface RUFISettingsViewController ()
@@ -23,6 +24,9 @@
 @property (strong, nonatomic) DKCircleButton *saveButton;
 @property (nonatomic) NSUInteger screenWidth;
 @property (nonatomic) NSUInteger screenHeight;
+@property (strong, nonatomic) RUFIDataStore *dataStore;
+@property (strong, nonatomic) NSDictionary *milesToMetersDictionary;
+@property (strong, nonatomic) NSDictionary *distanceValueDictionary;
 
 @end
 
@@ -30,9 +34,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.dataStore = [RUFIDataStore sharedDataStore];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.radiusArray = @[@"0.5", @"0.6", @"0.7", @"0.8", @"0.9 ", @"1.0", @"2.0 ", @"3.0 ", @"4.0", @"5.0"];
+    self.radiusArray = @[@"1/8", @"1/4", @"1/2", @"1", @"1.5", @"2", @"2.5", @"3"];
     self.yearsArray = @[@"5", @"4", @"3", @"2", @"1"];
+    self.milesToMetersDictionary = @{@"1/8" : @"201", @"1/4": @"402", @"1/2": @"804", @"1": @"1609", @"2": @"3219", @"3": @"4828", @"1.5": @"2414", @"2.5": @"4023"};
+    self.distanceValueDictionary = @{@"1/8" : @"1", @"1/4": @"2", @"1/2": @"4", @"1": @"8", @"2": @"16", @"3": @"24", @"1.5": @"12", @"2.5": @"20"};
     
     [self displayRadiusPicker];
     [self addChangeRadiusLabel];
@@ -175,6 +183,11 @@
         [self dismissViewControllerAnimated:YES completion:nil];
         
     } else if (button == self.saveButton){
+        
+        self.dataStore.distanceInMeters = self.milesToMetersDictionary[self.radius];
+        self.dataStore.yearsAgo = self.timePeriod;
+        self.dataStore.distanceInMiles = self.radius;
+        self.dataStore.distanceValue = self.distanceValueDictionary[self.radius];
         
         NSLog(@"Result==>  radius: %@,  time period: %@ ", self.radius, self.timePeriod);
         [self dismissViewControllerAnimated:YES completion:nil];

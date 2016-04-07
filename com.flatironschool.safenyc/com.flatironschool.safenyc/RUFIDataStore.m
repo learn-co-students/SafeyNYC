@@ -31,10 +31,9 @@
         _userLatitude = [NSString new];
         _userLongitude = [NSString new];
         _distanceInMeters = [NSString new];
-        _distanceInMiles = @".5";
-        _yearsAgo = @"2";
-//        _distanceInMiles = [NSString new];
-//        _yearsAgo = [NSString new];
+        _distanceInMiles = [NSString new];
+        _yearsAgo = [NSString new];
+        _distanceValue = [NSString new];
     }
     return self;
 }
@@ -46,11 +45,11 @@
     NSLog(@"AT DATA STORE %@", self.userLatitude);
     NSLog(@"AT DATA STORE %@", self.userLongitude);
     [self resetCountsToZero];
+    NSInteger yearInteger = [self convertYearStingToInt:self.yearsAgo];
     [self.crimeDataArray removeAllObjects];
     
-    [RUFICrimeDataAPI getCrimeDataFromLatitude:self.userLatitude longitude:self.userLongitude withCompletion:^(NSArray * crimeDictionaries) {
-        
-
+    [RUFICrimeDataAPI getCrimeDataFromLatitude:self.userLatitude longitude:self.userLongitude timePeriod:yearInteger distance:self.distanceInMeters withCompletion:^(NSArray * crimeDictionaries) {
+    
         for (NSDictionary *crimeSingleDictionary in crimeDictionaries) {
             [self checkCrimeType:crimeSingleDictionary];
             [self.crimeDataArray addObject:[RUFICrimes crimeFromDictionary:crimeSingleDictionary]];
@@ -116,6 +115,12 @@
     self.grandLarcenyMVCount = 0;
     self.felonyAssaultCount = 0;
     self.grandLarcenyCount = 0;
+    
+}
+
+-(NSUInteger)convertYearStingToInt:(NSString *)yearString {
+    
+    return [yearString integerValue];
     
 }
 

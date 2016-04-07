@@ -13,26 +13,30 @@
 
 @implementation RUFICrimeDataAPI
 
-+(void)getCrimeDataFromLatitude: (NSString *) latitude longitude: (NSString *) longitude withCompletion: (void (^)(NSArray *))completionBlock {
++(void)getCrimeDataFromLatitude: (NSString *) latitude longitude: (NSString *) longitude timePeriod: (NSInteger)years distance:(NSString *)radius withCompletion: (void (^)(NSArray *))completionBlock {
     
     
     NSLog(@"GETTING TO HERE");
     
     NSLog(@"LADITUDE IN API %@", latitude);
     NSLog(@"LONGITUDE IN API %@", longitude);
+    NSLog(@"LADITUDE IN Radius %@", radius);
+    NSLog(@"LONGITUDE IN Years %li", years);
 
     
     NSDate *now = [NSDate date];
     NSDateComponents *minusYears = [NSDateComponents new];
-    minusYears.year = -2;
+    minusYears.year = years * -1;
     NSDate *oneYearAgo = [[NSCalendar currentCalendar] dateByAddingComponents:minusYears
                                                                             toDate:now
                                                                            options:0];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
-    NSString *dateOneYearAgo = [formatter stringFromDate:oneYearAgo];
+    NSString *dateYearsAgo = [formatter stringFromDate:oneYearAgo];
     
-    NSString *cityDataUrl = [NSString stringWithFormat:@"https://data.cityofnewyork.us/resource/dvh8-u7es.json?%@&$where=occurrence_date>='%@T00:00:00' AND within_circle(location_1, %@, %@, 401)&$order=occurrence_date&$limit=2000", CITY_CRIME_APP_TOKEN, dateOneYearAgo, latitude, longitude];
+    NSLog(@"%@", dateYearsAgo);
+    
+    NSString *cityDataUrl = [NSString stringWithFormat:@"https://data.cityofnewyork.us/resource/dvh8-u7es.json?%@&$where=occurrence_date>='%@T00:00:00' AND within_circle(location_1, %@, %@, %@)&$order=occurrence_date&$limit=10000", CITY_CRIME_APP_TOKEN, dateYearsAgo, latitude, longitude, radius];
     
     NSString *cityDataUrLEncoded = [cityDataUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 
