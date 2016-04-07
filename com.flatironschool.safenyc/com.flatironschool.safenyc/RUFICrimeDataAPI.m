@@ -36,7 +36,7 @@
     
     NSLog(@"%@", dateYearsAgo);
     
-    NSString *cityDataUrl = [NSString stringWithFormat:@"https://data.cityofnewyork.us/resource/dvh8-u7es.json?%@&$where=occurrence_date>='%@T00:00:00' AND within_circle(location_1, %@, %@, %@)&$order=occurrence_date&$limit=10000", CITY_CRIME_APP_TOKEN, dateYearsAgo, latitude, longitude, radius];
+    NSString *cityDataUrl = [NSString stringWithFormat:@"https://data.cityofnewyork.us/resource/dvh8-u7es.json?%@&$where=occurrence_date>='%@T00:00:00' AND within_circle(location_1, %@, %@, %@)&$order=occurrence_date&$limit=50000", CITY_CRIME_APP_TOKEN, dateYearsAgo, latitude, longitude, radius];
     
     NSString *cityDataUrLEncoded = [cityDataUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 

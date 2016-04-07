@@ -58,7 +58,11 @@
 -(void)viewDidAppear:(BOOL)animated{
 
     [super viewDidAppear:YES];
-    [self animateMap];
+    
+    if (self.datastore.settingsChanged){
+        
+        [self updateMapAfterSetttingsChange];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -218,6 +222,9 @@
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
                         [self animateMap];
+                        
+
+
                         [self updateFaceMarker];
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
@@ -350,6 +357,8 @@
 -(void)animateMap{
 
     [self.mapView animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+    
+    [self.mapView animateToZoom:17];
 
 }
 
@@ -429,8 +438,9 @@ didFailAutocompleteWithError:(NSError *)error {
 
 #pragma method to update map with crime markers
 -(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {    
-    
+//    NSInteger countUp = 1;
     for (RUFICrimes *crime in crimeArray){
+        
         GMSMarker *marker = [[GMSMarker alloc] init];
         marker.position = CLLocationCoordinate2DMake(crime.latitude, crime.longitude);
         marker.icon = crime.googleMapsIcon;
@@ -438,6 +448,11 @@ didFailAutocompleteWithError:(NSError *)error {
         marker.title = crime.offense;
         marker.snippet = [NSString stringWithFormat:@"%@ - %@", crime.precinct, crime.date];
         marker.map = self.mapView;
+        
+//        NSLog(@"Count Up : %li", countUp);
+//        
+//        countUp += 1;
+    
     }
 }
 
@@ -588,5 +603,28 @@ didFailAutocompleteWithError:(NSError *)error {
 
     }
 }
+
+
+-(void)updateMapAfterSetttingsChange {
+    
+    [self.mapView clear];
+    
+    
+    NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
+    [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
+        [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
+        
+        [self animateMap];
+        
+        [self updateFaceMarker];
+        
+        self.datastore.settingsChanged = NO;
+    
+    }];
+    
+    
+}
+
+
 
 @end

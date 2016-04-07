@@ -37,10 +37,11 @@
     
     self.dataStore = [RUFIDataStore sharedDataStore];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.radiusArray = @[@"1/8", @"1/4", @"1/2", @"1", @"1.5", @"2", @"2.5", @"3"];
-    self.yearsArray = @[@"5", @"4", @"3", @"2", @"1"];
-    self.milesToMetersDictionary = @{@"1/8" : @"201", @"1/4": @"402", @"1/2": @"804", @"1": @"1609", @"2": @"3219", @"3": @"4828", @"1.5": @"2414", @"2.5": @"4023"};
-    self.distanceValueDictionary = @{@"1/8" : @"1", @"1/4": @"2", @"1/2": @"4", @"1": @"8", @"2": @"16", @"3": @"24", @"1.5": @"12", @"2.5": @"20"};
+
+    self.radiusArray = @[@"1/8", @"1/4", @"1/2", @"3/4", @"1"];
+    self.yearsArray = @[@"1", @"2"];
+    self.milesToMetersDictionary = @{@"1/8" : @"201", @"1/4": @"402", @"1/2": @"804", @"1": @"1609", @"3/4": @"1207"};
+    self.distanceValueDictionary = @{@"1/8" : @"1", @"1/4": @"2", @"1/2": @"4", @".75": @"6", @"1": @"8", };
     
     [self displayRadiusPicker];
     [self addChangeRadiusLabel];
@@ -68,6 +69,11 @@
     
     [self.picker setBackgroundColor:[UIColor whiteColor]];
     [self.picker setAlpha:0.5];
+    [self.picker selectRow:2 inComponent:0 animated:YES];
+    [self.picker selectRow:0 inComponent:1 animated:YES];
+    self.radius = @"1/2";
+    self.timePeriod = @"1";
+    
 }
 
 -(void)addChangeRadiusLabel{
@@ -113,14 +119,19 @@
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+
     if(component == 0){
         return self.radiusArray.count;
     } else {
         return self.yearsArray.count;
     }
+    
 }
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    
+    
+    
     if(component == 0){
         return self.radiusArray[row];
     } else {
@@ -129,9 +140,12 @@
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    
     if(component == 0){
+        
         self.radius = [self.radiusArray objectAtIndex:row];
     } else {
+        
         self.timePeriod = [self.yearsArray objectAtIndex:row];
     }
     
@@ -188,6 +202,7 @@
         self.dataStore.yearsAgo = self.timePeriod;
         self.dataStore.distanceInMiles = self.radius;
         self.dataStore.distanceValue = self.distanceValueDictionary[self.radius];
+        self.dataStore.settingsChanged = YES;
         
         NSLog(@"Result==>  radius: %@,  time period: %@ ", self.radius, self.timePeriod);
         [self dismissViewControllerAnimated:YES completion:nil];

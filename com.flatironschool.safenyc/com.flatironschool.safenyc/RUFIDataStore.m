@@ -34,6 +34,7 @@
         _distanceInMiles = [NSString new];
         _yearsAgo = [NSString new];
         _distanceValue = [NSString new];
+        _settingsChanged = NO;
     }
     return self;
 }
@@ -55,7 +56,7 @@
             [self.crimeDataArray addObject:[RUFICrimes crimeFromDictionary:crimeSingleDictionary]];
         }
         
-        NSLog(@"%@", self.crimeDataArray);
+//        NSLog(@"%@", self.crimeDataArray);
         completionBlock(YES);
     }];
 }
