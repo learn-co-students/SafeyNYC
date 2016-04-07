@@ -19,8 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vkq-cD-SQs">
-                                <rect key="frame" x="20" y="286" width="560" height="67"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vkq-cD-SQs">
+                                <rect key="frame" x="20" y="289" width="560" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="10g-Hd-04y"/>
                                 </constraints>
@@ -28,8 +28,8 @@
                             <view contentMode="scaleToFill" verticalHuggingPriority="247" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vvJ-2Y-Bzd">
                                 <rect key="frame" x="20" y="30" width="560" height="210"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Percentage of incidents:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6M-2n-AjR">
-                                <rect key="frame" x="20" y="358" width="560" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Percentage of incidents:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6M-2n-AjR">
+                                <rect key="frame" x="20" y="361" width="560" height="20"/>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -65,17 +65,17 @@
                                     <action selector="backButtonAction:" destination="2dL-jL-EPX" eventType="touchUpInside" id="4kp-sn-Kd1"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" horizontalHuggingPriority="253" verticalHuggingPriority="254" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38F-4j-4Xu" customClass="GKBarGraph">
-                                <rect key="frame" x="20" y="409" width="560" height="139"/>
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="253" verticalHuggingPriority="254" translatesAutoresizingMaskIntoConstraints="NO" id="38F-4j-4Xu" customClass="GKBarGraph">
+                                <rect key="frame" x="20" y="410" width="560" height="170"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="In the past % years there has been %%%%% felonies commited in the %%% mile raduis from where you are standing." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qw8-zf-H5F">
-                                <rect key="frame" x="20" y="229" width="560" height="47"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In the past % years there has been %%%%% felonies commited in the %%% mile raduis from where you are standing." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qw8-zf-H5F">
+                                <rect key="frame" x="20" y="245" width="560" height="34"/>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Total number of incidents:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jue-k3-d3u">
-                                <rect key="frame" x="20" y="380" width="560" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total number of incidents:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jue-k3-d3u">
+                                <rect key="frame" x="20" y="386" width="560" height="19"/>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -116,7 +116,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Pie Chart" id="o1M-6Y-kRF">
-                        <barButtonItem key="leftBarButtonItem" image="back" style="plain" id="B64-7L-Tt4"/>
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" image="back" style="done" id="B64-7L-Tt4"/>
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="Gog-MN-RmE" id="tRR-s5-QrQ"/>
@@ -160,7 +160,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back" width="45" height="45"/>
-        <image name="info" width="45" height="45"/>
+        <image name="back" width="89" height="89"/>
+        <image name="info" width="89" height="89"/>
     </resources>
 </document>

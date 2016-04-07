@@ -383,7 +383,7 @@ didAutocompleteWithPlace:(GMSPlace *)place {
 - (void)viewController:(GMSAutocompleteViewController *)viewController
 didFailAutocompleteWithError:(NSError *)error {
     // TODO: handle the error.
-    NSLog(@"error: %ld", [error code]);
+    NSLog(@"error: %li", [error code]);
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
