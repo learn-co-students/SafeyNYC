@@ -9,7 +9,6 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <DKCircleButton/DKCircleButton.h>
 #import "PieChartDataViewController.h"
-#import "RUFIEmergencyViewController.h"
 #import "RUFISettingsViewController.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 
@@ -37,9 +36,6 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
-//    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-//    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
-//    [[UINavigationBar appearance] setTranslucent:YES];
 
     self.datastore = [RUFIDataStore sharedDataStore];
 
@@ -51,8 +47,6 @@
     [self createMapWithCoordinates];
     [self updateCurrentMap];
     [self setUpButtons];
-    
-
 
 }
 
@@ -86,7 +80,7 @@
         button.titleLabel.font = [UIFont systemFontOfSize:22];
         button.backgroundColor = [UIColor whiteColor];
         button.borderColor = [UIColor grayColor];
-        button.alpha = 1.0;
+        button.alpha = 0.8;
         
         UIImage *image = [UIImage new];
         if(button == self.searchButton){
@@ -169,7 +163,6 @@
                 [self createMapWithCoordinates];
             }
         }];
-        
        
     }];
     
@@ -341,11 +334,9 @@
 }
 
 -(void)animateMap{
-    [self.mapView animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
-    
 
-    
-    
+    [self.mapView animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+
 }
 
 // Handle the user's selection. GoogleMap picker.
@@ -386,9 +377,6 @@ didAutocompleteWithPlace:(GMSPlace *)place {
 //    self.marker.appearAnimation = kGMSMarkerAnimationPop;
 //    self.marker.icon = [UIImage imageNamed:@"face"];
 //    self.marker.map = self.mapView;
-    
-
-   
 
 }
 
@@ -426,9 +414,7 @@ didFailAutocompleteWithError:(NSError *)error {
 }
 
 #pragma method to update map with crime markers
--(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
-
-    
+-(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {    
     
     for (RUFICrimes *crime in crimeArray){
         GMSMarker *marker = [[GMSMarker alloc] init];
@@ -439,30 +425,6 @@ didFailAutocompleteWithError:(NSError *)error {
         marker.snippet = [NSString stringWithFormat:@"%@ - %@", crime.precinct, crime.date];
         marker.map = self.mapView;
     }
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-   
-    
-    /*
-    switch(segueName){
-        case 'settingsSegue' :
-            NSLog(@"settingSegue");
-            break;
-        case 'newSBSegue' :
-            NSLog(@"settingSegue");
-            break;
-            //PieChartDataViewController *pieChartVC = segue.destinationViewController;
-            //pieChartVC.transitionCoordinator =
-        case 'emergencySegue' :
-            NSLog(@"emergencySegue");
-            break;
-        default:
-            NSLog(@"another button");
-            
-    }*/
-   
 }
 
 #pragma mark - Transition to Size
@@ -596,6 +558,19 @@ didFailAutocompleteWithError:(NSError *)error {
     faceMarker.appearAnimation = kGMSMarkerAnimationPop;
     faceMarker.map = self.mapView;
     
+}
+
+#pragma mark - Navigation
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier]  isEqualToString: @"emergencySegue"]){
+        UINavigationController *emergencyVCNav = segue.destinationViewController;
+        RUFIEmergencyViewController *emergencyVC = emergencyVCNav.topViewController;
+        NSLog(@"%f",self.latitude);
+        NSLog(@"%f", self.longitude);
+        
+        emergencyVC.myCurrnetLatitude = (double) self.latitude;
+        emergencyVC.myCurrnetLongitude = (double) self.longitude;
+    }
 }
 
 @end

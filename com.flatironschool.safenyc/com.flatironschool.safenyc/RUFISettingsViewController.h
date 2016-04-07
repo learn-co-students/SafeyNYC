@@ -11,5 +11,6 @@
 @interface RUFISettingsViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (strong, nonatomic) NSString *radius;
+@property (strong, nonatomic) NSString *timePeriod;
 
 @end
