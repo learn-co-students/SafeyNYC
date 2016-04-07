@@ -26,6 +26,13 @@
                                     <action selector="addItem:" destination="oe8-Ix-gWa" eventType="touchUpInside" id="9Ud-Yi-u5w"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hxz-Pp-F4S">
+                                <rect key="frame" x="118" y="210" width="36" height="30"/>
+                                <state key="normal" title="Send"/>
+                                <connections>
+                                    <action selector="sendMsgButtonTapped:" destination="oe8-Ix-gWa" eventType="touchUpInside" id="BcG-5f-Trc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *contactButton4;
 @property (weak, nonatomic) IBOutlet UIButton *contactButton5;
 @property (weak, nonatomic) IBOutlet UIButton *contactButton6;
+//@property (nonatomic, strong) NSString *contact1Phone;
 
 @end
 
@@ -52,6 +53,9 @@
     [self presentViewController:picker animated:YES completion:nil];
     
 }
+//- (IBAction)sendMsgButtonTapped:(id)sender {
+//    
+//}
 
 -(void)contactPicker:(CNContactPickerViewController *)picker didSelectContactProperty:(CNContactProperty *)contactProperty{
     // because this method is implemented, the picker will dismiss itself after this happens
@@ -68,7 +72,7 @@
         // set the button to show the image and disable it
         if (contactProperty.contact.thumbnailImageData == nil) {
             NSMutableString *initals = [NSMutableString string];
-            NSString *fullName = [NSString stringWithFormat:@"%@ %@", contactProperty.contact.givenName, contactProperty.contact.familyName];
+            NSString *fullName = [NSString stringWithFormat:@"%@ %@ %@ %@", contactProperty.contact.givenName, contactProperty.contact.middleName, contactProperty.contact.nameSuffix, contactProperty.contact.familyName];
             NSArray *characters = [fullName componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
             for (NSString * character in characters) {
                 if ([character length] > 0) {
