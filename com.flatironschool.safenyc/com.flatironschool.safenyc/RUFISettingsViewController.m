@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSArray *yearsArray;
 @property (strong, nonatomic) UILabel *changeRadiusLabel;
 @property (strong, nonatomic) UILabel *milesLabel;
+@property (strong, nonatomic) UILabel *yearLabel;
 @property (strong, nonatomic) UILabel *changeYearLabel;
 @property (strong, nonatomic) DKCircleButton *backButton;
 @property (strong, nonatomic) DKCircleButton *saveButton;
@@ -31,7 +32,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.radiusArray = @[@"0.5", @"0.6", @"0.7", @"0.8", @"0.9 ", @"1.0", @"2.0 ", @"3.0 ", @"4.0", @"5.0"];
-    self.yearsArray = @[@"All data", @"2016", @"2015", @"2014", @"2013", @"2012", @"2011", @"2010"];
+    self.yearsArray = @[@"5", @"4", @"3", @"2", @"1"];
     
     [self displayRadiusPicker];
     [self addChangeRadiusLabel];
@@ -73,7 +74,7 @@
 -(void)addMilesLabel{
     self.milesLabel = [[UILabel alloc] init];
     [self.view addSubview:self.milesLabel];
-    self.milesLabel.text = @"miles";
+    self.milesLabel.text = @"mile(s)";
     self.milesLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self.milesLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:170].active = YES;
     [self.milesLabel.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant:130].active = YES;
@@ -82,10 +83,21 @@
 -(void)addChangeYearLabel{
     self.changeYearLabel = [[UILabel alloc] init];
     [self.view addSubview:self.changeYearLabel];
-    self.changeYearLabel.text = @"Year:";
+    self.changeYearLabel.text = @"Period of Time:";
     self.changeYearLabel.translatesAutoresizingMaskIntoConstraints = NO;
     [self.changeYearLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:70].active = YES;
-    [self.changeYearLabel.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant:-70].active = YES;
+    [self.changeYearLabel.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant:-20].active = YES;
+    
+    [self addYearLabel];
+}
+
+-(void)addYearLabel{
+    self.milesLabel = [[UILabel alloc] init];
+    [self.view addSubview:self.milesLabel];
+    self.milesLabel.text = @"year(s)";
+    self.milesLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.milesLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:170].active = YES;
+    [self.milesLabel.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant:-20].active = YES;
 }
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
