@@ -24,6 +24,7 @@
 @property (strong, nonatomic) DKCircleButton *policeMapButton;
 @property (strong, nonatomic) DKCircleButton *emergencyButton;
 @property (strong, nonatomic) DKCircleButton *pieChartButton;
+@property (strong, nonatomic) DKCircleButton *dissmissPoliceMapButton;
 @property (nonatomic) NSUInteger widthConstrain;
 @property (nonatomic) NSUInteger heightConstrain;
 
@@ -71,8 +72,9 @@
     self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 215, 47, 47)];
     self.pieChartButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 275, 47, 47)];
     self.settingsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 335, 47, 47)];
+    self.dissmissPoliceMapButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, self.heightConstrain, 47, 47)];
     
-    NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton];
+    NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton, self.dissmissPoliceMapButton];
     
     for (DKCircleButton *button in buttons) {
 
@@ -80,7 +82,7 @@
         button.titleLabel.font = [UIFont systemFontOfSize:22];
         button.backgroundColor = [UIColor whiteColor];
         button.borderColor = [UIColor grayColor];
-        button.alpha = 0.8;
+        button.alpha = 1;
         
         UIImage *image = [UIImage new];
         if(button == self.searchButton){
@@ -101,12 +103,16 @@
         } else if (button == self.pieChartButton){
             image = [UIImage imageNamed:@"pieChart.png"];
             
+        } else if (button == self.dissmissPoliceMapButton){
+            image = [UIImage imageNamed:@"dissmissPoliceMap"];
+            
         }
         button.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
         [button setImage:image forState:UIControlStateNormal];
         [button setContentMode:UIViewContentModeScaleAspectFit];
 
         button.animateTap = NO;
+        self.dissmissPoliceMapButton.hidden = YES;
         [button addTarget:self action:@selector(pressedButton:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
@@ -126,13 +132,13 @@
 
         
     } else if (button == self.currentLocationButton){
-        [self.mapView clear];
         
+        [self.mapView clear];
         [self updateCurrentMap];
         
-
-        
     } else if (button == self.policeMapButton){
+        
+        self.dissmissPoliceMapButton.hidden = NO;
         
     } else if (button == self.emergencyButton){
         
@@ -142,6 +148,10 @@
     } else if (button == self.pieChartButton){
         
         [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
+        
+    } else if (button == self.dissmissPoliceMapButton){
+        
+        self.dissmissPoliceMapButton.hidden = YES;
         
     }
 }
@@ -440,6 +450,7 @@ didFailAutocompleteWithError:(NSError *)error {
             self.emergencyButton.frame = CGRectMake(self.widthConstrain, 200, 47, 47);
             self.pieChartButton.frame = CGRectMake(self.widthConstrain, 260, 47, 47);
             self.settingsButton.frame = CGRectMake(self.widthConstrain, 320, 47, 47);
+            self.dissmissPoliceMapButton.frame = CGRectMake(self.widthConstrain, self.heightConstrain, 47, 47);
         } else if (isLandscape) {
             self.searchButton.frame = CGRectMake(self.heightConstrain, 20, 47, 47);
             self.settingsButton.frame = CGRectMake(self.heightConstrain, 80, 47, 47);
@@ -447,6 +458,7 @@ didFailAutocompleteWithError:(NSError *)error {
             self.policeMapButton.frame = CGRectMake(self.heightConstrain, 200, 47, 47);
             self.emergencyButton.frame = CGRectMake(self.heightConstrain, 260, 47, 47);
             self.pieChartButton.frame = CGRectMake(self.heightConstrain, 320, 47, 47);
+            self.dissmissPoliceMapButton.frame = CGRectMake(10, self.widthConstrain, 47, 47);
         }
         [self.view layoutIfNeeded];
     }];
@@ -563,13 +575,13 @@ didFailAutocompleteWithError:(NSError *)error {
 #pragma mark - Navigation
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier]  isEqualToString: @"emergencySegue"]){
-        UINavigationController *emergencyVCNav = segue.destinationViewController;
-        RUFIEmergencyViewController *emergencyVC = emergencyVCNav.topViewController;
-        NSLog(@"%f",self.latitude);
-        NSLog(@"%f", self.longitude);
         
-        emergencyVC.myCurrnetLatitude = (double) self.latitude;
-        emergencyVC.myCurrnetLongitude = (double) self.longitude;
+        RUFIEmergencyViewController *emergencyVC = (RUFIEmergencyViewController *)segue.destinationViewController;
+//        RUFIEmergencyViewController *root = emergencyVC.viewControllers.firstObject;
+        
+        emergencyVC.myCurrnetLongitude = (double)self.latitude;
+        emergencyVC.myCurrnetLatitude = (double)self.longitude;
+
     }
 }
 

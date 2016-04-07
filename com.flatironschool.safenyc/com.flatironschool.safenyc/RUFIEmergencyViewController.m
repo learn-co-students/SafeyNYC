@@ -26,6 +26,7 @@
 @property (strong, nonatomic) DKCircleButton *backButton;
 @property (strong, nonatomic) DKCircleButton *addFriendsButton;
 @property (strong, nonatomic) UITextField *holdUntillTextField;
+@property (strong, nonatomic) CNMutableContact *contact1;
 
 
 @end
@@ -55,8 +56,8 @@
     self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-155, self.heightOfTheScreen/2+75, 50, 50)];
     self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(100, self.heightOfTheScreen/2+75, 50, 50)];
     self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(50, self.heightOfTheScreen/2-25, 50, 50)];
-    self.backButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height-60, 50, 50)];
-    self.addFriendsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, self.heightOfTheScreen-60, 50, 50)];
+    self.backButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 30, 50, 50)];
+    self.addFriendsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 90, 50, 50)];
     NSArray *buttons = @[self.emergencyButton, self.person1, self.person2, self.person3, self.person4, self.person5, self.person6, self.backButton, self.addFriendsButton];
     for(DKCircleButton *button in buttons){
         [self.view addSubview:button];
@@ -84,9 +85,9 @@
             //button.borderColor = [UIColor grayColor];
             UIImage *image = [UIImage new];
             image = [UIImage imageNamed:@"addFriend"];
-            button.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 0, 5);
+            button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
             [button setImage:image forState:UIControlStateNormal];
-            [button setContentMode:UIViewContentModeScaleAspectFit];
+            [button setContentMode:UIViewContentModeScaleAspectFill];
             button.alpha = 1;
             
         } else {
@@ -117,11 +118,12 @@
         
         composeVC.messageComposeDelegate = self;
         //add recipients
-        composeVC.recipients = @[@"9176506024"];
+        composeVC.recipients = @[@"4159874354"];
         //BODY MESSAGE
         
         composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location";
         
+        NSLog(@"%f, %f", self.myCurrnetLatitude, self.myCurrnetLongitude);
         BOOL addedAttachment = [self addLocationAttachmentToComposeViewController:composeVC displayName:@"My Location" location:CLLocationCoordinate2DMake(self.myCurrnetLongitude, self.myCurrnetLatitude)];
         
         if(!addedAttachment) {
@@ -176,12 +178,25 @@
     picker.delegate = self;
     picker.predicateForEnablingContact = [NSPredicate predicateWithFormat:@"phoneNumbers.@count > 0"];
     [self presentViewController:picker animated:YES completion:nil];
+    picker.displayedPropertyKeys = @[@[CNContactImageDataKey], @[CNContactGivenNameKey], @[CNContactFamilyNameKey], @[CNLabelPhoneNumberMain]];
+}
+
+- (void) contactPickerDidCancel: (CNContactPickerViewController *) picker {
+    
+    NSLog(@"contactPickerDidCancel");
+}
+
+- (void) contactPicker: (CNContactPickerViewController *) picker
+      didSelectContact: (CNContact *) contact {
+   
+    NSLog(@"didSelectContact");
+    
 }
 
 
 
 -(void) displayHoldUntillTextField {
-    self.holdUntillTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.widthOfTheScreen/2-130, 70, 300, 20)];
+    self.holdUntillTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.widthOfTheScreen/2-130, 72, 300, 20)];
     [self.view addSubview:self.holdUntillTextField];
     self.holdUntillTextField.text = @"Hold Red Button Untill Safe!";
     self.holdUntillTextField.font = [UIFont systemFontOfSize:22];
@@ -203,8 +218,8 @@
             self.person3.frame = CGRectMake(self.widthOfTheScreen-100, self.heightOfTheScreen/2-25, 50, 50);
             
             self.person6.frame = CGRectMake(50,self.heightOfTheScreen/2-25, 50, 50);
-            self.backButton.frame = CGRectMake(10, self.heightOfTheScreen-60, 50, 50);
-            self.addFriendsButton.frame = CGRectMake(self.widthOfTheScreen-60, self.heightOfTheScreen-60, 50, 50);
+            self.backButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
+            self.addFriendsButton.frame = CGRectMake(self.widthOfTheScreen-60, 90, 50, 50);
             
         } else if (isLandscape) {
            
@@ -212,8 +227,8 @@
             
             self.person3.frame = CGRectMake(self.view.frame.size.height/4*3-50, self.view.frame.size.width/2-25, 50, 50);
             self.person6.frame = CGRectMake(self.view.frame.size.height/4, self.view.frame.size.width/2-25 , 50, 50);
-            self.backButton.frame = CGRectMake(10, self.widthOfTheScreen-60, 50, 50);
-            self.addFriendsButton.frame = CGRectMake(self.heightOfTheScreen-60, self.widthOfTheScreen-60, 50, 50);
+            self.backButton.frame = CGRectMake(self.heightOfTheScreen-60, 30, 50, 50);
+            self.addFriendsButton.frame = CGRectMake(self.heightOfTheScreen-60, 90, 50, 50);
 
         }
         [self.view layoutIfNeeded];
