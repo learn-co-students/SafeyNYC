@@ -172,10 +172,9 @@
             
         } else if (button == self.saveButton) {
             
-            button.backgroundColor = [UIColor greenColor];
+            button.backgroundColor = [UIColor clearColor];
             UIImage *image = [UIImage new];
-            image = [UIImage imageNamed:@"save"];
-            button.imageEdgeInsets = UIEdgeInsetsMake(3, 4, -7, 3);
+            image = [UIImage imageNamed:@"ok"];
             [button setImage:image forState:UIControlStateNormal];
             [button setContentMode:UIViewContentModeScaleAspectFit];
             button.alpha = 1;

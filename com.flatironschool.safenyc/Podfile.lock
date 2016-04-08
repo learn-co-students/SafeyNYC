@@ -29,16 +29,21 @@ DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - DKCircleButton (~> 1.1)
   - GoogleMaps (~> 1.13.0)
-  - GraphKit (~> 1.1)
+  - GraphKit (from `https://github.com/rtaraboo/GraphKit.git`)
   - INTULocationManager
   - THContactPicker (~> 2.0)
   - VBPieChart (from `https://github.com/rtaraboo/VBPieChart.git`)
 
 EXTERNAL SOURCES:
+  GraphKit:
+    :git: https://github.com/rtaraboo/GraphKit.git
   VBPieChart:
     :git: https://github.com/rtaraboo/VBPieChart.git
 
 CHECKOUT OPTIONS:
+  GraphKit:
+    :commit: 7281f3abc7357f7a8d38251624fb82cf193b19f4
+    :git: https://github.com/rtaraboo/GraphKit.git
   VBPieChart:
     :commit: e3d836ff555ec3c4f79e1733fc3bc9306d440bc3
     :git: https://github.com/rtaraboo/VBPieChart.git

@@ -120,7 +120,7 @@
             image = [UIImage imageNamed:@"pieChart.png"];
             
         } else if (button == self.dissmissPoliceMapButton){
-            image = [UIImage imageNamed:@"dissmissPoliceMap"];
+            image = [UIImage imageNamed:@"cancel"];
             
         }
         button.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);

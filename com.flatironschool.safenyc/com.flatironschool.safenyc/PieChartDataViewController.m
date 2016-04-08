@@ -63,6 +63,7 @@
 
     self.barGraph.animationDuration = 2.0;
     self.barGraph.barColor = [UIColor whiteColor];
+
     
     
     self.colors = @[[UIColor colorWithRed:0.89 green:0.251 blue:0.271 alpha:1],
@@ -86,7 +87,9 @@
 -(void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear: YES];
-    self.inThePastLabel.textColor = [UIColor lightGrayColor];
+    self.inThePastLabel.textColor = [UIColor darkGrayColor];
+    self.inThePastLabel.shadowColor = [UIColor whiteColor];
+    self.inThePastLabel.shadowOffset = CGSizeMake(0, -1);
     self.inThePastLabel.text = [NSString stringWithFormat:@"In the past %@ year(s) there has been %lu felonies commited in the %@ mile radius from where you are standing.", self.dataStore.yearsAgo, (unsigned long)self.dataStore.crimeDataArray.count, self.dataStore.distanceInMiles];
     
     
@@ -138,8 +141,12 @@
     self.percentLabel.text = [NSString stringWithFormat:@"Percentage of incidents: %.1f%%", percentage];
     self.totalNumberLabel.text = [NSString stringWithFormat:@"Total number of incidents: %@", [self.chartValues objectAtIndex:index][@"value"]];
     
-    self.percentLabel.textColor = [self.colors objectAtIndex:index];
-    self.totalNumberLabel.textColor = [self.colors objectAtIndex:index];
+    self.percentLabel.textColor = [UIColor darkGrayColor];
+    self.percentLabel.shadowColor = [UIColor whiteColor];
+    self.percentLabel.shadowOffset = CGSizeMake(0, -1);
+    self.totalNumberLabel.textColor = [UIColor darkGrayColor];
+    self.totalNumberLabel.shadowColor = [UIColor whiteColor];
+    self.totalNumberLabel.shadowOffset = CGSizeMake(0, -1);
     
     
 }
@@ -224,9 +231,9 @@
 
 - (UIColor *)colorForBarBackgroundAtIndex:(NSInteger)index {
     
-    NSArray *whiteColor = @[[UIColor whiteColor], [UIColor whiteColor],[UIColor whiteColor],[UIColor whiteColor],[UIColor whiteColor],[UIColor whiteColor],[UIColor whiteColor]];
+    NSArray *clearColor = @[[UIColor clearColor], [UIColor clearColor],[UIColor clearColor],[UIColor clearColor],[UIColor clearColor],[UIColor clearColor],[UIColor clearColor]];
     
-    return [whiteColor objectAtIndex:index];
+    return [clearColor objectAtIndex:index];
     
 }
 
