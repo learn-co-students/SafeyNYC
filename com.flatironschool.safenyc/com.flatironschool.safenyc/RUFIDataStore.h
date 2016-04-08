@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSString *userLongitude;
 @property (strong, nonatomic) NSString *distanceInMiles;
 @property (strong, nonatomic) NSString *distanceInMeters;
+@property (strong, nonatomic) NSString *distanceValue;
 @property (strong, nonatomic) NSString *yearsAgo;
 @property (assign, nonatomic) NSUInteger grandLarcenyCount;
 @property (assign, nonatomic) NSUInteger felonyAssaultCount;
@@ -24,6 +25,7 @@
 @property (assign, nonatomic) NSUInteger robberyCount;
 @property (assign, nonatomic) NSUInteger grandLarcenyMVCount;
 @property (assign, nonatomic) NSUInteger burglaryCount;
+@property (nonatomic, assign) BOOL settingsChanged;
 + (instancetype)sharedDataStore;
 
 -(void)getCrimeDataWithCompletion:(void (^)(BOOL finished))completionBlock;

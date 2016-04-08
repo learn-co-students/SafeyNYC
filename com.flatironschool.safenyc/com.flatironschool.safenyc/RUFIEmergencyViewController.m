@@ -39,6 +39,8 @@
 @property (nonatomic) BOOL isContactePicked;
 @property (strong, nonatomic) MFMessageComposeViewController *composeVC;
 
+
+
 @end
 
 @implementation RUFIEmergencyViewController
