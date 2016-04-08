@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rEJ-xT-fIS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2dL-jL-EPX">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -19,6 +19,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="SxT-pS-yZs">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vkq-cD-SQs">
                                 <rect key="frame" x="20" y="289" width="560" height="67"/>
                                 <constraints>
@@ -31,7 +34,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Percentage of incidents:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6M-2n-AjR">
                                 <rect key="frame" x="20" y="361" width="560" height="20"/>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6c2-kU-Z1i" customClass="DKCircleButton">
@@ -50,8 +53,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="10" id="2hj-aT-AIt"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="9"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="10"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gog-MN-RmE" customClass="DKCircleButton">
@@ -71,18 +73,19 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In the past % years there has been %%%%% felonies commited in the %%% mile raduis from where you are standing." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qw8-zf-H5F">
                                 <rect key="frame" x="20" y="245" width="560" height="34"/>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total number of incidents:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jue-k3-d3u">
                                 <rect key="frame" x="20" y="386" width="560" height="19"/>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="SxT-pS-yZs" secondAttribute="trailing" constant="-20" id="1Xg-2d-gpS"/>
                             <constraint firstItem="jue-k3-d3u" firstAttribute="top" secondItem="v6M-2n-AjR" secondAttribute="bottom" constant="5" id="34j-3p-myD"/>
                             <constraint firstItem="Gog-MN-RmE" firstAttribute="trailing" secondItem="1y5-0N-4L2" secondAttribute="trailingMargin" id="4dD-xH-jEH"/>
                             <constraint firstItem="Vkq-cD-SQs" firstAttribute="top" secondItem="Qw8-zf-H5F" secondAttribute="bottom" constant="10" id="9Ap-Kk-9N1"/>
@@ -99,16 +102,19 @@
                             <constraint firstItem="Vkq-cD-SQs" firstAttribute="leading" secondItem="1y5-0N-4L2" secondAttribute="leadingMargin" id="Tlz-EG-D09"/>
                             <constraint firstItem="38F-4j-4Xu" firstAttribute="trailing" secondItem="1y5-0N-4L2" secondAttribute="trailingMargin" id="U1m-Zg-hUc"/>
                             <constraint firstItem="6c2-kU-Z1i" firstAttribute="trailing" secondItem="1y5-0N-4L2" secondAttribute="trailingMargin" id="Uy6-9L-fSY"/>
+                            <constraint firstItem="6X2-A6-z1n" firstAttribute="top" secondItem="SxT-pS-yZs" secondAttribute="bottom" id="WAa-Yc-J9Q"/>
                             <constraint firstItem="cOj-6Y-z5h" firstAttribute="trailing" secondItem="1y5-0N-4L2" secondAttribute="trailingMargin" id="WfM-4G-9Vb"/>
                             <constraint firstItem="jue-k3-d3u" firstAttribute="leading" secondItem="1y5-0N-4L2" secondAttribute="leadingMargin" id="bDK-yB-YJ9"/>
                             <constraint firstItem="cOj-6Y-z5h" firstAttribute="top" secondItem="sVs-FM-6jo" secondAttribute="bottom" id="cGt-Sl-eei"/>
                             <constraint firstItem="v6M-2n-AjR" firstAttribute="leading" secondItem="1y5-0N-4L2" secondAttribute="leadingMargin" id="dPG-vz-NGm"/>
                             <constraint firstItem="38F-4j-4Xu" firstAttribute="leading" secondItem="1y5-0N-4L2" secondAttribute="leadingMargin" id="dT9-Xk-u64"/>
+                            <constraint firstItem="SxT-pS-yZs" firstAttribute="leading" secondItem="1y5-0N-4L2" secondAttribute="leadingMargin" constant="-20" id="eO6-86-LDW"/>
                             <constraint firstItem="vvJ-2Y-Bzd" firstAttribute="leading" secondItem="1y5-0N-4L2" secondAttribute="leadingMargin" id="f9v-oC-JS6"/>
                             <constraint firstItem="Gog-MN-RmE" firstAttribute="top" secondItem="sVs-FM-6jo" secondAttribute="bottom" constant="15" id="fgE-Qz-AES"/>
                             <constraint firstItem="cOj-6Y-z5h" firstAttribute="leading" secondItem="1y5-0N-4L2" secondAttribute="leadingMargin" id="g7C-m5-DuV"/>
                             <constraint firstItem="vvJ-2Y-Bzd" firstAttribute="height" secondItem="1y5-0N-4L2" secondAttribute="height" multiplier="0.35" id="nE1-1O-GF5"/>
                             <constraint firstItem="38F-4j-4Xu" firstAttribute="top" secondItem="jue-k3-d3u" secondAttribute="bottom" constant="5" id="oW4-dL-kfm"/>
+                            <constraint firstItem="SxT-pS-yZs" firstAttribute="top" secondItem="1y5-0N-4L2" secondAttribute="topMargin" id="oed-Nr-7rS"/>
                             <constraint firstItem="cOj-6Y-z5h" firstAttribute="top" secondItem="sVs-FM-6jo" secondAttribute="bottom" id="orH-en-Ymk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cOj-6Y-z5h" secondAttribute="trailing" id="rGg-T6-Ez0"/>
                             <constraint firstItem="cOj-6Y-z5h" firstAttribute="leading" secondItem="1y5-0N-4L2" secondAttribute="leadingMargin" id="tN5-pD-8PL"/>
@@ -133,6 +139,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MqM-UX-wCp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1652" y="251"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Jy4-PB-XGM">
+            <objects>
+                <viewController id="uhM-D6-s79" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NIJ-Xb-yTv"/>
+                        <viewControllerLayoutGuide type="bottom" id="vMd-Ys-O0c"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7a6-3m-c2a">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Vs3-uZ-QD9">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Vs3-uZ-QD9" firstAttribute="leading" secondItem="7a6-3m-c2a" secondAttribute="leadingMargin" constant="-20" id="1cd-1W-6EW"/>
+                            <constraint firstItem="vMd-Ys-O0c" firstAttribute="top" secondItem="Vs3-uZ-QD9" secondAttribute="bottom" id="8yv-QN-dST"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Vs3-uZ-QD9" secondAttribute="trailing" constant="-20" id="O4e-Rz-Hky"/>
+                            <constraint firstItem="Vs3-uZ-QD9" firstAttribute="top" secondItem="7a6-3m-c2a" secondAttribute="topMargin" id="uOG-DO-cmI"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QWX-wC-Btq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2762" y="231"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="w1U-dl-ynk">
@@ -161,6 +196,7 @@
     </scenes>
     <resources>
         <image name="back" width="89" height="89"/>
+        <image name="background" width="1080" height="1920"/>
         <image name="info" width="89" height="89"/>
     </resources>
 </document>
