@@ -541,7 +541,7 @@ didFailAutocompleteWithError:(NSError *)error {
     self.policeMarker.groundAnchor = CGPointMake(0.5,0.5);
     self.policeMarker.map = self.mapView;
     
-
+//    [self.mapView animateToLocation: CLLocationCoordinate2DMake(endLatitude, endLongitude)];
 //    [self zoomOnPoliceLocationBackToCurrentLocationWithPath: path];
     
     [self zoomOnPoliceLocation: CLLocationCoordinate2DMake(endLatitude, endLongitude)];
@@ -601,11 +601,11 @@ didFailAutocompleteWithError:(NSError *)error {
     if (![bounds containsCoordinate: policeLocation]){
         GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
                                                                 longitude: self.longitude
-                                                                     zoom: 15];
+                                                                     zoom: 16];
         [self.mapView animateToCameraPosition: camera];
     }
     
-    //another implementation I'm working on....
+//    another implementation I'm working on....
 //    while (!boundsContainPoliceLocation) {
 //        
 //        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
