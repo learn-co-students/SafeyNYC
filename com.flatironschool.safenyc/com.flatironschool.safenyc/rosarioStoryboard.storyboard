@@ -116,7 +116,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Pie Chart" id="o1M-6Y-kRF">
-                        <barButtonItem key="leftBarButtonItem" image="back" style="plain" id="B64-7L-Tt4"/>
+                        <barButtonItem key="leftBarButtonItem" image="back" id="B64-7L-Tt4"/>
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="Gog-MN-RmE" id="tRR-s5-QrQ"/>
@@ -137,7 +137,6 @@
         <!--Navigation Controller-->
         <scene sceneID="w1U-dl-ynk">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="n4N-hi-teO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="rEJ-xT-fIS" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -155,6 +154,7 @@
                         <segue destination="2dL-jL-EPX" kind="relationship" relationship="rootViewController" id="tHt-Rh-OHp"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n4N-hi-teO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="980" y="251"/>
         </scene>
