@@ -68,7 +68,7 @@
                                     <action selector="backButtonAction:" destination="2dL-jL-EPX" eventType="touchUpInside" id="4kp-sn-Kd1"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" horizontalHuggingPriority="253" verticalHuggingPriority="254" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38F-4j-4Xu" customClass="GKBarGraph">
+                            <view contentMode="scaleToFill" horizontalHuggingPriority="253" verticalHuggingPriority="254" translatesAutoresizingMaskIntoConstraints="NO" id="38F-4j-4Xu" customClass="GKBarGraph">
                                 <rect key="frame" x="20" y="410" width="560" height="170"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In the past % years there has been %%%%% felonies commited in the %%% mile raduis from where you are standing." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qw8-zf-H5F">
@@ -77,7 +77,7 @@
                                 <color key="textColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Total number of incidents:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jue-k3-d3u">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total number of incidents:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jue-k3-d3u">
                                 <rect key="frame" x="20" y="386" width="560" height="19"/>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="16"/>
                                 <color key="textColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
