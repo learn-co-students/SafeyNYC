@@ -230,17 +230,20 @@
 - (void) contactPicker: (CNContactPickerViewController *) picker
       didSelectContact: (CNContact *) contact {
    
+    NSLog(@"contactpicked: %@", contact);
     self.contact1 = [contact mutableCopy];
     self.isContactePicked = YES;
-    
+    NSLog(@"copy set to property: %@", self.contact1);
     [self updateButtonWithPicture];
     
 }
 
 -(void)updateButtonWithPicture {
-    UIImage *image = [UIImage new];
-    image = [UIImage imageWithData:self.contact1.imageData];
+    
+    UIImage *image = [UIImage imageWithData:self.contact1.thumbnailImageData];
+    NSLog(@"image: %@", image);
     [self.person1 setImage:image forState:UIControlStateNormal];
+    
 }
 
 /*
