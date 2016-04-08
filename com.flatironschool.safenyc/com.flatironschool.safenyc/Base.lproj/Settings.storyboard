@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="V1b-Ga-iDA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="G9F-DD-qzX">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -17,46 +17,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Settings" id="xv8-Nz-Jxm">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="nri-qD-uOR">
-                            <connections>
-                                <action selector="cancelItem:" destination="G9F-DD-qzX" id="eTO-6t-UKk"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="BUg-HV-LeS">
-                            <connections>
-                                <action selector="saveItem:" destination="G9F-DD-qzX" id="QjT-h8-PNO"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Settings" id="xv8-Nz-Jxm"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-                    <connections>
-                        <outlet property="cancelItem" destination="nri-qD-uOR" id="b8q-C3-bEe"/>
-                        <outlet property="saveItem" destination="BUg-HV-LeS" id="hlk-n3-QH0"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nr3-l8-S5J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="937" y="-153"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="2iX-dC-ZXw">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="V1b-Ga-iDA" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WVI-Jv-azX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="G9F-DD-qzX" kind="relationship" relationship="rootViewController" id="O54-Sm-b5y"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="POg-Ky-G4n" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="429" y="-153"/>
         </scene>
     </scenes>
 </document>

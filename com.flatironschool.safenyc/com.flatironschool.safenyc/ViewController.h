@@ -10,6 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "RUFIDataStore.h"
 #import <INTULocationManager.h>
+#import "RUFIEmergencyViewController.h"
+
 
 @import GoogleMaps;
 @interface ViewController : UIViewController<CLLocationManagerDelegate>
