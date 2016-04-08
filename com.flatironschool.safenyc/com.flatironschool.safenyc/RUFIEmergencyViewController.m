@@ -29,6 +29,8 @@
 @property (strong, nonatomic) CNMutableContact *contact1;
 
 
+
+
 @end
 
 @implementation RUFIEmergencyViewController
