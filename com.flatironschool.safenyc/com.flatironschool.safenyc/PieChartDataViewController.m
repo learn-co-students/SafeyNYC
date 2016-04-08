@@ -87,7 +87,7 @@
     
     [super viewDidAppear: YES];
     self.inThePastLabel.textColor = [UIColor lightGrayColor];
-    self.inThePastLabel.text = [NSString stringWithFormat:@"In the past %@ years there has been %lu felonies commited in the %@ mile radius from where you are standing.", self.dataStore.yearsAgo, (unsigned long)self.dataStore.crimeDataArray.count, self.dataStore.distanceInMiles];
+    self.inThePastLabel.text = [NSString stringWithFormat:@"In the past %@ year(s) there has been %lu felonies commited in the %@ mile radius from where you are standing.", self.dataStore.yearsAgo, (unsigned long)self.dataStore.crimeDataArray.count, self.dataStore.distanceInMiles];
     
     
     CGFloat chartSuperHeight = self.chartSuper.frame.size.height;

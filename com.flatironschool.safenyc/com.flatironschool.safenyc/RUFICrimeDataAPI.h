@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong) RUFIDataStore *sharedData;
 
-+(void)getCrimeDataFromLatitude: (NSString *) latitude longitude: (NSString *) longitude withCompletion: (void (^)(NSArray *))completionBlock;
++(void)getCrimeDataFromLatitude: (NSString *) latitude longitude: (NSString *) longitude timePeriod: (NSInteger)years distance:(NSString *)radius withCompletion: (void (^)(NSArray *))completionBlock;
 
 @end
