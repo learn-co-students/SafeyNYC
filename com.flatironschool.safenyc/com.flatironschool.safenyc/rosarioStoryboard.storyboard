@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rEJ-xT-fIS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rEJ-xT-fIS">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -10,7 +10,7 @@
         <!--Pie Chart-->
         <scene sceneID="eMk-RE-5gx">
             <objects>
-                <viewController storyboardIdentifier="rosarioStoryBoard" id="2dL-jL-EPX" customClass="PieChartDataViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="rosarioStoryBoard" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2dL-jL-EPX" customClass="PieChartDataViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sVs-FM-6jo"/>
                         <viewControllerLayoutGuide type="bottom" id="6X2-A6-z1n"/>
