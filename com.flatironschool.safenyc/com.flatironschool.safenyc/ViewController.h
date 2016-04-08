@@ -12,6 +12,7 @@
 #import <INTULocationManager.h>
 #import "PoliceLocatorAPI.h"
 #import "PoliceDataStore.h"
+#import "RUFIEmergencyViewController.h"
 
 @import GoogleMaps;
 @interface ViewController : UIViewController<CLLocationManagerDelegate>
