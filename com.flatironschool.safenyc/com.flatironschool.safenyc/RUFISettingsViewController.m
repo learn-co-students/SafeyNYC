@@ -9,6 +9,7 @@
 #import "RUFISettingsViewController.h"
 #import <DKCircleButton/DKCircleButton.h>
 #import "RUFIEmergencyViewController.h"
+#import "RUFIDataStore.h"
 
 
 @interface RUFISettingsViewController ()
@@ -23,6 +24,9 @@
 @property (strong, nonatomic) DKCircleButton *saveButton;
 @property (nonatomic) NSUInteger screenWidth;
 @property (nonatomic) NSUInteger screenHeight;
+@property (strong, nonatomic) RUFIDataStore *dataStore;
+@property (strong, nonatomic) NSDictionary *milesToMetersDictionary;
+@property (strong, nonatomic) NSDictionary *distanceValueDictionary;
 
 @end
 
@@ -30,9 +34,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.dataStore = [RUFIDataStore sharedDataStore];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.radiusArray = @[@"0.5", @"0.6", @"0.7", @"0.8", @"0.9 ", @"1.0", @"2.0 ", @"3.0 ", @"4.0", @"5.0"];
-    self.yearsArray = @[@"5", @"4", @"3", @"2", @"1"];
+
+    self.radiusArray = @[@"1/8", @"1/4", @"1/2", @"3/4", @"1"];
+    self.yearsArray = @[@"1", @"2"];
+    self.milesToMetersDictionary = @{@"1/8" : @"201", @"1/4": @"402", @"1/2": @"804", @"1": @"1609", @"3/4": @"1207"};
+    self.distanceValueDictionary = @{@"1/8" : @"1", @"1/4": @"2", @"1/2": @"4", @".75": @"6", @"1": @"8", };
     
     [self displayRadiusPicker];
     [self addChangeRadiusLabel];
@@ -60,6 +69,11 @@
     
     [self.picker setBackgroundColor:[UIColor whiteColor]];
     [self.picker setAlpha:0.5];
+    [self.picker selectRow:2 inComponent:0 animated:YES];
+    [self.picker selectRow:0 inComponent:1 animated:YES];
+    self.radius = @"1/2";
+    self.timePeriod = @"1";
+    
 }
 
 -(void)addChangeRadiusLabel{
@@ -105,14 +119,19 @@
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+
     if(component == 0){
         return self.radiusArray.count;
     } else {
         return self.yearsArray.count;
     }
+    
 }
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    
+    
+    
     if(component == 0){
         return self.radiusArray[row];
     } else {
@@ -121,9 +140,12 @@
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    
     if(component == 0){
+        
         self.radius = [self.radiusArray objectAtIndex:row];
     } else {
+        
         self.timePeriod = [self.yearsArray objectAtIndex:row];
     }
     
@@ -175,6 +197,12 @@
         [self dismissViewControllerAnimated:YES completion:nil];
         
     } else if (button == self.saveButton){
+        
+        self.dataStore.distanceInMeters = self.milesToMetersDictionary[self.radius];
+        self.dataStore.yearsAgo = self.timePeriod;
+        self.dataStore.distanceInMiles = self.radius;
+        self.dataStore.distanceValue = self.distanceValueDictionary[self.radius];
+        self.dataStore.settingsChanged = YES;
         
         NSLog(@"Result==>  radius: %@,  time period: %@ ", self.radius, self.timePeriod);
         [self dismissViewControllerAnimated:YES completion:nil];

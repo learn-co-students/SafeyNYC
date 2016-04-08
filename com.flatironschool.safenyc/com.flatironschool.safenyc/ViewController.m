@@ -40,6 +40,10 @@
     [super viewDidLoad];
 
     self.datastore = [RUFIDataStore sharedDataStore];
+    self.datastore.distanceInMeters = @"402";
+    self.datastore.distanceInMiles = @"1/4";
+    self.datastore.yearsAgo = @"2";
+    self.datastore.distanceValue = @"2";
 
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector:@selector(reloadViewAfterSettingsScreen:)
@@ -56,8 +60,17 @@
 -(void)viewDidAppear:(BOOL)animated{
 
     [super viewDidAppear:YES];
+
+    
+    if (self.datastore.settingsChanged){
+        
+        [self updateMapAfterSetttingsChange];
+    }
+
 //    [self updateCurrentMap];
+    
     [self animateMap];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -206,6 +219,9 @@
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
                         [self animateMap];
+                        
+
+
                         [self updateFaceMarker];
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
@@ -339,6 +355,8 @@
     
     [self.mapView animateToZoom: 17];
     [self.mapView animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+    
+    [self.mapView animateToZoom:17];
 
 }
 
@@ -378,7 +396,7 @@ didAutocompleteWithPlace:(GMSPlace *)place {
 - (void)viewController:(GMSAutocompleteViewController *)viewController
 didFailAutocompleteWithError:(NSError *)error {
     // TODO: handle the error.
-    NSLog(@"error: %ld", [error code]);
+    NSLog(@"error: %li", [error code]);
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -410,9 +428,9 @@ didFailAutocompleteWithError:(NSError *)error {
 
 #pragma method to update map with crime markers
 
--(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {    
-
+-(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
     for (RUFICrimes *crime in crimeArray){
+        
         GMSMarker *marker = [[GMSMarker alloc] init];
         marker.position = CLLocationCoordinate2DMake(crime.latitude, crime.longitude);
         marker.icon = crime.googleMapsIcon;
@@ -420,6 +438,8 @@ didFailAutocompleteWithError:(NSError *)error {
         marker.title = crime.offense;
         marker.snippet = [NSString stringWithFormat:@"%@ - %@", crime.precinct, crime.date];
         marker.map = self.mapView;
+
+    
     }
 }
 
@@ -710,7 +730,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
 -(void)updateFaceMarker {
     
-    NSUInteger count = self.datastore.crimeDataArray.count / 2;
+    NSUInteger count = self.datastore.crimeDataArray.count / [self.datastore.yearsAgo integerValue] / [self.datastore.distanceValue integerValue];
     
     NSLog(@"Update Face Maker: %lu", count);
     NSLog(@"Update Face Maker DS: %lu", self.datastore.crimeDataArray.count);
@@ -718,7 +738,7 @@ didFailAutocompleteWithError:(NSError *)error {
     GMSMarker *faceMarker = [[GMSMarker alloc] init];
     faceMarker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
     
-    if (count <= 50) {
+    if (count <= 25) {
         
         faceMarker.icon = [UIImage imageNamed:@"face1"];
         faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
@@ -727,7 +747,7 @@ didFailAutocompleteWithError:(NSError *)error {
         NSLog(@"Update Face Maker1: %lu", self.datastore.crimeDataArray.count);
     }
     
-    else if (count >= 51 && count <= 200) {
+    else if (count >= 26 && count <= 100) {
         
         faceMarker.icon = [UIImage imageNamed:@"face2"];
         faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
@@ -736,7 +756,7 @@ didFailAutocompleteWithError:(NSError *)error {
         NSLog(@"Update Face Maker2: %lu", self.datastore.crimeDataArray.count);
     }
     
-    else if (count >= 201 && count <= 350) {
+    else if (count >= 101 && count <= 175) {
         
         faceMarker.icon = [UIImage imageNamed:@"face3"];
         faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
@@ -745,7 +765,7 @@ didFailAutocompleteWithError:(NSError *)error {
         NSLog(@"Update Face Maker3: %lu", self.datastore.crimeDataArray.count);
     }
     
-    else if (count >= 351 && count <= 500) {
+    else if (count >= 176 && count <= 250) {
         
         faceMarker.icon = [UIImage imageNamed:@"face4"];
         faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
@@ -781,5 +801,28 @@ didFailAutocompleteWithError:(NSError *)error {
 
     }
 }
+
+
+-(void)updateMapAfterSetttingsChange {
+    
+    [self.mapView clear];
+    
+    
+    NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
+    [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
+        [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
+        
+        [self animateMap];
+        
+        [self updateFaceMarker];
+        
+        self.datastore.settingsChanged = NO;
+    
+    }];
+    
+    
+}
+
+
 
 @end
