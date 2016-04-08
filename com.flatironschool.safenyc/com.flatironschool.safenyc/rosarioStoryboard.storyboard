@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg20" translatesAutoresizingMaskIntoConstraints="NO" id="SxT-pS-yZs">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg15" translatesAutoresizingMaskIntoConstraints="NO" id="SxT-pS-yZs">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vkq-cD-SQs">
@@ -198,7 +198,7 @@
     <resources>
         <image name="back" width="89" height="89"/>
         <image name="background" width="1080" height="1920"/>
-        <image name="bg20" width="1080" height="1920"/>
+        <image name="bg15" width="1080" height="1920"/>
         <image name="info" width="89" height="89"/>
     </resources>
 </document>

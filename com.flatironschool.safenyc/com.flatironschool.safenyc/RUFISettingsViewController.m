@@ -13,7 +13,8 @@
 
 
 @interface RUFISettingsViewController ()
-@property (strong, nonatomic) UIPickerView *picker;
+//@property (strong, nonatomic) UIPickerView *picker;
+@property (strong, nonatomic) IBOutlet UIPickerView *picker;
 @property (strong, nonatomic) NSArray *radiusArray;
 @property (strong, nonatomic) NSArray *yearsArray;
 @property (strong, nonatomic) UILabel *changeRadiusLabel;
@@ -38,15 +39,22 @@
     self.dataStore = [RUFIDataStore sharedDataStore];
     self.view.backgroundColor = [UIColor whiteColor];
 
-    self.radiusArray = @[@"1/8", @"1/4", @"1/2", @"3/4", @"1"];
-    self.yearsArray = @[@"1", @"2"];
+    self.radiusArray = @[[UIImage imageNamed:@"18mile"], [UIImage imageNamed:@"14mile"], [UIImage imageNamed:@"12mile"], [UIImage imageNamed:@"34mile"], [UIImage imageNamed:@"1mile"]];
+    self.yearsArray = @[[UIImage imageNamed:@"oneYear"], [UIImage imageNamed:@"twoYears"]];
     self.milesToMetersDictionary = @{@"1/8" : @"201", @"1/4": @"402", @"1/2": @"804", @"1": @"1609", @"3/4": @"1207"};
     self.distanceValueDictionary = @{@"1/8" : @"1", @"1/4": @"2", @"1/2": @"4", @".75": @"6", @"1": @"8", };
     
-    [self displayRadiusPicker];
-    [self addChangeRadiusLabel];
-    [self addMilesLabel];
-    [self addChangeYearLabel];
+//    [self.picker setBackgroundColor:[UIColor whiteColor]];
+    [self.picker setAlpha:1];
+    [self.picker selectRow:2 inComponent:0 animated:YES];
+    [self.picker selectRow:0 inComponent:1 animated:YES];
+    self.radius = @"1/2";
+    self.timePeriod = @"1";
+    
+//    [self displayRadiusPicker];
+//    [self addChangeRadiusLabel];
+//    [self addMilesLabel];
+//    [self addChangeYearLabel];
     
     [self displayCancelAndSaveButton];
 }
@@ -56,63 +64,63 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void) displayRadiusPicker {
-    self.picker = [[UIPickerView alloc] init];
-    self.picker.delegate = self;
-    self.picker.dataSource = self;
-    [self.view addSubview:self.picker];
-    
-    self.picker.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.picker.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:70].active = YES;
-    [self.picker.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-    [self.picker.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
-    
-    [self.picker setBackgroundColor:[UIColor whiteColor]];
-    [self.picker setAlpha:0.5];
-    [self.picker selectRow:2 inComponent:0 animated:YES];
-    [self.picker selectRow:0 inComponent:1 animated:YES];
-    self.radius = @"1/2";
-    self.timePeriod = @"1";
-    
-}
+//-(void) displayRadiusPicker {
+//    self.picker = [[UIPickerView alloc] init];
+//    self.picker.delegate = self;
+//    self.picker.dataSource = self;
+//    [self.view addSubview:self.picker];
+//    
+//    self.picker.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.picker.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:70].active = YES;
+//    [self.picker.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+//    [self.picker.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+//    
+//    [self.picker setBackgroundColor:[UIColor whiteColor]];
+//    [self.picker setAlpha:1];
+//    [self.picker selectRow:2 inComponent:0 animated:YES];
+//    [self.picker selectRow:0 inComponent:1 animated:YES];
+//    self.radius = @"1/2";
+//    self.timePeriod = @"1";
+//    
+//}
 
--(void)addChangeRadiusLabel{
-    self.changeRadiusLabel = [[UILabel alloc] init];
-    [self.view addSubview:self.changeRadiusLabel];
-    self.changeRadiusLabel.text = @"Radius:";
-    self.changeRadiusLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.changeRadiusLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:70].active = YES;
-    [self.changeRadiusLabel.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant:70].active = YES;
-}
+//-(void)addChangeRadiusLabel{
+//    self.changeRadiusLabel = [[UILabel alloc] init];
+//    [self.view addSubview:self.changeRadiusLabel];
+//    self.changeRadiusLabel.text = @"Radius:";
+//    self.changeRadiusLabel.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.changeRadiusLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:70].active = YES;
+//    [self.changeRadiusLabel.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant:70].active = YES;
+//}
 
--(void)addMilesLabel{
-    self.milesLabel = [[UILabel alloc] init];
-    [self.view addSubview:self.milesLabel];
-    self.milesLabel.text = @"mile(s)";
-    self.milesLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.milesLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:170].active = YES;
-    [self.milesLabel.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant:130].active = YES;
-}
+//-(void)addMilesLabel{
+//    self.milesLabel = [[UILabel alloc] init];
+//    [self.view addSubview:self.milesLabel];
+//    self.milesLabel.text = @"mile(s)";
+//    self.milesLabel.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.milesLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:170].active = YES;
+//    [self.milesLabel.leftAnchor constraintEqualToAnchor:self.view.leftAnchor constant:130].active = YES;
+//}
 
--(void)addChangeYearLabel{
-    self.changeYearLabel = [[UILabel alloc] init];
-    [self.view addSubview:self.changeYearLabel];
-    self.changeYearLabel.text = @"Period of Time:";
-    self.changeYearLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.changeYearLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:70].active = YES;
-    [self.changeYearLabel.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant:-20].active = YES;
-    
-    [self addYearLabel];
-}
+//-(void)addChangeYearLabel{
+//    self.changeYearLabel = [[UILabel alloc] init];
+//    [self.view addSubview:self.changeYearLabel];
+//    self.changeYearLabel.text = @"Period of Time:";
+//    self.changeYearLabel.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.changeYearLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:70].active = YES;
+//    [self.changeYearLabel.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant:-20].active = YES;
+//    
+//    [self addYearLabel];
+//}
 
--(void)addYearLabel{
-    self.milesLabel = [[UILabel alloc] init];
-    [self.view addSubview:self.milesLabel];
-    self.milesLabel.text = @"year(s)";
-    self.milesLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.milesLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:170].active = YES;
-    [self.milesLabel.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant:-20].active = YES;
-}
+//-(void)addYearLabel{
+//    self.milesLabel = [[UILabel alloc] init];
+//    [self.view addSubview:self.milesLabel];
+//    self.milesLabel.text = @"year(s)";
+//    self.milesLabel.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.milesLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:170].active = YES;
+//    [self.milesLabel.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant:-20].active = YES;
+//}
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 2;
@@ -128,34 +136,70 @@
     
 }
 
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     
     
     
     if(component == 0){
-        return self.radiusArray[row];
+        return [[UIImageView alloc] initWithImage:self.radiusArray[row]];
     } else {
-        return self.yearsArray[row];
+        return [[UIImageView alloc] initWithImage:self.yearsArray[row]];
     }
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    
+    return 40;
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     if(component == 0){
         
-        self.radius = [self.radiusArray objectAtIndex:row];
+        switch(row)
+        
+        {
+            case 0:
+                self.radius = @"1/8";
+                break;
+                
+            case 1:
+                self.radius = @"1/4";
+                break;
+                
+            case 2:
+                self.radius = @"1/2";
+                break;
+                
+            case 3:
+                self.radius = @"3/4";
+                break;
+                
+            case 4:
+                self.radius = @"1";
+                break;
+            }
+        
     } else {
         
-        self.timePeriod = [self.yearsArray objectAtIndex:row];
+        switch(row) {
+        
+    case 0:
+        self.timePeriod = @"1";
+        break;
+        
+    case 1:
+        self.timePeriod = @"2";
+        break;
     }
-    
+    }
 }
 
 -(void)displayCancelAndSaveButton {
     self.screenWidth = self.view.frame.size.width;
     self.screenHeight = self.view.frame.size.height;
-    self.backButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(10, self.screenHeight-60, 50, 50)];
-    self.saveButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.screenWidth-60, self.screenHeight-60, 50, 50)];
+    self.backButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.screenWidth - 60, 35, 47, 47)];
+    self.saveButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.screenWidth - 60, 95, 47, 47)];
     NSArray *buttons = @[self.backButton, self.saveButton];
     for (DKCircleButton *button in buttons){
         [self.view addSubview:button];
