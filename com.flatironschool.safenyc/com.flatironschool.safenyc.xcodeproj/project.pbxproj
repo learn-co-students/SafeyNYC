@@ -26,12 +26,10 @@
 		A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */; };
 		A72600331CB1DB29001D9D0F /* RUFIEmergencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */; };
 		A72600361CB1E216001D9D0F /* RUFISettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */; };
-		A75CEA471CB5A13A00A1EF75 /* YuchiStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A75CEA461CB5A13A00A1EF75 /* YuchiStoryboard.storyboard */; };
 		A75CEA491CB5A37900A1EF75 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		C26BEFBF1CB5932D00A54093 /* SelectContactsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C26BEFBE1CB5932D00A54093 /* SelectContactsStoryboard.storyboard */; };
 		C26BEFC21CB5934900A54093 /* SelectContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C26BEFC11CB5934900A54093 /* SelectContactsViewController.m */; };
+		C2AEB5E81CB8281D00D6C055 /* YuchiStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */; };
 		C2D9367A1CB4691000D109C6 /* RUFIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D936791CB4691000D109C6 /* RUFIConstants.m */; };
-		C2D9367C1CB4692100D109C6 /* YuchiStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D9367B1CB4692100D109C6 /* YuchiStoryboard.storyboard */; };
 		C2D936811CB4693F00D109C6 /* location_template.loc.vcf in Resources */ = {isa = PBXBuildFile; fileRef = C2D936801CB4693F00D109C6 /* location_template.loc.vcf */; };
 		EB55C3C11CAB1F460020C1CD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
@@ -90,12 +88,10 @@
 		A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIEmergencyViewController.m; sourceTree = "<group>"; };
 		A72600341CB1E216001D9D0F /* RUFISettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFISettingsViewController.h; sourceTree = "<group>"; };
 		A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFISettingsViewController.m; sourceTree = "<group>"; };
-		A75CEA461CB5A13A00A1EF75 /* YuchiStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = YuchiStoryboard.storyboard; sourceTree = "<group>"; };
-		C26BEFBE1CB5932D00A54093 /* SelectContactsStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SelectContactsStoryboard.storyboard; sourceTree = "<group>"; };
 		C26BEFC01CB5934900A54093 /* SelectContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectContactsViewController.h; sourceTree = "<group>"; };
 		C26BEFC11CB5934900A54093 /* SelectContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectContactsViewController.m; sourceTree = "<group>"; };
+		C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = YuchiStoryboard.storyboard; sourceTree = "<group>"; };
 		C2D936791CB4691000D109C6 /* RUFIConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIConstants.m; sourceTree = "<group>"; };
-		C2D9367B1CB4692100D109C6 /* YuchiStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = YuchiStoryboard.storyboard; sourceTree = "<group>"; };
 		C2D936801CB4693F00D109C6 /* location_template.loc.vcf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = location_template.loc.vcf; sourceTree = "<group>"; };
 		EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -187,13 +183,11 @@
 				A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */,
 				C26BEFC01CB5934900A54093 /* SelectContactsViewController.h */,
 				C26BEFC11CB5934900A54093 /* SelectContactsViewController.m */,
-				C26BEFBE1CB5932D00A54093 /* SelectContactsStoryboard.storyboard */,
 				A707E4D11CAB0239002F37C5 /* Settings.storyboard */,
 				A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */,
 				A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */,
-				C2D9367B1CB4692100D109C6 /* YuchiStoryboard.storyboard */,
 				730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */,
-				A75CEA461CB5A13A00A1EF75 /* YuchiStoryboard.storyboard */,
+				C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */,
 				730665421CAD57C900FBB7DA /* PieChartDataViewController.h */,
 				730665431CAD57C900FBB7DA /* PieChartDataViewController.m */,
 				A707E4D71CAB0239002F37C5 /* Assets.xcassets */,
@@ -344,12 +338,10 @@
 			files = (
 				730665521CAD88B100FBB7DA /* rosarioStoryboard.storyboard in Resources */,
 				C2D936811CB4693F00D109C6 /* location_template.loc.vcf in Resources */,
-				C26BEFBF1CB5932D00A54093 /* SelectContactsStoryboard.storyboard in Resources */,
 				A707E4DB1CAB0239002F37C5 /* LaunchScreen.storyboard in Resources */,
-				A75CEA471CB5A13A00A1EF75 /* YuchiStoryboard.storyboard in Resources */,
+				C2AEB5E81CB8281D00D6C055 /* YuchiStoryboard.storyboard in Resources */,
 				A707E5021CAC24D1002F37C5 /* IrinaStoryboard.storyboard in Resources */,
 				A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */,
-				C2D9367C1CB4692100D109C6 /* YuchiStoryboard.storyboard in Resources */,
 				A707E4D81CAB0239002F37C5 /* Assets.xcassets in Resources */,
 				A75CEA491CB5A37900A1EF75 /* (null) in Resources */,
 				A707E4D31CAB0239002F37C5 /* Settings.storyboard in Resources */,
