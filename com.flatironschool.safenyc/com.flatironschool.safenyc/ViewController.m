@@ -541,38 +541,38 @@ didFailAutocompleteWithError:(NSError *)error {
     self.policeMarker.groundAnchor = CGPointMake(0.5,0.5);
     self.policeMarker.map = self.mapView;
     
-//    [self.mapView animateToLocation: CLLocationCoordinate2DMake(endLatitude, endLongitude)];
-//    [self zoomOnPoliceLocationBackToCurrentLocationWithPath: path];
+    [self.mapView animateToLocation: CLLocationCoordinate2DMake(endLatitude, endLongitude)];
+    [self zoomOnPoliceLocationBackToCurrentLocationWithPath: path];
     
-    [self zoomOnPoliceLocation: CLLocationCoordinate2DMake(endLatitude, endLongitude)];
+//    [self zoomOnPoliceLocation: CLLocationCoordinate2DMake(endLatitude, endLongitude)];
 }
 
-//-(void)zoomOnPoliceLocationBackToCurrentLocationWithPath:(GMSPath *) path{
-//
-//       NSUInteger pathEndPoint = path.count - 1;
-//    
-//    //    - (CLLocationCoordinate2D)coordinateAtIndex:(NSUInteger)index;
-//        CLLocationCoordinate2D currentPoint;
-//    //    NSLog(@"end point is currently: %@", pathEndPoint);
-//    
-//        for (NSInteger idx = pathEndPoint; idx > 0; idx--) {
-//            NSLog(@"we are now here!!!!");
-//            currentPoint = [path coordinateAtIndex: idx];
-//            NSLog(@"idx is now: %ld", (long)idx);
-//    //        [self.mapView animateToLocation: currentPoint];
-//    
-//            double delayInSeconds = .9;
-//            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//                [self.mapView animateToLocation: currentPoint];
-//            });
-//    
-//        }
-//
-//}
+-(void)zoomOnPoliceLocationBackToCurrentLocationWithPath:(GMSPath *) path{
+
+       NSUInteger pathEndPoint = path.count - 1;
+    
+    //    - (CLLocationCoordinate2D)coordinateAtIndex:(NSUInteger)index;
+        CLLocationCoordinate2D currentPoint;
+    //    NSLog(@"end point is currently: %@", pathEndPoint);
+    
+        for (NSInteger idx = pathEndPoint; idx > 0; idx--) {
+            NSLog(@"we are now here!!!!");
+            currentPoint = [path coordinateAtIndex: idx];
+            NSLog(@"idx is now: %ld", (long)idx);
+    //        [self.mapView animateToLocation: currentPoint];
+    
+            double delayInSeconds = .9;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self.mapView animateToLocation: currentPoint];
+            });
+    
+        }
+
+}
 
 -(void)zoomOnPoliceLocation:(CLLocationCoordinate2D )policeLocation{
-    
+
 //    NSUInteger pathEndPoint = path.count - 1;
 //    
 ////    - (CLLocationCoordinate2D)coordinateAtIndex:(NSUInteger)index;
