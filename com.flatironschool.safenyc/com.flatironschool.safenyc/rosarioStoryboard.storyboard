@@ -122,11 +122,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Pie Chart" id="o1M-6Y-kRF">
-<<<<<<< HEAD
-                        <barButtonItem key="leftBarButtonItem" image="back" id="B64-7L-Tt4"/>
-=======
                         <barButtonItem key="leftBarButtonItem" enabled="NO" image="back" style="done" id="B64-7L-Tt4"/>
->>>>>>> definitionsPage
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="Gog-MN-RmE" id="tRR-s5-QrQ"/>
