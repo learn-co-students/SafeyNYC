@@ -83,7 +83,8 @@
             [self.contactButton1 setTitle:initals forState:UIControlStateNormal];
         }
         else {
-        UIImage *contactImage = [UIImage imageWithData:contactProperty.contact.thumbnailImageData];
+            //image turns blue unless you set imageWithRenderingMode to UIImageRenderingModeAlwaysOriginal
+        UIImage *contactImage = [[UIImage imageWithData:contactProperty.contact.thumbnailImageData]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         [self.contactButton1 setTitle:@"" forState:UIControlStateNormal];
         [self.contactButton1 setImage:contactImage forState:UIControlStateNormal];
         self.contactButton1.imageView.contentMode = UIViewContentModeScaleAspectFit;
