@@ -218,6 +218,7 @@
                     
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
+                        
                         [self animateMap];
                         
 
@@ -353,9 +354,7 @@
 
 -(void)animateMap{
     
-    [self.mapView animateToZoom: 17];
     [self.mapView animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
-    
     [self.mapView animateToZoom:17];
 
 }
@@ -542,135 +541,49 @@ didFailAutocompleteWithError:(NSError *)error {
     self.policeMarker.map = self.mapView;
     
     [self.mapView animateToLocation: CLLocationCoordinate2DMake(endLatitude, endLongitude)];
-    [self zoomOnPoliceLocationBackToCurrentLocationWithPath: path];
     
-//    [self zoomOnPoliceLocation: CLLocationCoordinate2DMake(endLatitude, endLongitude)];
+    //thinking about adding more to this feature for presentation purposes..
+    //[self zoomOnPoliceLocationBackToCurrentLocationWithPath: path];
+    
+    [self zoomOnPoliceLocation: CLLocationCoordinate2DMake(endLatitude, endLongitude)];
 }
 
--(void)zoomOnPoliceLocationBackToCurrentLocationWithPath:(GMSPath *) path{
-
-       NSUInteger pathEndPoint = path.count - 1;
-    
-    //    - (CLLocationCoordinate2D)coordinateAtIndex:(NSUInteger)index;
-        CLLocationCoordinate2D currentPoint;
-    //    NSLog(@"end point is currently: %@", pathEndPoint);
-    
-        for (NSInteger idx = pathEndPoint; idx > 0; idx--) {
-            NSLog(@"we are now here!!!!");
-            currentPoint = [path coordinateAtIndex: idx];
-            NSLog(@"idx is now: %ld", (long)idx);
-    //        [self.mapView animateToLocation: currentPoint];
-    
-            double delayInSeconds = .9;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self.mapView animateToLocation: currentPoint];
-            });
-    
-        }
-
-}
-
--(void)zoomOnPoliceLocation:(CLLocationCoordinate2D )policeLocation{
-
-//    NSUInteger pathEndPoint = path.count - 1;
-//    
-////    - (CLLocationCoordinate2D)coordinateAtIndex:(NSUInteger)index;
-//    CLLocationCoordinate2D currentPoint;
-////    NSLog(@"end point is currently: %@", pathEndPoint);
-//    
-//    for (NSInteger idx = pathEndPoint; idx > 0; idx--) {
-//        NSLog(@"we are now here!!!!");
-//        currentPoint = [path coordinateAtIndex: idx];
-//        NSLog(@"idx is now: %ld", (long)idx);
-////        [self.mapView animateToLocation: currentPoint];
-//        
-//        double delayInSeconds = .9;
-//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//            [self.mapView animateToLocation: currentPoint];
-//        });
+//-(void)zoomOnPoliceLocationBackToCurrentLocationWithPath:(GMSPath *) path{
 //
-//    }
-    
-    GMSCoordinateBounds *bounds = [self createAndGetCurrentMapBounds];
-    float zoomLevel = 20;
-    [self updateZoomOnPoliceLocationForZoom: zoomLevel];
-    NSLog(@"we have updated the zoom level and the map in the process");
-    BOOL boundsContainPoliceLocation = [bounds containsCoordinate: policeLocation];
-    
-    while(!boundsContainPoliceLocation){
-        
-        NSLog(@"we got in the loop to increase the zoom level!!!!!!");
-        zoomLevel -= 1;
-        
-        [self updateZoomOnPoliceLocationForZoom: zoomLevel];
-        
-        bounds = [self createAndGetCurrentMapBounds];
-        
-        boundsContainPoliceLocation = [bounds containsCoordinate: policeLocation];
-        NSLog(@"%d", boundsContainPoliceLocation);
-    }
-    
-    NSLog(@"ZOOOOOOOM COMPLETE");
-
-//    float zoomLevel = 15;
-//    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
-//                                                            longitude: self.longitude
-//                                                                 zoom: zoomLevel];
-//    [self.mapView animateToCameraPosition: camera];
-
-    
-//    GMSVisibleRegion region = _mapView.projection.visibleRegion;
-//    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithRegion: region];
+//       NSUInteger pathEndPoint = path.count - 1;
 //    
-//    BOOL boundsContainPoliceLocation = [bounds containsCoordinate: policeLocation];
-    
-//    another implementation I'm working on....
-//    while (!boundsContainPoliceLocation) {
-//
-//        NSLog(@"all up in here!!!");
-//        [self.mapView animateToCameraPosition: camera];
-//        
-//        boundsContainPoliceLocation = [bounds containsCoordinate: policeLocation];
-//        
-//        if (!boundsContainPoliceLocation) {
-//            
-//            zoomLevel += 1;
-//            GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
-//                                                                    longitude: self.longitude
-//                                                                         zoom: zoomLevel];
-//            [self.mapView animateToCameraPosition: camera];
-//            
-//            GMSVisibleRegion region = _mapView.projection.visibleRegion;
-//            GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithRegion: region];
-//            
-//            BOOL boundsContainPoliceLocation = [bounds containsCoordinate: policeLocation];
+//    //    - (CLLocationCoordinate2D)coordinateAtIndex:(NSUInteger)index;
+//        CLLocationCoordinate2D currentPoint;
+//    //    NSLog(@"end point is currently: %@", pathEndPoint);
+//    
+//        for (NSInteger idx = pathEndPoint; idx > 0; idx--) {
+//            NSLog(@"we are now here!!!!");
+//            currentPoint = [path coordinateAtIndex: idx];
+//            NSLog(@"idx is now: %ld", (long)idx);
+//    //        [self.mapView animateToLocation: currentPoint];
+//    
+//            double delayInSeconds = .9;
+//            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+//            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//                [self.mapView animateToLocation: currentPoint];
+//            });
+//    
 //        }
 //
-//    }
+//}
 
-}
-
--(void)updateZoomOnPoliceLocationForZoom:(float)zoomLevel{
-
-
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
-                                                            longitude: self.longitude
-                                                                 zoom: zoomLevel];
-    [self.mapView animateToCameraPosition: camera];
-
-
-}
-
--(GMSCoordinateBounds *)createAndGetCurrentMapBounds{
-
-    GMSVisibleRegion region = self.mapView.projection.visibleRegion;
-    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithRegion: region];
+-(void)zoomOnPoliceLocation:(CLLocationCoordinate2D )policeLocation{
     
-    return bounds;
+    CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(self.latitude, self.longitude);
+    CLLocationCoordinate2D policeCoods = CLLocationCoordinate2DMake(policeLocation.latitude, policeLocation.longitude);
+
+        GMSCoordinateBounds *bounds = [ [GMSCoordinateBounds alloc] initWithCoordinate: origin coordinate: policeCoods];
+    
+    
+   [self.mapView moveCamera: [GMSCameraUpdate fitBounds: bounds withPadding: 100.0f]];
 
 }
+
 
 -(void)removeClosetPoliceLocation{
     
