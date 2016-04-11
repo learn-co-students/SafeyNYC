@@ -501,7 +501,7 @@ didFailAutocompleteWithError:(NSError *)error {
         
         GMSPath *path = [GMSPath pathFromEncodedPath: responseObject[@"routes"][0][@"overview_polyline"][@"points"]];
         
-        [self drawClosetPoliceLocationWithPath: path startLat: latitude startLng:longitude DestinationLat: closestPoliceLocation.latitude DestinationLng: closestPoliceLocation.longitude]; 
+        [self drawClosetPoliceLocationWithPath: path startLat: self.latitude startLng: self.longitude policeLocation: closestPoliceLocation];
 
         
         completionBlock(YES);
@@ -515,10 +515,12 @@ didFailAutocompleteWithError:(NSError *)error {
 }
 
 -(void)drawClosetPoliceLocationWithPath:(GMSPath *)path
-                               startLat: (double) startLatitude
+                               startLat:(double) startLatitude
                                startLng:(double)startLongitude
-                         DestinationLat:(double)endLatitude
-                         DestinationLng:(double)endLongitude{
+                         policeLocation:(PoliceLocation *)policeLocation{
+    
+    double endLatitude = policeLocation.latitude;
+    double endLongitude = policeLocation.longitude;
     
     if (self.policePolyline && self.policeMarker) {
         
@@ -531,10 +533,12 @@ didFailAutocompleteWithError:(NSError *)error {
     self.policePolyline.strokeWidth = 5.f;
     self.policePolyline.map = self.mapView;
     
-   
+
     self.policeMarker = [[GMSMarker alloc]init];
     self.policeMarker.position = CLLocationCoordinate2DMake(endLatitude, endLongitude);
     self.policeMarker.icon = [UIImage imageNamed:@"policeStation"] ;
+    self.policeMarker.title = policeLocation.locationName;
+    self.policeMarker.snippet = policeLocation.locationAddress;
     self.policeMarker.groundAnchor = CGPointMake(0.5,0.5);
     self.policeMarker.map = self.mapView;
     
