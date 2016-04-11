@@ -205,8 +205,10 @@
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
                         [self createMapWithCoordinates];
-                        [self updateFaceMarker];
+                        
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
+                        
+                        [self updateFaceMarker];
                         
                         
                     }];
@@ -223,8 +225,10 @@
                         
 
 
-                        [self updateFaceMarker];
+                        
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
+                        
+                        [self updateFaceMarker];
                         
                         
                     }];
@@ -375,8 +379,6 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     
     NSLog(@"AT DATA STORE %@", self.datastore.userLatitude);
     NSLog(@"AT DATA STORE %@", self.datastore.userLongitude);
-    
-    [self.mapView clear];
 
 
     NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
@@ -426,6 +428,9 @@ didFailAutocompleteWithError:(NSError *)error {
 #pragma method to update map with crime markers
 
 -(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
+    
+//    [self.mapView clear];
+    
     for (RUFICrimes *crime in crimeArray){
         
         GMSMarker *marker = [[GMSMarker alloc] init];
