@@ -185,18 +185,16 @@
         //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
         if (!self.emergencyButton.userInteractionEnabled) {
             [self toggleButtonInteractions];
-
         }
        
     } else if (button == self.pieChartButton){
         
         [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
-        
         [self toggleButtonInteractions];
-
         
     } else if (button == self.dissmissPoliceMapButton){
         
+        [self toggleButtonInteractions];
         self.dissmissPoliceMapButton.hidden = YES;
         [self removeClosetPoliceLocation];
         
@@ -512,10 +510,7 @@ didFailAutocompleteWithError:(NSError *)error {
                         else{
                             self.policeLocationFoundForActualCurrentLocation = YES;
                         }
-//                        
-//                        if (!self.policeMapButton.userInteractionEnabled) {
-//                            [self toggleButtonInteractions];
-//                        }
+
                         
                     }
                 }];
@@ -842,6 +837,31 @@ didFailAutocompleteWithError:(NSError *)error {
     
     }];
     
+    
+}
+
+
+-(void)disableAllButtons {
+    
+    self.searchButton.userInteractionEnabled = NO;
+    self.settingsButton.userInteractionEnabled = NO;
+    self.currentLocationButton.userInteractionEnabled = NO;
+    self.policeMapButton.userInteractionEnabled = NO;
+    self.emergencyButton.userInteractionEnabled = NO;
+    self.pieChartButton.userInteractionEnabled = NO;
+    self.dissmissPoliceMapButton.userInteractionEnabled = NO;
+    
+}
+
+-(void)reenableAllButtons {
+    
+    self.searchButton.userInteractionEnabled = YES;
+    self.settingsButton.userInteractionEnabled = YES;
+    self.currentLocationButton.userInteractionEnabled = YES;
+    self.policeMapButton.userInteractionEnabled = YES;
+    self.emergencyButton.userInteractionEnabled = YES;
+    self.pieChartButton.userInteractionEnabled = YES;
+    self.dissmissPoliceMapButton.userInteractionEnabled = YES;
     
 }
 
