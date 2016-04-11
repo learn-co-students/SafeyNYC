@@ -13,7 +13,6 @@
 		732269781CAC129E00FCBAB1 /* RUFICrimes.m in Sources */ = {isa = PBXBuildFile; fileRef = 732269771CAC129E00FCBAB1 /* RUFICrimes.m */; };
 		7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7322697A1CAC1F9A00FCBAB1 /* RUFIDataStore.m */; };
 		7322697E1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */; };
-		73A874131CB590070041BFF8 /* RUFIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 73A874121CB590070041BFF8 /* RUFIConstants.m */; };
 		A707E4CA1CAB0239002F37C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4C91CAB0239002F37C5 /* main.m */; };
 		A707E4CD1CAB0239002F37C5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4CC1CAB0239002F37C5 /* AppDelegate.m */; };
 		A707E4D01CAB0239002F37C5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4CF1CAB0239002F37C5 /* ViewController.m */; };
@@ -27,11 +26,14 @@
 		A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */; };
 		A72600331CB1DB29001D9D0F /* RUFIEmergencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */; };
 		A72600361CB1E216001D9D0F /* RUFISettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */; };
-		EB2C6B1F1CB2C60D00CF5211 /* PoliceLocatorAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2C6B1E1CB2C60D00CF5211 /* PoliceLocatorAPI.m */; };
-		EB2C6B221CB2DC5C00CF5211 /* PoliceDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2C6B211CB2DC5C00CF5211 /* PoliceDataStore.m */; };
-		EB2C6B251CB2E56B00CF5211 /* PoliceLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = EB2C6B241CB2E56B00CF5211 /* PoliceLocation.m */; };
-		A75CEA471CB5A13A00A1EF75 /* YuchiStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A75CEA461CB5A13A00A1EF75 /* YuchiStoryboard.storyboard */; };
-		A75CEA491CB5A37900A1EF75 /* location_template.loc.vcf in Resources */ = {isa = PBXBuildFile; fileRef = A75CEA481CB5A37900A1EF75 /* location_template.loc.vcf */; };
+		A75CEA491CB5A37900A1EF75 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		C26BEFC21CB5934900A54093 /* SelectContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C26BEFC11CB5934900A54093 /* SelectContactsViewController.m */; };
+		C2AEB5E81CB8281D00D6C055 /* YuchiStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */; };
+		C2D0AD521CB8418C00C96C57 /* PoliceDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D0AD4D1CB8418C00C96C57 /* PoliceDataStore.m */; };
+		C2D0AD531CB8418C00C96C57 /* PoliceLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D0AD4F1CB8418C00C96C57 /* PoliceLocation.m */; };
+		C2D0AD541CB8418C00C96C57 /* PoliceLocatorAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D0AD511CB8418C00C96C57 /* PoliceLocatorAPI.m */; };
+		C2D9367A1CB4691000D109C6 /* RUFIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D936791CB4691000D109C6 /* RUFIConstants.m */; };
+		C2D936811CB4693F00D109C6 /* location_template.loc.vcf in Resources */ = {isa = PBXBuildFile; fileRef = C2D936801CB4693F00D109C6 /* location_template.loc.vcf */; };
 		EB55C3C11CAB1F460020C1CD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,7 +67,6 @@
 		7322697A1CAC1F9A00FCBAB1 /* RUFIDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIDataStore.m; sourceTree = "<group>"; };
 		7322697C1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFICrimeDataAPI.h; sourceTree = "<group>"; };
 		7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFICrimeDataAPI.m; sourceTree = "<group>"; };
-		73A874121CB590070041BFF8 /* RUFIConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIConstants.m; sourceTree = "<group>"; };
 		A707E4C51CAB0238002F37C5 /* com.flatironschool.safenyc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = com.flatironschool.safenyc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A707E4C91CAB0239002F37C5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A707E4CB1CAB0239002F37C5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -90,14 +91,17 @@
 		A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIEmergencyViewController.m; sourceTree = "<group>"; };
 		A72600341CB1E216001D9D0F /* RUFISettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFISettingsViewController.h; sourceTree = "<group>"; };
 		A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFISettingsViewController.m; sourceTree = "<group>"; };
-		EB2C6B1D1CB2C60D00CF5211 /* PoliceLocatorAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceLocatorAPI.h; sourceTree = "<group>"; };
-		EB2C6B1E1CB2C60D00CF5211 /* PoliceLocatorAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoliceLocatorAPI.m; sourceTree = "<group>"; };
-		EB2C6B201CB2DC5C00CF5211 /* PoliceDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceDataStore.h; sourceTree = "<group>"; };
-		EB2C6B211CB2DC5C00CF5211 /* PoliceDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoliceDataStore.m; sourceTree = "<group>"; };
-		EB2C6B231CB2E56B00CF5211 /* PoliceLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceLocation.h; sourceTree = "<group>"; };
-		EB2C6B241CB2E56B00CF5211 /* PoliceLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoliceLocation.m; sourceTree = "<group>"; };
-		A75CEA461CB5A13A00A1EF75 /* YuchiStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = YuchiStoryboard.storyboard; sourceTree = "<group>"; };
-		A75CEA481CB5A37900A1EF75 /* location_template.loc.vcf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = location_template.loc.vcf; sourceTree = "<group>"; };
+		C26BEFC01CB5934900A54093 /* SelectContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectContactsViewController.h; sourceTree = "<group>"; };
+		C26BEFC11CB5934900A54093 /* SelectContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectContactsViewController.m; sourceTree = "<group>"; };
+		C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = YuchiStoryboard.storyboard; sourceTree = "<group>"; };
+		C2D0AD4C1CB8418C00C96C57 /* PoliceDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceDataStore.h; sourceTree = "<group>"; };
+		C2D0AD4D1CB8418C00C96C57 /* PoliceDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoliceDataStore.m; sourceTree = "<group>"; };
+		C2D0AD4E1CB8418C00C96C57 /* PoliceLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceLocation.h; sourceTree = "<group>"; };
+		C2D0AD4F1CB8418C00C96C57 /* PoliceLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoliceLocation.m; sourceTree = "<group>"; };
+		C2D0AD501CB8418C00C96C57 /* PoliceLocatorAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceLocatorAPI.h; sourceTree = "<group>"; };
+		C2D0AD511CB8418C00C96C57 /* PoliceLocatorAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoliceLocatorAPI.m; sourceTree = "<group>"; };
+		C2D936791CB4691000D109C6 /* RUFIConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIConstants.m; sourceTree = "<group>"; };
+		C2D936801CB4693F00D109C6 /* location_template.loc.vcf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = location_template.loc.vcf; sourceTree = "<group>"; };
 		EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -170,40 +174,42 @@
 		A707E4C71CAB0239002F37C5 /* com.flatironschool.safenyc */ = {
 			isa = PBXGroup;
 			children = (
+				C2D0AD4C1CB8418C00C96C57 /* PoliceDataStore.h */,
+				C2D0AD4D1CB8418C00C96C57 /* PoliceDataStore.m */,
+				C2D0AD4E1CB8418C00C96C57 /* PoliceLocation.h */,
+				C2D0AD4F1CB8418C00C96C57 /* PoliceLocation.m */,
+				C2D0AD501CB8418C00C96C57 /* PoliceLocatorAPI.h */,
+				C2D0AD511CB8418C00C96C57 /* PoliceLocatorAPI.m */,
 				A707E4CB1CAB0239002F37C5 /* AppDelegate.h */,
 				A707E4CC1CAB0239002F37C5 /* AppDelegate.m */,
 				A707E4CE1CAB0239002F37C5 /* ViewController.h */,
 				A707E4CF1CAB0239002F37C5 /* ViewController.m */,
 				A707E4FE1CAB02FE002F37C5 /* RUFIConstants.h */,
-				73A874121CB590070041BFF8 /* RUFIConstants.m */,
+				C2D936791CB4691000D109C6 /* RUFIConstants.m */,
 				732269761CAC129E00FCBAB1 /* RUFICrimes.h */,
 				732269771CAC129E00FCBAB1 /* RUFICrimes.m */,
 				732269791CAC1F9A00FCBAB1 /* RUFIDataStore.h */,
 				7322697A1CAC1F9A00FCBAB1 /* RUFIDataStore.m */,
 				7322697C1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.h */,
 				7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */,
-				EB2C6B1D1CB2C60D00CF5211 /* PoliceLocatorAPI.h */,
-				EB2C6B1E1CB2C60D00CF5211 /* PoliceLocatorAPI.m */,
-				EB2C6B201CB2DC5C00CF5211 /* PoliceDataStore.h */,
-				EB2C6B211CB2DC5C00CF5211 /* PoliceDataStore.m */,
-				EB2C6B231CB2E56B00CF5211 /* PoliceLocation.h */,
-				EB2C6B241CB2E56B00CF5211 /* PoliceLocation.m */,
 				A72600311CB1DB29001D9D0F /* RUFIEmergencyViewController.h */,
 				A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */,
 				A72600341CB1E216001D9D0F /* RUFISettingsViewController.h */,
 				A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */,
+				C26BEFC01CB5934900A54093 /* SelectContactsViewController.h */,
+				C26BEFC11CB5934900A54093 /* SelectContactsViewController.m */,
 				A707E4D11CAB0239002F37C5 /* Settings.storyboard */,
 				A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */,
 				A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */,
 				730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */,
-				A75CEA461CB5A13A00A1EF75 /* YuchiStoryboard.storyboard */,
+				C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */,
 				730665421CAD57C900FBB7DA /* PieChartDataViewController.h */,
 				730665431CAD57C900FBB7DA /* PieChartDataViewController.m */,
 				A707E4D71CAB0239002F37C5 /* Assets.xcassets */,
 				A707E4D91CAB0239002F37C5 /* LaunchScreen.storyboard */,
+				C2D936801CB4693F00D109C6 /* location_template.loc.vcf */,
 				A707E4DC1CAB0239002F37C5 /* Info.plist */,
 				A707E4D41CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld */,
-				A75CEA481CB5A37900A1EF75 /* location_template.loc.vcf */,
 				EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */,
 				A707E4C81CAB0239002F37C5 /* Supporting Files */,
 			);
@@ -346,12 +352,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				730665521CAD88B100FBB7DA /* rosarioStoryboard.storyboard in Resources */,
+				C2D936811CB4693F00D109C6 /* location_template.loc.vcf in Resources */,
 				A707E4DB1CAB0239002F37C5 /* LaunchScreen.storyboard in Resources */,
-				A75CEA471CB5A13A00A1EF75 /* YuchiStoryboard.storyboard in Resources */,
+				C2AEB5E81CB8281D00D6C055 /* YuchiStoryboard.storyboard in Resources */,
 				A707E5021CAC24D1002F37C5 /* IrinaStoryboard.storyboard in Resources */,
 				A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */,
 				A707E4D81CAB0239002F37C5 /* Assets.xcassets in Resources */,
-				A75CEA491CB5A37900A1EF75 /* location_template.loc.vcf in Resources */,
+				A75CEA491CB5A37900A1EF75 /* (null) in Resources */,
 				A707E4D31CAB0239002F37C5 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,17 +434,18 @@
 			files = (
 				A707E4D61CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld in Sources */,
 				A707E4D01CAB0239002F37C5 /* ViewController.m in Sources */,
-				EB2C6B221CB2DC5C00CF5211 /* PoliceDataStore.m in Sources */,
 				A72600331CB1DB29001D9D0F /* RUFIEmergencyViewController.m in Sources */,
 				A707E4CD1CAB0239002F37C5 /* AppDelegate.m in Sources */,
 				A72600361CB1E216001D9D0F /* RUFISettingsViewController.m in Sources */,
 				730665441CAD57C900FBB7DA /* PieChartDataViewController.m in Sources */,
+				C2D0AD531CB8418C00C96C57 /* PoliceLocation.m in Sources */,
+				C2D0AD541CB8418C00C96C57 /* PoliceLocatorAPI.m in Sources */,
 				A707E4CA1CAB0239002F37C5 /* main.m in Sources */,
-				73A874131CB590070041BFF8 /* RUFIConstants.m in Sources */,
+				C2D9367A1CB4691000D109C6 /* RUFIConstants.m in Sources */,
+				C26BEFC21CB5934900A54093 /* SelectContactsViewController.m in Sources */,
+				C2D0AD521CB8418C00C96C57 /* PoliceDataStore.m in Sources */,
 				7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */,
 				732269781CAC129E00FCBAB1 /* RUFICrimes.m in Sources */,
-				EB2C6B251CB2E56B00CF5211 /* PoliceLocation.m in Sources */,
-				EB2C6B1F1CB2C60D00CF5211 /* PoliceLocatorAPI.m in Sources */,
 				7322697E1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

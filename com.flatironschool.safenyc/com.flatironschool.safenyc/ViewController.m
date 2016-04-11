@@ -40,6 +40,10 @@
     [super viewDidLoad];
 
     self.datastore = [RUFIDataStore sharedDataStore];
+    self.datastore.distanceInMeters = @"402";
+    self.datastore.distanceInMiles = @"1/4";
+    self.datastore.yearsAgo = @"2";
+    self.datastore.distanceValue = @"2";
 
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector:@selector(reloadViewAfterSettingsScreen:)
@@ -56,8 +60,17 @@
 -(void)viewDidAppear:(BOOL)animated{
 
     [super viewDidAppear:YES];
+
+    
+    if (self.datastore.settingsChanged){
+    
+        [self updateMapAfterSetttingsChange];
+    }
+
 //    [self updateCurrentMap];
+    
     [self animateMap];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -107,7 +120,7 @@
             image = [UIImage imageNamed:@"pieChart.png"];
             
         } else if (button == self.dissmissPoliceMapButton){
-            image = [UIImage imageNamed:@"dissmissPoliceMap"];
+            image = [UIImage imageNamed:@"cancel"];
             
         }
         button.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
@@ -205,7 +218,11 @@
                     
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
+                        
                         [self animateMap];
+                        
+
+
                         [self updateFaceMarker];
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
@@ -335,8 +352,8 @@
 
 -(void)animateMap{
     
-    [self.mapView animateToZoom: 17];
     [self.mapView animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+    [self.mapView animateToZoom:17];
 
 }
 
@@ -376,7 +393,7 @@ didAutocompleteWithPlace:(GMSPlace *)place {
 - (void)viewController:(GMSAutocompleteViewController *)viewController
 didFailAutocompleteWithError:(NSError *)error {
     // TODO: handle the error.
-    NSLog(@"error: %ld", [error code]);
+    NSLog(@"error: %li", [error code]);
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -408,9 +425,9 @@ didFailAutocompleteWithError:(NSError *)error {
 
 #pragma method to update map with crime markers
 
--(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {    
-
+-(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
     for (RUFICrimes *crime in crimeArray){
+        
         GMSMarker *marker = [[GMSMarker alloc] init];
         marker.position = CLLocationCoordinate2DMake(crime.latitude, crime.longitude);
         marker.icon = crime.googleMapsIcon;
@@ -418,6 +435,8 @@ didFailAutocompleteWithError:(NSError *)error {
         marker.title = crime.offense;
         marker.snippet = [NSString stringWithFormat:@"%@ - %@", crime.precinct, crime.date];
         marker.map = self.mapView;
+
+    
     }
 }
 
@@ -519,88 +538,50 @@ didFailAutocompleteWithError:(NSError *)error {
     self.policeMarker.groundAnchor = CGPointMake(0.5,0.5);
     self.policeMarker.map = self.mapView;
     
-
-//    [self zoomOnPoliceLocationBackToCurrentLocationWithPath: path];
+    [self.mapView animateToLocation: CLLocationCoordinate2DMake(endLatitude, endLongitude)];
+    
+    //thinking about adding more to this feature for presentation purposes..
+    //[self zoomOnPoliceLocationBackToCurrentLocationWithPath: path];
     
     [self zoomOnPoliceLocation: CLLocationCoordinate2DMake(endLatitude, endLongitude)];
 }
 
--(void)zoomOnPoliceLocationBackToCurrentLocationWithPath:(GMSPath *) path{
+//-(void)zoomOnPoliceLocationBackToCurrentLocationWithPath:(GMSPath *) path{
+//
+//       NSUInteger pathEndPoint = path.count - 1;
+//    
+//    //    - (CLLocationCoordinate2D)coordinateAtIndex:(NSUInteger)index;
+//        CLLocationCoordinate2D currentPoint;
+//    //    NSLog(@"end point is currently: %@", pathEndPoint);
+//    
+//        for (NSInteger idx = pathEndPoint; idx > 0; idx--) {
+//            NSLog(@"we are now here!!!!");
+//            currentPoint = [path coordinateAtIndex: idx];
+//            NSLog(@"idx is now: %ld", (long)idx);
+//    //        [self.mapView animateToLocation: currentPoint];
+//    
+//            double delayInSeconds = .9;
+//            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+//            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//                [self.mapView animateToLocation: currentPoint];
+//            });
+//    
+//        }
+//
+//}
 
-       NSUInteger pathEndPoint = path.count - 1;
-    
-    //    - (CLLocationCoordinate2D)coordinateAtIndex:(NSUInteger)index;
-        CLLocationCoordinate2D currentPoint;
-    //    NSLog(@"end point is currently: %@", pathEndPoint);
-    
-        for (NSInteger idx = pathEndPoint; idx > 0; idx--) {
-            NSLog(@"we are now here!!!!");
-            currentPoint = [path coordinateAtIndex: idx];
-            NSLog(@"idx is now: %ld", (long)idx);
-    //        [self.mapView animateToLocation: currentPoint];
-    
-            double delayInSeconds = .9;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self.mapView animateToLocation: currentPoint];
-            });
-    
-        }
-
-
-
-
-}
 -(void)zoomOnPoliceLocation:(CLLocationCoordinate2D )policeLocation{
     
-//    NSUInteger pathEndPoint = path.count - 1;
-//    
-////    - (CLLocationCoordinate2D)coordinateAtIndex:(NSUInteger)index;
-//    CLLocationCoordinate2D currentPoint;
-////    NSLog(@"end point is currently: %@", pathEndPoint);
-//    
-//    for (NSInteger idx = pathEndPoint; idx > 0; idx--) {
-//        NSLog(@"we are now here!!!!");
-//        currentPoint = [path coordinateAtIndex: idx];
-//        NSLog(@"idx is now: %ld", (long)idx);
-////        [self.mapView animateToLocation: currentPoint];
-//        
-//        double delayInSeconds = .9;
-//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//            [self.mapView animateToLocation: currentPoint];
-//        });
-//
-//    }
+    CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(self.latitude, self.longitude);
+    CLLocationCoordinate2D policeCoods = CLLocationCoordinate2DMake(policeLocation.latitude, policeLocation.longitude);
+
+        GMSCoordinateBounds *bounds = [ [GMSCoordinateBounds alloc] initWithCoordinate: origin coordinate: policeCoods];
     
-    GMSVisibleRegion region = _mapView.projection.visibleRegion;
-    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithRegion: region];
     
-    if (![bounds containsCoordinate: policeLocation]){
-        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
-                                                                longitude: self.longitude
-                                                                     zoom: 15];
-        [self.mapView animateToCameraPosition: camera];
-    }
-    
-    //another implementation I'm working on....
-//    while (!boundsContainPoliceLocation) {
-//        
-//        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
-//                                                                longitude: self.longitude
-//                                                                     zoom: zoomLevel];
-//        NSLog(@"all up in here!!!");
-//        [self.mapView animateToCameraPosition: camera];
-//        
-//        boundsContainPoliceLocation = [bounds containsCoordinate: policeLocation];
-//        
-//        if (!boundsContainPoliceLocation) {
-//            zoomLevel += 1;
-//        }
-//        
-//    }
+   [self.mapView moveCamera: [GMSCameraUpdate fitBounds: bounds withPadding: 100.0f]];
 
 }
+
 
 -(void)removeClosetPoliceLocation{
     
@@ -708,7 +689,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
 -(void)updateFaceMarker {
     
-    NSUInteger count = self.datastore.crimeDataArray.count / 2;
+    NSUInteger count = self.datastore.crimeDataArray.count / [self.datastore.yearsAgo integerValue] / [self.datastore.distanceValue integerValue];
     
     NSLog(@"Update Face Maker: %lu", count);
     NSLog(@"Update Face Maker DS: %lu", self.datastore.crimeDataArray.count);
@@ -716,7 +697,7 @@ didFailAutocompleteWithError:(NSError *)error {
     GMSMarker *faceMarker = [[GMSMarker alloc] init];
     faceMarker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
     
-    if (count <= 50) {
+    if (count <= 25) {
         
         faceMarker.icon = [UIImage imageNamed:@"face1"];
         faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
@@ -725,7 +706,7 @@ didFailAutocompleteWithError:(NSError *)error {
         NSLog(@"Update Face Maker1: %lu", self.datastore.crimeDataArray.count);
     }
     
-    else if (count >= 51 && count <= 200) {
+    else if (count >= 26 && count <= 100) {
         
         faceMarker.icon = [UIImage imageNamed:@"face2"];
         faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
@@ -734,7 +715,7 @@ didFailAutocompleteWithError:(NSError *)error {
         NSLog(@"Update Face Maker2: %lu", self.datastore.crimeDataArray.count);
     }
     
-    else if (count >= 201 && count <= 350) {
+    else if (count >= 101 && count <= 175) {
         
         faceMarker.icon = [UIImage imageNamed:@"face3"];
         faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
@@ -743,7 +724,7 @@ didFailAutocompleteWithError:(NSError *)error {
         NSLog(@"Update Face Maker3: %lu", self.datastore.crimeDataArray.count);
     }
     
-    else if (count >= 351 && count <= 500) {
+    else if (count >= 176 && count <= 250) {
         
         faceMarker.icon = [UIImage imageNamed:@"face4"];
         faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
@@ -779,5 +760,28 @@ didFailAutocompleteWithError:(NSError *)error {
 
     }
 }
+
+
+-(void)updateMapAfterSetttingsChange {
+    
+    [self.mapView clear];
+    
+    
+    NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
+    [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
+        [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
+        
+        [self animateMap];
+        
+        [self updateFaceMarker];
+        
+        self.datastore.settingsChanged = NO;
+    
+    }];
+    
+    
+}
+
+
 
 @end

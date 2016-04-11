@@ -17,7 +17,7 @@ PODS:
   - DKCircleButton (1.1)
   - FrameAccessor (1.3.2)
   - GoogleMaps (1.13.0)
-  - GraphKit (1.1.1):
+  - GraphKit (1.1.2):
     - FrameAccessor (~> 1.3.2)
     - MKFoundationKit/NSArray (~> 1.2.2)
   - INTULocationManager (4.2.0)
@@ -29,16 +29,21 @@ DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - DKCircleButton (~> 1.1)
   - GoogleMaps (~> 1.13.0)
-  - GraphKit (~> 1.1)
+  - GraphKit (from `https://github.com/rtaraboo/GraphKit.git`)
   - INTULocationManager
   - THContactPicker (~> 2.0)
   - VBPieChart (from `https://github.com/rtaraboo/VBPieChart.git`)
 
 EXTERNAL SOURCES:
+  GraphKit:
+    :git: https://github.com/rtaraboo/GraphKit.git
   VBPieChart:
     :git: https://github.com/rtaraboo/VBPieChart.git
 
 CHECKOUT OPTIONS:
+  GraphKit:
+    :commit: 0973a05f6cc2441d42406b39640dc954c6328038
+    :git: https://github.com/rtaraboo/GraphKit.git
   VBPieChart:
     :commit: e3d836ff555ec3c4f79e1733fc3bc9306d440bc3
     :git: https://github.com/rtaraboo/VBPieChart.git
@@ -48,7 +53,7 @@ SPEC CHECKSUMS:
   DKCircleButton: 62564c9debae08ad77dabb8d9658dfeb5520f2c4
   FrameAccessor: 0f7ba6ce37be9a5d0302a27c731dca70af8d438b
   GoogleMaps: 7a6caeb8336d7cb42982e969fc9b1b20a889fe79
-  GraphKit: e2336bed87d9313020af525dedbca54b62e93533
+  GraphKit: 01f7be6c00b644ae9addefc4aff80fa16f7aa63b
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   MKFoundationKit: 882d74557944790d4d9e172961ed71d6a66804b7
   THContactPicker: 4345c81a407af534e5f618d495e8fb422a911c10
