@@ -278,6 +278,7 @@
         
         // set the button to show the image and disable it
         if (contactProperty.contact.thumbnailImageData == nil) {
+            [self.currentPerson setBackgroundImage:nil forState:UIControlStateNormal];
             NSMutableString *initials = [NSMutableString string];
             NSString *fullName = [NSString stringWithFormat:@"%@ %@ %@ %@", contactProperty.contact.givenName, contactProperty.contact.middleName, contactProperty.contact.nameSuffix, contactProperty.contact.familyName];
             NSArray *characters = [fullName componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
