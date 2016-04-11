@@ -26,7 +26,7 @@
 @property (strong, nonatomic) DKCircleButton *person6;
 @property (strong, nonatomic) DKCircleButton *backButton;
 @property (strong, nonatomic) DKCircleButton *addFriendsButton;
-@property (strong, nonatomic) DKCircleButton *displayPerson;
+@property (strong, nonatomic) DKCircleButton *currentPerson;
 @property (strong, nonatomic) UITextField *holdUntillTextField;
 //@property (strong, nonatomic) CNMutableContact *contact1;
 //@property (strong, nonatomic) CNMutableContact *contact2;
@@ -131,7 +131,8 @@
             UIImage *image = [UIImage new];
             image = [UIImage imageNamed:@"addFriend"];
             button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-            [button setImage:image forState:UIControlStateNormal];
+            [button setBackgroundImage:image forState:UIControlStateNormal];
+//            [button setImage:image forState:UIControlStateNormal];
             [button setContentMode:UIViewContentModeScaleAspectFill];
             button.alpha = 1;
             
@@ -157,6 +158,8 @@
         
         NSLog(@"Person 1!");
         [self openContacts];
+        self.currentPerson = _person1;
+//        [self openContacts];
 //        if(![self.contact1 isEqual:@""]){
 //            [self updateButtonWithPictureOf:button];
 //        }
@@ -165,27 +168,32 @@
     } else if (button == self.person2){
         
         NSLog(@"Person 2!");
-        //[self openContacts];
+        [self openContacts];
+        self.currentPerson = _person2;
         
     } else if (button == self.person3){
         
         NSLog(@"Person 3!");
-        //[self openContacts];
+        [self openContacts];
+        self.currentPerson = _person3;
         
     } else if (button == self.person4){
         
         NSLog(@"Person 4!");
-        //[self openContacts];
+        [self openContacts];
+        self.currentPerson = _person4;
     
     } else if (button == self.person5){
         
         NSLog(@"Person 5!");
-        //[self openContacts];
+        [self openContacts];
+        self.currentPerson = _person5;
    
     } else if (button == self.person6){
         
         NSLog(@"Person 6!");
-        //[self openContacts];
+        [self openContacts];
+        self.currentPerson = _person6;
    
     } else if (button == self.backButton){
         
@@ -260,6 +268,9 @@
     NSString *contactName = [NSString stringWithFormat:@"%@ %@", contactProperty.contact.givenName, contactProperty.contact.familyName];
     NSLog(@"%@", contactName);
     if ([contactProperty.value isKindOfClass:[CNPhoneNumber class]]) {
+//        [self.currentPerson setNeedsLayout];
+//        [self.currentPerson layoutIfNeeded];
+//        [self.currentPerson ];
         // they followed instructions and tapped a phone number!
         CNPhoneNumber *number = contactProperty.value;
         NSString *numberString = number.stringValue;
@@ -276,13 +287,17 @@
                     [initials appendString:[firstLetter uppercaseString]];
                 }
             }
-            [self.displayPerson setTitle:initials forState:UIControlStateNormal];
+//            [self.currentPerson.titleLabel setFont:[UIFont fontWithName:@"Zapfino" size:20.0]];
+//            [self.currentPerson.titleLabel setTextColor:[UIColor blueColor]];
+//            self.currentPerson.titleLabel.text = @"AV";
+//            [self.currentPerson setImage:nil animated:NO];
+            [self.currentPerson setTitle:initials forState:UIControlStateNormal];
         }
         else {
             UIImage *contactImage = [UIImage imageWithData:contactProperty.contact.thumbnailImageData];
-            [self.displayPerson setTitle:@"" forState:UIControlStateNormal];
-            [self.displayPerson setImage:contactImage forState:UIControlStateNormal];
-            self.displayPerson.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            [self.currentPerson setTitle:@"" forState:UIControlStateNormal];
+            [self.currentPerson setImage:contactImage forState:UIControlStateNormal];
+            self.currentPerson.imageView.contentMode = UIViewContentModeScaleAspectFit;
         }
         //        self.person1.userInteractionEnabled = NO;
     }
