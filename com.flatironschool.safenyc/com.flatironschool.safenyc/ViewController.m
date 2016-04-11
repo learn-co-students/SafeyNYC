@@ -149,10 +149,14 @@
 
         
     } else if (button == self.currentLocationButton){
+        
+//        [self startSpinner];
 
         [self updateCurrentMap];
         
     } else if (button == self.policeMapButton){
+        
+//        [self startSpinner];
         
         [self updateMapWithPoliceLocation];
 
@@ -226,7 +230,8 @@
                         [self updateFaceMarker];
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
-                        
+//                        [self endSpinner];
+                        [self startSpinner];
                     }];
                     
                     
@@ -459,6 +464,8 @@ didFailAutocompleteWithError:(NSError *)error {
                     if (finished) {
                 
                         NSLog(@"let's draw a line!!!!!!!!!!");
+//                        [self endSpinner];
+                        [self startSpinner];
                         
                     }
                 }];
@@ -782,6 +789,41 @@ didFailAutocompleteWithError:(NSError *)error {
     }];
     
     
+}
+
+
+//UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+//spinner.color = [UIColor blueColor];
+//[spinner startAnimating];
+//[_mapViewController.view addSubview:spinner];
+//
+//dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//    // lots of code run in the background
+//
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        // stop and remove the spinner on the main thread when done
+//        [spinner removeFromSuperview];
+//    });
+//});
+
+-(void)startSpinner{
+
+    self.spinner = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+//    self.spinner.color = [UIColor yellowColor];
+    NSLog(@"spinner made");
+    [self.spinner startAnimating];
+    [self.mapView addSubview: self.spinner];
+
+
+}
+
+-(void)endSpinner{
+
+    if (self.spinner.isAnimating) {
+        [self.spinner removeFromSuperview];
+        NSLog(@"spinner destoryed");
+    }
+
 }
 
 

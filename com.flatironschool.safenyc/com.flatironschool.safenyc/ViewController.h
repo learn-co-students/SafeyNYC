@@ -26,8 +26,10 @@
 @property (strong, nonatomic) UIActivityIndicatorView *activityView;
 @property (strong, nonatomic) GMSPolyline *policePolyline;
 @property (strong, nonatomic) GMSMarker *policeMarker;
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
 
 -(void)reloadViewAfterSettingsScreen:(NSNotification *)notification;
+
 
 
 @end
