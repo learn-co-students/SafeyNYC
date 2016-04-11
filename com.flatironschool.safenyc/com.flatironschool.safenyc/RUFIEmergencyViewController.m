@@ -26,21 +26,20 @@
 @property (strong, nonatomic) DKCircleButton *person6;
 @property (strong, nonatomic) DKCircleButton *backButton;
 @property (strong, nonatomic) DKCircleButton *addFriendsButton;
+@property (strong, nonatomic) DKCircleButton *displayPerson;
 @property (strong, nonatomic) UITextField *holdUntillTextField;
-@property (strong, nonatomic) CNMutableContact *contact1;
-@property (strong, nonatomic) CNMutableContact *contact2;
-@property (strong, nonatomic) CNMutableContact *contact3;
-@property (strong, nonatomic) CNMutableContact *contact4;
-@property (strong, nonatomic) CNMutableContact *contact5;
-@property (strong, nonatomic) CNMutableContact *contact6;
-@property (strong, nonatomic) CNContactStore *contactStore;
+//@property (strong, nonatomic) CNMutableContact *contact1;
+//@property (strong, nonatomic) CNMutableContact *contact2;
+//@property (strong, nonatomic) CNMutableContact *contact3;
+//@property (strong, nonatomic) CNMutableContact *contact4;
+//@property (strong, nonatomic) CNMutableContact *contact5;
+//@property (strong, nonatomic) CNMutableContact *contact6;
+//@property (strong, nonatomic) CNContactStore *contactStore;
 @property (strong, nonatomic) NSString *thisButtonWasPressed;
 @property (strong, nonatomic) NSArray *allContacts;
 @property (nonatomic) BOOL isContactePicked;
 @property (strong, nonatomic) MFMessageComposeViewController *composeVC;
 @property (strong, nonatomic) UIImageView *backgroundImage;
-
-
 
 @end
 
@@ -227,11 +226,16 @@
 }
 
 -(void) openContacts {
+    //    CNContactPickerViewController *picker = [[CNContactPickerViewController alloc] init];
+    //    picker.delegate = self;
+    //    picker.predicateForEnablingContact = [NSPredicate predicateWithFormat:@"phoneNumbers.@count > 0"];
+    //    [self presentViewController:picker animated:YES completion:nil];
+    //    picker.displayedPropertyKeys = @[@[CNContactImageDataKey], @[CNContactGivenNameKey], @[CNContactFamilyNameKey], @[CNLabelPhoneNumberMain]];
     CNContactPickerViewController *picker = [[CNContactPickerViewController alloc] init];
     picker.delegate = self;
     picker.predicateForEnablingContact = [NSPredicate predicateWithFormat:@"phoneNumbers.@count > 0"];
+    //    picker.predicateForSelectionOfProperty
     [self presentViewController:picker animated:YES completion:nil];
-    picker.displayedPropertyKeys = @[@[CNContactImageDataKey], @[CNContactGivenNameKey], @[CNContactFamilyNameKey], @[CNLabelPhoneNumberMain]];
 }
 
 - (void) contactPickerDidCancel: (CNContactPickerViewController *) picker {
@@ -239,24 +243,70 @@
     NSLog(@"contactPickerDidCancel");
 }
 
-- (void) contactPicker: (CNContactPickerViewController *) picker
-      didSelectContact: (CNContact *) contact {
-   
-    NSLog(@"contactpicked: %@", contact);
-    self.contact1 = [contact mutableCopy];
-    self.isContactePicked = YES;
-    NSLog(@"copy set to property: %@", self.contact1);
-    [self updateButtonWithPicture];
-    
+//- (void) contactPicker: (CNContactPickerViewController *) picker
+//      didSelectContact: (CNContact *) contact {
+//   
+//    NSLog(@"contactpicked: %@", contact);
+//    self.contact1 = [contact mutableCopy];
+//    self.isContactePicked = YES;
+//    NSLog(@"copy set to property: %@", self.contact1);
+//    [self updateButtonWithPicture];
+//    
+//}
+
+-(void)contactPicker:(CNContactPickerViewController *)picker didSelectContactProperty:(CNContactProperty *)contactProperty{
+    // because this method is implemented, the picker will dismiss itself after this happens
+    // here is where the contact property will come out
+    NSString *contactName = [NSString stringWithFormat:@"%@ %@", contactProperty.contact.givenName, contactProperty.contact.familyName];
+    NSLog(@"%@", contactName);
+    if ([contactProperty.value isKindOfClass:[CNPhoneNumber class]]) {
+        // they followed instructions and tapped a phone number!
+        CNPhoneNumber *number = contactProperty.value;
+        NSString *numberString = number.stringValue;
+        NSLog(@"%@", numberString);
+        
+        // set the button to show the image and disable it
+        if (contactProperty.contact.thumbnailImageData == nil) {
+            NSMutableString *initials = [NSMutableString string];
+            NSString *fullName = [NSString stringWithFormat:@"%@ %@ %@ %@", contactProperty.contact.givenName, contactProperty.contact.middleName, contactProperty.contact.nameSuffix, contactProperty.contact.familyName];
+            NSArray *characters = [fullName componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            for (NSString * character in characters) {
+                if ([character length] > 0) {
+                    NSString * firstLetter = [character substringToIndex:1];
+                    [initials appendString:[firstLetter uppercaseString]];
+                }
+            }
+            [self.displayPerson setTitle:initials forState:UIControlStateNormal];
+        }
+        else {
+            UIImage *contactImage = [UIImage imageWithData:contactProperty.contact.thumbnailImageData];
+            [self.displayPerson setTitle:@"" forState:UIControlStateNormal];
+            [self.displayPerson setImage:contactImage forState:UIControlStateNormal];
+            self.displayPerson.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        }
+        //        self.person1.userInteractionEnabled = NO;
+    }
+    else {
+        //        NSLog(@"Alert Controller");
+        //        UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:@"Warning"  message:@"select contact"  preferredStyle:UIAlertControllerStyleAlert];
+        //        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        //            [self dismissViewControllerAnimated:YES completion:nil];
+        //        }]];
+        //        [self presentViewController:alertController animated:YES completion:nil];
+        
+        // they did not pick a phone number
+        // present error alert and dont modify button
+    }
 }
 
--(void)updateButtonWithPicture {
-    
-    UIImage *image = [UIImage imageWithData:self.contact1.thumbnailImageData];
-    NSLog(@"image: %@", image);
-    [self.person1 setImage:image forState:UIControlStateNormal];
-    
-}
+
+//-(void)updateButtonWithPicture {
+//    
+//    UIImage *image = [UIImage imageWithData:self.contact1.thumbnailImageData];
+//    NSLog(@"image: %@", image);
+//    [self.person1 setImage:image forState:UIControlStateNormal];
+//    
+//}
 
 /*
 -(void) contactsFromAddressBook {
