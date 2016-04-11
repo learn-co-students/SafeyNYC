@@ -38,6 +38,17 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    
+//    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: 40.705412
+//                                                            longitude: -74.013974
+//                                                                 zoom: 2];
+//    
+//    [self.mapView animateToCameraPosition:camera];
+//    
+//    self.mapView = [GMSMapView mapWithFrame: self.view.bounds camera:camera];
+//
+//    self.view = self.mapView;
+    
 
     self.datastore = [RUFIDataStore sharedDataStore];
     self.datastore.distanceInMeters = @"402";
@@ -69,7 +80,7 @@
 
 //    [self updateCurrentMap];
     
-    [self animateMap];
+//    [self animateMap];
 
 }
 
@@ -346,9 +357,14 @@
 
 -(void)createMapWithCoordinates{
     
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
-                                                            longitude: self.longitude
-                                                                 zoom: 17];
+//    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
+//                                                            longitude: self.longitude
+//                                                                 zoom: 17];
+    
+    
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: 40.705412
+                                                            longitude: -74.013974
+                                                                 zoom: 12];
     
     self.mapView = [GMSMapView mapWithFrame: self.view.bounds camera:camera];
     self.mapView.myLocationEnabled = YES;
