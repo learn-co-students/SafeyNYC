@@ -30,7 +30,6 @@
 @property (nonatomic, assign) BOOL policeLocationFoundForActualCurrentLocation;
 
 
-
 -(void)reloadViewAfterSettingsScreen:(NSNotification *)notification;
 
 

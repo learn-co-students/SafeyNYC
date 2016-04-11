@@ -92,6 +92,8 @@
     
     NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton, self.dissmissPoliceMapButton];
     
+    
+    
     for (DKCircleButton *button in buttons) {
 
         [self.view addSubview:button];
@@ -133,21 +135,39 @@
     }
 }
 
+-(void)toggleButtonInteractions{
+
+    NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton];
+
+    for (DKCircleButton *currentButton in buttons) {
+        currentButton.userInteractionEnabled = !currentButton.userInteractionEnabled;
+    }
+}
 
 -(void)pressedButton:(DKCircleButton *)button {
     
     button.animateTap = YES;
     
+    NSLog(@"disabled!!!!!");
+
+    [self toggleButtonInteractions];
+    
     if(button == self.searchButton){
         
         [self openGooglePlacePicker];
+        
+        if (!self.searchButton.userInteractionEnabled) {
+            [self toggleButtonInteractions];
+        }
+        
         NSLog(@"Getting to inside the pressed button");
         
     } else if (button == self.settingsButton){
         
         [self performSegueWithIdentifier:@"settingsSegue" sender:nil];
-
         
+        [self toggleButtonInteractions];
+
     } else if (button == self.currentLocationButton){
 
         [self updateCurrentMap];
@@ -163,10 +183,17 @@
         
         [self checkForFingerPrint];
         //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+        if (!self.emergencyButton.userInteractionEnabled) {
+            [self toggleButtonInteractions];
+
+        }
        
     } else if (button == self.pieChartButton){
         
         [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
+        
+        [self toggleButtonInteractions];
+
         
     } else if (button == self.dissmissPoliceMapButton){
         
@@ -174,6 +201,8 @@
         [self removeClosetPoliceLocation];
         
     }
+    
+    NSLog(@"reenabled!!!!!");
 }
 
 
@@ -207,7 +236,7 @@
                         [self createMapWithCoordinates];
                         [self updateFaceMarker];
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
-                        
+
                         
                     }];
                     
@@ -225,12 +254,18 @@
                             [self.dissmissPoliceMapButton setHidden: YES];
                         }
 
+                        
                         [self animateMap];
                     
                         [self updateFaceMarker];
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
+                        if(!self.currentLocationButton.userInteractionEnabled){
+            
+                            [self toggleButtonInteractions];
                         
+                        }
+   
                     }];
                     
                 }
@@ -392,6 +427,10 @@ didAutocompleteWithPlace:(GMSPlace *)place {
         [self animateMap];
         
         [self updateFaceMarker];
+        
+        if (!self.searchButton.userInteractionEnabled) {
+            [self toggleButtonInteractions];
+        }
     }];
 
 }
@@ -455,6 +494,9 @@ didFailAutocompleteWithError:(NSError *)error {
         
         //this calls the distance API which provides directions (with html tags) on how to get to the
         //police location
+        if (!self.policeMapButton.userInteractionEnabled) {
+            [self toggleButtonInteractions];
+        }
         
             if (finished) {
             
@@ -470,6 +512,10 @@ didFailAutocompleteWithError:(NSError *)error {
                         else{
                             self.policeLocationFoundForActualCurrentLocation = YES;
                         }
+//                        
+//                        if (!self.policeMapButton.userInteractionEnabled) {
+//                            [self toggleButtonInteractions];
+//                        }
                         
                     }
                 }];
