@@ -42,13 +42,6 @@
     
     
     self.dataStore = [RUFIDataStore sharedDataStore];
-    self.chart = [[VBPieChart alloc] initWithFrame:CGRectZero];
-    [self.chartSuper addSubview:self.chart];
-    
-    self.chart.delegate = self;
-    self.chart.allowOnlyOneAccentedPiece = YES;
-    self.chart.maxAccentPrecent = 0.1;
-    [self.chart setHoleRadiusPrecent:0.1];
     self.backButton.backgroundColor = [UIColor whiteColor];
     self.backButton.borderColor = [UIColor grayColor];
     self.backButton.alpha = 1.0;
@@ -87,9 +80,16 @@
 -(void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear: YES];
+    self.chart = [[VBPieChart alloc] initWithFrame:CGRectZero];
+    [self.chartSuper addSubview:self.chart];
+    
+    self.chart.delegate = self;
+    self.chart.allowOnlyOneAccentedPiece = YES;
+    self.chart.maxAccentPrecent = 0.1;
+    [self.chart setHoleRadiusPrecent:0.1];
     self.inThePastLabel.textColor = [UIColor darkGrayColor];
     self.inThePastLabel.shadowColor = [UIColor whiteColor];
-    self.inThePastLabel.shadowOffset = CGSizeMake(0, -1);
+    self.inThePastLabel.shadowOffset = CGSizeMake(0, 0);
     self.inThePastLabel.text = [NSString stringWithFormat:@"In the past %@ year(s) there has been %lu felonies commited in the %@ mile radius from where you are standing.", self.dataStore.yearsAgo, (unsigned long)self.dataStore.crimeDataArray.count, self.dataStore.distanceInMiles];
     
     
@@ -117,6 +117,8 @@
     
     [self.chart setChartValues:self.chartValues animation:YES duration:1.0 options:VBPieChartAnimationFanAll];
     
+    NSLog(@"CALLING THE CHART %@", self.chartValues);
+    
     
     
     
@@ -143,10 +145,10 @@
     
     self.percentLabel.textColor = [UIColor darkGrayColor];
     self.percentLabel.shadowColor = [UIColor whiteColor];
-    self.percentLabel.shadowOffset = CGSizeMake(0, -1);
+    self.percentLabel.shadowOffset = CGSizeMake(0, 0);
     self.totalNumberLabel.textColor = [UIColor darkGrayColor];
     self.totalNumberLabel.shadowColor = [UIColor whiteColor];
-    self.totalNumberLabel.shadowOffset = CGSizeMake(0, -1);
+    self.totalNumberLabel.shadowOffset = CGSizeMake(0, 0);
     
     
 }

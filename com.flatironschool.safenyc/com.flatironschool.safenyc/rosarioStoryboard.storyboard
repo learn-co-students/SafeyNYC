@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uhM-D6-s79">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2dL-jL-EPX">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -46,6 +46,7 @@
                                 <state key="normal" title="Button" image="info"/>
                                 <connections>
                                     <action selector="infoButtonAction:" destination="2dL-jL-EPX" eventType="touchUpInside" id="C2V-tm-GrX"/>
+                                    <segue destination="uhM-D6-s79" kind="presentation" modalTransitionStyle="coverVertical" id="8Nf-8S-FIe"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please tap on a color for more information:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOj-6Y-z5h">
@@ -141,10 +142,10 @@
             </objects>
             <point key="canvasLocation" x="1652" y="251"/>
         </scene>
-        <!--View Controller-->
+        <!--Definitions View Controller-->
         <scene sceneID="Jy4-PB-XGM">
             <objects>
-                <viewController id="uhM-D6-s79" sceneMemberID="viewController">
+                <viewController id="uhM-D6-s79" customClass="RUFIDefinitionsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NIJ-Xb-yTv"/>
                         <viewControllerLayoutGuide type="bottom" id="vMd-Ys-O0c"/>
@@ -156,19 +157,22 @@
                             <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg15" translatesAutoresizingMaskIntoConstraints="NO" id="Vs3-uZ-QD9">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUu-Lx-aL7">
-                                <rect key="frame" x="533" y="40" width="47" height="47"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUu-Lx-aL7" customClass="DKCircleButton">
+                                <rect key="frame" x="533" y="35" width="47" height="47"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="47" id="Ohq-kf-Lo5"/>
                                     <constraint firstAttribute="width" constant="47" id="geX-av-8iF"/>
                                 </constraints>
                                 <state key="normal" image="back"/>
+                                <connections>
+                                    <action selector="backButtonAction:" destination="uhM-D6-s79" eventType="touchUpInside" id="HC5-Sa-51L"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="definitions" translatesAutoresizingMaskIntoConstraints="NO" id="aaF-Sw-43u">
-                                <rect key="frame" x="20" y="40" width="505" height="47"/>
+                                <rect key="frame" x="20" y="35" width="505" height="47"/>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="USj-Mc-EqC">
-                                <rect key="frame" x="20" y="90" width="560" height="510"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="USj-Mc-EqC">
+                                <rect key="frame" x="20" y="85" width="560" height="515"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="burglarySign" translatesAutoresizingMaskIntoConstraints="NO" id="Ao9-GM-P75">
                                         <rect key="frame" x="8" y="8" width="544" height="59"/>
@@ -178,7 +182,7 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Entry into a building illegally with intent to commit a crime, especially theft." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oYi-lk-DbP">
                                         <rect key="frame" x="5" y="67" width="550" height="21"/>
-                                        <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -190,7 +194,7 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The act or an instance of unlawfully threatening or attempting to injure another." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORu-bl-k0y">
                                         <rect key="frame" x="8" y="152" width="544" height="21"/>
-                                        <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -203,7 +207,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KbM-c2-WXL">
                                         <rect key="frame" x="8" y="237" width="544" height="21"/>
                                         <string key="text">The unlawful taking and removing of another's personal property with the intent of permanently depriving the owner in which the value of the goods taken is above a certain legally specified amount.</string>
-                                        <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -213,9 +217,9 @@
                                             <constraint firstAttribute="height" constant="59" id="NcG-6J-MPP"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Entry into a building illegally with intent to commit a crime, especially theft." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbw-bt-n2g">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Criminal act of stealing or attempting to steal a car (or any other motor vehicle)." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbw-bt-n2g">
                                         <rect key="frame" x="8" y="322" width="544" height="21"/>
-                                        <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -227,13 +231,13 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The unlawful killing of another human being without justification or excuse." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efZ-yT-0Mz">
                                         <rect key="frame" x="8" y="407" width="544" height="21"/>
-                                        <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rape is the commission of unlawful sexual intercourse or unlawful sexual intrusion." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pxg-Wm-NWP">
                                         <rect key="frame" x="8" y="492" width="544" height="21"/>
-                                        <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -246,7 +250,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wsh-TI-rmg">
                                         <rect key="frame" x="8" y="572" width="544" height="22"/>
                                         <string key="text">Robbery is a crime of theft and can be classified as larceny by force or by threat of force. The elements of the crime of robbery include the use of force or intimidation and all the elements of the crime of larceny. The penalty for robbery is always more severe than for larceny.</string>
-                                        <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -262,7 +266,9 @@
                                     <constraint firstItem="oYi-lk-DbP" firstAttribute="top" secondItem="Ao9-GM-P75" secondAttribute="bottom" id="2qj-Xa-89R"/>
                                     <constraint firstItem="efZ-yT-0Mz" firstAttribute="top" secondItem="urh-KZ-ONZ" secondAttribute="bottom" id="Jtj-M5-MR9"/>
                                     <constraint firstItem="vbw-bt-n2g" firstAttribute="top" secondItem="0gp-Tg-63R" secondAttribute="bottom" id="M4C-YD-eSR"/>
+                                    <constraint firstItem="TcL-Wz-iZt" firstAttribute="leading" secondItem="USj-Mc-EqC" secondAttribute="leading" constant="8" id="MkJ-rg-cWu"/>
                                     <constraint firstItem="Wsh-TI-rmg" firstAttribute="top" secondItem="69q-CF-DL9" secondAttribute="bottom" id="RX1-LO-AkC"/>
+                                    <constraint firstAttribute="trailing" secondItem="TcL-Wz-iZt" secondAttribute="trailing" constant="8" id="RZU-lS-kYr"/>
                                     <constraint firstItem="TcL-Wz-iZt" firstAttribute="top" secondItem="ORu-bl-k0y" secondAttribute="bottom" constant="5" id="UDL-3f-Vz3"/>
                                     <constraint firstItem="Pxg-Wm-NWP" firstAttribute="top" secondItem="fp8-iG-lUV" secondAttribute="bottom" id="Wwl-Yh-oiW"/>
                                     <constraint firstItem="KbM-c2-WXL" firstAttribute="top" secondItem="TcL-Wz-iZt" secondAttribute="bottom" id="aVs-JJ-gai"/>
@@ -309,7 +315,7 @@
                             <constraint firstItem="USj-Mc-EqC" firstAttribute="trailing" secondItem="7a6-3m-c2a" secondAttribute="trailingMargin" id="iBS-XO-POY"/>
                             <constraint firstItem="aaF-Sw-43u" firstAttribute="bottom" secondItem="CUu-Lx-aL7" secondAttribute="bottom" id="jBF-XX-vQf"/>
                             <constraint firstItem="USj-Mc-EqC" firstAttribute="top" secondItem="CUu-Lx-aL7" secondAttribute="bottom" constant="3" id="lij-R2-xGz"/>
-                            <constraint firstItem="CUu-Lx-aL7" firstAttribute="top" secondItem="NIJ-Xb-yTv" secondAttribute="bottom" constant="20" id="mhH-mT-Y7m"/>
+                            <constraint firstItem="CUu-Lx-aL7" firstAttribute="top" secondItem="NIJ-Xb-yTv" secondAttribute="bottom" constant="15" id="mhH-mT-Y7m"/>
                             <constraint firstItem="69q-CF-DL9" firstAttribute="leading" secondItem="7a6-3m-c2a" secondAttribute="leadingMargin" constant="8" id="nTE-yI-I5H"/>
                             <constraint firstItem="Vs3-uZ-QD9" firstAttribute="top" secondItem="7a6-3m-c2a" secondAttribute="topMargin" id="nix-9B-kLY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="efZ-yT-0Mz" secondAttribute="trailing" constant="8" id="nmu-Ft-42Q"/>
@@ -322,10 +328,13 @@
                             <constraint firstItem="oYi-lk-DbP" firstAttribute="leading" secondItem="7a6-3m-c2a" secondAttribute="leadingMargin" constant="5" id="yqv-Ir-Gvq"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="backButton" destination="CUu-Lx-aL7" id="baO-Ri-nCa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QWX-wC-Btq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2289" y="251"/>
+            <point key="canvasLocation" x="2549" y="251"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="w1U-dl-ynk">

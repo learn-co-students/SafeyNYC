@@ -13,6 +13,7 @@
 		732269781CAC129E00FCBAB1 /* RUFICrimes.m in Sources */ = {isa = PBXBuildFile; fileRef = 732269771CAC129E00FCBAB1 /* RUFICrimes.m */; };
 		7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7322697A1CAC1F9A00FCBAB1 /* RUFIDataStore.m */; };
 		7322697E1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */; };
+		7361C9DE1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7361C9DD1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m */; };
 		A707E4CA1CAB0239002F37C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4C91CAB0239002F37C5 /* main.m */; };
 		A707E4CD1CAB0239002F37C5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4CC1CAB0239002F37C5 /* AppDelegate.m */; };
 		A707E4D01CAB0239002F37C5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4CF1CAB0239002F37C5 /* ViewController.m */; };
@@ -67,6 +68,8 @@
 		7322697A1CAC1F9A00FCBAB1 /* RUFIDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIDataStore.m; sourceTree = "<group>"; };
 		7322697C1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFICrimeDataAPI.h; sourceTree = "<group>"; };
 		7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFICrimeDataAPI.m; sourceTree = "<group>"; };
+		7361C9DC1CBC168F00F69CC3 /* RUFIDefinitionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIDefinitionsViewController.h; sourceTree = "<group>"; };
+		7361C9DD1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIDefinitionsViewController.m; sourceTree = "<group>"; };
 		A707E4C51CAB0238002F37C5 /* com.flatironschool.safenyc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = com.flatironschool.safenyc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A707E4C91CAB0239002F37C5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A707E4CB1CAB0239002F37C5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 				A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */,
 				A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */,
 				730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */,
+				7361C9DC1CBC168F00F69CC3 /* RUFIDefinitionsViewController.h */,
+				7361C9DD1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m */,
 				C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */,
 				730665421CAD57C900FBB7DA /* PieChartDataViewController.h */,
 				730665431CAD57C900FBB7DA /* PieChartDataViewController.m */,
@@ -443,6 +448,7 @@
 				A707E4CA1CAB0239002F37C5 /* main.m in Sources */,
 				C2D9367A1CB4691000D109C6 /* RUFIConstants.m in Sources */,
 				C26BEFC21CB5934900A54093 /* SelectContactsViewController.m in Sources */,
+				7361C9DE1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m in Sources */,
 				C2D0AD521CB8418C00C96C57 /* PoliceDataStore.m in Sources */,
 				7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */,
 				732269781CAC129E00FCBAB1 /* RUFICrimes.m in Sources */,
