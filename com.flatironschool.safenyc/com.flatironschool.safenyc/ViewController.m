@@ -218,11 +218,15 @@
                     
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
-                        
+                        if (self.searchLocation) {
+                            
+                            self.searchLocation = NO;
+                            [self.mapView clear];
+                            [self.dissmissPoliceMapButton setHidden: YES];
+                        }
+
                         [self animateMap];
-                        
-
-
+                    
                         [self updateFaceMarker];
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
@@ -372,13 +376,15 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     self.longitude = currentCoordinate.longitude;
     self.datastore.userLongitude = [NSString stringWithFormat:@"%.6f", self.longitude];
     self.datastore.userLatitude = [NSString stringWithFormat:@"%.6f", self.latitude];
+    self.searchLocation = YES;
+    
     
     NSLog(@"AT DATA STORE %@", self.datastore.userLatitude);
     NSLog(@"AT DATA STORE %@", self.datastore.userLongitude);
     
-    [self.mapView clear];
-
-
+    
+       [self.mapView clear];
+    
     NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
@@ -436,7 +442,6 @@ didFailAutocompleteWithError:(NSError *)error {
         marker.snippet = [NSString stringWithFormat:@"%@ - %@", crime.precinct, crime.date];
         marker.map = self.mapView;
 
-    
     }
 }
 
@@ -444,6 +449,7 @@ didFailAutocompleteWithError:(NSError *)error {
    
     PoliceDataStore *store = [PoliceDataStore sharedDataStore];
 //    40.705475, -74.013993
+
     
     [store getPoliceLocationsLatitude: self.latitude Longitude: self.longitude WithCompletion:^(BOOL finished) {
         
@@ -457,6 +463,13 @@ didFailAutocompleteWithError:(NSError *)error {
                     if (finished) {
                 
                         NSLog(@"let's draw a line!!!!!!!!!!");
+                        
+                        if (self.searchLocation) {
+                            self.policeLocationFoundForActualCurrentLocation = NO;
+                        }
+                        else{
+                            self.policeLocationFoundForActualCurrentLocation = YES;
+                        }
                         
                     }
                 }];
@@ -501,7 +514,7 @@ didFailAutocompleteWithError:(NSError *)error {
         
         GMSPath *path = [GMSPath pathFromEncodedPath: responseObject[@"routes"][0][@"overview_polyline"][@"points"]];
         
-        [self drawClosetPoliceLocationWithPath: path startLat: self.latitude startLng: self.longitude policeLocation: closestPoliceLocation];
+        [self drawClosetPoliceLocationWithPath: path startLat: latitude startLng: longitude policeLocation: closestPoliceLocation];
 
         
         completionBlock(YES);
@@ -516,7 +529,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
 -(void)drawClosetPoliceLocationWithPath:(GMSPath *)path
                                startLat:(double) startLatitude
-                               startLng:(double)startLongitude
+                               startLng:(double) startLongitude
                          policeLocation:(PoliceLocation *)policeLocation{
     
     double endLatitude = policeLocation.latitude;
