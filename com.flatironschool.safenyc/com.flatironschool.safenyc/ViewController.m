@@ -93,7 +93,6 @@
     NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton, self.dissmissPoliceMapButton];
     
     
-    
     for (DKCircleButton *button in buttons) {
 
         [self.view addSubview:button];
@@ -149,11 +148,13 @@
     button.animateTap = YES;
     
     NSLog(@"disabled!!!!!");
-
-    [self toggleButtonInteractions];
+//
+//    [self toggleButtonInteractions];
     
     if(button == self.searchButton){
         
+        [self toggleButtonInteractions];
+
         [self openGooglePlacePicker];
         
         if (!self.searchButton.userInteractionEnabled) {
@@ -164,15 +165,19 @@
         
     } else if (button == self.settingsButton){
         
+        
         [self performSegueWithIdentifier:@"settingsSegue" sender:nil];
         
-        [self toggleButtonInteractions];
 
     } else if (button == self.currentLocationButton){
 
+        [self toggleButtonInteractions];
+        
         [self updateCurrentMap];
         
     } else if (button == self.policeMapButton){
+        
+        [self toggleButtonInteractions];
         
         [self updateMapWithPoliceLocation];
 
@@ -180,6 +185,8 @@
 
         
     } else if (button == self.emergencyButton){
+        
+        [self toggleButtonInteractions];
         
         [self checkForFingerPrint];
         //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
@@ -190,11 +197,11 @@
     } else if (button == self.pieChartButton){
         
         [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
-        [self toggleButtonInteractions];
+//        [self toggleButtonInteractions];
         
     } else if (button == self.dissmissPoliceMapButton){
         
-        [self toggleButtonInteractions];
+//        [self toggleButtonInteractions];
         self.dissmissPoliceMapButton.hidden = YES;
         [self removeClosetPoliceLocation];
         
@@ -403,7 +410,6 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     NSLog(@"Place attributions %@", place.attributions.string);
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    
     CLLocationCoordinate2D currentCoordinate = place.coordinate;
     self.latitude = currentCoordinate.latitude;
     self.longitude = currentCoordinate.longitude;
@@ -429,6 +435,7 @@ didAutocompleteWithPlace:(GMSPlace *)place {
         if (!self.searchButton.userInteractionEnabled) {
             [self toggleButtonInteractions];
         }
+        
     }];
 
 }
