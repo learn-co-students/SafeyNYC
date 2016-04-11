@@ -38,6 +38,7 @@
 @property (strong, nonatomic) NSArray *allContacts;
 @property (nonatomic) BOOL isContactePicked;
 @property (strong, nonatomic) MFMessageComposeViewController *composeVC;
+@property (strong, nonatomic) UIImageView *backgroundImage;
 
 
 
@@ -48,6 +49,7 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    [self displayViewBackground];
     [self displayEmergencyImageView];
     [self displayButtons];
     [self displayHoldUntillTextField];
@@ -57,6 +59,16 @@
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
+}
+
+- (void)displayViewBackground {
+    
+    self.backgroundImage = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [self.backgroundImage setImage:[UIImage imageNamed:@"bg25"]];
+    [self.backgroundImage setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:self.backgroundImage];
+    [self.view sendSubviewToBack:self.backgroundImage];
+
 }
 
 -(void)displayEmergencyImageView {
@@ -78,19 +90,19 @@
 - (void) displayButtons {
     
     self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-70, 140, 140)];
-    self.person1 = [[DKCircleButton alloc] initWithFrame:CGRectMake(51, 21, 87, 87)];
-    self.person2 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-95, self.widthOfTheScreen-21, 87, 87)];
-    self.person3 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-100, self.heightOfTheScreen/2-25, 87, 87)];
-    self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-155, self.heightOfTheScreen/2+75, 87, 87)];
-    self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(100, self.heightOfTheScreen/2+75, 87, 87)];
-    self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(50, self.heightOfTheScreen/2-25, 87, 87)];
-    self.backButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 30, 87, 87)];
+    self.person1 = [[DKCircleButton alloc] initWithFrame:CGRectMake(51, 20, 87, 87)];
+    self.person2 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-157, 19, 87, 87)];
+    self.person3 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-106, self.widthOfTheScreen/2-52, 87, 87)];
+    self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-51-87-20, self.widthOfTheScreen-127, 87, 87)];
+    self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(59, self.widthOfTheScreen-127, 87, 87)];
+    self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(0, self.widthOfTheScreen/2-52, 87, 87)];
+    self.backButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 30, 50, 50)];
     self.addFriendsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 90, 50, 50)];
     NSArray *buttons = @[self.emergencyButton, self.person1, self.person2, self.person3, self.person4, self.person5, self.person6, self.backButton, self.addFriendsButton];
     for(DKCircleButton *button in buttons){
         if(button == self.backButton || button == self.addFriendsButton){
             [self.view addSubview:button];
-        } else if (button == self.person1 || button == self.emergencyButton){
+        } else {
             [self.emergencyImageView addSubview:button];
         }
         button.titleLabel.font = [UIFont systemFontOfSize:22];
@@ -98,23 +110,25 @@
         if(button == self.emergencyButton){
         
             button.backgroundColor = [UIColor redColor];
-            button.borderColor = [UIColor redColor];
+            button.borderColor = [UIColor whiteColor];
             button.alpha = 1;
         
         } else if (button == self.backButton){
             
             button.backgroundColor = [UIColor clearColor];
-            //button.borderColor = [UIColor grayColor];
             UIImage *image = [UIImage new];
             image = [UIImage imageNamed:@"back"];
             [button setImage:image forState:UIControlStateNormal];
             [button setContentMode:UIViewContentModeScaleAspectFit];
             button.alpha = 1;
         
-        } else if (button == self.addFriendsButton || button == self.person1){
+        } else {
             
-            button.backgroundColor = [UIColor clearColor];
-            //button.borderColor = [UIColor grayColor];
+            if(button == self.addFriendsButton){
+                button.backgroundColor = [UIColor grayColor];
+            } else {
+                button.backgroundColor = [UIColor clearColor];
+            }
             UIImage *image = [UIImage new];
             image = [UIImage imageNamed:@"addFriend"];
             button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -122,15 +136,11 @@
             [button setContentMode:UIViewContentModeScaleAspectFill];
             button.alpha = 1;
             
-        } else {
-            button.backgroundColor = [UIColor lightGrayColor];
-            button.borderColor = [UIColor grayColor];
-            button.alpha = 0.8;
         }
-
-
-//        button.animateTap = NO;
+        
+        button.animateTap = NO;
         [button addTarget:self action:@selector(pressedButton:) forControlEvents:UIControlEventTouchUpInside];
+    
     }
 }
 
@@ -323,25 +333,18 @@
     [UIView animateWithDuration:0.3f animations:^{
         if(isPortrait){
             
+            self.backgroundImage.frame = CGRectMake(0, 0, self.widthOfTheScreen, self.heightOfTheScreen);
             self.emergencyImageView.frame = CGRectMake(10, self.widthOfTheScreen/2-45, self.widthOfTheScreen-20, self.widthOfTheScreen-20);
             self.emergencyButton.frame = CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-70, 140, 140);
-            
-            self.person1.frame = CGRectMake(52, 21, 85, 85);
-            self.person2.frame = CGRectMake(self.widthOfTheScreen-150, self.heightOfTheScreen/2-120, 50, 50);
-            self.person3.frame = CGRectMake(self.widthOfTheScreen-100, self.heightOfTheScreen/2-25, 50, 50);
-            
-            self.person6.frame = CGRectMake(50,self.heightOfTheScreen/2-25, 50, 50);
             self.backButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
             self.addFriendsButton.frame = CGRectMake(self.widthOfTheScreen-60, 90, 50, 50);
             self.holdUntillTextField.frame = CGRectMake(self.widthOfTheScreen/2-150, 80, 300, 20);
             
         } else if (isLandscape) {
-           
+            
+            self.backgroundImage.frame = CGRectMake(0, 0, self.heightOfTheScreen, self.widthOfTheScreen);
             self.emergencyButton.frame = CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-70, 140, 140);
             self.emergencyImageView.frame = CGRectMake(self.widthOfTheScreen/2-31, 0, self.widthOfTheScreen-20, self.widthOfTheScreen-20);
-            
-            self.person3.frame = CGRectMake(self.view.frame.size.height/4*3-50, self.view.frame.size.width/2-25, 50, 50);
-            self.person6.frame = CGRectMake(self.view.frame.size.height/4, self.view.frame.size.width/2-25 , 50, 50);
             self.backButton.frame = CGRectMake(self.heightOfTheScreen-60, 30, 50, 50);
             self.addFriendsButton.frame = CGRectMake(self.heightOfTheScreen-60, 90, 50, 50);
             self.holdUntillTextField.frame = CGRectMake(10, self.widthOfTheScreen-30, 300, 20);
