@@ -140,6 +140,7 @@
     
     if(button == self.searchButton){
         
+        
         [self openGooglePlacePicker];
         NSLog(@"Getting to inside the pressed button");
         
@@ -149,6 +150,7 @@
 
         
     } else if (button == self.currentLocationButton){
+
 
         [self updateCurrentMap];
         
@@ -229,6 +231,7 @@
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
                         [self updateFaceMarker];
+                        
                         
                         
                     }];
@@ -364,6 +367,8 @@
 // Handle the user's selection. GoogleMap picker.
 - (void)viewController:(GMSAutocompleteViewController *)viewController
 didAutocompleteWithPlace:(GMSPlace *)place {
+    
+
     // Do something with the selected place.
     NSLog(@"Place name %@", place.name);
     NSLog(@"Place address %@", place.formattedAddress);
@@ -388,6 +393,7 @@ didAutocompleteWithPlace:(GMSPlace *)place {
         [self animateMap];
         
         [self updateFaceMarker];
+        
     }];
 
 }
@@ -429,7 +435,6 @@ didFailAutocompleteWithError:(NSError *)error {
 
 -(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
     
-//    [self.mapView clear];
     
     for (RUFICrimes *crime in crimeArray){
         
