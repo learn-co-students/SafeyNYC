@@ -21,8 +21,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg15" translatesAutoresizingMaskIntoConstraints="NO" id="2B6-rV-DUZ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
-                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bql-NE-nAm">
-                                <rect key="frame" x="20" y="219" width="374" height="70"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bql-NE-nAm">
+                                <rect key="frame" x="20" y="333" width="374" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="Yo7-DI-1G5"/>
                                 </constraints>
@@ -31,31 +31,20 @@
                                     <outlet property="delegate" destination="G9F-DD-qzX" id="OnT-I2-sGV"/>
                                 </connections>
                             </pickerView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="distance" translatesAutoresizingMaskIntoConstraints="NO" id="RCb-SZ-4bO">
-                                <rect key="frame" x="20" y="174" width="202" height="41"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="distanceTime3" translatesAutoresizingMaskIntoConstraints="NO" id="RCb-SZ-4bO">
+                                <rect key="frame" x="20" y="313" width="374" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="202" id="6Px-xK-L4c"/>
-                                    <constraint firstAttribute="height" constant="41" id="TTS-Cf-QCr"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="time" translatesAutoresizingMaskIntoConstraints="NO" id="Zt6-Bq-6e2">
-                                <rect key="frame" x="269" y="176" width="105" height="37"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="105" id="G63-v3-ChE"/>
-                                    <constraint firstAttribute="height" constant="37" id="YnO-bs-hLm"/>
+                                    <constraint firstAttribute="height" constant="30" id="yE1-FH-imt"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Zt6-Bq-6e2" firstAttribute="leading" secondItem="RCb-SZ-4bO" secondAttribute="trailing" constant="47" id="0qV-uX-3Zb"/>
-                            <constraint firstItem="bql-NE-nAm" firstAttribute="top" secondItem="Zt6-Bq-6e2" secondAttribute="bottom" constant="6" id="2w7-wc-h9h"/>
-                            <constraint firstItem="RCb-SZ-4bO" firstAttribute="leading" secondItem="bld-O0-BVl" secondAttribute="leadingMargin" id="9jq-wV-P7v"/>
                             <constraint firstItem="bql-NE-nAm" firstAttribute="centerY" secondItem="bld-O0-BVl" secondAttribute="centerY" id="KsN-2M-7J9"/>
                             <constraint firstItem="bql-NE-nAm" firstAttribute="leading" secondItem="bld-O0-BVl" secondAttribute="leadingMargin" id="MSP-Nt-vB4"/>
-                            <constraint firstItem="bql-NE-nAm" firstAttribute="top" secondItem="RCb-SZ-4bO" secondAttribute="bottom" constant="4" id="Nsn-Co-Udg"/>
                             <constraint firstItem="bql-NE-nAm" firstAttribute="trailing" secondItem="bld-O0-BVl" secondAttribute="trailingMargin" id="dIh-VD-UiH"/>
-                            <constraint firstItem="bql-NE-nAm" firstAttribute="top" secondItem="RCb-SZ-4bO" secondAttribute="bottom" constant="4" id="nQC-7S-AJw"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Zt6-Bq-6e2" secondAttribute="trailing" constant="20" id="nxJ-te-Ot5"/>
+                            <constraint firstItem="RCb-SZ-4bO" firstAttribute="trailing" secondItem="bld-O0-BVl" secondAttribute="trailingMargin" id="gSs-lx-6LC"/>
+                            <constraint firstItem="bql-NE-nAm" firstAttribute="top" secondItem="RCb-SZ-4bO" secondAttribute="bottom" constant="-10" id="p5p-X8-lfz"/>
+                            <constraint firstItem="RCb-SZ-4bO" firstAttribute="leading" secondItem="bld-O0-BVl" secondAttribute="leadingMargin" id="rNY-Xg-KPA"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="xv8-Nz-Jxm"/>
@@ -71,7 +60,6 @@
     </scenes>
     <resources>
         <image name="bg15" width="1080" height="1920"/>
-        <image name="distance" width="231" height="42"/>
-        <image name="time" width="121" height="40"/>
+        <image name="distanceTime3" width="977" height="107"/>
     </resources>
 </document>

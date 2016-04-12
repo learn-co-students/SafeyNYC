@@ -71,16 +71,16 @@
         
         // set the button to show the image and disable it
         if (contactProperty.contact.thumbnailImageData == nil) {
-            NSMutableString *initals = [NSMutableString string];
+            NSMutableString *initials = [NSMutableString string];
             NSString *fullName = [NSString stringWithFormat:@"%@ %@ %@ %@", contactProperty.contact.givenName, contactProperty.contact.middleName, contactProperty.contact.nameSuffix, contactProperty.contact.familyName];
             NSArray *characters = [fullName componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
             for (NSString * character in characters) {
                 if ([character length] > 0) {
                     NSString * firstLetter = [character substringToIndex:1];
-                    [initals appendString:[firstLetter uppercaseString]];
+                    [initials appendString:[firstLetter uppercaseString]];
                 }
             }
-            [self.contactButton1 setTitle:initals forState:UIControlStateNormal];
+            [self.contactButton1 setTitle:initials forState:UIControlStateNormal];
         }
         else {
             //image turns blue unless you set imageWithRenderingMode to UIImageRenderingModeAlwaysOriginal

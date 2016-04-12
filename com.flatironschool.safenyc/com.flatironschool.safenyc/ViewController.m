@@ -38,6 +38,17 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
+    
+//    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: 40.705412
+//                                                            longitude: -74.013974
+//                                                                 zoom: 2];
+//    
+//    [self.mapView animateToCameraPosition:camera];
+//    
+//    self.mapView = [GMSMapView mapWithFrame: self.view.bounds camera:camera];
+//
+//    self.view = self.mapView;
+    
 
     self.datastore = [RUFIDataStore sharedDataStore];
     self.datastore.distanceInMeters = @"402";
@@ -69,7 +80,7 @@
 
 //    [self updateCurrentMap];
     
-    [self animateMap];
+//    [self animateMap];
 
 }
 
@@ -148,8 +159,6 @@
     button.animateTap = YES;
     
     NSLog(@"disabled!!!!!");
-//
-//    [self toggleButtonInteractions];
     
     if(button == self.searchButton){
         
@@ -170,7 +179,7 @@
         
 
     } else if (button == self.currentLocationButton){
-
+        
         [self toggleButtonInteractions];
         
         [self updateCurrentMap];
@@ -197,11 +206,9 @@
     } else if (button == self.pieChartButton){
         
         [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
-//        [self toggleButtonInteractions];
         
     } else if (button == self.dissmissPoliceMapButton){
         
-//        [self toggleButtonInteractions];
         self.dissmissPoliceMapButton.hidden = YES;
         [self removeClosetPoliceLocation];
         
@@ -239,9 +246,10 @@
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
                         [self createMapWithCoordinates];
-                        [self updateFaceMarker];
+                        
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
-
+        
+                        [self updateFaceMarker];
                         
                     }];
                     
@@ -261,14 +269,14 @@
 
                         
                         [self animateMap];
-                    
+    
                         [self updateFaceMarker];
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
                         if(!self.currentLocationButton.userInteractionEnabled){
             
                             [self toggleButtonInteractions];
-                        
+                            
                         }
    
                     }];
@@ -383,9 +391,14 @@
 
 -(void)createMapWithCoordinates{
     
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
-                                                            longitude: self.longitude
-                                                                 zoom: 17];
+//    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
+//                                                            longitude: self.longitude
+//                                                                 zoom: 17];
+    
+    
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: 40.705412
+                                                            longitude: -74.013974
+                                                                 zoom: 12];
     
     self.mapView = [GMSMapView mapWithFrame: self.view.bounds camera:camera];
     self.mapView.myLocationEnabled = YES;
@@ -404,6 +417,8 @@
 // Handle the user's selection. GoogleMap picker.
 - (void)viewController:(GMSAutocompleteViewController *)viewController
 didAutocompleteWithPlace:(GMSPlace *)place {
+    
+
     // Do something with the selected place.
     NSLog(@"Place name %@", place.name);
     NSLog(@"Place address %@", place.formattedAddress);
@@ -420,8 +435,7 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     
     NSLog(@"AT DATA STORE %@", self.datastore.userLatitude);
     NSLog(@"AT DATA STORE %@", self.datastore.userLongitude);
-    
-    
+
        [self.mapView clear];
     
     NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
@@ -431,11 +445,11 @@ didAutocompleteWithPlace:(GMSPlace *)place {
         [self animateMap];
         
         [self updateFaceMarker];
-        
+
         if (!self.searchButton.userInteractionEnabled) {
             [self toggleButtonInteractions];
         }
-        
+    
     }];
 
 }
@@ -476,6 +490,8 @@ didFailAutocompleteWithError:(NSError *)error {
 #pragma method to update map with crime markers
 
 -(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
+    
+    
     for (RUFICrimes *crime in crimeArray){
         
         GMSMarker *marker = [[GMSMarker alloc] init];
