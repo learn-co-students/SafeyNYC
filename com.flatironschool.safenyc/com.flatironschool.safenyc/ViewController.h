@@ -27,6 +27,8 @@
 @property (strong, nonatomic) GMSPolyline *policePolyline;
 @property (strong, nonatomic) GMSMarker *policeMarker;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
+@property (nonatomic, assign) BOOL searchLocation;
+@property (nonatomic, assign) BOOL policeLocationFoundForActualCurrentLocation;
 
 -(void)reloadViewAfterSettingsScreen:(NSNotification *)notification;
 
