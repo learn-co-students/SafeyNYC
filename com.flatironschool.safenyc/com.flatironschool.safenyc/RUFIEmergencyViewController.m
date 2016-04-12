@@ -35,10 +35,11 @@
 @property (strong, nonatomic) CNMutableContact *contact6;
 @property (strong, nonatomic) CNContactStore *contactStore;
 @property (strong, nonatomic) NSString *thisButtonWasPressed;
-@property (strong, nonatomic) NSArray *allContacts;
 @property (nonatomic) BOOL isContactePicked;
 @property (strong, nonatomic) MFMessageComposeViewController *composeVC;
 @property (strong, nonatomic) UIImageView *backgroundImage;
+@property (nonatomic) RUFIContactStore *localContactStore;
+@property (strong, nonatomic) NSArray *localContacts;
 
 
 
@@ -53,7 +54,24 @@
     [self displayEmergencyImageView];
     [self displayButtons];
     [self displayHoldUntillTextField];
+    
+//    self.localContactStore = [RUFIContactStore sharedContactStore];
+//    
+//    [self.localContactStore fetchData];
+//    
+//    self.localContacts = self.localContactStore.contacts;
+//    
+//    NSLog(@"\n %@ ", self.localContacts);
 
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    
+//    [self.localContactStore fetchData];
+//    
+//    self.localContacts = self.localContactStore.contacts;
+//    
+//    NSLog(@"\n ALL CONTACTS: %@ \n", self.localContacts);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -148,7 +166,6 @@
 -(void)pressedButton:(DKCircleButton *)button {
     
     button.animateTap = YES;
-    //NSUInteger index = 0;
     
     if(button == self.emergencyButton){
     
@@ -158,10 +175,6 @@
         
         NSLog(@"Person 1!");
         [self openContacts];
-//        if(![self.contact1 isEqual:@""]){
-//            [self updateButtonWithPictureOf:button];
-//        }
-        //[self updateButtonWithPictureOf:self.person1];
         
     } else if (button == self.person2){
         
@@ -242,6 +255,23 @@
 - (void) contactPicker: (CNContactPickerViewController *) picker
       didSelectContact: (CNContact *) contact {
    
+    RUFIContactStore *localContactStore = [RUFIContactStore sharedContactStore];
+    
+    Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:localContactStore.managedObjectContext];
+    
+    newContact.givenName = [contact.givenName mutableCopy];
+    newContact.familyName = [contact.familyName mutableCopy];
+    newContact.imageData = [contact.imageData mutableCopy];
+    newContact.phone = [contact.phoneNumbers mutableCopy];
+    NSString * initials = [newContact.givenName substringToIndex:1];
+    [initials stringByAppendingString:[contact.familyName substringToIndex:1]];
+    newContact.initials = initials.uppercaseString;
+    
+    [[RUFIContactStore sharedContactStore]saveContext];
+    
+    [self dismissViewControllerAnimated:NO completion:nil];
+    
+    
     NSLog(@"contactpicked: %@", contact);
     self.contact1 = [contact mutableCopy];
     self.isContactePicked = YES;
