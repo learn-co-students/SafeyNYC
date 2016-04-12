@@ -38,7 +38,6 @@
 - (void)viewDidLoad {
 
     [super viewDidLoad];
-
     self.datastore = [RUFIDataStore sharedDataStore];
     self.datastore.distanceInMeters = @"402";
     self.datastore.distanceInMiles = @"1/4";
@@ -53,7 +52,6 @@
     [self createMapWithCoordinates];
     [self updateCurrentMap];
     [self setUpButtons];
-
 }
 
 
@@ -138,45 +136,47 @@
     
     button.animateTap = YES;
     
+    [self startSpinner];
+    
     if(button == self.searchButton){
         
         [self openGooglePlacePicker];
         NSLog(@"Getting to inside the pressed button");
+
         
     } else if (button == self.settingsButton){
         
         [self performSegueWithIdentifier:@"settingsSegue" sender:nil];
-
+        [self endSpinner];
         
     } else if (button == self.currentLocationButton){
-        
-//        [self startSpinner];
 
         [self updateCurrentMap];
         
     } else if (button == self.policeMapButton){
         
-//        [self startSpinner];
-        
         [self updateMapWithPoliceLocation];
 
         self.dissmissPoliceMapButton.hidden = NO;
-
+        
         
     } else if (button == self.emergencyButton){
         
         [self checkForFingerPrint];
         //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+        [self endSpinner];
        
     } else if (button == self.pieChartButton){
         
         [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
+        [self endSpinner];
         
     } else if (button == self.dissmissPoliceMapButton){
         
         self.dissmissPoliceMapButton.hidden = YES;
         [self removeClosetPoliceLocation];
-        
+        [self endSpinner];
+
     }
 }
 
@@ -184,6 +184,7 @@
 -(void)openGooglePlacePicker {
     GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
     acController.delegate = self;
+    [self endSpinner];
     [self presentViewController:acController animated:YES completion:nil];
 }
 
@@ -224,14 +225,12 @@
                         
                         
                         [self animateMap];
-                        
-
 
                         [self updateFaceMarker];
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
-//                        [self endSpinner];
-                        [self startSpinner];
+                        [self endSpinner];
+
                     }];
                     
                     
@@ -367,6 +366,7 @@
 // Handle the user's selection. GoogleMap picker.
 - (void)viewController:(GMSAutocompleteViewController *)viewController
 didAutocompleteWithPlace:(GMSPlace *)place {
+    
     // Do something with the selected place.
     NSLog(@"Place name %@", place.name);
     NSLog(@"Place address %@", place.formattedAddress);
@@ -393,6 +393,7 @@ didAutocompleteWithPlace:(GMSPlace *)place {
         [self animateMap];
         
         [self updateFaceMarker];
+        [self endSpinner]; 
     }];
 
 }
@@ -433,6 +434,7 @@ didFailAutocompleteWithError:(NSError *)error {
 #pragma method to update map with crime markers
 
 -(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
+
     for (RUFICrimes *crime in crimeArray){
         
         GMSMarker *marker = [[GMSMarker alloc] init];
@@ -445,6 +447,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
     
     }
+
 }
 
 -(void)updateMapWithPoliceLocation{
@@ -464,8 +467,7 @@ didFailAutocompleteWithError:(NSError *)error {
                     if (finished) {
                 
                         NSLog(@"let's draw a line!!!!!!!!!!");
-//                        [self endSpinner];
-                        [self startSpinner];
+                        [self endSpinner];
                         
                     }
                 }];
@@ -596,7 +598,7 @@ didFailAutocompleteWithError:(NSError *)error {
     
     [self.policePolyline setMap:nil];
     [self.policeMarker setMap: nil];
-
+    
 }
 
 //-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -775,6 +777,7 @@ didFailAutocompleteWithError:(NSError *)error {
     
     [self.mapView clear];
     
+    [self startSpinner];
     
     NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
@@ -786,6 +789,7 @@ didFailAutocompleteWithError:(NSError *)error {
         
         self.datastore.settingsChanged = NO;
     
+        [self endSpinner];
     }];
     
     
@@ -809,10 +813,15 @@ didFailAutocompleteWithError:(NSError *)error {
 -(void)startSpinner{
 
     self.spinner = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
-//    self.spinner.color = [UIColor yellowColor];
+    
+    self.spinner.color = [UIColor blueColor];
+
     NSLog(@"spinner made");
     [self.spinner startAnimating];
+    self.spinner.translatesAutoresizingMaskIntoConstraints = NO;
     [self.mapView addSubview: self.spinner];
+    [self.spinner.centerXAnchor constraintEqualToAnchor: self.mapView.centerXAnchor].active = YES;
+    [self.spinner.centerYAnchor constraintEqualToAnchor: self.mapView.centerYAnchor].active = YES;
 
 
 }
