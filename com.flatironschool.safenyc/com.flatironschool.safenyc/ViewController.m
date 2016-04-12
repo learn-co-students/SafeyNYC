@@ -211,6 +211,7 @@
         
         self.dissmissPoliceMapButton.hidden = YES;
         [self removeClosetPoliceLocation];
+        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
         
     }
     
