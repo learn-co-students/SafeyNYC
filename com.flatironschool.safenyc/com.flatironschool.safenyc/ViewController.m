@@ -761,15 +761,21 @@ didFailAutocompleteWithError:(NSError *)error {
                                     });
                                 } else {
                                     dispatch_async(dispatch_get_main_queue(), ^{
+
+                                        //check type of error here
                                         
                                         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"The Access Is Denied!"
                                                                                                        message:@"Emergency button is only for the owner of the phone."
                                                                                                 preferredStyle:UIAlertControllerStyleAlert];
                                         
-                                        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                                              handler:^(UIAlertAction * action) {}];
+                                        UIAlertAction* enterPassword = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                                                              handler:^(UIAlertAction * action) {
+                                                                            
+                                                                                                  [self passwordAlert];
+                                                                                              }];
                                         
-                                        [alert addAction:defaultAction];
+//                                        [alert addAction: defaultAction];
+                                        [alert addAction: enterPassword];
                                         [self presentViewController:alert animated:YES completion:nil];
                                     });
                                 }
@@ -789,6 +795,13 @@ didFailAutocompleteWithError:(NSError *)error {
     }
 }
 
+
+-(void)passwordAlert{
+
+
+
+
+}
 
 -(void)updateFaceMarker {
     
