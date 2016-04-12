@@ -93,7 +93,7 @@
     self.person1 = [[DKCircleButton alloc] initWithFrame:CGRectMake(51, 20, 87, 87)];
     self.person2 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-157, 19, 87, 87)];
     self.person3 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-106, self.widthOfTheScreen/2-52, 87, 87)];
-    self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-51-87-20, self.widthOfTheScreen-127, 87, 87)];
+    self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-51-107, self.widthOfTheScreen-127, 87, 87)];
     self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(59, self.widthOfTheScreen-127, 87, 87)];
     self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(0, self.widthOfTheScreen/2-52, 87, 87)];
     self.backButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 30, 50, 50)];
@@ -257,65 +257,6 @@
     [self.person1 setImage:image forState:UIControlStateNormal];
     
 }
-
-/*
--(void) contactsFromAddressBook {
-    self.contactStore = [[CNContactStore alloc] init];
-    [self.contactStore requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if (granted == YES) {
-            //keys with fetching properties
-            NSArray *keys = @[CNContactFamilyNameKey, CNContactGivenNameKey, CNContactPhoneNumbersKey, CNContactImageDataKey];
-            NSString *containerId = self.contactStore.defaultContainerIdentifier;
-            NSPredicate *predicate = [CNContact predicateForContactsInContainerWithIdentifier:containerId];
-            NSError *error;
-            NSArray *contacts = [self.contactStore unifiedContactsMatchingPredicate:predicate keysToFetch:keys error:&error];
-            if (error) {
-                NSLog(@"error fetching contacts %@", error);
-            } else {
-                NSString *phone;
-                NSString *fullName;
-                NSString *firstName;
-                NSString *lastName;
-                UIImage *profileImage;
-                NSMutableArray *contactNumbersArray;
-                for (CNContact *contact in contacts) {
-                    // copy data to my custom Contacts class.
-                    firstName = contact.givenName;
-                    lastName = contact.familyName;
-                    if (lastName == nil) {
-                        fullName=[NSString stringWithFormat:@"%@",firstName];
-                    }else if (firstName == nil){
-                        fullName=[NSString stringWithFormat:@"%@",lastName];
-                    }
-                    else{
-                        fullName=[NSString stringWithFormat:@"%@ %@",firstName,lastName];
-                    }
-                    UIImage *image = [UIImage imageWithData:contact.imageData];
-                    if (image != nil) {
-                        profileImage = image;
-                    }else{
-                        profileImage = [UIImage imageNamed:@"person-icon.png"];
-                    }
-                    for (CNLabeledValue *label in contact.phoneNumbers) {
-                        phone = [label.value stringValue];
-                        if ([phone length] > 0) {
-                            [contactNumbersArray addObject:phone];
-                        }
-                    }
-                    NSDictionary* personDict = [[NSDictionary alloc] initWithObjectsAndKeys: fullName,@"fullName",profileImage,@"userImage",phone,@"PhoneNumbers", nil];
-                    [self.contactsArray addObject:personDict];
-                }
-                dispatch_async(dispatch_get_main_queue(), ^
-                               {
-                                   NSLog(@"%@",contacts);
-                                   //[self.tableViewRef reloadData];
-                               });
-            }
-        }
-    }];
-}*/
-
-
 
 -(void) displayHoldUntillTextField {
     self.holdUntillTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.widthOfTheScreen/2-150, 80, 300, 20)];
