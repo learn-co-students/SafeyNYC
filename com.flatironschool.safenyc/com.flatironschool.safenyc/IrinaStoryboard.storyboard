@@ -38,6 +38,7 @@
                         <segue destination="w5R-Ix-IF7" kind="presentation" identifier="newSBSegue" id="mpg-tK-N7M"/>
                         <segue destination="Dap-5G-nrq" kind="presentation" identifier="emergencySegue" id="XSX-h5-nyp"/>
                         <segue destination="MrP-uN-2CS" kind="presentation" identifier="settingsSegue" id="9e9-9v-f4d"/>
+                        <segue destination="kL1-zk-niE" kind="presentation" identifier="introStoryboard" id="2Ck-Zs-xHb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K1Q-DQ-UUk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -67,6 +68,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gne-uJ-UES" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4744.5" y="225"/>
+        </scene>
+        <!--introStoryboard-->
+        <scene sceneID="hjh-Jd-Yo6">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="introStoryboard" storyboardName="introStoryboard" id="kL1-zk-niE" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uF5-K4-rst" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4724.5" y="308"/>
         </scene>
         <!--Settings-->
         <scene sceneID="lN2-ev-GwR">

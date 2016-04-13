@@ -40,8 +40,20 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)yesButtonAction:(id)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 - (IBAction)noButtonAction:(id)sender {
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Uh-Oh"
+                                                                   message: @"You must accept these terms to use the Safey NYC."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    
+    [alert addAction:defaultAction];    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 /*
