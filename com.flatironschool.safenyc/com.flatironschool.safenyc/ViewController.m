@@ -51,7 +51,6 @@
 //
 //    self.view = self.mapView;
     
-
     self.datastore = [RUFIDataStore sharedDataStore];
     self.datastore.distanceInMeters = @"402";
     self.datastore.distanceInMiles = @"1/4";
@@ -66,7 +65,6 @@
     [self createMapWithCoordinates];
     [self updateCurrentMap];
     [self setUpButtons];
-
 }
 
 
@@ -104,6 +102,7 @@
     self.dissmissPoliceMapButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, self.heightConstrain, 47, 47)];
     
     NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton, self.dissmissPoliceMapButton];
+    
     
     for (DKCircleButton *button in buttons) {
 
@@ -146,55 +145,98 @@
     }
 }
 
+-(void)toggleButtonInteractions{
+
+    NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton];
+
+    for (DKCircleButton *currentButton in buttons) {
+        currentButton.userInteractionEnabled = !currentButton.userInteractionEnabled;
+    }
+}
 
 -(void)pressedButton:(DKCircleButton *)button {
     
     button.animateTap = YES;
     
+
+    [self startSpinner];
+
+    NSLog(@"disabled!!!!!");
+    
     if(button == self.searchButton){
         
-        
+        [self toggleButtonInteractions];
+
         [self openGooglePlacePicker];
+        
+        if (!self.searchButton.userInteractionEnabled) {
+            [self toggleButtonInteractions];
+        }
+        
         NSLog(@"Getting to inside the pressed button");
+
         
     } else if (button == self.settingsButton){
         
+        
         [self performSegueWithIdentifier:@"settingsSegue" sender:nil];
 
+        [self endSpinner];
         
+
     } else if (button == self.currentLocationButton){
-
-
+        
+        [self toggleButtonInteractions];
+        
         [self updateCurrentMap];
         
     } else if (button == self.policeMapButton){
         
+        [self toggleButtonInteractions];
+        
         [self updateMapWithPoliceLocation];
 
         self.dissmissPoliceMapButton.hidden = NO;
-
+        
         
     } else if (button == self.emergencyButton){
         
+        [self toggleButtonInteractions];
+        
         [self checkForFingerPrint];
         //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+
+        [self endSpinner];
+
+        if (!self.emergencyButton.userInteractionEnabled) {
+            [self toggleButtonInteractions];
+        }
+
        
     } else if (button == self.pieChartButton){
         
         [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
+        [self endSpinner];
         
     } else if (button == self.dissmissPoliceMapButton){
         
         self.dissmissPoliceMapButton.hidden = YES;
         [self removeClosetPoliceLocation];
-        
+
+        [self endSpinner];
+
+        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+
     }
+    
+    NSLog(@"reenabled!!!!!");
 }
 
 
 -(void)openGooglePlacePicker {
     GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
     acController.delegate = self;
+    [self endSpinner];
     [self presentViewController:acController animated:YES completion:nil];
 }
 
@@ -222,9 +264,8 @@
                         [self createMapWithCoordinates];
                         
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
-                        
+        
                         [self updateFaceMarker];
-                        
                         
                     }];
                     
@@ -235,18 +276,30 @@
                     
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
+                        if (self.searchLocation) {
+                            
+                            self.searchLocation = NO;
+                            [self.mapView clear];
+                            [self.dissmissPoliceMapButton setHidden: YES];
+                        }
+
                         
                         [self animateMap];
-                        
 
-
-                        
+                        [self updateFaceMarker];
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
+                        [self endSpinner];
+
                         [self updateFaceMarker];
+                        [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
-                        
-                        
+                        if(!self.currentLocationButton.userInteractionEnabled){
+            
+                            [self toggleButtonInteractions];
+                            
+                        }
+   
                     }];
                     
                 }
@@ -393,17 +446,19 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     NSLog(@"Place attributions %@", place.attributions.string);
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    
     CLLocationCoordinate2D currentCoordinate = place.coordinate;
     self.latitude = currentCoordinate.latitude;
     self.longitude = currentCoordinate.longitude;
     self.datastore.userLongitude = [NSString stringWithFormat:@"%.6f", self.longitude];
     self.datastore.userLatitude = [NSString stringWithFormat:@"%.6f", self.latitude];
+    self.searchLocation = YES;
+    
     
     NSLog(@"AT DATA STORE %@", self.datastore.userLatitude);
     NSLog(@"AT DATA STORE %@", self.datastore.userLongitude);
 
-
+       [self.mapView clear];
+    
     NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
@@ -411,7 +466,13 @@ didAutocompleteWithPlace:(GMSPlace *)place {
         [self animateMap];
         
         [self updateFaceMarker];
-        
+
+        [self endSpinner];
+
+        if (!self.searchButton.userInteractionEnabled) {
+            [self toggleButtonInteractions];
+        }
+    
     }];
 
 }
@@ -452,8 +513,7 @@ didFailAutocompleteWithError:(NSError *)error {
 #pragma method to update map with crime markers
 
 -(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
-    
-    
+
     for (RUFICrimes *crime in crimeArray){
         
         GMSMarker *marker = [[GMSMarker alloc] init];
@@ -464,19 +524,23 @@ didFailAutocompleteWithError:(NSError *)error {
         marker.snippet = [NSString stringWithFormat:@"%@ - %@", crime.precinct, crime.date];
         marker.map = self.mapView;
 
-    
     }
+
 }
 
 -(void)updateMapWithPoliceLocation{
    
     PoliceDataStore *store = [PoliceDataStore sharedDataStore];
 //    40.705475, -74.013993
+
     
     [store getPoliceLocationsLatitude: self.latitude Longitude: self.longitude WithCompletion:^(BOOL finished) {
         
         //this calls the distance API which provides directions (with html tags) on how to get to the
         //police location
+        if (!self.policeMapButton.userInteractionEnabled) {
+            [self toggleButtonInteractions];
+        }
         
             if (finished) {
             
@@ -485,6 +549,15 @@ didFailAutocompleteWithError:(NSError *)error {
                     if (finished) {
                 
                         NSLog(@"let's draw a line!!!!!!!!!!");
+                        [self endSpinner];
+                        
+                        if (self.searchLocation) {
+                            self.policeLocationFoundForActualCurrentLocation = NO;
+                        }
+                        else{
+                            self.policeLocationFoundForActualCurrentLocation = YES;
+                        }
+
                         
                     }
                 }];
@@ -529,7 +602,7 @@ didFailAutocompleteWithError:(NSError *)error {
         
         GMSPath *path = [GMSPath pathFromEncodedPath: responseObject[@"routes"][0][@"overview_polyline"][@"points"]];
         
-        [self drawClosetPoliceLocationWithPath: path startLat: self.latitude startLng: self.longitude policeLocation: closestPoliceLocation];
+        [self drawClosetPoliceLocationWithPath: path startLat: latitude startLng: longitude policeLocation: closestPoliceLocation];
 
         
         completionBlock(YES);
@@ -544,7 +617,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
 -(void)drawClosetPoliceLocationWithPath:(GMSPath *)path
                                startLat:(double) startLatitude
-                               startLng:(double)startLongitude
+                               startLng:(double) startLongitude
                          policeLocation:(PoliceLocation *)policeLocation{
     
     double endLatitude = policeLocation.latitude;
@@ -619,7 +692,7 @@ didFailAutocompleteWithError:(NSError *)error {
     
     [self.policePolyline setMap:nil];
     [self.policeMarker setMap: nil];
-
+    
 }
 
 //-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -798,6 +871,7 @@ didFailAutocompleteWithError:(NSError *)error {
     
     [self.mapView clear];
     
+    [self startSpinner];
     
     NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
@@ -809,8 +883,73 @@ didFailAutocompleteWithError:(NSError *)error {
         
         self.datastore.settingsChanged = NO;
     
+        [self endSpinner];
     }];
     
+    
+}
+
+
+//UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+//spinner.color = [UIColor blueColor];
+//[spinner startAnimating];
+//[_mapViewController.view addSubview:spinner];
+//
+//dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//    // lots of code run in the background
+//
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        // stop and remove the spinner on the main thread when done
+//        [spinner removeFromSuperview];
+//    });
+//});
+
+-(void)startSpinner{
+
+    self.spinner = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+    
+    self.spinner.color = [UIColor blueColor];
+
+    NSLog(@"spinner made");
+    [self.spinner startAnimating];
+    self.spinner.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.mapView addSubview: self.spinner];
+    [self.spinner.centerXAnchor constraintEqualToAnchor: self.mapView.centerXAnchor].active = YES;
+    [self.spinner.centerYAnchor constraintEqualToAnchor: self.mapView.centerYAnchor].active = YES;
+
+
+}
+
+-(void)endSpinner{
+
+    if (self.spinner.isAnimating) {
+        [self.spinner removeFromSuperview];
+        NSLog(@"spinner destoryed");
+    }
+}
+
+
+-(void)disableAllButtons {
+    
+    self.searchButton.userInteractionEnabled = NO;
+    self.settingsButton.userInteractionEnabled = NO;
+    self.currentLocationButton.userInteractionEnabled = NO;
+    self.policeMapButton.userInteractionEnabled = NO;
+    self.emergencyButton.userInteractionEnabled = NO;
+    self.pieChartButton.userInteractionEnabled = NO;
+    self.dissmissPoliceMapButton.userInteractionEnabled = NO;
+    
+}
+
+-(void)reenableAllButtons {
+    
+    self.searchButton.userInteractionEnabled = YES;
+    self.settingsButton.userInteractionEnabled = YES;
+    self.currentLocationButton.userInteractionEnabled = YES;
+    self.policeMapButton.userInteractionEnabled = YES;
+    self.emergencyButton.userInteractionEnabled = YES;
+    self.pieChartButton.userInteractionEnabled = YES;
+    self.dissmissPoliceMapButton.userInteractionEnabled = YES;
     
 }
 
