@@ -14,6 +14,8 @@
 		7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7322697A1CAC1F9A00FCBAB1 /* RUFIDataStore.m */; };
 		7322697E1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */; };
 		7361C9DE1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7361C9DD1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m */; };
+		7361C9E01CBD643900F69CC3 /* introStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7361C9DF1CBD643900F69CC3 /* introStoryboard.storyboard */; };
+		7361C9E31CBD658600F69CC3 /* RUFIIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7361C9E21CBD658600F69CC3 /* RUFIIntroViewController.m */; };
 		A707E4CA1CAB0239002F37C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4C91CAB0239002F37C5 /* main.m */; };
 		A707E4CD1CAB0239002F37C5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4CC1CAB0239002F37C5 /* AppDelegate.m */; };
 		A707E4D01CAB0239002F37C5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4CF1CAB0239002F37C5 /* ViewController.m */; };
@@ -71,6 +73,9 @@
 		7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFICrimeDataAPI.m; sourceTree = "<group>"; };
 		7361C9DC1CBC168F00F69CC3 /* RUFIDefinitionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIDefinitionsViewController.h; sourceTree = "<group>"; };
 		7361C9DD1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIDefinitionsViewController.m; sourceTree = "<group>"; };
+		7361C9DF1CBD643900F69CC3 /* introStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = introStoryboard.storyboard; sourceTree = "<group>"; };
+		7361C9E11CBD658600F69CC3 /* RUFIIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIIntroViewController.h; sourceTree = "<group>"; };
+		7361C9E21CBD658600F69CC3 /* RUFIIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIIntroViewController.m; sourceTree = "<group>"; };
 		A707E4C51CAB0238002F37C5 /* com.flatironschool.safenyc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = com.flatironschool.safenyc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A707E4C91CAB0239002F37C5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A707E4CB1CAB0239002F37C5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -215,6 +220,9 @@
 				730665431CAD57C900FBB7DA /* PieChartDataViewController.m */,
 				A707E4D71CAB0239002F37C5 /* Assets.xcassets */,
 				A707E4D91CAB0239002F37C5 /* LaunchScreen.storyboard */,
+				7361C9DF1CBD643900F69CC3 /* introStoryboard.storyboard */,
+				7361C9E11CBD658600F69CC3 /* RUFIIntroViewController.h */,
+				7361C9E21CBD658600F69CC3 /* RUFIIntroViewController.m */,
 				C2D936801CB4693F00D109C6 /* location_template.loc.vcf */,
 				A707E4DC1CAB0239002F37C5 /* Info.plist */,
 				A707E4D41CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld */,
@@ -360,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				730665521CAD88B100FBB7DA /* rosarioStoryboard.storyboard in Resources */,
+				7361C9E01CBD643900F69CC3 /* introStoryboard.storyboard in Resources */,
 				C2D936811CB4693F00D109C6 /* location_template.loc.vcf in Resources */,
 				A707E4DB1CAB0239002F37C5 /* LaunchScreen.storyboard in Resources */,
 				C28C689C1CBC20FF003BAA2A /* Default-568h@2x.png in Resources */,
@@ -455,6 +464,7 @@
 				7361C9DE1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m in Sources */,
 				C2D0AD521CB8418C00C96C57 /* PoliceDataStore.m in Sources */,
 				7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */,
+				7361C9E31CBD658600F69CC3 /* RUFIIntroViewController.m in Sources */,
 				732269781CAC129E00FCBAB1 /* RUFICrimes.m in Sources */,
 				7322697E1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m in Sources */,
 			);

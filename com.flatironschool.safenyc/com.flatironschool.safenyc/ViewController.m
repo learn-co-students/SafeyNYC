@@ -39,6 +39,8 @@
 
     [super viewDidLoad];
     
+    [self performSegueWithIdentifier:@"introStoryboard" sender:nil];
+    
 //    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: 40.705412
 //                                                            longitude: -74.013974
 //                                                                 zoom: 2];

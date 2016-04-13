@@ -42,7 +42,7 @@
     self.radiusArray = @[[UIImage imageNamed:@"18mile"], [UIImage imageNamed:@"14mile"], [UIImage imageNamed:@"12mile"], [UIImage imageNamed:@"34mile"], [UIImage imageNamed:@"1mile"]];
     self.yearsArray = @[[UIImage imageNamed:@"oneYear"], [UIImage imageNamed:@"twoYears"]];
     self.milesToMetersDictionary = @{@"1/8" : @"201", @"1/4": @"402", @"1/2": @"804", @"1": @"1609", @"3/4": @"1207"};
-    self.distanceValueDictionary = @{@"1/8" : @"1", @"1/4": @"2", @"1/2": @"4", @".75": @"6", @"1": @"8", };
+    self.distanceValueDictionary = @{@"1/8" : @"1", @"1/4": @"2", @"1/2": @"4", @"3/4": @"6", @"1": @"8", };
     
 //    [self.picker setBackgroundColor:[UIColor whiteColor]];
     [self.picker setAlpha:1];
