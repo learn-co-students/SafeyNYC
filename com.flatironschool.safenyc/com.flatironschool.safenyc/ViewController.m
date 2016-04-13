@@ -109,7 +109,7 @@
         [self.view addSubview:button];
         button.titleLabel.font = [UIFont systemFontOfSize:22];
         button.backgroundColor = [UIColor whiteColor];
-        button.borderColor = [UIColor grayColor];
+        button.borderColor = [UIColor whiteColor];
         button.alpha = 1;
         
         UIImage *image = [UIImage new];
@@ -517,10 +517,14 @@ didFailAutocompleteWithError:(NSError *)error {
     for (RUFICrimes *crime in crimeArray){
         
         GMSMarker *marker = [[GMSMarker alloc] init];
+        CLLocationDegrees degrees = 0;
         marker.position = CLLocationCoordinate2DMake(crime.latitude, crime.longitude);
         marker.icon = crime.googleMapsIcon;
+        marker.groundAnchor = CGPointMake(0.5, 0.5);
+        marker.rotation = degrees;
         marker.appearAnimation = kGMSMarkerAnimationPop;
         marker.title = crime.offense;
+        marker.flat = NO;
         marker.snippet = [NSString stringWithFormat:@"%@ - %@", crime.precinct, crime.date];
         marker.map = self.mapView;
 

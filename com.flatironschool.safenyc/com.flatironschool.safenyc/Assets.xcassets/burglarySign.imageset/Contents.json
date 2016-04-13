@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "bux1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "burglarySign.png",
+      "filename" : "bux2.png",
       "scale" : "2x"
     },
     {
