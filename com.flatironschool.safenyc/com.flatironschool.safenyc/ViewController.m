@@ -764,6 +764,26 @@ didFailAutocompleteWithError:(NSError *)error {
 
                                         //check type of error here
                                         
+//                                        switch ( authenticationError.code ) {
+//                                            case LAErrorAuthenticationFailed:
+//                                                NSLog(@"Authentication Failed");
+//                                                break;
+//                                            case LAErrorUserCancel:
+//                                                NSLog(@"User pressed Cancel button");
+//                                                break;
+//                                            case LAErrorUserFallback:
+//                                                [self showPasswordAlert];
+//                                                break;
+//                                        }
+                                        
+//                                        switch (<#expression#>) {
+//                                            case <#constant#>:
+//                                                <#statements#>
+//                                                break;
+//                                                
+//                                            default:
+//                                                break;
+//                                        }
                                         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"The Access Is Denied!"
                                                                                                        message:@"Emergency button is only for the owner of the phone."
                                                                                                 preferredStyle:UIAlertControllerStyleAlert];
@@ -798,7 +818,8 @@ didFailAutocompleteWithError:(NSError *)error {
 
 -(void)passwordAlert{
 
-
+    //insert code to request password here.....
+    
 
 
 }
