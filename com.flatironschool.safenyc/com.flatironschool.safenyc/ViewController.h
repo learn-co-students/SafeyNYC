@@ -13,9 +13,10 @@
 #import "PoliceLocatorAPI.h"
 #import "PoliceDataStore.h"
 #import "RUFIEmergencyViewController.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 @import GoogleMaps;
-@interface ViewController : UIViewController<CLLocationManagerDelegate>
+@interface ViewController : UIViewController<CLLocationManagerDelegate, GMSMapViewDelegate>
 
 @property (nonatomic, assign) double longitude;
 @property (nonatomic, assign) double latitude;

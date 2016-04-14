@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "rax1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "rapeSign.png",
+      "filename" : "rax2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "rax3.png",
       "scale" : "3x"
     }
   ],

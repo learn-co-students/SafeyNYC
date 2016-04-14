@@ -6,12 +6,13 @@
 //  Copyright © 2016 Irina Kalashnikova. All rights reserved.
 //
 #import "ViewController.h"
-#import <GoogleMaps/GoogleMaps.h>
+
 #import <DKCircleButton/DKCircleButton.h>
 #import "PieChartDataViewController.h"
 #import "RUFISettingsViewController.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <AFNetworking/AFNetworking.h>
+
 
 @import GoogleMaps;
 
@@ -28,6 +29,7 @@
 @property (strong, nonatomic) DKCircleButton *dissmissPoliceMapButton;
 @property (nonatomic) NSUInteger widthConstrain;
 @property (nonatomic) NSUInteger heightConstrain;
+@property (nonatomic) GMSMarker *faceMarker;
 
 @end
 
@@ -39,7 +41,10 @@
 
     [super viewDidLoad];
     
-    [self performSegueWithIdentifier:@"introStoryboard" sender:nil];
+//    self.latitude = 40.705412;
+//    self.longitude = -74.013974;
+    
+//    [self performSegueWithIdentifier:@"introStoryboard" sender:nil];
     
 //    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: 40.705412
 //                                                            longitude: -74.013974
@@ -423,7 +428,7 @@
     
     self.mapView = [GMSMapView mapWithFrame: self.view.bounds camera:camera];
     self.mapView.myLocationEnabled = YES;
-
+    self.mapView.delegate = self;
 
     self.view = self.mapView;
 }
@@ -800,60 +805,64 @@ didFailAutocompleteWithError:(NSError *)error {
     
     NSUInteger count = self.datastore.crimeDataArray.count / [self.datastore.yearsAgo integerValue] / [self.datastore.distanceValue integerValue];
     
-    NSLog(@"Update Face Maker: %lu", count);
-    NSLog(@"Update Face Maker DS: %lu", self.datastore.crimeDataArray.count);
+    NSLog(@"Update Face Maker: %lu", (unsigned long)count);
+    NSLog(@"Update Face Maker DS: %lu", (unsigned long)self.datastore.crimeDataArray.count);
     
-    GMSMarker *faceMarker = [[GMSMarker alloc] init];
-    faceMarker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
+    self.faceMarker = [[GMSMarker alloc] init];
+    self.faceMarker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
     
     if (count <= 25) {
         
-        faceMarker.icon = [UIImage imageNamed:@"face1"];
-        faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
-        faceMarker.snippet = @"This place doesnt seem that bad!";
+        self.faceMarker.icon = [UIImage imageNamed:@"face1"];
+        self.faceMarker.snippet = [NSString stringWithFormat:@"Total Felonies: %lu", (unsigned long)self.datastore.crimeDataArray.count];
         
-        NSLog(@"Update Face Maker1: %lu", self.datastore.crimeDataArray.count);
+        
+        self.faceMarker.title = @"This place doesnt seem that bad!";
+        
+        NSLog(@"Update Face Maker1: %lu", (unsigned long)self.datastore.crimeDataArray.count);
     }
     
     else if (count >= 26 && count <= 100) {
         
-        faceMarker.icon = [UIImage imageNamed:@"face2"];
-        faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
-        faceMarker.snippet = @"Everything seems hunky dory.";
+        self.faceMarker.icon = [UIImage imageNamed:@"face2"];
+        self.faceMarker.snippet= [NSString stringWithFormat:@"Total Felonies: %lu", (unsigned long)self.datastore.crimeDataArray.count];
+        self.faceMarker.title = @"Everything seems hunky dory.";
         
-        NSLog(@"Update Face Maker2: %lu", self.datastore.crimeDataArray.count);
+        NSLog(@"Update Face Maker2: %lu", (unsigned long)self.datastore.crimeDataArray.count);
     }
     
     else if (count >= 101 && count <= 175) {
         
-        faceMarker.icon = [UIImage imageNamed:@"face3"];
-        faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
-        faceMarker.snippet = @"Ummmmm should I be here?";
+        self.faceMarker.icon = [UIImage imageNamed:@"face3"];
+        self.faceMarker.snippet = [NSString stringWithFormat:@"Total Felonies: %lu", (unsigned long)self.datastore.crimeDataArray.count];
+        self.faceMarker.title  = @"Ummmmm should I be here?";
         
-        NSLog(@"Update Face Maker3: %lu", self.datastore.crimeDataArray.count);
+        NSLog(@"Update Face Maker3: %lu", (unsigned long)self.datastore.crimeDataArray.count);
     }
     
     else if (count >= 176 && count <= 250) {
         
-        faceMarker.icon = [UIImage imageNamed:@"face4"];
-        faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
-        faceMarker.snippet = @"Sheesh I better watch my back!";
+        self.faceMarker.icon = [UIImage imageNamed:@"face4"];
+        self.faceMarker.snippet = [NSString stringWithFormat:@"Total Felonies: %lu", (unsigned long)self.datastore.crimeDataArray.count];
+        self.faceMarker.title = @"Sheesh I better watch my back!";
         
-        NSLog(@"Update Face Maker4: %lu", self.datastore.crimeDataArray.count);
+        NSLog(@"Update Face Maker4: %lu", (unsigned long)self.datastore.crimeDataArray.count);
     }
     
     else {
         
-        faceMarker.icon = [UIImage imageNamed:@"face5"];
-        faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
-        faceMarker.snippet = @"OMG I'm going to die!";
+        self.faceMarker.icon = [UIImage imageNamed:@"face5"];
+        self.faceMarker.snippet = [NSString stringWithFormat:@"Total Felonies: %lu", (unsigned long)self.datastore.crimeDataArray.count];
+        self.faceMarker.title = @"OMG I'm going to die!";
+
         
-        NSLog(@"Update Face Maker5: %lu", self.datastore.crimeDataArray.count);
+        NSLog(@"Update Face Maker5: %lu", (unsigned long)self.datastore.crimeDataArray.count);
     }
     
     
-    faceMarker.appearAnimation = kGMSMarkerAnimationPop;
-    faceMarker.map = self.mapView;
+    self.faceMarker.appearAnimation = kGMSMarkerAnimationPop;
+
+    self.faceMarker.map = self.mapView;
     
 }
 
@@ -956,6 +965,8 @@ didFailAutocompleteWithError:(NSError *)error {
     self.dissmissPoliceMapButton.userInteractionEnabled = YES;
     
 }
+
+
 
 
 
