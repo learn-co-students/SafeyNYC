@@ -43,7 +43,7 @@
 @property (strong, nonatomic) UIImageView *backgroundImage;
 @property (nonatomic) RUFIContactStore *localContactStore;
 @property (strong, nonatomic) NSArray *localContacts;
-@property (strong, nonatomic) NSMutableArray *recipients;
+@property (strong, nonatomic) NSArray *recipients;
 
 @end
 
@@ -312,7 +312,16 @@
     
     self.composeVC.messageComposeDelegate = self;
     
-    [self addRecipients];
+    self.recipients = [NSArray new];
+    NSLog(@"%@", self.localContacts);
+    for(Contact *contact in self.localContacts){
+       self.recipients = [self.recipients arrayByAddingObject:contact.phone];
+    }
+    NSLog(@"!!!Recipients: %@",self.recipients);
+    
+    //self.composeVC.recipients = @[self.contact1.phone, self.contact2.phone];
+    self.composeVC.recipients = self.recipients;
+    
     //BODY MESSAGE
     
     self.composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location";
@@ -328,11 +337,34 @@
 
 }
 
--(void)addRecipients{
-    self.composeVC.recipients = @[self.contact1.phone, self.contact2.phone, self.contact3.phone, self.contact4.phone, self.contact5.phone, self.contact6.phone];
+
+-(NSArray *)addRecipients{
+    
+    NSLog(@"Add Recipients: %@, %@; Local Contacts: %@ ", self.contact1.givenName, self.contact1.phone, self.localContacts);
+    //if (self.contact1.phone != nil){
+        [self.recipients arrayByAddingObject:self.contact1.phone];
+    //}
+    //if (self.contact1.phone != nil){
+       [self.recipients arrayByAddingObject:self.contact2.phone];
+    //}
+    //if (self.contact3.phone != nil){
+        [self.recipients arrayByAddingObject:self.contact3.phone];
+    //}
+    //if (self.contact4.phone != nil){
+        [self.recipients arrayByAddingObject:self.contact4.phone];
+    //}
+    //if (self.contact5.phone != nil){
+        [self.recipients arrayByAddingObject:self.contact5.phone];
+    //}
+    //if (self.contact6.phone != nil){
+        [self.recipients arrayByAddingObject:self.contact6.phone];
+    //}
+    NSLog(@"Recipients: %@", self.recipients);
+    return self.recipients;
 }
 
 -(void) openContacts {
+    
         CNContactPickerViewController *picker = [[CNContactPickerViewController alloc] init];
         picker.delegate = self;
         picker.predicateForEnablingContact = [NSPredicate predicateWithFormat:@"phoneNumbers.@count > 0"];
@@ -350,6 +382,7 @@
         NSLog(@"%@", numberString);
         
         RUFIContactStore *localContactStore = [RUFIContactStore sharedContactStore];
+        
         if (self.currentContact) {
             [localContactStore deleteContact:self.currentContact];
             self.currentContact = nil;
