@@ -776,7 +776,7 @@ didFailAutocompleteWithError:(NSError *)error {
                                                 break;
                                                 
                                             case LAErrorUserFallback:
-                                                [self alertWithPasswordEntry];
+                                                [self passwordAlert];
                                                 NSLog(@"User pressed \"Enter Password\"");
                                                 break;
                                                 
@@ -851,7 +851,7 @@ didFailAutocompleteWithError:(NSError *)error {
     UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action) {
                                                               
-//                                                              [self passwordAlert];
+//                                                              //perform password check using keychain
                                                           }];
 
     [alert addAction: okAction];
