@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2dL-jL-EPX">
-
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rEJ-xT-fIS">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -225,19 +223,13 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="murderSign" translatesAutoresizingMaskIntoConstraints="NO" id="urh-KZ-ONZ">
-                                        <rect key="frame" x="8" y="348" width="544" height="59"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="59" id="dY3-Oa-Bhf"/>
-                                        </constraints>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The unlawful killing of another human being without justification or excuse." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efZ-yT-0Mz">
                                         <rect key="frame" x="8" y="407" width="544" height="21"/>
                                         <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rape is the commission of unlawful sexual intercourse or unlawful sexual intrusion." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pxg-Wm-NWP">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The commission of unlawful sexual intercourse or unlawful sexual intrusion." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pxg-Wm-NWP">
                                         <rect key="frame" x="8" y="492" width="544" height="21"/>
                                         <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -251,7 +243,7 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wsh-TI-rmg">
                                         <rect key="frame" x="8" y="572" width="544" height="22"/>
-                                        <string key="text">Robbery is a crime of theft and can be classified as larceny by force or by threat of force. The elements of the crime of robbery include the use of force or intimidation and all the elements of the crime of larceny. The penalty for robbery is always more severe than for larceny.</string>
+                                        <string key="text">Crime of theft and can be classified as larceny by force or by threat of force. The elements of the crime of robbery include the use of force or intimidation and all the elements of the crime of larceny. The penalty for robbery is always more severe than for larceny.</string>
                                         <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -260,6 +252,12 @@
                                         <rect key="frame" x="8" y="433" width="544" height="59"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="59" id="n55-EJ-PGV"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="murderSign" translatesAutoresizingMaskIntoConstraints="NO" id="urh-KZ-ONZ">
+                                        <rect key="frame" x="8" y="348" width="544" height="59"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="59" id="dY3-Oa-Bhf"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
@@ -364,15 +362,15 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back" width="89" height="89"/>
-        <image name="bg15" width="1080" height="1920"/>
+        <image name="back" width="45" height="45"/>
+        <image name="bg15" width="540" height="960"/>
         <image name="burglarySign" width="431" height="66"/>
-        <image name="definitions" width="730" height="110"/>
+        <image name="definitions" width="365" height="55"/>
         <image name="felonySign" width="581" height="66"/>
         <image name="glmvSign" width="581" height="118"/>
         <image name="grandLarcenySign" width="600" height="66"/>
-        <image name="info" width="89" height="89"/>
-        <image name="murderSign" width="374" height="70"/>
+        <image name="info" width="45" height="45"/>
+        <image name="murderSign" width="377" height="70"/>
         <image name="rapeSign" width="284" height="64"/>
         <image name="robberySign" width="383" height="66"/>
     </resources>

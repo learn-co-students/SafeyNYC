@@ -13,9 +13,10 @@
 #import "PoliceLocatorAPI.h"
 #import "PoliceDataStore.h"
 #import "RUFIEmergencyViewController.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 @import GoogleMaps;
-@interface ViewController : UIViewController<CLLocationManagerDelegate>
+@interface ViewController : UIViewController<CLLocationManagerDelegate, GMSMapViewDelegate>
 
 @property (nonatomic, assign) double longitude;
 @property (nonatomic, assign) double latitude;
@@ -26,8 +27,12 @@
 @property (strong, nonatomic) UIActivityIndicatorView *activityView;
 @property (strong, nonatomic) GMSPolyline *policePolyline;
 @property (strong, nonatomic) GMSMarker *policeMarker;
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
+@property (nonatomic, assign) BOOL searchLocation;
+@property (nonatomic, assign) BOOL policeLocationFoundForActualCurrentLocation;
 
 -(void)reloadViewAfterSettingsScreen:(NSNotification *)notification;
+
 
 
 @end

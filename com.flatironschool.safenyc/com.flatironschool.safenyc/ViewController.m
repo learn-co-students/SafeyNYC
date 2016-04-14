@@ -6,12 +6,13 @@
 //  Copyright © 2016 Irina Kalashnikova. All rights reserved.
 //
 #import "ViewController.h"
-#import <GoogleMaps/GoogleMaps.h>
+
 #import <DKCircleButton/DKCircleButton.h>
 #import "PieChartDataViewController.h"
 #import "RUFISettingsViewController.h"
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <AFNetworking/AFNetworking.h>
+
 
 @import GoogleMaps;
 
@@ -28,6 +29,7 @@
 @property (strong, nonatomic) DKCircleButton *dissmissPoliceMapButton;
 @property (nonatomic) NSUInteger widthConstrain;
 @property (nonatomic) NSUInteger heightConstrain;
+@property (nonatomic) GMSMarker *faceMarker;
 
 @end
 
@@ -39,6 +41,11 @@
 
     [super viewDidLoad];
     
+//    self.latitude = 40.705412;
+//    self.longitude = -74.013974;
+    
+//    [self performSegueWithIdentifier:@"introStoryboard" sender:nil];
+    
 //    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: 40.705412
 //                                                            longitude: -74.013974
 //                                                                 zoom: 2];
@@ -49,7 +56,6 @@
 //
 //    self.view = self.mapView;
     
-
     self.datastore = [RUFIDataStore sharedDataStore];
     self.datastore.distanceInMeters = @"402";
     self.datastore.distanceInMiles = @"1/4";
@@ -64,7 +70,6 @@
     [self createMapWithCoordinates];
     [self updateCurrentMap];
     [self setUpButtons];
-
 }
 
 
@@ -74,6 +79,8 @@
 
     
     if (self.datastore.settingsChanged){
+        
+        [self disableAllButtons];
     
         [self updateMapAfterSetttingsChange];
     }
@@ -102,6 +109,7 @@
     self.dissmissPoliceMapButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, self.heightConstrain, 47, 47)];
     
     NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton, self.dissmissPoliceMapButton];
+    
     
     for (DKCircleButton *button in buttons) {
 
@@ -144,49 +152,71 @@
     }
 }
 
+//-(void)toggleButtonInteractions{
+//
+//    NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton];
+//
+//    for (DKCircleButton *currentButton in buttons) {
+//        currentButton.userInteractionEnabled = !currentButton.userInteractionEnabled;
+//    }
+//}
 
 -(void)pressedButton:(DKCircleButton *)button {
     
     button.animateTap = YES;
     
+    NSLog(@"disabled!!!!!");
+    
     if(button == self.searchButton){
         
-        
+        NSLog(@"BUTTON TAPPED");
         [self openGooglePlacePicker];
+        
         NSLog(@"Getting to inside the pressed button");
+
         
     } else if (button == self.settingsButton){
+        NSLog(@"BUTTON TAPPED");
         
         [self performSegueWithIdentifier:@"settingsSegue" sender:nil];
 
-        
     } else if (button == self.currentLocationButton){
-
-
+        NSLog(@"BUTTON TAPPED");
+        
+        [self disableAllButtons];
+        
         [self updateCurrentMap];
         
     } else if (button == self.policeMapButton){
+        NSLog(@"BUTTON TAPPED");
+        [self disableAllButtons];
         
         [self updateMapWithPoliceLocation];
 
         self.dissmissPoliceMapButton.hidden = NO;
-
+        
         
     } else if (button == self.emergencyButton){
         
+        NSLog(@"BUTTON TAPPED");
+        
         [self checkForFingerPrint];
         //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
-       
+    
     } else if (button == self.pieChartButton){
-        
+        NSLog(@"BUTTON TAPPED");
         [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
         
     } else if (button == self.dissmissPoliceMapButton){
-        
+        NSLog(@"BUTTON TAPPED");
         self.dissmissPoliceMapButton.hidden = YES;
         [self removeClosetPoliceLocation];
         
+        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+
     }
+    
+    NSLog(@"reenabled!!!!!");
 }
 
 
@@ -208,6 +238,7 @@
 
 -(void)updateCurrentMap{
 
+    
     [self updateCurrentLocationCoordinatesWithBlock:^(BOOL success) {
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -215,14 +246,19 @@
                 
                 if(self.mapView == nil){
                     
+                    [self startSpinner];
+                    
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
                         [self createMapWithCoordinates];
                         
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
-                        
+        
                         [self updateFaceMarker];
                         
+                        [self endSpinner];
+                        
+                        NSLog(@"CALL ENDED");
                         
                     }];
                     
@@ -231,20 +267,27 @@
                 }
                 else{
                     
+                    [self startSpinner];
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
+                        if (self.searchLocation) {
+                            
+                            self.searchLocation = NO;
+                            [self.mapView clear];
+                            [self.dissmissPoliceMapButton setHidden: YES];
+                        
+                        }
+
                         
                         [self animateMap];
-                        
 
-
-                        
+                        [self updateFaceMarker];
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
-                        [self updateFaceMarker];
+                        [self endSpinner];
                         
-                        
-                        
+                        [self reenableAllButtons];
+   
                     }];
                     
                 }
@@ -368,7 +411,7 @@
     
     self.mapView = [GMSMapView mapWithFrame: self.view.bounds camera:camera];
     self.mapView.myLocationEnabled = YES;
-
+    self.mapView.delegate = self;
 
     self.view = self.mapView;
 }
@@ -384,24 +427,26 @@
 - (void)viewController:(GMSAutocompleteViewController *)viewController
 didAutocompleteWithPlace:(GMSPlace *)place {
     
-
+    [self disableAllButtons];
     // Do something with the selected place.
     NSLog(@"Place name %@", place.name);
     NSLog(@"Place address %@", place.formattedAddress);
     NSLog(@"Place attributions %@", place.attributions.string);
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    
     CLLocationCoordinate2D currentCoordinate = place.coordinate;
     self.latitude = currentCoordinate.latitude;
     self.longitude = currentCoordinate.longitude;
     self.datastore.userLongitude = [NSString stringWithFormat:@"%.6f", self.longitude];
     self.datastore.userLatitude = [NSString stringWithFormat:@"%.6f", self.latitude];
+    self.searchLocation = YES;
+    
     
     NSLog(@"AT DATA STORE %@", self.datastore.userLatitude);
     NSLog(@"AT DATA STORE %@", self.datastore.userLongitude);
 
-
+       [self.mapView clear];
+        [self startSpinner];
     NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
@@ -409,7 +454,11 @@ didAutocompleteWithPlace:(GMSPlace *)place {
         [self animateMap];
         
         [self updateFaceMarker];
+
+        [self endSpinner];
         
+        [self reenableAllButtons];
+    
     }];
 
 }
@@ -450,26 +499,31 @@ didFailAutocompleteWithError:(NSError *)error {
 #pragma method to update map with crime markers
 
 -(void)updateMapWithCrimeLocations:(NSMutableArray *)crimeArray {
-    
-    
+
     for (RUFICrimes *crime in crimeArray){
         
         GMSMarker *marker = [[GMSMarker alloc] init];
+        CLLocationDegrees degrees = 0;
         marker.position = CLLocationCoordinate2DMake(crime.latitude, crime.longitude);
         marker.icon = crime.googleMapsIcon;
+        marker.groundAnchor = CGPointMake(0.5, 0.5);
+        marker.rotation = degrees;
         marker.appearAnimation = kGMSMarkerAnimationPop;
         marker.title = crime.offense;
+        marker.flat = NO;
         marker.snippet = [NSString stringWithFormat:@"%@ - %@", crime.precinct, crime.date];
         marker.map = self.mapView;
 
-    
     }
+
 }
 
 -(void)updateMapWithPoliceLocation{
    
+    [self startSpinner];
     PoliceDataStore *store = [PoliceDataStore sharedDataStore];
 //    40.705475, -74.013993
+
     
     [store getPoliceLocationsLatitude: self.latitude Longitude: self.longitude WithCompletion:^(BOOL finished) {
         
@@ -482,7 +536,17 @@ didFailAutocompleteWithError:(NSError *)error {
                     
                     if (finished) {
                 
+                        [self reenableAllButtons];
                         NSLog(@"let's draw a line!!!!!!!!!!");
+                        [self endSpinner];
+                        
+                        if (self.searchLocation) {
+                            self.policeLocationFoundForActualCurrentLocation = NO;
+                        }
+                        else{
+                            self.policeLocationFoundForActualCurrentLocation = YES;
+                        }
+
                         
                     }
                 }];
@@ -527,7 +591,7 @@ didFailAutocompleteWithError:(NSError *)error {
         
         GMSPath *path = [GMSPath pathFromEncodedPath: responseObject[@"routes"][0][@"overview_polyline"][@"points"]];
         
-        [self drawClosetPoliceLocationWithPath: path startLat: self.latitude startLng: self.longitude policeLocation: closestPoliceLocation];
+        [self drawClosetPoliceLocationWithPath: path startLat: latitude startLng: longitude policeLocation: closestPoliceLocation];
 
         
         completionBlock(YES);
@@ -542,7 +606,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
 -(void)drawClosetPoliceLocationWithPath:(GMSPath *)path
                                startLat:(double) startLatitude
-                               startLng:(double)startLongitude
+                               startLng:(double) startLongitude
                          policeLocation:(PoliceLocation *)policeLocation{
     
     double endLatitude = policeLocation.latitude;
@@ -555,7 +619,8 @@ didFailAutocompleteWithError:(NSError *)error {
     }
 
     self.policePolyline = [GMSPolyline polylineWithPath: path];
-    self.policePolyline.strokeColor = [UIColor colorWithRed:0.353 green:0.38 blue:0.659 alpha:1]; 
+//    [UIColor colorWithRed:0.353 green:0.38 blue:0.659 alpha:1];
+    self.policePolyline.strokeColor = [UIColor redColor];
     self.policePolyline.strokeWidth = 5.f;
     self.policePolyline.map = self.mapView;
     
@@ -617,7 +682,7 @@ didFailAutocompleteWithError:(NSError *)error {
     
     [self.policePolyline setMap:nil];
     [self.policeMarker setMap: nil];
-
+    
 }
 
 //-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -721,60 +786,64 @@ didFailAutocompleteWithError:(NSError *)error {
     
     NSUInteger count = self.datastore.crimeDataArray.count / [self.datastore.yearsAgo integerValue] / [self.datastore.distanceValue integerValue];
     
-    NSLog(@"Update Face Maker: %lu", count);
-    NSLog(@"Update Face Maker DS: %lu", self.datastore.crimeDataArray.count);
+    NSLog(@"Update Face Maker: %lu", (unsigned long)count);
+    NSLog(@"Update Face Maker DS: %lu", (unsigned long)self.datastore.crimeDataArray.count);
     
-    GMSMarker *faceMarker = [[GMSMarker alloc] init];
-    faceMarker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
+    self.faceMarker = [[GMSMarker alloc] init];
+    self.faceMarker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
     
     if (count <= 25) {
         
-        faceMarker.icon = [UIImage imageNamed:@"face1"];
-        faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
-        faceMarker.snippet = @"This place doesnt seem that bad!";
+        self.faceMarker.icon = [UIImage imageNamed:@"face1"];
+        self.faceMarker.snippet = [NSString stringWithFormat:@"Total Felonies: %lu", (unsigned long)self.datastore.crimeDataArray.count];
         
-        NSLog(@"Update Face Maker1: %lu", self.datastore.crimeDataArray.count);
+        
+        self.faceMarker.title = @"This place doesnt seem that bad!";
+        
+        NSLog(@"Update Face Maker1: %lu", (unsigned long)self.datastore.crimeDataArray.count);
     }
     
     else if (count >= 26 && count <= 100) {
         
-        faceMarker.icon = [UIImage imageNamed:@"face2"];
-        faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
-        faceMarker.snippet = @"Everything seems hunky dory.";
+        self.faceMarker.icon = [UIImage imageNamed:@"face2"];
+        self.faceMarker.snippet= [NSString stringWithFormat:@"Total Felonies: %lu", (unsigned long)self.datastore.crimeDataArray.count];
+        self.faceMarker.title = @"Everything seems hunky dory.";
         
-        NSLog(@"Update Face Maker2: %lu", self.datastore.crimeDataArray.count);
+        NSLog(@"Update Face Maker2: %lu", (unsigned long)self.datastore.crimeDataArray.count);
     }
     
     else if (count >= 101 && count <= 175) {
         
-        faceMarker.icon = [UIImage imageNamed:@"face3"];
-        faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
-        faceMarker.snippet = @"Ummmmm should I be here?";
+        self.faceMarker.icon = [UIImage imageNamed:@"face3"];
+        self.faceMarker.snippet = [NSString stringWithFormat:@"Total Felonies: %lu", (unsigned long)self.datastore.crimeDataArray.count];
+        self.faceMarker.title  = @"Ummmmm should I be here?";
         
-        NSLog(@"Update Face Maker3: %lu", self.datastore.crimeDataArray.count);
+        NSLog(@"Update Face Maker3: %lu", (unsigned long)self.datastore.crimeDataArray.count);
     }
     
     else if (count >= 176 && count <= 250) {
         
-        faceMarker.icon = [UIImage imageNamed:@"face4"];
-        faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
-        faceMarker.snippet = @"Sheesh I better watch my back!";
+        self.faceMarker.icon = [UIImage imageNamed:@"face4"];
+        self.faceMarker.snippet = [NSString stringWithFormat:@"Total Felonies: %lu", (unsigned long)self.datastore.crimeDataArray.count];
+        self.faceMarker.title = @"Sheesh I better watch my back!";
         
-        NSLog(@"Update Face Maker4: %lu", self.datastore.crimeDataArray.count);
+        NSLog(@"Update Face Maker4: %lu", (unsigned long)self.datastore.crimeDataArray.count);
     }
     
     else {
         
-        faceMarker.icon = [UIImage imageNamed:@"face5"];
-        faceMarker.title = [NSString stringWithFormat:@"Total Felonies: %lu", self.datastore.crimeDataArray.count];
-        faceMarker.snippet = @"OMG I'm going to die!";
+        self.faceMarker.icon = [UIImage imageNamed:@"face5"];
+        self.faceMarker.snippet = [NSString stringWithFormat:@"Total Felonies: %lu", (unsigned long)self.datastore.crimeDataArray.count];
+        self.faceMarker.title = @"OMG I'm going to die!";
+
         
-        NSLog(@"Update Face Maker5: %lu", self.datastore.crimeDataArray.count);
+        NSLog(@"Update Face Maker5: %lu", (unsigned long)self.datastore.crimeDataArray.count);
     }
     
     
-    faceMarker.appearAnimation = kGMSMarkerAnimationPop;
-    faceMarker.map = self.mapView;
+    self.faceMarker.appearAnimation = kGMSMarkerAnimationPop;
+
+    self.faceMarker.map = self.mapView;
     
 }
 
@@ -795,8 +864,7 @@ didFailAutocompleteWithError:(NSError *)error {
 -(void)updateMapAfterSetttingsChange {
     
     [self.mapView clear];
-    
-    
+    [self startSpinner];
     NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
@@ -805,12 +873,84 @@ didFailAutocompleteWithError:(NSError *)error {
         
         [self updateFaceMarker];
         
+        [self reenableAllButtons];
+        
         self.datastore.settingsChanged = NO;
+        
+        NSLog(@"settings finished updating!!!!!");
+    [self endSpinner];
     
     }];
     
     
 }
+
+
+//UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+//spinner.color = [UIColor blueColor];
+//[spinner startAnimating];
+//[_mapViewController.view addSubview:spinner];
+//
+//dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//    // lots of code run in the background
+//
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        // stop and remove the spinner on the main thread when done
+//        [spinner removeFromSuperview];
+//    });
+//});
+
+-(void)startSpinner{
+
+    self.spinner = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+    
+    self.spinner.color = [UIColor whiteColor];
+
+    NSLog(@"spinner made");
+    [self.spinner startAnimating];
+    self.spinner.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.mapView addSubview: self.spinner];
+    [self.spinner.centerXAnchor constraintEqualToAnchor: self.mapView.centerXAnchor].active = YES;
+    [self.spinner.centerYAnchor constraintEqualToAnchor: self.mapView.centerYAnchor].active = YES;
+
+
+}
+
+-(void)endSpinner{
+
+    if (self.spinner.isAnimating) {
+        [self.spinner removeFromSuperview];
+        NSLog(@"spinner destoryed");
+    }
+}
+
+
+-(void)disableAllButtons {
+    
+    self.searchButton.enabled = NO;
+    self.searchButton.enabled = NO;
+    self.settingsButton.enabled = NO;
+    self.currentLocationButton.enabled = NO;
+    self.policeMapButton.enabled = NO;
+    self.emergencyButton.enabled = NO;
+    self.pieChartButton.enabled = NO;
+    self.dissmissPoliceMapButton.enabled = NO;
+    
+}
+
+-(void)reenableAllButtons {
+    
+    self.searchButton.enabled = YES;
+    self.settingsButton.enabled = YES;
+    self.currentLocationButton.enabled = YES;
+    self.policeMapButton.enabled = YES;
+    self.emergencyButton.enabled = YES;
+    self.pieChartButton.enabled = YES;
+    self.dissmissPoliceMapButton.enabled = YES;
+    
+}
+
+
 
 
 
