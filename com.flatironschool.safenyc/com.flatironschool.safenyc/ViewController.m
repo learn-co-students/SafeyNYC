@@ -71,6 +71,7 @@
     [self createMapWithCoordinates];
     [self updateCurrentMap];
     [self setUpButtons];
+    
 }
 
 
