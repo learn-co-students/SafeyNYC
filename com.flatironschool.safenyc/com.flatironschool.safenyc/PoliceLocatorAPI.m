@@ -33,7 +33,7 @@
 //        NSLog(@"lat: %f", latitude);
 //        NSLog(@"long: %f", longitude);
         NSArray *results = responseObject[@"results"];
-//        NSLog(@"and here are the results =======> : %@", results);
+        NSLog(@"and here are the results =======> : %@", results);
         
         completionBlock(results);
         

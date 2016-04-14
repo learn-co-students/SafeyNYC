@@ -763,50 +763,38 @@ didFailAutocompleteWithError:(NSError *)error {
                                     dispatch_async(dispatch_get_main_queue(), ^{
 
                                         //check type of error here
-                                        
-//                                        switch ( authenticationError.code ) {
-//                                            case LAErrorAuthenticationFailed:
-//                                                NSLog(@"Authentication Failed");
-//                                                break;
-//                                            case LAErrorUserCancel:
-//                                                NSLog(@"User pressed Cancel button");
-//                                                break;
-//                                            case LAErrorUserFallback:
-//                                                [self showPasswordAlert];
-//                                                break;
-//                                        }
-                                        
-//                                        switch (<#expression#>) {
-//                                            case <#constant#>:
-//                                                <#statements#>
-//                                                break;
-//                                                
-//                                            default:
-//                                                break;
-//                                        }
-                                        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"The Access Is Denied!"
-                                                                                                       message:@"Emergency button is only for the owner of the phone."
-                                                                                                preferredStyle:UIAlertControllerStyleAlert];
-                                        
-                                        UIAlertAction* enterPassword = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                                              handler:^(UIAlertAction * action) {
-                                                                            
-                                                                                                  [self passwordAlert];
-                                                                                              }];
-                                        
-//                                        [alert addAction: defaultAction];
-                                        [alert addAction: enterPassword];
-                                        [self presentViewController:alert animated:YES completion:nil];
+                                        switch (error.code) {
+                                                
+                                            case LAErrorAuthenticationFailed:
+                                                
+                                                NSLog(@"Authentication Failed");
+                                                
+                                                break;
+                                                
+                                            case LAErrorUserCancel:
+                                                NSLog(@"User pressed Cancel button");
+                                                break;
+                                                
+                                            case LAErrorUserFallback:
+                                                [self alertWithPasswordEntry];
+                                                NSLog(@"User pressed \"Enter Password\"");
+                                                break;
+                                                
+                                            default:
+                                                NSLog(@"Touch ID is not configured");
+                                                break;
+                                        }
+
                                     });
                                 }
                             }];
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Wrong password."
-                                                                           message:@"Try again!"
+                                                                           message:@"Please fucking Try again!"
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style: UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {}];
             
             [alert addAction:defaultAction];
@@ -815,12 +803,71 @@ didFailAutocompleteWithError:(NSError *)error {
     }
 }
 
+-(void)alertWithPasswordEntry{
+
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"The Access Is Denied!"
+                                                                   message:@"Emergency button is only for the owner of the phone."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* enterPassword = [UIAlertAction actionWithTitle:@"Enter fucking Password" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              
+                                                              [self passwordAlert];
+                                                          }];
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle: @"OK" style:UIAlertActionStyleDefault handler:nil];
+    
+    [alert addAction: enterPassword];
+    [alert addAction: okAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+
+
+
+
+}
 
 -(void)passwordAlert{
 
     //insert code to request password here.....
-    
+    // I want to check to see if the user has a password already
+    //if not propmpt the user for password and save to keychain
+    //prompt user for password, access it from keychain then let the user into the
+    //emergency app feature
 
+//        UIAlertView *passwordAlert = [[UIAlertView alloc]
+//                                      initWithTitle:@"Demo"
+//                                      message:@"Please type your password"
+//                                      delegate:self
+//                                      cancelButtonTitle:@"Cancel"
+//                                      otherButtonTitles:@"Ok", nil];
+//        
+//        [passwordAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
+//        [passwordAlert show];
+
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Enter Fucking Password"
+                                                                   message:@"Please enter your fucking password: "
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              
+//                                                              [self passwordAlert];
+                                                          }];
+
+    [alert addAction: okAction];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"fucking password";
+        textField.secureTextEntry = YES;
+    }];
+    [self presentViewController:alert animated:YES completion:nil];
+
+//    - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//    {
+//        if ( buttonIndex == 1 )
+//        {
+//            NSLog(@"%@", [alertView textFieldAtIndex:0].text );
+//        }
+//    }
 
 }
 
