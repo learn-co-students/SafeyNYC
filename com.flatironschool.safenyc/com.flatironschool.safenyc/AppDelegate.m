@@ -21,6 +21,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [GMSServices provideAPIKey:GOOGLE_API_KEY];
+    
+    BOOL hasLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLoggedIn"];
+    if (hasLoggedIn) {
+        // means that its stored as YES
+        // meaning dont show the alert
+    } else {
+        // means that its stored as NO
+        // show the alert
+        // set the bool to YES
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLoggedIn"];
+    }
     return YES;
 }
 

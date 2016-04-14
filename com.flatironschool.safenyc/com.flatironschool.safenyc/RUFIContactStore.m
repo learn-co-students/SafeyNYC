@@ -7,6 +7,7 @@
 //
 
 #import "RUFIContactStore.h"
+#import "Contact.h"
 
 @interface RUFIContactStore ()
 
@@ -49,6 +50,20 @@
     }
 }
 
+-(void)deleteContact:(Contact *)contact{
+    NSLog(@"deleting %@ %@", contact.givenName, contact.familyName);
+    // remove the contact from self.contacts
+    // delete the contact using self.managedObjectContext
+    [self.managedObjectContext deleteObject:contact];
+    [self saveContext];
+    [self fetchData];
+    NSLog(@"Now contacts are:");
+    for (Contact *contact in self.contacts) {
+        NSLog(@"%@ %@", contact.givenName, contact.familyName);
+    }
+    
+}
+
 #pragma mark - Core Data Stack
 
 // Managed Object Context property getter. This is where we've dropped our "boilerplate" code.
@@ -59,11 +74,11 @@
         return _managedObjectContext;
     }
     
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Contact.sqlite"];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"RUFIContact.sqlite"];
     
     NSError *error = nil;
     
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Contact" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"RUFIContact" withExtension:@"momd"];
     NSManagedObjectModel *managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:managedObjectModel];
     
@@ -86,10 +101,8 @@
 -(void)fetchData {
     
     NSFetchRequest *allItemsRequest = [NSFetchRequest fetchRequestWithEntityName:@"Contact"];
-    
-    RUFIContactStore *contactStore = [RUFIContactStore sharedContactStore];
-    
-    self.contacts = [contactStore.managedObjectContext executeFetchRequest:allItemsRequest error:nil];
+//    allItemsRequest.sortDescriptors = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+    self.contacts = [self.managedObjectContext executeFetchRequest:allItemsRequest error:nil];
     
 }
 

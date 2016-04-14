@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
+@class Contact;
 @interface RUFIContactStore : UIViewController
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSArray *contacts;
 
 + (instancetype) sharedContactStore;
-- (void) saveContext;
+-(void) saveContext;
+-(void) fetchData;
+-(void) deleteContact:(Contact*)contact;
 
 @end

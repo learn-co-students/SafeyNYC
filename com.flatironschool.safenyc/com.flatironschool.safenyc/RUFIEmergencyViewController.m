@@ -25,22 +25,25 @@
 @property (strong, nonatomic) DKCircleButton *person5;
 @property (strong, nonatomic) DKCircleButton *person6;
 @property (strong, nonatomic) DKCircleButton *backButton;
-@property (strong, nonatomic) DKCircleButton *addFriendsButton;
 @property (strong, nonatomic) DKCircleButton *currentPerson;
 @property (strong, nonatomic) UITextField *holdUntillTextField;
-//@property (strong, nonatomic) CNMutableContact *contact1;
-//@property (strong, nonatomic) CNMutableContact *contact2;
-//@property (strong, nonatomic) CNMutableContact *contact3;
-//@property (strong, nonatomic) CNMutableContact *contact4;
-//@property (strong, nonatomic) CNMutableContact *contact5;
-//@property (strong, nonatomic) CNMutableContact *contact6;
-//@property (strong, nonatomic) CNContactStore *contactStore;
+
+@property (strong, nonatomic) Contact *contact1;
+@property (strong, nonatomic) Contact *contact2;
+@property (strong, nonatomic) Contact *contact3;
+@property (strong, nonatomic) Contact *contact4;
+@property (strong, nonatomic) Contact *contact5;
+@property (strong, nonatomic) Contact *contact6;
+@property (strong, nonatomic) Contact *currentContact; // FIXME: rename to tappedContact
+
+@property (nonatomic) NSUInteger tappedContactIndex;
+
 @property (strong, nonatomic) NSString *thisButtonWasPressed;
-@property (nonatomic) BOOL isContactePicked;
 @property (strong, nonatomic) MFMessageComposeViewController *composeVC;
 @property (strong, nonatomic) UIImageView *backgroundImage;
 @property (nonatomic) RUFIContactStore *localContactStore;
 @property (strong, nonatomic) NSArray *localContacts;
+@property (strong, nonatomic) NSMutableArray *recipients;
 
 @end
 
@@ -54,23 +57,102 @@
     [self displayButtons];
     [self displayHoldUntillTextField];
     
-//    self.localContactStore = [RUFIContactStore sharedContactStore];
-//    
-//    [self.localContactStore fetchData];
-//    
-//    self.localContacts = self.localContactStore.contacts;
-//    
-//    NSLog(@"\n %@ ", self.localContacts);
-
+    self.localContactStore = [RUFIContactStore sharedContactStore];
+    [self.localContactStore fetchData];
+    self.localContacts = self.localContactStore.contacts;
+    NSLog(@"\n %@ ", self.localContacts);
+    
+    [self setupContactButtons];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+-(void)setupContactButtons{
+    for (Contact *contact in self.localContacts) {
+        NSInteger index = [self.localContacts indexOfObject:contact];
+        switch (index) {
+            case 0:
+                self.contact1 = contact;
+                break;
+            case 1:
+                self.contact2 = contact;
+                break;
+            case 2:
+                self.contact3 = contact;
+                break;
+            case 3:
+                self.contact4 = contact;
+                break;
+            case 4:
+                self.contact5 = contact;
+                break;
+            case 5:
+                self.contact6 = contact;
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
+-(void)setContact1:(Contact *)contact1{
+    _contact1 = contact1;
     
-//    [self.localContactStore fetchData];
-//    
-//    self.localContacts = self.localContactStore.contacts;
-//    
-//    NSLog(@"\n ALL CONTACTS: %@ \n", self.localContacts);
+    [self displayImageOrInitialsOfTheContact:self.contact1 onTheButton:self.person1];
+ }
+
+-(void)setContact2:(Contact *)contact2{
+    _contact2 = contact2;
+    
+    [self displayImageOrInitialsOfTheContact:self.contact2 onTheButton:self.person2];
+}
+
+-(void)setContact3:(Contact *)contact3{
+    _contact3 = contact3;
+    
+    [self displayImageOrInitialsOfTheContact:self.contact3 onTheButton:self.person3];
+}
+
+-(void)setContact4:(Contact *)contact4{
+    _contact4 = contact4;
+    [self displayImageOrInitialsOfTheContact:self.contact4 onTheButton:self.person4];
+}
+
+-(void)setContact5:(Contact *)contact5{
+    _contact5 = contact5;
+    [self displayImageOrInitialsOfTheContact:self.contact5 onTheButton:self.person5];
+}
+
+-(void)setContact6:(Contact *)contact6{
+    _contact6 = contact6;
+    [self displayImageOrInitialsOfTheContact:self.contact6 onTheButton:self.person6];
+}
+
+- (void)displayImageOrInitialsOfTheContact:(Contact *)contact onTheButton:(DKCircleButton *)button {
+    
+    if (!contact.imageData && contact.initials) {
+        
+        [button setImage:nil forState:UIControlStateNormal];
+        [button setBackgroundColor:[UIColor blueColor]];
+        [button setTitle:contact.initials forState:UIControlStateNormal];
+        
+    } else if (contact.imageData) {
+       
+        UIImage *contactImage = [UIImage imageWithData:contact.imageData];
+        [button setTitle:@"" forState:UIControlStateNormal];
+        [button setImage:contactImage forState:UIControlStateNormal];
+        button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    } else {
+        
+        [button setBackgroundImage:nil forState:UIControlStateNormal];
+        [button setImage:nil forState:UIControlStateNormal];
+        [button setTitle:@"?" forState:UIControlStateNormal];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,7 +163,7 @@
 - (void)displayViewBackground {
     
     self.backgroundImage = [[UIImageView alloc] initWithFrame:self.view.frame];
-    [self.backgroundImage setImage:[UIImage imageNamed:@"bg25"]];
+    [self.backgroundImage setImage:[UIImage imageNamed:@"bg15"]];
     [self.backgroundImage setContentMode:UIViewContentModeScaleAspectFill];
     [self.view addSubview:self.backgroundImage];
     [self.view sendSubviewToBack:self.backgroundImage];
@@ -106,27 +188,33 @@
 
 - (void) displayButtons {
     
-    self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-70, 140, 140)];
-    self.person1 = [[DKCircleButton alloc] initWithFrame:CGRectMake(51, 20, 87, 87)];
-    self.person2 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-157, 19, 87, 87)];
-    self.person3 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-106, self.widthOfTheScreen/2-52, 87, 87)];
-    self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-51-107, self.widthOfTheScreen-127, 87, 87)];
-    self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(59, self.widthOfTheScreen-127, 87, 87)];
-    self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(0, self.widthOfTheScreen/2-52, 87, 87)];
+    self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-80, 140, 140)];
+    self.person1 = [[DKCircleButton alloc] initWithFrame:CGRectMake(43, 20, 87, 87)];
+    self.person2 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-150, 20, 87, 87)];
+    self.person3 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-107, self.widthOfTheScreen/2-53, 87, 87)];
+    self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-152, self.widthOfTheScreen-127, 87, 87)];
+    self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(43, self.widthOfTheScreen-128, 87, 87)];
+    self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(-1, self.widthOfTheScreen/2-54, 87, 87)];
     self.backButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 30, 50, 50)];
-    self.addFriendsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 90, 50, 50)];
-    NSArray *buttons = @[self.emergencyButton, self.person1, self.person2, self.person3, self.person4, self.person5, self.person6, self.backButton, self.addFriendsButton];
+    
+    NSArray *buttons = @[self.emergencyButton, self.person1, self.person2, self.person3, self.person4, self.person5, self.person6, self.backButton];
+    
     for(DKCircleButton *button in buttons){
-        if(button == self.backButton || button == self.addFriendsButton){
+        
+        if(button == self.backButton){
+        
             [self.view addSubview:button];
+        
         } else {
+        
             [self.emergencyImageView addSubview:button];
+        
         }
         button.titleLabel.font = [UIFont systemFontOfSize:22];
         
         if(button == self.emergencyButton){
         
-            button.backgroundColor = [UIColor redColor];
+            button.backgroundColor = [UIColor clearColor];
             button.borderColor = [UIColor whiteColor];
             button.alpha = 1;
         
@@ -140,22 +228,11 @@
             button.alpha = 1;
         
         } else {
-            
-            if(button == self.addFriendsButton){
-                button.backgroundColor = [UIColor grayColor];
-            } else {
-                button.backgroundColor = [UIColor clearColor];
-            }
-            UIImage *image = [UIImage new];
-            image = [UIImage imageNamed:@"addFriend"];
-            button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-            [button setBackgroundImage:image forState:UIControlStateNormal];
-//            [button setImage:image forState:UIControlStateNormal];
-            [button setContentMode:UIViewContentModeScaleAspectFill];
-            button.alpha = 1;
-            
-        }
         
+            button.backgroundColor = [UIColor clearColor];
+            button.alpha = 1;
+            button.borderColor = [UIColor whiteColor];
+        }
         button.animateTap = NO;
         [button addTarget:self action:@selector(pressedButton:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -171,58 +248,59 @@
     
         [self emergencyMessage];
         
-    } else if (button == self.person1){
-        
-        NSLog(@"Person 1!");
-        [self openContacts];
-        self.currentPerson = _person1;
-//        [self openContacts];
-//        if(![self.contact1 isEqual:@""]){
-//            [self updateButtonWithPictureOf:button];
-//        }
-        //[self updateButtonWithPictureOf:self.person1];
-        
-    } else if (button == self.person2){
-        
-        NSLog(@"Person 2!");
-        [self openContacts];
-        self.currentPerson = _person2;
-        
-    } else if (button == self.person3){
-        
-        NSLog(@"Person 3!");
-        [self openContacts];
-        self.currentPerson = _person3;
-        
-    } else if (button == self.person4){
-        
-        NSLog(@"Person 4!");
-        [self openContacts];
-        self.currentPerson = _person4;
-    
-    } else if (button == self.person5){
-        
-        NSLog(@"Person 5!");
-        [self openContacts];
-        self.currentPerson = _person5;
-   
-    } else if (button == self.person6){
-        
-        NSLog(@"Person 6!");
-        [self openContacts];
-        self.currentPerson = _person6;
-   
     } else if (button == self.backButton){
         
         [self dismissViewControllerAnimated:YES completion:nil];
-    
-    } else if (button == self.addFriendsButton){
+        
+    } else {
         
         [self openContacts];
+        
+        self.currentPerson = button;
+        
+        if (button == self.person1){
+        
+            NSLog(@"Person 1!");
+            self.tappedContactIndex = 1;
+            self.currentContact = self.contact1;
+            NSLog(@"Contact 1: %@; Person 1 (current contact): %@", self.contact1, self.currentContact);
+            [self displayImageOrInitialsOfTheContact:self.contact1 onTheButton:self.person1];
+            
+        } else if (button == self.person2){
+            
+            NSLog(@"Person 2!");
+            self.tappedContactIndex = 2;
+            self.currentContact = self.contact2;
+            
+        } else if (button == self.person3){
+            
+            NSLog(@"Person 3!");
+            self.tappedContactIndex = 3;
+            self.currentContact = self.contact3;
+            
+        } else if (button == self.person4){
+            
+            NSLog(@"Person 4!");
+            self.tappedContactIndex = 4;
+            self.currentContact = self.contact4;
+        
+        } else if (button == self.person5){
+            
+            NSLog(@"Person 5!");
+            self.tappedContactIndex = 5;
+            self.currentContact = self.contact5;
+       
+        } else if (button == self.person6){
+            
+            NSLog(@"Person 6!");
+            self.tappedContactIndex = 6;
+            self.currentContact = self.contact6;
+       
+        }
     }
 }
 
-
+# pragma mark - Message
 -(void) emergencyMessage{
     
     if(![MFMessageComposeViewController canSendText]) {
@@ -233,8 +311,8 @@
     self.composeVC = [[MFMessageComposeViewController alloc] init];
     
     self.composeVC.messageComposeDelegate = self;
-    //add recipients
-    self.composeVC.recipients = @[@"4159874354"];
+    
+    [self addRecipients];
     //BODY MESSAGE
     
     self.composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location";
@@ -250,114 +328,93 @@
 
 }
 
+-(void)addRecipients{
+    self.composeVC.recipients = @[self.contact1.phone, self.contact2.phone, self.contact3.phone, self.contact4.phone, self.contact5.phone, self.contact6.phone];
+}
+
 -(void) openContacts {
-    //    CNContactPickerViewController *picker = [[CNContactPickerViewController alloc] init];
-    //    picker.delegate = self;
-    //    picker.predicateForEnablingContact = [NSPredicate predicateWithFormat:@"phoneNumbers.@count > 0"];
-    //    [self presentViewController:picker animated:YES completion:nil];
-    //    picker.displayedPropertyKeys = @[@[CNContactImageDataKey], @[CNContactGivenNameKey], @[CNContactFamilyNameKey], @[CNLabelPhoneNumberMain]];
-    CNContactPickerViewController *picker = [[CNContactPickerViewController alloc] init];
-    picker.delegate = self;
-    picker.predicateForEnablingContact = [NSPredicate predicateWithFormat:@"phoneNumbers.@count > 0"];
-    //    picker.predicateForSelectionOfProperty
-    [self presentViewController:picker animated:YES completion:nil];
+        CNContactPickerViewController *picker = [[CNContactPickerViewController alloc] init];
+        picker.delegate = self;
+        picker.predicateForEnablingContact = [NSPredicate predicateWithFormat:@"phoneNumbers.@count > 0"];
+        [self presentViewController:picker animated:YES completion:nil];
+        //picker.displayedPropertyKeys = @[@[CNContactImageDataKey], @[CNContactGivenNameKey], @[CNContactFamilyNameKey], @[CNLabelPhoneNumberMain]];
 }
 
-- (void) contactPickerDidCancel: (CNContactPickerViewController *) picker {
-    
-    NSLog(@"contactPickerDidCancel");
-}
-
-
-- (void) contactPicker: (CNContactPickerViewController *) picker
-      didSelectContact: (CNContact *) contact {
-   
-    RUFIContactStore *localContactStore = [RUFIContactStore sharedContactStore];
-    
-    Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:localContactStore.managedObjectContext];
-    
-    newContact.givenName = [contact.givenName mutableCopy];
-    newContact.familyName = [contact.familyName mutableCopy];
-    newContact.imageData = [contact.imageData mutableCopy];
-    newContact.phone = [contact.phoneNumbers mutableCopy];
-    NSString * initials = [newContact.givenName substringToIndex:1];
-    [initials stringByAppendingString:[contact.familyName substringToIndex:1]];
-    newContact.initials = initials.uppercaseString;
-    
-    [[RUFIContactStore sharedContactStore]saveContext];
-    
-    [self dismissViewControllerAnimated:NO completion:nil];
-    
-    
-    NSLog(@"contactpicked: %@", contact);
-    self.contact1 = [contact mutableCopy];
-    self.isContactePicked = YES;
-    NSLog(@"copy set to property: %@", self.contact1);
-    [self updateButtonWithPicture];
-    
-}
-
+#pragma mark - Contact Picker
 -(void)contactPicker:(CNContactPickerViewController *)picker didSelectContactProperty:(CNContactProperty *)contactProperty{
-    // because this method is implemented, the picker will dismiss itself after this happens
-    // here is where the contact property will come out
-    NSString *contactName = [NSString stringWithFormat:@"%@ %@", contactProperty.contact.givenName, contactProperty.contact.familyName];
-    NSLog(@"%@", contactName);
+    
     if ([contactProperty.value isKindOfClass:[CNPhoneNumber class]]) {
-//        [self.currentPerson setNeedsLayout];
-//        [self.currentPerson layoutIfNeeded];
-//        [self.currentPerson ];
-        // they followed instructions and tapped a phone number!
+        
         CNPhoneNumber *number = contactProperty.value;
         NSString *numberString = number.stringValue;
         NSLog(@"%@", numberString);
         
-        // set the button to show the image and disable it
-        if (contactProperty.contact.thumbnailImageData == nil) {
-            [self.currentPerson setBackgroundImage:nil forState:UIControlStateNormal];
-            NSMutableString *initials = [NSMutableString string];
-            NSString *fullName = [NSString stringWithFormat:@"%@ %@ %@ %@", contactProperty.contact.givenName, contactProperty.contact.middleName, contactProperty.contact.nameSuffix, contactProperty.contact.familyName];
-            NSArray *characters = [fullName componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            for (NSString * character in characters) {
-                if ([character length] > 0) {
-                    NSString * firstLetter = [character substringToIndex:1];
-                    [initials appendString:[firstLetter uppercaseString]];
-                }
-            }
-//            [self.currentPerson.titleLabel setFont:[UIFont fontWithName:@"Zapfino" size:20.0]];
-//            [self.currentPerson.titleLabel setTextColor:[UIColor blueColor]];
-//            self.currentPerson.titleLabel.text = @"AV";
-//            [self.currentPerson setImage:nil animated:NO];
-            [self.currentPerson setTitle:initials forState:UIControlStateNormal];
+        RUFIContactStore *localContactStore = [RUFIContactStore sharedContactStore];
+        if (self.currentContact) {
+            [localContactStore deleteContact:self.currentContact];
+            self.currentContact = nil;
         }
-        else {
+        
+        Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:localContactStore.managedObjectContext];
+        
+        newContact.givenName = contactProperty.contact.givenName;
+        newContact.familyName = contactProperty.contact.familyName;
+        newContact.imageData = [contactProperty.contact.thumbnailImageData mutableCopy];
+        newContact.phone = numberString;
+        NSString * initials = [newContact.givenName substringToIndex:1];
+        if(newContact.familyName.length > 0){
+            initials = [initials stringByAppendingString:[contactProperty.contact.familyName substringToIndex:1]];
+        }
+        newContact.initials = initials.uppercaseString;
+        
+        [localContactStore saveContext];
+        [localContactStore fetchData];
+        
+        self.localContacts = localContactStore.contacts;
+        
+        switch (self.tappedContactIndex) {
+            case 1:
+                self.contact1 = newContact;
+                break;
+            case 2:
+                self.contact2 = newContact;
+                break;
+            case 3:
+                self.contact3 = newContact;
+                break;
+            case 4:
+                self.contact4 = newContact;
+                break;
+            case 5:
+                self.contact5 = newContact;
+                break;
+            case 6:
+                self.contact6 = newContact;
+                break;
+            default:
+                break;
+        }
+        
+        [self dismissViewControllerAnimated:NO completion:nil];
+        
+       /* // set the button to show the image and disable it
+        if (self.currentContact.imageData == nil) {
+            
+            [self.currentPerson setBackgroundImage:nil forState:UIControlStateNormal];
+            [self.currentPerson setTitle:initials forState:UIControlStateNormal];
+        
+        } else {
+        
             UIImage *contactImage = [UIImage imageWithData:contactProperty.contact.thumbnailImageData];
             [self.currentPerson setTitle:@"" forState:UIControlStateNormal];
             [self.currentPerson setImage:contactImage forState:UIControlStateNormal];
             self.currentPerson.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        }
-        //        self.person1.userInteractionEnabled = NO;
-    }
-    else {
-        //        NSLog(@"Alert Controller");
-        //        UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:@"Warning"  message:@"select contact"  preferredStyle:UIAlertControllerStyleAlert];
-        //        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        //            [self dismissViewControllerAnimated:YES completion:nil];
-        //        }]];
-        //        [self presentViewController:alertController animated:YES completion:nil];
         
-        // they did not pick a phone number
-        // present error alert and dont modify button
+        }
+        //        self.person1.userInteractionEnabled = NO; */
     }
 }
 
-
-//-(void)updateButtonWithPicture {
-//    
-//    UIImage *image = [UIImage imageWithData:self.contact1.thumbnailImageData];
-//    NSLog(@"image: %@", image);
-//    [self.person1 setImage:image forState:UIControlStateNormal];
-//    
-//}
 
 -(void) displayHoldUntillTextField {
     self.holdUntillTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.widthOfTheScreen/2-150, 80, 300, 20)];
@@ -377,18 +434,16 @@
             
             self.backgroundImage.frame = CGRectMake(0, 0, self.widthOfTheScreen, self.heightOfTheScreen);
             self.emergencyImageView.frame = CGRectMake(10, self.widthOfTheScreen/2-45, self.widthOfTheScreen-20, self.widthOfTheScreen-20);
-            self.emergencyButton.frame = CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-70, 140, 140);
+            self.emergencyButton.frame = CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-80, 140, 140);
             self.backButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
-            self.addFriendsButton.frame = CGRectMake(self.widthOfTheScreen-60, 90, 50, 50);
             self.holdUntillTextField.frame = CGRectMake(self.widthOfTheScreen/2-150, 80, 300, 20);
             
         } else if (isLandscape) {
             
             self.backgroundImage.frame = CGRectMake(0, 0, self.heightOfTheScreen, self.widthOfTheScreen);
-            self.emergencyButton.frame = CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-70, 140, 140);
+            self.emergencyButton.frame = CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-80, 140, 140);
             self.emergencyImageView.frame = CGRectMake(self.widthOfTheScreen/2-31, 0, self.widthOfTheScreen-20, self.widthOfTheScreen-20);
             self.backButton.frame = CGRectMake(self.heightOfTheScreen-60, 30, 50, 50);
-            self.addFriendsButton.frame = CGRectMake(self.heightOfTheScreen-60, 90, 50, 50);
             self.holdUntillTextField.frame = CGRectMake(10, self.widthOfTheScreen-30, 300, 20);
 
         }
@@ -396,7 +451,7 @@
     }];
 }
 
-# pragma mark - Emergency Button
+# pragma mark - Emergency Button -> MESSAGE
 -(BOOL)addLocationAttachmentToComposeViewController:(MFMessageComposeViewController *)composeVC displayName:(NSString *)displayName location:(CLLocationCoordinate2D)location
 {
     NSURL *templateURL = [[NSBundle mainBundle] URLForResource:@"location_template" withExtension:@"loc.vcf"];
@@ -409,27 +464,21 @@
         return NO;
     }
     
-    
     NSString *latString = [NSString stringWithFormat:@"%.6f", location.latitude];
     NSString *longString = [NSString stringWithFormat:@"%.6f", location.longitude];
     
     [template replaceOccurrencesOfString:@"$displayname$" withString:displayName options:0 range:NSMakeRange(0, template.length)];
-    
     [template replaceOccurrencesOfString:@"$lat$" withString:latString options:0 range:NSMakeRange(0, template.length)];
-    
     [template replaceOccurrencesOfString:@"$long$" withString:longString options:0 range:NSMakeRange(0, template.length)];
     
     
     NSData *vcardData = [template dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-    
-    
     NSString *filename = [NSString stringWithFormat:@"%@.loc.vcf", displayName];
-    
     return [composeVC addAttachmentData:vcardData typeIdentifier:(NSString *)kUTTypeVCard filename:filename];
 }
 
--(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
-{
+-(void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

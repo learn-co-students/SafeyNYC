@@ -108,7 +108,7 @@
         [self.view addSubview:button];
         button.titleLabel.font = [UIFont systemFontOfSize:22];
         button.backgroundColor = [UIColor whiteColor];
-        button.borderColor = [UIColor grayColor];
+        button.borderColor = [UIColor lightGrayColor];
         button.alpha = 1;
         
         UIImage *image = [UIImage new];
