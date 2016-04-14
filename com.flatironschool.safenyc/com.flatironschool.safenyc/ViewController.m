@@ -861,14 +861,15 @@ didFailAutocompleteWithError:(NSError *)error {
     }];
     [self presentViewController:alert animated:YES completion:nil];
 
-//    - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-//    {
-//        if ( buttonIndex == 1 )
-//        {
-//            NSLog(@"%@", [alertView textFieldAtIndex:0].text );
-//        }
-//    }
+}
 
+- (void)alertView:(UIAlertController *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ( buttonIndex == 1 )
+    {
+        NSLog(@"%@", alertView.textFields[0].text );
+        NSLog(@"clicked ok and got the text entry!!!!!");
+    }
 }
 
 -(void)updateFaceMarker {
