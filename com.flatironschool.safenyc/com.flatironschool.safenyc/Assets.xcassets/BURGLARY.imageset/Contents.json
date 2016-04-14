@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "BURGLARY.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "BURGLARY.png",
+      "filename" : "BURGLARYx2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "BURGLARYx3.png",
       "scale" : "3x"
     }
   ],

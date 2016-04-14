@@ -16,6 +16,7 @@
 		7361C9DE1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7361C9DD1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m */; };
 		7361C9E01CBD643900F69CC3 /* introStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7361C9DF1CBD643900F69CC3 /* introStoryboard.storyboard */; };
 		7361C9E31CBD658600F69CC3 /* RUFIIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7361C9E21CBD658600F69CC3 /* RUFIIntroViewController.m */; };
+		739E4EC91CBFE8BB00F3DCBD /* IrinaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 739E4EC81CBFE8BB00F3DCBD /* IrinaStoryboard.storyboard */; };
 		A707E4CA1CAB0239002F37C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4C91CAB0239002F37C5 /* main.m */; };
 		A707E4CD1CAB0239002F37C5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4CC1CAB0239002F37C5 /* AppDelegate.m */; };
 		A707E4D01CAB0239002F37C5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4CF1CAB0239002F37C5 /* ViewController.m */; };
@@ -25,12 +26,15 @@
 		A707E4DB1CAB0239002F37C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A707E4D91CAB0239002F37C5 /* LaunchScreen.storyboard */; };
 		A707E4E61CAB0239002F37C5 /* com_flatironschool_safenycTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4E51CAB0239002F37C5 /* com_flatironschool_safenycTests.m */; };
 		A707E4F11CAB0239002F37C5 /* com_flatironschool_safenycUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4F01CAB0239002F37C5 /* com_flatironschool_safenycUITests.m */; };
-		A707E5021CAC24D1002F37C5 /* IrinaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */; };
 		A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */; };
 		A72600331CB1DB29001D9D0F /* RUFIEmergencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */; };
 		A72600361CB1E216001D9D0F /* RUFISettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */; };
 		A75CEA491CB5A37900A1EF75 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		C26BEFC21CB5934900A54093 /* SelectContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C26BEFC11CB5934900A54093 /* SelectContactsViewController.m */; };
+		A7FC9AD81CBC2C9E00DCE76B /* RUFIContact.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7FC9AD61CBC2C9E00DCE76B /* RUFIContact.xcdatamodeld */; };
+		A7FC9AE11CBC485500DCE76B /* RUFIContactStore.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FC9AE01CBC485500DCE76B /* RUFIContactStore.m */; };
+		A7FC9AE31CBC540A00DCE76B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7FC9AE21CBC540A00DCE76B /* CoreData.framework */; };
+		A7FFEC2B1CBE92BC00C18FD6 /* Contact+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FFEC281CBE92BC00C18FD6 /* Contact+CoreDataProperties.m */; };
+		A7FFEC2C1CBE92BC00C18FD6 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FFEC2A1CBE92BC00C18FD6 /* Contact.m */; };
 		C28C689C1CBC20FF003BAA2A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C28C689B1CBC20FF003BAA2A /* Default-568h@2x.png */; };
 		C2AEB5E81CB8281D00D6C055 /* YuchiStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */; };
 		C2D0AD521CB8418C00C96C57 /* PoliceDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D0AD4D1CB8418C00C96C57 /* PoliceDataStore.m */; };
@@ -76,6 +80,7 @@
 		7361C9DF1CBD643900F69CC3 /* introStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = introStoryboard.storyboard; sourceTree = "<group>"; };
 		7361C9E11CBD658600F69CC3 /* RUFIIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIIntroViewController.h; sourceTree = "<group>"; };
 		7361C9E21CBD658600F69CC3 /* RUFIIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIIntroViewController.m; sourceTree = "<group>"; };
+		739E4EC81CBFE8BB00F3DCBD /* IrinaStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IrinaStoryboard.storyboard; sourceTree = "<group>"; };
 		A707E4C51CAB0238002F37C5 /* com.flatironschool.safenyc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = com.flatironschool.safenyc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A707E4C91CAB0239002F37C5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A707E4CB1CAB0239002F37C5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -94,14 +99,19 @@
 		A707E4F01CAB0239002F37C5 /* com_flatironschool_safenycUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = com_flatironschool_safenycUITests.m; sourceTree = "<group>"; };
 		A707E4F21CAB0239002F37C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A707E4FE1CAB02FE002F37C5 /* RUFIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIConstants.h; sourceTree = "<group>"; };
-		A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IrinaStoryboard.storyboard; sourceTree = "<group>"; };
 		A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EmergencyStoryboard.storyboard; sourceTree = "<group>"; };
 		A72600311CB1DB29001D9D0F /* RUFIEmergencyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIEmergencyViewController.h; sourceTree = "<group>"; };
 		A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIEmergencyViewController.m; sourceTree = "<group>"; };
 		A72600341CB1E216001D9D0F /* RUFISettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFISettingsViewController.h; sourceTree = "<group>"; };
 		A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFISettingsViewController.m; sourceTree = "<group>"; };
-		C26BEFC01CB5934900A54093 /* SelectContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectContactsViewController.h; sourceTree = "<group>"; };
-		C26BEFC11CB5934900A54093 /* SelectContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectContactsViewController.m; sourceTree = "<group>"; };
+		A7FC9AD71CBC2C9E00DCE76B /* RUFIContact.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RUFIContact.xcdatamodel; sourceTree = "<group>"; };
+		A7FC9ADF1CBC485500DCE76B /* RUFIContactStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIContactStore.h; sourceTree = "<group>"; };
+		A7FC9AE01CBC485500DCE76B /* RUFIContactStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIContactStore.m; sourceTree = "<group>"; };
+		A7FC9AE21CBC540A00DCE76B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		A7FFEC271CBE92BC00C18FD6 /* Contact+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Contact+CoreDataProperties.h"; sourceTree = "<group>"; };
+		A7FFEC281CBE92BC00C18FD6 /* Contact+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Contact+CoreDataProperties.m"; sourceTree = "<group>"; };
+		A7FFEC291CBE92BC00C18FD6 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
+		A7FFEC2A1CBE92BC00C18FD6 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		C28C689B1CBC20FF003BAA2A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = YuchiStoryboard.storyboard; sourceTree = "<group>"; };
 		C2D0AD4C1CB8418C00C96C57 /* PoliceDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceDataStore.h; sourceTree = "<group>"; };
@@ -120,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7FC9AE31CBC540A00DCE76B /* CoreData.framework in Frameworks */,
 				EB55C3C11CAB1F460020C1CD /* CoreLocation.framework in Frameworks */,
 				17D8BBED0CC11871D2570949 /* libPods-com.flatironschool.safenyc.a in Frameworks */,
 			);
@@ -145,6 +156,7 @@
 		49480CC52C405B04060B824E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A7FC9AE21CBC540A00DCE76B /* CoreData.framework */,
 				6B4F88825A570BB5082CF6BE /* libPods-com.flatironschool.safenyc.a */,
 			);
 			name = Frameworks;
@@ -205,19 +217,25 @@
 				7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */,
 				A72600311CB1DB29001D9D0F /* RUFIEmergencyViewController.h */,
 				A72600321CB1DB29001D9D0F /* RUFIEmergencyViewController.m */,
+				A7FC9ADF1CBC485500DCE76B /* RUFIContactStore.h */,
+				A7FC9AE01CBC485500DCE76B /* RUFIContactStore.m */,
 				A72600341CB1E216001D9D0F /* RUFISettingsViewController.h */,
 				A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */,
 				C26BEFC01CB5934900A54093 /* SelectContactsViewController.h */,
 				C26BEFC11CB5934900A54093 /* SelectContactsViewController.m */,
+				739E4EC81CBFE8BB00F3DCBD /* IrinaStoryboard.storyboard */,
 				A707E4D11CAB0239002F37C5 /* Settings.storyboard */,
 				A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */,
-				A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */,
 				730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */,
 				7361C9DC1CBC168F00F69CC3 /* RUFIDefinitionsViewController.h */,
 				7361C9DD1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m */,
 				C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */,
 				730665421CAD57C900FBB7DA /* PieChartDataViewController.h */,
 				730665431CAD57C900FBB7DA /* PieChartDataViewController.m */,
+				A7FFEC271CBE92BC00C18FD6 /* Contact+CoreDataProperties.h */,
+				A7FFEC281CBE92BC00C18FD6 /* Contact+CoreDataProperties.m */,
+				A7FFEC291CBE92BC00C18FD6 /* Contact.h */,
+				A7FFEC2A1CBE92BC00C18FD6 /* Contact.m */,
 				A707E4D71CAB0239002F37C5 /* Assets.xcassets */,
 				A707E4D91CAB0239002F37C5 /* LaunchScreen.storyboard */,
 				7361C9DF1CBD643900F69CC3 /* introStoryboard.storyboard */,
@@ -225,6 +243,7 @@
 				7361C9E21CBD658600F69CC3 /* RUFIIntroViewController.m */,
 				C2D936801CB4693F00D109C6 /* location_template.loc.vcf */,
 				A707E4DC1CAB0239002F37C5 /* Info.plist */,
+				A7FC9AD61CBC2C9E00DCE76B /* RUFIContact.xcdatamodeld */,
 				A707E4D41CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld */,
 				EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */,
 				A707E4C81CAB0239002F37C5 /* Supporting Files */,
@@ -328,7 +347,7 @@
 				TargetAttributes = {
 					A707E4C41CAB0238002F37C5 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = T6W38YLN79;
+						DevelopmentTeam = B9NU7FF5WD;
 					};
 					A707E4E01CAB0239002F37C5 = {
 						CreatedOnToolsVersion = 7.3;
@@ -373,9 +392,9 @@
 				A707E4DB1CAB0239002F37C5 /* LaunchScreen.storyboard in Resources */,
 				C28C689C1CBC20FF003BAA2A /* Default-568h@2x.png in Resources */,
 				C2AEB5E81CB8281D00D6C055 /* YuchiStoryboard.storyboard in Resources */,
-				A707E5021CAC24D1002F37C5 /* IrinaStoryboard.storyboard in Resources */,
 				A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */,
 				A707E4D81CAB0239002F37C5 /* Assets.xcassets in Resources */,
+				739E4EC91CBFE8BB00F3DCBD /* IrinaStoryboard.storyboard in Resources */,
 				A75CEA491CB5A37900A1EF75 /* (null) in Resources */,
 				A707E4D31CAB0239002F37C5 /* Settings.storyboard in Resources */,
 			);
@@ -452,6 +471,8 @@
 			files = (
 				A707E4D61CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld in Sources */,
 				A707E4D01CAB0239002F37C5 /* ViewController.m in Sources */,
+				A7FC9AD81CBC2C9E00DCE76B /* RUFIContact.xcdatamodeld in Sources */,
+				A7FC9AE11CBC485500DCE76B /* RUFIContactStore.m in Sources */,
 				A72600331CB1DB29001D9D0F /* RUFIEmergencyViewController.m in Sources */,
 				A707E4CD1CAB0239002F37C5 /* AppDelegate.m in Sources */,
 				A72600361CB1E216001D9D0F /* RUFISettingsViewController.m in Sources */,
@@ -460,13 +481,14 @@
 				C2D0AD541CB8418C00C96C57 /* PoliceLocatorAPI.m in Sources */,
 				A707E4CA1CAB0239002F37C5 /* main.m in Sources */,
 				C2D9367A1CB4691000D109C6 /* RUFIConstants.m in Sources */,
-				C26BEFC21CB5934900A54093 /* SelectContactsViewController.m in Sources */,
 				7361C9DE1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m in Sources */,
 				C2D0AD521CB8418C00C96C57 /* PoliceDataStore.m in Sources */,
 				7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */,
 				7361C9E31CBD658600F69CC3 /* RUFIIntroViewController.m in Sources */,
 				732269781CAC129E00FCBAB1 /* RUFICrimes.m in Sources */,
+				A7FFEC2B1CBE92BC00C18FD6 /* Contact+CoreDataProperties.m in Sources */,
 				7322697E1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m in Sources */,
+				A7FFEC2C1CBE92BC00C18FD6 /* Contact.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -730,6 +752,16 @@
 			);
 			currentVersion = A707E4D51CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodel */;
 			path = com_flatironschool_safenyc.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		A7FC9AD61CBC2C9E00DCE76B /* RUFIContact.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A7FC9AD71CBC2C9E00DCE76B /* RUFIContact.xcdatamodel */,
+			);
+			currentVersion = A7FC9AD71CBC2C9E00DCE76B /* RUFIContact.xcdatamodel */;
+			path = RUFIContact.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
