@@ -29,11 +29,10 @@
 		A72600361CB1E216001D9D0F /* RUFISettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */; };
 		A75CEA491CB5A37900A1EF75 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		A7FC9AD81CBC2C9E00DCE76B /* RUFIContact.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7FC9AD61CBC2C9E00DCE76B /* RUFIContact.xcdatamodeld */; };
-		A7FC9ADD1CBC2D7B00DCE76B /* Contact+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FC9ADA1CBC2D7B00DCE76B /* Contact+CoreDataProperties.m */; };
-		A7FC9ADE1CBC2D7B00DCE76B /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FC9ADC1CBC2D7B00DCE76B /* Contact.m */; };
 		A7FC9AE11CBC485500DCE76B /* RUFIContactStore.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FC9AE01CBC485500DCE76B /* RUFIContactStore.m */; };
 		A7FC9AE31CBC540A00DCE76B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7FC9AE21CBC540A00DCE76B /* CoreData.framework */; };
-		C26BEFC21CB5934900A54093 /* SelectContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C26BEFC11CB5934900A54093 /* SelectContactsViewController.m */; };
+		A7FFEC2B1CBE92BC00C18FD6 /* Contact+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FFEC281CBE92BC00C18FD6 /* Contact+CoreDataProperties.m */; };
+		A7FFEC2C1CBE92BC00C18FD6 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FFEC2A1CBE92BC00C18FD6 /* Contact.m */; };
 		C28C689C1CBC20FF003BAA2A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C28C689B1CBC20FF003BAA2A /* Default-568h@2x.png */; };
 		C2AEB5E81CB8281D00D6C055 /* YuchiStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */; };
 		C2D0AD521CB8418C00C96C57 /* PoliceDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D0AD4D1CB8418C00C96C57 /* PoliceDataStore.m */; };
@@ -101,15 +100,13 @@
 		A72600341CB1E216001D9D0F /* RUFISettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFISettingsViewController.h; sourceTree = "<group>"; };
 		A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFISettingsViewController.m; sourceTree = "<group>"; };
 		A7FC9AD71CBC2C9E00DCE76B /* RUFIContact.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RUFIContact.xcdatamodel; sourceTree = "<group>"; };
-		A7FC9AD91CBC2D7B00DCE76B /* Contact+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Contact+CoreDataProperties.h"; sourceTree = "<group>"; };
-		A7FC9ADA1CBC2D7B00DCE76B /* Contact+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Contact+CoreDataProperties.m"; sourceTree = "<group>"; };
-		A7FC9ADB1CBC2D7B00DCE76B /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
-		A7FC9ADC1CBC2D7B00DCE76B /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		A7FC9ADF1CBC485500DCE76B /* RUFIContactStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIContactStore.h; sourceTree = "<group>"; };
 		A7FC9AE01CBC485500DCE76B /* RUFIContactStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIContactStore.m; sourceTree = "<group>"; };
 		A7FC9AE21CBC540A00DCE76B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		C26BEFC01CB5934900A54093 /* SelectContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectContactsViewController.h; sourceTree = "<group>"; };
-		C26BEFC11CB5934900A54093 /* SelectContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectContactsViewController.m; sourceTree = "<group>"; };
+		A7FFEC271CBE92BC00C18FD6 /* Contact+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Contact+CoreDataProperties.h"; sourceTree = "<group>"; };
+		A7FFEC281CBE92BC00C18FD6 /* Contact+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Contact+CoreDataProperties.m"; sourceTree = "<group>"; };
+		A7FFEC291CBE92BC00C18FD6 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
+		A7FFEC2A1CBE92BC00C18FD6 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		C28C689B1CBC20FF003BAA2A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = YuchiStoryboard.storyboard; sourceTree = "<group>"; };
 		C2D0AD4C1CB8418C00C96C57 /* PoliceDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceDataStore.h; sourceTree = "<group>"; };
@@ -219,8 +216,6 @@
 				A7FC9AE01CBC485500DCE76B /* RUFIContactStore.m */,
 				A72600341CB1E216001D9D0F /* RUFISettingsViewController.h */,
 				A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */,
-				C26BEFC01CB5934900A54093 /* SelectContactsViewController.h */,
-				C26BEFC11CB5934900A54093 /* SelectContactsViewController.m */,
 				A707E4D11CAB0239002F37C5 /* Settings.storyboard */,
 				A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */,
 				A707E5011CAC24D1002F37C5 /* IrinaStoryboard.storyboard */,
@@ -230,15 +225,15 @@
 				C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */,
 				730665421CAD57C900FBB7DA /* PieChartDataViewController.h */,
 				730665431CAD57C900FBB7DA /* PieChartDataViewController.m */,
+				A7FFEC271CBE92BC00C18FD6 /* Contact+CoreDataProperties.h */,
+				A7FFEC281CBE92BC00C18FD6 /* Contact+CoreDataProperties.m */,
+				A7FFEC291CBE92BC00C18FD6 /* Contact.h */,
+				A7FFEC2A1CBE92BC00C18FD6 /* Contact.m */,
 				A707E4D71CAB0239002F37C5 /* Assets.xcassets */,
 				A707E4D91CAB0239002F37C5 /* LaunchScreen.storyboard */,
 				C2D936801CB4693F00D109C6 /* location_template.loc.vcf */,
 				A707E4DC1CAB0239002F37C5 /* Info.plist */,
 				A7FC9AD61CBC2C9E00DCE76B /* RUFIContact.xcdatamodeld */,
-				A7FC9AD91CBC2D7B00DCE76B /* Contact+CoreDataProperties.h */,
-				A7FC9ADA1CBC2D7B00DCE76B /* Contact+CoreDataProperties.m */,
-				A7FC9ADB1CBC2D7B00DCE76B /* Contact.h */,
-				A7FC9ADC1CBC2D7B00DCE76B /* Contact.m */,
 				A707E4D41CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld */,
 				EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */,
 				A707E4C81CAB0239002F37C5 /* Supporting Files */,
@@ -342,7 +337,7 @@
 				TargetAttributes = {
 					A707E4C41CAB0238002F37C5 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = GQ9K586WS4;
+						DevelopmentTeam = B9NU7FF5WD;
 					};
 					A707E4E01CAB0239002F37C5 = {
 						CreatedOnToolsVersion = 7.3;
@@ -475,14 +470,13 @@
 				C2D0AD541CB8418C00C96C57 /* PoliceLocatorAPI.m in Sources */,
 				A707E4CA1CAB0239002F37C5 /* main.m in Sources */,
 				C2D9367A1CB4691000D109C6 /* RUFIConstants.m in Sources */,
-				C26BEFC21CB5934900A54093 /* SelectContactsViewController.m in Sources */,
 				7361C9DE1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m in Sources */,
 				C2D0AD521CB8418C00C96C57 /* PoliceDataStore.m in Sources */,
 				7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */,
 				732269781CAC129E00FCBAB1 /* RUFICrimes.m in Sources */,
+				A7FFEC2B1CBE92BC00C18FD6 /* Contact+CoreDataProperties.m in Sources */,
 				7322697E1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m in Sources */,
-				A7FC9ADE1CBC2D7B00DCE76B /* Contact.m in Sources */,
-				A7FC9ADD1CBC2D7B00DCE76B /* Contact+CoreDataProperties.m in Sources */,
+				A7FFEC2C1CBE92BC00C18FD6 /* Contact.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
