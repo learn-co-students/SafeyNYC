@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RUFIContactStore.h"
+#import "Contact.h"
 
 @interface RUFIEmergencyViewController : UIViewController
 

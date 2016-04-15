@@ -28,6 +28,7 @@
 @property (strong, nonatomic) RUFIDataStore *dataStore;
 @property (strong, nonatomic) NSDictionary *milesToMetersDictionary;
 @property (strong, nonatomic) NSDictionary *distanceValueDictionary;
+@property (strong, nonatomic) UIImageView *backgroundImage;
 
 @end
 
@@ -42,7 +43,7 @@
     self.radiusArray = @[[UIImage imageNamed:@"18mile"], [UIImage imageNamed:@"14mile"], [UIImage imageNamed:@"12mile"], [UIImage imageNamed:@"34mile"], [UIImage imageNamed:@"1mile"]];
     self.yearsArray = @[[UIImage imageNamed:@"oneYear"], [UIImage imageNamed:@"twoYears"]];
     self.milesToMetersDictionary = @{@"1/8" : @"201", @"1/4": @"402", @"1/2": @"804", @"1": @"1609", @"3/4": @"1207"};
-    self.distanceValueDictionary = @{@"1/8" : @"1", @"1/4": @"2", @"1/2": @"4", @".75": @"6", @"1": @"8", };
+    self.distanceValueDictionary = @{@"1/8" : @"1", @"1/4": @"2", @"1/2": @"4", @"3/4": @"6", @"1": @"8", };
     
 //    [self.picker setBackgroundColor:[UIColor whiteColor]];
     [self.picker setAlpha:1];
@@ -55,7 +56,7 @@
 //    [self addChangeRadiusLabel];
 //    [self addMilesLabel];
 //    [self addChangeYearLabel];
-    
+    [self displayViewBackground];
     [self displayCancelAndSaveButton];
 }
 
@@ -121,6 +122,18 @@
 //    [self.milesLabel.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:170].active = YES;
 //    [self.milesLabel.rightAnchor constraintEqualToAnchor:self.view.rightAnchor constant:-20].active = YES;
 //}
+
+- (void)displayViewBackground {
+    
+    self.backgroundImage = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [self.backgroundImage setImage:[UIImage imageNamed:@"bg25"]];
+    [self.backgroundImage setContentMode:UIViewContentModeScaleAspectFill];
+    [self.view addSubview:self.backgroundImage];
+    [self.view sendSubviewToBack:self.backgroundImage];
+    
+}
+
+
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 2;
@@ -261,13 +274,15 @@
     [UIView animateWithDuration:0.3f animations:^{
         if(isPortrait){
             
-            self.backButton.frame = CGRectMake(10, self.screenHeight-60, 50, 50);
-            self.saveButton.frame = CGRectMake(self.screenWidth-60, self.screenHeight-60, 50, 50);
+            self.backgroundImage.frame = CGRectMake(0, 0, self.screenWidth, self.screenHeight);
+            self.backButton.frame = CGRectMake(self.screenWidth - 60, 35, 47, 47);
+            self.saveButton.frame = CGRectMake(self.screenWidth - 60, 95, 47, 47);
             
         } else if (isLandscape) {
             
-            self.backButton.frame = CGRectMake(10, self.screenWidth-60, 50, 50);
-            self.saveButton.frame = CGRectMake(self.screenHeight-60, self.screenWidth-60, 50, 50);
+            self.backgroundImage.frame = CGRectMake(0, 0, self.screenHeight, self.screenWidth);
+            self.backButton.frame = CGRectMake(self.screenHeight - 60, 35, 47, 47);
+            self.saveButton.frame = CGRectMake(self.screenHeight - 60, 95, 47, 47);
             
         }
         [self.view layoutIfNeeded];

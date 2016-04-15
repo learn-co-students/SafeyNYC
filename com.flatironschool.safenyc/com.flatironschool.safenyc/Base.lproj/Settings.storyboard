@@ -59,7 +59,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bg15" width="1080" height="1920"/>
+        <image name="bg15" width="540" height="960"/>
         <image name="distanceTime3" width="977" height="107"/>
     </resources>
 </document>

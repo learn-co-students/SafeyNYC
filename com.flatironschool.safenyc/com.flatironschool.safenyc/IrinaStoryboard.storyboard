@@ -8,7 +8,7 @@
         <!--View Controller-->
         <scene sceneID="MQz-Eo-ILM">
             <objects>
-                <viewController id="HlE-cz-C36" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="irinaStoryBoard" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HlE-cz-C36" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="r60-k4-yrM"/>
                         <viewControllerLayoutGuide type="bottom" id="lye-NM-4wt"/>
