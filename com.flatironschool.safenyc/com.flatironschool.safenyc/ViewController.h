@@ -13,6 +13,7 @@
 #import "PoliceLocatorAPI.h"
 #import "PoliceDataStore.h"
 #import "RUFIEmergencyViewController.h"
+#import <UICKeyChainStore/UICKeyChainStore.h>
 
 @import GoogleMaps;
 @interface ViewController : UIViewController<CLLocationManagerDelegate>

@@ -776,7 +776,7 @@ didFailAutocompleteWithError:(NSError *)error {
                                                 break;
                                                 
                                             case LAErrorUserFallback:
-                                                [self passwordAlert];
+                                                [self alertWithPasswordEntry];
                                                 NSLog(@"User pressed \"Enter Password\"");
                                                 break;
                                                 
@@ -791,11 +791,13 @@ didFailAutocompleteWithError:(NSError *)error {
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Wrong password."
-                                                                           message:@"Please fucking Try again!"
+                                                                           message:@"Please try again!"
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style: UIAlertActionStyleDefault
-                                                                  handler:^(UIAlertAction * action) {}];
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      [self alertWithPasswordEntry];
+                                                                  }];
             
             [alert addAction:defaultAction];
             [self presentViewController:alert animated:YES completion:nil];
@@ -804,72 +806,120 @@ didFailAutocompleteWithError:(NSError *)error {
 }
 
 -(void)alertWithPasswordEntry{
-
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"The Access Is Denied!"
-                                                                   message:@"Emergency button is only for the owner of the phone."
+    
+    NSString *passwordMessage = @"Please enter your password: ";
+    BOOL passwordExists = [self checkPasswordFieldExsists];
+    
+    if(!passwordExists){
+        
+        passwordMessage = @"Let's setup your password.\n Please input a password.\n";
+        
+    }
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Enter Password"
+                                                                   message: passwordMessage
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction* enterPassword = [UIAlertAction actionWithTitle:@"Enter fucking Password" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {
-                                                              
-                                                              [self passwordAlert];
-                                                          }];
-    UIAlertAction* okAction = [UIAlertAction actionWithTitle: @"OK" style:UIAlertActionStyleDefault handler:nil];
-    
-    [alert addAction: enterPassword];
-    [alert addAction: okAction];
-    
-    [self presentViewController:alert animated:YES completion:nil];
-
-
-
-
-}
-
--(void)passwordAlert{
-
-    //insert code to request password here.....
-    // I want to check to see if the user has a password already
-    //if not propmpt the user for password and save to keychain
-    //prompt user for password, access it from keychain then let the user into the
-    //emergency app feature
-
-//        UIAlertView *passwordAlert = [[UIAlertView alloc]
-//                                      initWithTitle:@"Demo"
-//                                      message:@"Please type your password"
-//                                      delegate:self
-//                                      cancelButtonTitle:@"Cancel"
-//                                      otherButtonTitles:@"Ok", nil];
-//        
-//        [passwordAlert setAlertViewStyle:UIAlertViewStyleSecureTextInput];
-//        [passwordAlert show];
-
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Enter Fucking Password"
-                                                                   message:@"Please enter your fucking password: "
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {
-                                                              
-//                                                              //perform password check using keychain
-                                                          }];
-
-    [alert addAction: okAction];
     [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = @"fucking password";
+        textField.placeholder = @"Password";
         textField.secureTextEntry = YES;
     }];
+    
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action) {
+                                                         
+                                                         NSString *userPassword = alert.textFields.firstObject.text;
+                                                         
+                                                         [self checkForPassword: userPassword];
+
+                                                     }];
+    [alert addAction: okAction];
+    
+
     [self presentViewController:alert animated:YES completion:nil];
+
 
 }
 
-- (void)alertView:(UIAlertController *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if ( buttonIndex == 1 )
-    {
-        NSLog(@"%@", alertView.textFields[0].text );
-        NSLog(@"clicked ok and got the text entry!!!!!");
+-(BOOL)checkPasswordFieldExsists{
+
+    BOOL hasPasswordField = NO;
+    
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC"];
+    
+    NSArray *allKeys = keychain.allKeys;
+    
+    for (NSString *key in allKeys) {
+        
+        if ([key isEqualToString: @"password"]) {
+            hasPasswordField = YES;
+            break;
+        }
     }
+    
+    return hasPasswordField;
+}
+
+-(void)checkForPassword:(NSString *)userPassword{
+
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC"];
+    NSString *passwordCheck;
+
+    if([self checkPasswordFieldExsists]){
+
+            [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                  authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+        
+        passwordCheck = keychain[@"password"];
+        
+        if ([passwordCheck isEqualToString: userPassword]) {
+            NSLog(@"correct password entered!!!");
+            [self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+
+        }
+        else{
+            //password doesnt exsist....handle this.......
+            NSLog(@"NOOOOOOOOO....incorrect password");
+            [self incorrectPasswordPrompt];
+        
+        }
+
+    }
+    else if(![self checkPasswordFieldExsists]){
+
+            [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                  authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+
+            //create the password key
+            keychain[@"password"] = userPassword;
+            NSLog(@"password doesn't exsist\nwe SAVED it\ngoing to segue\n");
+            [self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+    
+    }
+
+}
+
+
+-(void)incorrectPasswordPrompt{
+
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Incorrect Password"
+                                                                   message: @"Incorrect password, please try again"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action) {
+
+                                                         [self alertWithPasswordEntry];
+                                                     }];
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:nil];
+    
+    [alert addAction: okAction];
+    [alert addAction: cancelAction];
+
+    [self presentViewController:alert animated:YES completion:nil];
+    
 }
 
 -(void)updateFaceMarker {
