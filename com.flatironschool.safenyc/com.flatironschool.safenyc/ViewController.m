@@ -26,6 +26,7 @@
 @property (strong, nonatomic) DKCircleButton *policeMapButton;
 @property (strong, nonatomic) DKCircleButton *emergencyButton;
 @property (strong, nonatomic) DKCircleButton *pieChartButton;
+@property (strong, nonatomic) DKCircleButton *infoButton;
 @property (strong, nonatomic) DKCircleButton *dissmissPoliceMapButton;
 @property (nonatomic) NSUInteger widthConstrain;
 @property (nonatomic) NSUInteger heightConstrain;
@@ -73,6 +74,7 @@
     [self createMapWithCoordinates];
     [self updateCurrentMap];
     [self setUpButtons];
+    
 }
 
 
@@ -109,26 +111,23 @@
     self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 215, 47, 47)];
     self.pieChartButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 275, 47, 47)];
     self.settingsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 335, 47, 47)];
+    self.infoButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 395, 47, 47)];
     self.dissmissPoliceMapButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, self.heightConstrain, 47, 47)];
     
-    NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton, self.dissmissPoliceMapButton];
-    
+    NSArray *buttons = @[self.searchButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton, self.settingsButton, self.infoButton, self.dissmissPoliceMapButton];
     
     for (DKCircleButton *button in buttons) {
 
         [self.view addSubview:button];
         button.titleLabel.font = [UIFont systemFontOfSize:22];
         button.backgroundColor = [UIColor whiteColor];
-        button.borderColor = [UIColor whiteColor];
+        button.borderColor = [UIColor lightGrayColor];
         button.alpha = 1;
         
         UIImage *image = [UIImage new];
         if(button == self.searchButton){
             image = [UIImage imageNamed:@"search.png"];
         
-        } else if (button == self.settingsButton){
-            image = [UIImage imageNamed:@"settings.png"];
-            
         } else if (button == self.currentLocationButton){
             image = [UIImage imageNamed:@"currentLocation.png"];
             
@@ -143,6 +142,12 @@
             
         } else if (button == self.dissmissPoliceMapButton){
             image = [UIImage imageNamed:@"cancel"];
+            
+        } else if (button == self.settingsButton){
+            image = [UIImage imageNamed:@"settings.png"];
+            
+        } else if (button == self.infoButton){
+            image = [UIImage imageNamed:@"info"];
             
         }
         button.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
@@ -765,22 +770,42 @@ didFailAutocompleteWithError:(NSError *)error {
     BOOL isLandscape = size.width > size.height;
    
     [UIView animateWithDuration:0.3f animations:^{
+        
         if(isPortrait){
+           
             self.searchButton.frame = CGRectMake(self.widthConstrain, 20, 47, 47);
             self.currentLocationButton.frame = CGRectMake(self.widthConstrain, 80, 47, 47);
             self.policeMapButton.frame = CGRectMake(self.widthConstrain, 140, 47, 47);
             self.emergencyButton.frame = CGRectMake(self.widthConstrain, 200, 47, 47);
             self.pieChartButton.frame = CGRectMake(self.widthConstrain, 260, 47, 47);
             self.settingsButton.frame = CGRectMake(self.widthConstrain, 320, 47, 47);
+            self.infoButton.frame = CGRectMake(self.widthConstrain, 380, 47, 47);
             self.dissmissPoliceMapButton.frame = CGRectMake(self.widthConstrain, self.heightConstrain, 47, 47);
+       
         } else if (isLandscape) {
+        
+            //We are not displaying pid cart and setting in the Landscape Mode!
             self.searchButton.frame = CGRectMake(self.heightConstrain, 20, 47, 47);
-            self.settingsButton.frame = CGRectMake(self.heightConstrain, 80, 47, 47);
-            self.currentLocationButton.frame = CGRectMake(self.heightConstrain, 140, 47, 47);
-            self.policeMapButton.frame = CGRectMake(self.heightConstrain, 200, 47, 47);
-            self.emergencyButton.frame = CGRectMake(self.heightConstrain, 260, 47, 47);
-            self.pieChartButton.frame = CGRectMake(self.heightConstrain, 320, 47, 47);
-            self.dissmissPoliceMapButton.frame = CGRectMake(10, self.widthConstrain, 47, 47);
+            self.currentLocationButton.frame = CGRectMake(self.heightConstrain, 80, 47, 47);
+            self.policeMapButton.frame = CGRectMake(self.heightConstrain, 140, 47, 47);
+            self.emergencyButton.frame = CGRectMake(self.heightConstrain, 200, 47, 47);
+            //self.pieChartButton.frame = CGRectMake(self.heightConstrain, 260, 47, 47);
+            //self.settingsButton.frame = CGRectMake(self.heightConstrain, 320, 47, 47);
+            self.pieChartButton.hidden = YES;
+            self.settingsButton.hidden = YES;
+            self.infoButton.frame = CGRectMake(self.heightConstrain, 260, 47, 47);
+            self.dissmissPoliceMapButton.frame = CGRectMake(self.heightConstrain, 320, 47, 47);
+            
+            /* 
+            // BUTTONS HORIZONTHAL ON THE BUTTON
+            self.searchButton.frame = CGRectMake(self.heightConstrain-360, self.self.widthConstrain, 47, 47);
+            self.currentLocationButton.frame = CGRectMake(self.heightConstrain-300, self.widthConstrain, 47, 47);
+            self.policeMapButton.frame = CGRectMake(self.heightConstrain-240, self.widthConstrain, 47, 47);
+            self.emergencyButton.frame = CGRectMake(self.heightConstrain-180, self.widthConstrain, 47, 47);
+            self.pieChartButton.frame = CGRectMake(self.heightConstrain-120, self.widthConstrain, 47, 47);
+            self.settingsButton.frame = CGRectMake(self.heightConstrain-60, self.widthConstrain, 47, 47);
+            self.infoButton.frame = CGRectMake(self.heightConstrain, self.widthConstrain, 47, 47);
+            self.dissmissPoliceMapButton.frame = CGRectMake(20, self.widthConstrain, 47, 47);*/
         }
         [self.view layoutIfNeeded];
     }];
@@ -996,6 +1021,7 @@ didFailAutocompleteWithError:(NSError *)error {
     self.policeMapButton.enabled = NO;
     self.emergencyButton.enabled = NO;
     self.pieChartButton.enabled = NO;
+    self.infoButton.enabled = NO;
     self.dissmissPoliceMapButton.enabled = NO;
     
 }
@@ -1008,6 +1034,7 @@ didFailAutocompleteWithError:(NSError *)error {
     self.policeMapButton.enabled = YES;
     self.emergencyButton.enabled = YES;
     self.pieChartButton.enabled = YES;
+    self.infoButton.enabled = YES;
     self.dissmissPoliceMapButton.enabled = YES;
     
 }
