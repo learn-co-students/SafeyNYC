@@ -43,7 +43,7 @@
                                     <constraint firstAttribute="height" constant="47" id="TIj-Tz-qQ0"/>
                                     <constraint firstAttribute="width" constant="47" id="XVf-r0-cXh"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="info"/>
+                                <state key="normal" title="Button" image="defButtonx1"/>
                                 <connections>
                                     <action selector="infoButtonAction:" destination="2dL-jL-EPX" eventType="touchUpInside" id="C2V-tm-GrX"/>
                                     <segue destination="uhM-D6-s79" kind="presentation" modalTransitionStyle="coverVertical" id="8Nf-8S-FIe"/>
@@ -365,11 +365,11 @@
         <image name="back" width="45" height="45"/>
         <image name="bg15" width="540" height="960"/>
         <image name="burglarySign" width="431" height="66"/>
+        <image name="defButtonx1" width="45" height="45"/>
         <image name="definitions" width="365" height="55"/>
         <image name="felonySign" width="581" height="66"/>
         <image name="glmvSign" width="581" height="118"/>
         <image name="grandLarcenySign" width="600" height="66"/>
-        <image name="info" width="45" height="45"/>
         <image name="murderSign" width="377" height="70"/>
         <image name="rapeSign" width="284" height="64"/>
         <image name="robberySign" width="383" height="66"/>

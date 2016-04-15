@@ -44,8 +44,8 @@
 
     [super viewDidLoad];
     
-    self.latitude = 40.705412;
-    self.longitude = -74.02;
+//    self.latitude = 40.705412;
+//    self.longitude = -74.02;
     
 //    [self performSegueWithIdentifier:@"introStoryboard" sender:nil];
     
@@ -186,7 +186,34 @@
     } else if (button == self.currentLocationButton){
         NSLog(@"BUTTON TAPPED");
         
-//        self.randomInt = arc4random_uniform(1000);
+        self.randomInt = arc4random_uniform(1000);
+        
+        if (self.policeStationActiveBool && !self.searchLocation) {
+            
+            NSLog(@"\n\n\n\n\n\n\n\n\nPOLICE ACTIVE SEARCH NOT\n\n\n\n\n\n\n\n\n");
+            
+            [self updateMapWithPoliceLocation];
+            
+        }
+        
+        else if (self.searchLocation) {
+            
+            self.randomInt = 13;
+            
+            NSLog(@"\n\n\n\n\n\n\n\n\nSEARCH ACTIVE\n\n\n\n\n\n\n\n\n");
+            
+            [self disableAllButtons];
+            
+            self.searchLocation = NO;
+            self.policeStationActiveBool = NO;
+            
+            [self updateCurrentMap];
+            
+        }
+        
+        else {
+            
+        NSLog(@"\n\n\n\n\n\n\n\n\nNOTHING ACTIVE\n\n\n\n\n\n\n\n\n");
         
         self.randomInt = 13;
         
@@ -194,9 +221,16 @@
         
         [self updateCurrentMap];
         
+        }
+        
     } else if (button == self.policeMapButton){
+        
+        
+        
         NSLog(@"BUTTON TAPPED");
         [self disableAllButtons];
+        
+        self.policeStationActiveBool = YES;
         
         [self updateMapWithPoliceLocation];
 
@@ -217,6 +251,7 @@
     } else if (button == self.dissmissPoliceMapButton){
         NSLog(@"BUTTON TAPPED");
         self.dissmissPoliceMapButton.hidden = YES;
+        self.policeStationActiveBool = NO;
         [self removeClosetPoliceLocation];
         
         [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
@@ -274,16 +309,16 @@
                 }
                 else{
                     
-                    [self startSpinner];
+                    
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
-                        if (self.searchLocation) {
-                            
-                            self.searchLocation = NO;
-                            [self.mapView clear];
-                            [self.dissmissPoliceMapButton setHidden: YES];
+
+                        [self startSpinner];
+
+                        [self.mapView clear];
+                        [self.dissmissPoliceMapButton setHidden: YES];
                         
-                        }
+                      
                         
                         [self animateMap];
 
@@ -293,7 +328,7 @@
                         [self endSpinner];
                         
                         [self reenableAllButtons];
-   
+                    
                     }];
                     
                 }
@@ -434,6 +469,7 @@
 didAutocompleteWithPlace:(GMSPlace *)place {
     
     [self disableAllButtons];
+    self.randomInt = arc4random_uniform(1000);
     // Do something with the selected place.
     NSLog(@"Place name %@", place.name);
     NSLog(@"Place address %@", place.formattedAddress);
@@ -446,12 +482,15 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     self.datastore.userLongitude = [NSString stringWithFormat:@"%.6f", self.longitude];
     self.datastore.userLatitude = [NSString stringWithFormat:@"%.6f", self.latitude];
     self.searchLocation = YES;
+    self.policeStationActiveBool = NO;
+    self.dissmissPoliceMapButton.hidden = YES;
     
     
     NSLog(@"AT DATA STORE %@", self.datastore.userLatitude);
     NSLog(@"AT DATA STORE %@", self.datastore.userLongitude);
 
        [self.mapView clear];
+    
         [self startSpinner];
     NSLog(@"marker is now at ======> %f, %f", self.latitude, self.longitude);
     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
@@ -528,6 +567,10 @@ didFailAutocompleteWithError:(NSError *)error {
    
     [self startSpinner];
     
+    [self.mapView clear];
+    
+    [self updateFaceMarker];
+    
     self.policeStationActiveBool = YES;
     PoliceDataStore *store = [PoliceDataStore sharedDataStore];
 //    40.705475, -74.013993
@@ -555,7 +598,7 @@ didFailAutocompleteWithError:(NSError *)error {
                             self.policeLocationFoundForActualCurrentLocation = YES;
                         }
 
-                        
+                        [self endSpinner];
                     }
                 }];
         
@@ -792,6 +835,8 @@ didFailAutocompleteWithError:(NSError *)error {
 
 -(void)updateFaceMarker {
     
+    NSLog(@"getting here from police button");
+    
     if (self.randomInt !=13) {
 
     self.count = self.datastore.crimeDataArray.count / [self.datastore.yearsAgo integerValue] / [self.datastore.distanceValue integerValue];
@@ -892,6 +937,8 @@ didFailAutocompleteWithError:(NSError *)error {
         
         self.datastore.settingsChanged = NO;
         
+        self.dissmissPoliceMapButton.hidden = YES;
+        
         NSLog(@"settings finished updating!!!!!");
     [self endSpinner];
     
@@ -966,12 +1013,12 @@ didFailAutocompleteWithError:(NSError *)error {
 }
 
 -(void)generateSuperHero {
-    NSUInteger superHeroInt = arc4random_uniform(5);
+    NSUInteger superHeroInt = arc4random_uniform(6);
     self.count = self.datastore.crimeDataArray.count / [self.datastore.yearsAgo integerValue] / [self.datastore.distanceValue integerValue];
     self.faceMarker = [[GMSMarker alloc] init];
     self.faceMarker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude);
-    NSArray *heros = @[[UIImage imageNamed:@"batman"], [UIImage imageNamed:@"daredevil"], [UIImage imageNamed:@"deadpool"], [UIImage imageNamed:@"ironman"], [UIImage imageNamed:@"superman"]];
-    NSArray *sayings = @[@"This must that clown's doing!", @"I must protect my city!", @"Crime much?", @"Where's the other Avengers?", @"Lois is in trouble!"];
+    NSArray *heros = @[[UIImage imageNamed:@"batman"], [UIImage imageNamed:@"daredevil"], [UIImage imageNamed:@"deadpool"], [UIImage imageNamed:@"ironman"], [UIImage imageNamed:@"superman"], [UIImage imageNamed:@"spider"]];
+    NSArray *sayings = @[@"This must be the clown's doing!", @"I must protect my city!", @"Crime much?", @"Cap? Hulk? Thor?", @"Lois is in trouble!", @"With great power..."];
     self.faceMarker.icon = heros[superHeroInt];
 
     self.faceMarker.title = sayings[superHeroInt];
