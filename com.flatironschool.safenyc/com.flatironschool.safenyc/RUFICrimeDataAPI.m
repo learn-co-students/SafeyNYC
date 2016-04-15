@@ -49,6 +49,8 @@
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
              completionBlock(responseObject);
          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSArray *nothing = @[];
+             completionBlock(nothing);
              NSLog(@"Fail: %@",error.localizedDescription);
          }];
 
