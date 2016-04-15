@@ -259,7 +259,15 @@
         self.policeStationActiveBool = NO;
         [self removeClosetPoliceLocation];
         
-        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
+                                                                    longitude: self.longitude
+                                                                         zoom: 17];
+        
+        [self.mapView animateToCameraPosition:camera];
+        [self.mapView animateToViewingAngle:65];
+
+        
+//        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
 
     }
     
@@ -453,7 +461,7 @@
     
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: 40.705412
                                                             longitude: -74.013974
-                                                                 zoom: 12];
+                                                                 zoom: 12 bearing:0 viewingAngle:0];
     
     self.mapView = [GMSMapView mapWithFrame: self.view.bounds camera:camera];
     self.mapView.myLocationEnabled = YES;
@@ -465,6 +473,7 @@
 -(void)animateMap{
     
     [self.mapView animateToLocation:CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+    [self.mapView animateToViewingAngle:65];
     [self.mapView animateToZoom:17];
 
 }

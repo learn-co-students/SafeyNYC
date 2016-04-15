@@ -10,6 +10,8 @@
 		17D8BBED0CC11871D2570949 /* libPods-com.flatironschool.safenyc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B4F88825A570BB5082CF6BE /* libPods-com.flatironschool.safenyc.a */; };
 		730665441CAD57C900FBB7DA /* PieChartDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 730665431CAD57C900FBB7DA /* PieChartDataViewController.m */; };
 		730665521CAD88B100FBB7DA /* rosarioStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */; };
+		7319FA2E1CC11D980068B806 /* buttonInfoStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7319FA2D1CC11D980068B806 /* buttonInfoStoryBoard.storyboard */; };
+		7319FA311CC11DC80068B806 /* RUFIButtonInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7319FA301CC11DC80068B806 /* RUFIButtonInfoViewController.m */; };
 		732269781CAC129E00FCBAB1 /* RUFICrimes.m in Sources */ = {isa = PBXBuildFile; fileRef = 732269771CAC129E00FCBAB1 /* RUFICrimes.m */; };
 		7322697B1CAC1F9A00FCBAB1 /* RUFIDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7322697A1CAC1F9A00FCBAB1 /* RUFIDataStore.m */; };
 		7322697E1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7322697D1CAC2A9700FCBAB1 /* RUFICrimeDataAPI.m */; };
@@ -69,6 +71,9 @@
 		730665421CAD57C900FBB7DA /* PieChartDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieChartDataViewController.h; sourceTree = "<group>"; };
 		730665431CAD57C900FBB7DA /* PieChartDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieChartDataViewController.m; sourceTree = "<group>"; };
 		730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = rosarioStoryboard.storyboard; sourceTree = "<group>"; };
+		7319FA2D1CC11D980068B806 /* buttonInfoStoryBoard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = buttonInfoStoryBoard.storyboard; sourceTree = "<group>"; };
+		7319FA2F1CC11DC80068B806 /* RUFIButtonInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIButtonInfoViewController.h; sourceTree = "<group>"; };
+		7319FA301CC11DC80068B806 /* RUFIButtonInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIButtonInfoViewController.m; sourceTree = "<group>"; };
 		732269761CAC129E00FCBAB1 /* RUFICrimes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFICrimes.h; sourceTree = "<group>"; };
 		732269771CAC129E00FCBAB1 /* RUFICrimes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFICrimes.m; sourceTree = "<group>"; };
 		732269791CAC1F9A00FCBAB1 /* RUFIDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIDataStore.h; sourceTree = "<group>"; };
@@ -223,6 +228,9 @@
 				A72600351CB1E216001D9D0F /* RUFISettingsViewController.m */,
 				739E4EC81CBFE8BB00F3DCBD /* IrinaStoryboard.storyboard */,
 				A707E4D11CAB0239002F37C5 /* Settings.storyboard */,
+				7319FA2D1CC11D980068B806 /* buttonInfoStoryBoard.storyboard */,
+				7319FA2F1CC11DC80068B806 /* RUFIButtonInfoViewController.h */,
+				7319FA301CC11DC80068B806 /* RUFIButtonInfoViewController.m */,
 				A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */,
 				730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */,
 				7361C9DC1CBC168F00F69CC3 /* RUFIDefinitionsViewController.h */,
@@ -391,6 +399,7 @@
 				C28C689C1CBC20FF003BAA2A /* Default-568h@2x.png in Resources */,
 				C2AEB5E81CB8281D00D6C055 /* YuchiStoryboard.storyboard in Resources */,
 				A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */,
+				7319FA2E1CC11D980068B806 /* buttonInfoStoryBoard.storyboard in Resources */,
 				A707E4D81CAB0239002F37C5 /* Assets.xcassets in Resources */,
 				739E4EC91CBFE8BB00F3DCBD /* IrinaStoryboard.storyboard in Resources */,
 				A75CEA491CB5A37900A1EF75 /* (null) in Resources */,
@@ -477,6 +486,7 @@
 				730665441CAD57C900FBB7DA /* PieChartDataViewController.m in Sources */,
 				C2D0AD531CB8418C00C96C57 /* PoliceLocation.m in Sources */,
 				C2D0AD541CB8418C00C96C57 /* PoliceLocatorAPI.m in Sources */,
+				7319FA311CC11DC80068B806 /* RUFIButtonInfoViewController.m in Sources */,
 				A707E4CA1CAB0239002F37C5 /* main.m in Sources */,
 				C2D9367A1CB4691000D109C6 /* RUFIConstants.m in Sources */,
 				7361C9DE1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m in Sources */,
