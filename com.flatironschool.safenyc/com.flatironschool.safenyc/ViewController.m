@@ -203,7 +203,6 @@
         
         else if (self.searchLocation) {
             
-            self.randomInt = 13;
             
             NSLog(@"\n\n\n\n\n\n\n\n\nSEARCH ACTIVE\n\n\n\n\n\n\n\n\n");
             
@@ -220,7 +219,6 @@
             
         NSLog(@"\n\n\n\n\n\n\n\n\nNOTHING ACTIVE\n\n\n\n\n\n\n\n\n");
         
-        self.randomInt = 13;
         
         [self disableAllButtons];
         
