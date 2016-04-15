@@ -24,8 +24,9 @@
 @property (strong, nonatomic) DKCircleButton *person4;
 @property (strong, nonatomic) DKCircleButton *person5;
 @property (strong, nonatomic) DKCircleButton *person6;
-@property (strong, nonatomic) DKCircleButton *backButton;
 @property (strong, nonatomic) DKCircleButton *currentPerson;
+@property (strong, nonatomic) DKCircleButton *backButton;
+@property (strong, nonatomic) DKCircleButton *infoButton;
 @property (strong, nonatomic) UITextField *holdUntillTextField;
 
 @property (strong, nonatomic) Contact *contact1;
@@ -196,12 +197,13 @@
     self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(43, self.widthOfTheScreen-128, 87, 87)];
     self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(-1, self.widthOfTheScreen/2-54, 87, 87)];
     self.backButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 30, 50, 50)];
+    self.infoButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 90, 50, 50)];
     
-    NSArray *buttons = @[self.emergencyButton, self.person1, self.person2, self.person3, self.person4, self.person5, self.person6, self.backButton];
+    NSArray *buttons = @[self.emergencyButton, self.person1, self.person2, self.person3, self.person4, self.person5, self.person6, self.backButton, self.infoButton];
     
     for(DKCircleButton *button in buttons){
         
-        if(button == self.backButton){
+        if( button == self.backButton || button == self.infoButton ) {
         
             [self.view addSubview:button];
         
@@ -227,6 +229,15 @@
             [button setContentMode:UIViewContentModeScaleAspectFit];
             button.alpha = 1;
         
+        } else if (button == self.infoButton){
+            
+            button.backgroundColor = [UIColor clearColor];
+            UIImage *image = [UIImage new];
+            image = [UIImage imageNamed:@"info"];
+            [button setImage:image forState:UIControlStateNormal];
+            [button setContentMode:UIViewContentModeScaleAspectFit];
+            button.alpha = 1;
+            
         } else {
         
             button.backgroundColor = [UIColor clearColor];
@@ -251,6 +262,13 @@
     } else if (button == self.backButton){
         
         [self dismissViewControllerAnimated:YES completion:nil];
+        
+    }else if (button == self.infoButton){
+        
+        //TODO: show the info about the emergency button
+        //      - how to add friend
+        //      - how to change the default message
+        //      - can we delete contact???
         
     } else {
         
@@ -309,17 +327,13 @@
     }
     
     self.composeVC = [[MFMessageComposeViewController alloc] init];
-    
     self.composeVC.messageComposeDelegate = self;
-    
     self.recipients = [NSArray new];
-    NSLog(@"%@", self.localContacts);
+
+    //RECIPIENTS
     for(Contact *contact in self.localContacts){
        self.recipients = [self.recipients arrayByAddingObject:contact.phone];
     }
-    NSLog(@"!!!Recipients: %@",self.recipients);
-    
-    //self.composeVC.recipients = @[self.contact1.phone, self.contact2.phone];
     self.composeVC.recipients = self.recipients;
     
     //BODY MESSAGE
@@ -338,32 +352,6 @@
     
     [self showViewController:self.composeVC sender:nil];
 
-}
-
-
--(NSArray *)addRecipients{
-    
-    NSLog(@"Add Recipients: %@, %@; Local Contacts: %@ ", self.contact1.givenName, self.contact1.phone, self.localContacts);
-    //if (self.contact1.phone != nil){
-        [self.recipients arrayByAddingObject:self.contact1.phone];
-    //}
-    //if (self.contact1.phone != nil){
-       [self.recipients arrayByAddingObject:self.contact2.phone];
-    //}
-    //if (self.contact3.phone != nil){
-        [self.recipients arrayByAddingObject:self.contact3.phone];
-    //}
-    //if (self.contact4.phone != nil){
-        [self.recipients arrayByAddingObject:self.contact4.phone];
-    //}
-    //if (self.contact5.phone != nil){
-        [self.recipients arrayByAddingObject:self.contact5.phone];
-    //}
-    //if (self.contact6.phone != nil){
-        [self.recipients arrayByAddingObject:self.contact6.phone];
-    //}
-    NSLog(@"Recipients: %@", self.recipients);
-    return self.recipients;
 }
 
 -(void) openContacts {
@@ -433,21 +421,6 @@
         
         [self dismissViewControllerAnimated:NO completion:nil];
         
-       /* // set the button to show the image and disable it
-        if (self.currentContact.imageData == nil) {
-            
-            [self.currentPerson setBackgroundImage:nil forState:UIControlStateNormal];
-            [self.currentPerson setTitle:initials forState:UIControlStateNormal];
-        
-        } else {
-        
-            UIImage *contactImage = [UIImage imageWithData:contactProperty.contact.thumbnailImageData];
-            [self.currentPerson setTitle:@"" forState:UIControlStateNormal];
-            [self.currentPerson setImage:contactImage forState:UIControlStateNormal];
-            self.currentPerson.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        
-        }
-        //        self.person1.userInteractionEnabled = NO; */
     }
 }
 
@@ -472,6 +445,7 @@
             self.emergencyImageView.frame = CGRectMake(10, self.widthOfTheScreen/2-45, self.widthOfTheScreen-20, self.widthOfTheScreen-20);
             self.emergencyButton.frame = CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-80, 140, 140);
             self.backButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
+            self.infoButton.frame = CGRectMake(self.widthOfTheScreen-60, 90, 50, 50);
             self.holdUntillTextField.frame = CGRectMake(self.widthOfTheScreen/2-150, 80, 300, 20);
             
         } else if (isLandscape) {
@@ -480,6 +454,7 @@
             self.emergencyButton.frame = CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-80, 140, 140);
             self.emergencyImageView.frame = CGRectMake(self.widthOfTheScreen/2-31, 0, self.widthOfTheScreen-20, self.widthOfTheScreen-20);
             self.backButton.frame = CGRectMake(self.heightOfTheScreen-60, 30, 50, 50);
+            self.infoButton.frame = CGRectMake(self.heightOfTheScreen-60, 90, 50, 50);
             self.holdUntillTextField.frame = CGRectMake(10, self.widthOfTheScreen-30, 300, 20);
 
         }
