@@ -153,7 +153,7 @@
         }*/
         button.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
         [button setImage:image forState:UIControlStateNormal];
-        [button setContentMode:UIViewContentModeScaleAspectFit];
+        //[button setContentMode:UIViewContentModeScaleAspectFit];
 
         button.animateTap = NO;
         self.dissmissPoliceMapButton.hidden = YES;
