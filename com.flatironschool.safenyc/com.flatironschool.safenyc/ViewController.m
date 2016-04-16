@@ -89,7 +89,7 @@
     
         [self updateMapAfterSetttingsChange];
     }
-
+    
 //    [self updateCurrentMap];
     
 //    [self animateMap];
@@ -313,22 +313,27 @@
                     NSLog(@"MADE A NEW MAP");
 
                 }
+                else if(!success) {
+                
+                    [self failedToGetLocation];
+                
+                
+                }
                 else{
                     
                     
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
-
                         [self startSpinner];
 
                         [self.mapView clear];
+                        
                         [self.dissmissPoliceMapButton setHidden: YES];
-                        
-                      
-                        
+                    
                         [self animateMap];
 
                         [self updateFaceMarker];
+                        
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
                         [self endSpinner];
@@ -352,6 +357,23 @@
     if ([notification.name isEqualToString: @"Reload Map"]) {
         [self updateCurrentMap];
     }
+
+}
+
+-(void)failedToGetLocation{
+
+    [self disableAllButtons];
+    self.currentLocationButton.enabled = YES;
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:@"Oh NO! Something weird happened. \nPlease make sure your connected to the internet or \nhave Wi-Fi enabled"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler: nil];
+    
+    [alert addAction:defaultAction];
+
+    [self presentViewController:alert animated:YES completion:nil];
 
 }
 
@@ -398,6 +420,10 @@
             block(YES);
 
         }
+        else if(status == INTULocationStatusServicesNotDetermined || !self.mapView){
+        
+            block(NO);
+        }
         else{
             
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
@@ -439,10 +465,9 @@
             
         }
         
-        block(NO);
     }];
+    
 }
-
 
 
 -(void)createMapWithCoordinates{
@@ -606,6 +631,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
                         [self endSpinner];
                     }
+                    
                 }];
         
         }
@@ -657,6 +683,10 @@ didFailAutocompleteWithError:(NSError *)error {
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                          NSLog(@"here is the error object: %@", error);
             
+            //add some logic in here to handle failure
+            [self failedToGetLocation];
+            [self endSpinner];
+    
         completionBlock(NO);
     }];
 }
