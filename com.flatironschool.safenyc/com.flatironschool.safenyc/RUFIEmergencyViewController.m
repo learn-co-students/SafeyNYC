@@ -338,14 +338,17 @@
     
     //BODY MESSAGE
     
-    self.composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location";
+    self.composeVC.body = [NSString stringWithFormat:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
+    
     
     NSLog(@"%f, %f", self.myCurrnetLatitude, self.myCurrnetLongitude);
-    BOOL addedAttachment = [self addLocationAttachmentToComposeViewController:self.composeVC displayName:@"My Location" location:CLLocationCoordinate2DMake(self.myCurrnetLongitude, self.myCurrnetLatitude)];
+//    BOOL addedAttachment = [self addLocationAttachmentToComposeViewController:self.composeVC displayName:@"My Location" location:CLLocationCoordinate2DMake(self.myCurrnetLongitude, self.myCurrnetLatitude)];
+//    
+//    if(!addedAttachment) {
+//        NSLog(@"Seems there was an issue adding the attachment :(");
+//    }
     
-    if(!addedAttachment) {
-        NSLog(@"Seems there was an issue adding the attachment :(");
-    }
+
     
     [self showViewController:self.composeVC sender:nil];
 
