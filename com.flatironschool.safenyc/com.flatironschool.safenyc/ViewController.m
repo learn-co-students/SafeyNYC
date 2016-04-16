@@ -315,6 +315,7 @@
                 }
                 else if(!success) {
                 
+                    [self endSpinner];
                     [self failedToGetLocation];
                 
                 
@@ -635,6 +636,12 @@ didFailAutocompleteWithError:(NSError *)error {
                 }];
         
         }
+            else{
+            
+                [self endSpinner];
+                [self failedToGetLocation];
+
+            }
         
     }];
      
@@ -682,10 +689,6 @@ didFailAutocompleteWithError:(NSError *)error {
 
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                          NSLog(@"here is the error object: %@", error);
-            
-            //add some logic in here to handle failure
-            [self failedToGetLocation];
-            [self endSpinner];
     
         completionBlock(NO);
     }];
@@ -763,6 +766,7 @@ didFailAutocompleteWithError:(NSError *)error {
    [self.mapView moveCamera: [GMSCameraUpdate fitBounds: bounds withPadding: 100.0f]];
 
 }
+
 
 
 -(void)removeClosetPoliceLocation{

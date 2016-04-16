@@ -39,10 +39,15 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"here is the error object: %@", error);
         
+        //pass the error string from the completion block 
+        completionBlock(@[error.localizedDescription]);
+
         
     }];
 
 
 }
+
+
 @end
 
