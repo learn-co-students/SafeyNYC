@@ -8,6 +8,6 @@
 
 #import "ViewController.h"
 
-@interface RUFIButtonInfoViewController : ViewController
+@interface RUFIButtonInfoViewController : UIViewController
 
 @end

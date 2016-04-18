@@ -45,6 +45,8 @@
 
     [super viewDidLoad];
     
+    
+    
 //    self.latitude = 40.705412;
 //    self.longitude = -74.02;
     
@@ -74,6 +76,7 @@
     [self createMapWithCoordinates];
     [self updateCurrentMap];
     [self setUpButtons];
+    [self disableAllButtons];
     
 }
 
