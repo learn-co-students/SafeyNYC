@@ -218,7 +218,7 @@
         
         else {
             
-        NSLog(@"\n\n\n\n\n\n\n\n\nNOTHING ACTIVE\n\n\n\n\n\n\n\n\n");
+        NSLog(@"\n\n\n\n\n\n\n\n\nNOTHIING ACTIVE\n\n\n\n\n\n\n\n\n");
         
         
         [self disableAllButtons];
