@@ -39,30 +39,48 @@
                         Longitude:(double)longitude
                    WithCompletion:(void (^)(BOOL finished))completionBlock{
     
-    [self clearPoliceLocationsArray]; 
+    [self clearPoliceLocationsArray];
+    
 
     [PoliceLocatorAPI getPoliceLocationsLatitude: latitude  Longitude: longitude WithCompletion:^(NSArray *policeLocations) {
         
 
+        if ([self policeLocationsArrayContainsError: policeLocations]) {
+            
+            completionBlock(NO);
+        }
+        else{
+        
             for (NSDictionary *currentPoliceDictionary in policeLocations) {
-            
-//            if ([currentPoliceDictionary[@"name"] containsString: @"Precinct"]) {
-            
+                
+                //            if ([currentPoliceDictionary[@"name"] containsString: @"Precinct"]) {
+                
                 PoliceLocation *newLocation = [PoliceLocation createPoliceLocationWithDictionary: currentPoliceDictionary];
                 [self.policeLocationsArray addObject: newLocation];
-//            }
-        }
+                //            }
+            }
+            
+            NSLog(@"Police Locations array contains: %lu locations!!!!!!", self.policeLocationsArray.count);
+            completionBlock(YES);
         
-        NSLog(@"Police Locations array contains: %lu locations!!!!!!", self.policeLocationsArray.count);
-        completionBlock(YES);
+        }
+
     }];
-    
+
 
 }
 
 -(void)clearPoliceLocationsArray{
     
     [self.policeLocationsArray removeAllObjects];
+
+}
+
+-(BOOL)policeLocationsArrayContainsError:(NSArray *)policeLocationsArray{
+
+    BOOL hasErrorMessage = [policeLocationsArray.firstObject isKindOfClass:[NSString class]];
+    
+    return hasErrorMessage;
 
 }
 
