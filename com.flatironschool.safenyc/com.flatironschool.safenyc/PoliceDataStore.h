@@ -18,6 +18,7 @@
 -(void)getPoliceLocationsLatitude:(double)latitude
                         Longitude:(double)longitude
                    WithCompletion:(void (^)(BOOL finished))completionBlock;
+-(NSUInteger)getCurrentPoliceLocationsCount;
 
 
 @end

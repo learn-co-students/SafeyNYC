@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Qfc-W4-Gm2">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Definitions View Controller-->
+        <!--Button Info View Controller-->
         <scene sceneID="DWV-Um-3Rm">
             <objects>
-                <viewController id="Qfc-W4-Gm2" customClass="RUFIDefinitionsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="infoButton" id="Qfc-W4-Gm2" customClass="RUFIButtonInfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vXc-Ul-ROs"/>
                         <viewControllerLayoutGuide type="bottom" id="qXv-TS-ECt"/>
@@ -28,10 +28,13 @@
                                     <constraint firstAttribute="height" constant="47" id="SVQ-oq-xMM"/>
                                 </constraints>
                                 <state key="normal" image="back"/>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="Qfc-W4-Gm2" eventType="touchUpInside" id="HF8-bv-PVU"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ys-40-AqW">
-                                <rect key="frame" x="20" y="117" width="560" height="483"/>
-                                <string key="text">This feature allows you to add the contact information of up to six of  your closest family and friends so with the push of the red emergency button you will open a preconfigured text message with a link to your location that you can send immediately</string>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ys-40-AqW">
+                                <rect key="frame" x="20" y="117" width="560" height="81"/>
+                                <string key="text">This feature allows you to add the contact information of up to six of your closest family and friends. With the push of the red emergency button you will open a preconfigured text message with a link to your current location that you can send immediately.</string>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>

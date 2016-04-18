@@ -45,6 +45,8 @@
 
     [super viewDidLoad];
     
+    
+    
 //    self.latitude = 40.705412;
 //    self.longitude = -74.02;
     
@@ -71,9 +73,11 @@
                                                  name:@"Reload Map"
                                                object:nil];
     self.marker = [[GMSMarker alloc]init];
+    self.currentLocationButton.enabled = YES;
     [self createMapWithCoordinates];
     [self updateCurrentMap];
     [self setUpButtons];
+    [self disableAllButtons];
     
 }
 
@@ -218,7 +222,7 @@
         
         else {
             
-        NSLog(@"\n\n\n\n\n\n\n\n\nNOTHING ACTIVE\n\n\n\n\n\n\n\n\n");
+        NSLog(@"\n\n\n\n\n\n\n\n\nNOTHIING ACTIVE\n\n\n\n\n\n\n\n\n");
         
         
         [self disableAllButtons];
@@ -254,9 +258,9 @@
         
     } else if (button == self.dissmissPoliceMapButton){
         NSLog(@"BUTTON TAPPED");
-        self.dissmissPoliceMapButton.hidden = YES;
-        self.policeStationActiveBool = NO;
-        [self removeClosetPoliceLocation];
+
+//        [self dissmissPoliceMapButton];
+        [self dissmissPoliceMap];
         
         GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
                                                                     longitude: self.longitude
@@ -273,6 +277,13 @@
     NSLog(@"reenabled!!!!!");
 }
 
+-(void)dissmissPoliceMap{
+
+    self.dissmissPoliceMapButton.hidden = YES;
+    self.policeStationActiveBool = NO;
+    [self removeClosetPoliceLocation];
+
+}
 
 -(void)openGooglePlacePicker {
     GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
@@ -399,7 +410,7 @@
     if (status == INTULocationStatusServicesDisabled) {
         return @"Location services are turned off for all apps on this device.\nGo to settings > Privacy > Location Services and switch on";
     }
-    return @"An unknown error occurred.\n(Are you using iOS Simulator with location set to 'None'?)";
+    return @"An unknown error occurred. Please make sure you have internet enabled.";
 }
 
 - (void)updateCurrentLocationCoordinatesWithBlock:(void (^) (BOOL success))block {
@@ -444,6 +455,7 @@
                                                                           
                                                                               if(self.mapView == nil){
                                                                                   [self createMapWithCoordinates];
+                                                                                  [self reenableAllButtons];
                                                                               }
                                                                               else{
                                                                                   [self animateMap];
@@ -643,6 +655,23 @@ didFailAutocompleteWithError:(NSError *)error {
                 }];
         
         }
+        else if([store getCurrentPoliceLocationsCount] == 0){
+            
+            [self reenableAllButtons];
+            [self dissmissPoliceMap];
+            [self endSpinner];
+            
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"No Locations Found"
+                                                                               message:@"No police locations nearby"
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler: nil];
+                
+                [alert addAction:defaultAction];
+                
+                [self presentViewController:alert animated:YES completion:nil];
+
+            }
             else{
             
                 [self endSpinner];
@@ -1169,6 +1198,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
     if (self.spinner.isAnimating) {
         [self.spinner removeFromSuperview];
+        self.spinner = nil;
         NSLog(@"spinner destoryed");
     }
 }

@@ -35,8 +35,8 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
-	<string>EmergencyStoryboard</string>
-	<key>UIRequiredDeviceCapabilities</key>
+	<string>introStoryboard</string>
+s	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
