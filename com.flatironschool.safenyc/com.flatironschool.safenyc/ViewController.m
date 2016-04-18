@@ -83,13 +83,14 @@
 
     [super viewDidAppear:YES];
 
-    
-    if (self.datastore.settingsChanged){
-        
-        [self disableAllButtons];
-    
-        [self updateMapAfterSetttingsChange];
-    }
+        if (self.datastore.settingsChanged){
+            
+            [self disableAllButtons];
+            
+            [self updateMapAfterSetttingsChange];
+        }
+
+
     
 //    [self updateCurrentMap];
     
@@ -177,101 +178,112 @@
     
     NSLog(@"disabled!!!!!");
     
-    if(button == self.searchButton){
+    if ([self haveInternetConnection]) {
         
-        NSLog(@"BUTTON TAPPED");
-        [self openGooglePlacePicker];
-        
-        NSLog(@"Getting to inside the pressed button");
-
-        
-    } else if (button == self.settingsButton){
-        NSLog(@"BUTTON TAPPED");
-        
-        [self performSegueWithIdentifier:@"settingsSegue" sender:nil];
-
-    } else if (button == self.currentLocationButton){
-        NSLog(@"BUTTON TAPPED");
-        
-        self.randomInt = arc4random_uniform(1000);
-        
-        if (self.policeStationActiveBool && !self.searchLocation) {
+        if(button == self.searchButton){
             
-            NSLog(@"\n\n\n\n\n\n\n\n\nPOLICE ACTIVE SEARCH NOT\n\n\n\n\n\n\n\n\n");
+            NSLog(@"BUTTON TAPPED");
+            [self openGooglePlacePicker];
+            
+            NSLog(@"Getting to inside the pressed button");
+            
+            
+        } else if (button == self.settingsButton){
+            NSLog(@"BUTTON TAPPED");
+            
+            [self performSegueWithIdentifier:@"settingsSegue" sender:nil];
+            
+        } else if (button == self.currentLocationButton){
+            NSLog(@"BUTTON TAPPED");
+            
+            self.randomInt = arc4random_uniform(1000);
+            
+            if (self.policeStationActiveBool && !self.searchLocation) {
+                
+                NSLog(@"\n\n\n\n\n\n\n\n\nPOLICE ACTIVE SEARCH NOT\n\n\n\n\n\n\n\n\n");
+                
+                [self updateMapWithPoliceLocation];
+                
+            }
+            
+            else if (self.searchLocation) {
+                
+                
+                NSLog(@"\n\n\n\n\n\n\n\n\nSEARCH ACTIVE\n\n\n\n\n\n\n\n\n");
+                
+                [self disableAllButtons];
+                
+                self.searchLocation = NO;
+                self.policeStationActiveBool = NO;
+                
+                [self updateCurrentMap];
+                
+            }
+            
+            else {
+                
+                NSLog(@"\n\n\n\n\n\n\n\n\nNOTHING ACTIVE\n\n\n\n\n\n\n\n\n");
+                
+                
+                [self disableAllButtons];
+                
+                [self updateCurrentMap];
+                
+            }
+            
+        } else if (button == self.policeMapButton){
+            
+            
+            
+            NSLog(@"BUTTON TAPPED");
+            [self disableAllButtons];
+            
+            self.policeStationActiveBool = YES;
             
             [self updateMapWithPoliceLocation];
             
-        }
-        
-        else if (self.searchLocation) {
+            self.dissmissPoliceMapButton.hidden = NO;
             
             
-            NSLog(@"\n\n\n\n\n\n\n\n\nSEARCH ACTIVE\n\n\n\n\n\n\n\n\n");
+        } else if (button == self.emergencyButton){
             
-            [self disableAllButtons];
+            NSLog(@"BUTTON TAPPED");
             
-            self.searchLocation = NO;
-            self.policeStationActiveBool = NO;
+            [self checkForFingerPrint];
+            //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
             
-            [self updateCurrentMap];
+        } else if (button == self.pieChartButton){
+            NSLog(@"BUTTON TAPPED");
+            [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
             
-        }
-        
-        else {
+        } else if (button == self.dissmissPoliceMapButton){
+            NSLog(@"BUTTON TAPPED");
             
-        NSLog(@"\n\n\n\n\n\n\n\n\nNOTHING ACTIVE\n\n\n\n\n\n\n\n\n");
-        
-        
-        [self disableAllButtons];
-        
-        [self updateCurrentMap];
-        
-        }
-        
-    } else if (button == self.policeMapButton){
-        
-        
-        
-        NSLog(@"BUTTON TAPPED");
-        [self disableAllButtons];
-        
-        self.policeStationActiveBool = YES;
-        
-        [self updateMapWithPoliceLocation];
-
-        self.dissmissPoliceMapButton.hidden = NO;
-        
-        
-    } else if (button == self.emergencyButton){
-        
-        NSLog(@"BUTTON TAPPED");
-        
-        [self checkForFingerPrint];
-        //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
-    
-    } else if (button == self.pieChartButton){
-        NSLog(@"BUTTON TAPPED");
-        [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
-        
-    } else if (button == self.dissmissPoliceMapButton){
-        NSLog(@"BUTTON TAPPED");
-
-//        [self dissmissPoliceMapButton];
-        [self dissmissPoliceMap];
-        
-        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
+            //        [self dissmissPoliceMapButton];
+            [self dissmissPoliceMap];
+            
+            GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
                                                                     longitude: self.longitude
                                                                          zoom: 17];
+            
+            [self.mapView animateToCameraPosition:camera];
+            [self.mapView animateToViewingAngle:65];
+            
+            
+            //        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+            
+        }
         
-        [self.mapView animateToCameraPosition:camera];
-        [self.mapView animateToViewingAngle:65];
-
+        NSLog(@"reenabled!!!!!");
         
-//        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
-
+    }
+    else{
+    
+        [self failedToGetLocation];
+    
     }
     
-    NSLog(@"reenabled!!!!!");
+    
 }
 
 -(void)dissmissPoliceMap{
@@ -1243,6 +1255,13 @@ didFailAutocompleteWithError:(NSError *)error {
     
     self.faceMarker.appearAnimation = kGMSMarkerAnimationPop;
     self.faceMarker.map = self.mapView;
+}
+
+-(BOOL)haveInternetConnection{
+
+    return [Utils isNetworkAvailable];
+    
+
 }
 
 
