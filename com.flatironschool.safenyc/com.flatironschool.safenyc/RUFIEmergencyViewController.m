@@ -27,6 +27,7 @@
 @property (strong, nonatomic) DKCircleButton *currentPerson;
 @property (strong, nonatomic) DKCircleButton *backButton;
 @property (strong, nonatomic) DKCircleButton *infoButton;
+@property (strong, nonatomic) DKCircleButton *settingsButton;
 //@property (strong, nonatomic) UITextField *holdUntillTextField;
 
 @property (strong, nonatomic) Contact *contact1;
@@ -178,12 +179,9 @@
     self.heightOfTheScreen = self.view.frame.size.height;
     self.widthOfTheImage = 375;
     if(self.view.frame.size.width <= 375){
-        //iPhone 6 and less
         self.isSix = NO;
         self.emergencyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, self.widthOfTheScreen/2-45, self.widthOfTheImage-20, self.widthOfTheImage-20)];
     } else {
-        //iPhone6 Plus
-        NSLog(@"iPhone Six");
         self.isSix = YES;
         self.emergencyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, self.widthOfTheScreen/2-45, self.widthOfTheImage-40, self.widthOfTheImage-40)];
     }
@@ -201,6 +199,7 @@
     
     self.backButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 30, 50, 50)];
     self.infoButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 90, 50, 50)];
+    self.settingsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 150, 50, 50)];
     
     if(self.isSix){
         self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage/2-89, self.widthOfTheImage/2-90, 139, 139)];
@@ -220,11 +219,11 @@
         self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(43, self.widthOfTheImage-128, 87, 87)];
         self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(-1, self.widthOfTheImage/2-54, 87, 87)];
     }
-    NSArray *buttons = @[self.emergencyButton, self.person1, self.person2, self.person3, self.person4, self.person5, self.person6, self.backButton, self.infoButton];
+    NSArray *buttons = @[self.emergencyButton, self.person1, self.person2, self.person3, self.person4, self.person5, self.person6, self.backButton, self.infoButton, self.settingsButton];
     
     for(DKCircleButton *button in buttons){
         
-        if( button == self.backButton || button == self.infoButton ) {
+        if( button == self.backButton || button == self.infoButton || button == self.settingsButton) {
         
             [self.view addSubview:button];
         
@@ -234,36 +233,38 @@
         
         }
         button.titleLabel.font = [UIFont systemFontOfSize:22];
+        button.backgroundColor = [UIColor clearColor];
+        button.alpha = 1;
         
         if(button == self.emergencyButton){
         
-            button.backgroundColor = [UIColor clearColor];
             button.borderColor = [UIColor whiteColor];
-            button.alpha = 1;
         
         } else if (button == self.backButton){
             
-            button.backgroundColor = [UIColor clearColor];
             UIImage *image = [UIImage new];
             image = [UIImage imageNamed:@"back"];
             [button setImage:image forState:UIControlStateNormal];
             [button setContentMode:UIViewContentModeScaleAspectFit];
-            button.alpha = 1;
-        
+            
         } else if (button == self.infoButton){
             
-            button.backgroundColor = [UIColor clearColor];
             UIImage *image = [UIImage new];
             image = [UIImage imageNamed:@"info"];
             [button setImage:image forState:UIControlStateNormal];
             [button setContentMode:UIViewContentModeScaleAspectFit];
-            button.alpha = 1;
+            
+        } else if (button == self.settingsButton){
+        
+            UIImage *image = [UIImage new];
+            image = [UIImage imageNamed:@"settings.png"];
+            [button setImage:image forState:UIControlStateNormal];
+            [button setContentMode:UIViewContentModeScaleAspectFit];
             
         } else {
         
-            button.backgroundColor = [UIColor clearColor];
-            button.alpha = 1;
             button.borderColor = [UIColor whiteColor];
+        
         }
         button.animateTap = NO;
         [button addTarget:self action:@selector(pressedButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -479,6 +480,7 @@
            self.emergencyButton.frame = CGRectMake(self.widthOfTheImage/2-80, self.widthOfTheImage/2-80, 140, 140);
            self.backButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
            self.infoButton.frame = CGRectMake(self.widthOfTheScreen-60, 90, 50, 50);
+           self.settingsButton.frame = CGRectMake(self.widthOfTheScreen-60, 150, 50, 50);
             //self.holdUntillTextField.frame = CGRectMake(self.widthOfTheScreen/2-150, 80, 300, 20);
             
         } else if (isLandscape) {
@@ -502,6 +504,7 @@
             }
             self.backButton.frame = CGRectMake(self.heightOfTheScreen-60, 30, 50, 50);
             self.infoButton.frame = CGRectMake(self.heightOfTheScreen-60, 90, 50, 50);
+            self.settingsButton.frame = CGRectMake(self.heightOfTheScreen-60, 150, 50, 50);
             //self.holdUntillTextField.frame = CGRectMake(10, self.widthOfTheScreen-30, 300, 20);
 
         }
