@@ -53,15 +53,25 @@
         
             for (NSDictionary *currentPoliceDictionary in policeLocations) {
                 
-                //            if ([currentPoliceDictionary[@"name"] containsString: @"Precinct"]) {
+//                if ([currentPoliceDictionary[@"name"] containsString: @"Police"]) {
                 
-                PoliceLocation *newLocation = [PoliceLocation createPoliceLocationWithDictionary: currentPoliceDictionary];
-                [self.policeLocationsArray addObject: newLocation];
-                //            }
+                    PoliceLocation *newLocation = [PoliceLocation createPoliceLocationWithDictionary: currentPoliceDictionary];
+                    [self.policeLocationsArray addObject: newLocation];
+//                }
             }
             
+            [self filterPoliceLocations];
             NSLog(@"Police Locations array contains: %lu locations!!!!!!", self.policeLocationsArray.count);
-            completionBlock(YES);
+            
+            if ([self getCurrentPoliceLocationsCount] > 0) {
+                
+                completionBlock(YES);
+            }
+            else{
+                
+                completionBlock(NO);
+            }
+            
         
         }
 
@@ -76,6 +86,14 @@
 
 }
 
+-(NSUInteger)getCurrentPoliceLocationsCount{
+
+    NSInteger policeLocationCount = self.policeLocationsArray.count;
+
+    return policeLocationCount;
+
+}
+
 -(BOOL)policeLocationsArrayContainsError:(NSArray *)policeLocationsArray{
 
     BOOL hasErrorMessage = [policeLocationsArray.firstObject isKindOfClass:[NSString class]];
@@ -84,7 +102,31 @@
 
 }
 
+-(void)filterPoliceLocations{
 
+    NSArray *filterStrings = @[@"New York City Police Department", @"Police Department"];
+    NSString *filter = @"%K CONTAINS[cd] %@";
+    NSPredicate *filterUsingThisPredicate = [[NSPredicate alloc]init];
+    NSUInteger countOfLocationsInNY;
+    
+    NSPredicate *testPredicate = [NSPredicate predicateWithFormat:filter, @"locationName", filterStrings[0]];
+        
+    countOfLocationsInNY = [self.policeLocationsArray filteredArrayUsingPredicate: testPredicate].count;
 
+        
+        if (countOfLocationsInNY > 0) {
+            
+            filterUsingThisPredicate = testPredicate;
+            
+        }
+        else {
+        
+            filterUsingThisPredicate = [NSPredicate predicateWithFormat:filter, @"locationName", filterStrings[1]];
+        
+        }
+    
+   self.policeLocationsArray = [[self.policeLocationsArray filteredArrayUsingPredicate: filterUsingThisPredicate]mutableCopy];
+    
+}
 
 @end
