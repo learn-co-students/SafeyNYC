@@ -36,7 +36,7 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>introStoryboard</string>
-s	<key>UIRequiredDeviceCapabilities</key>
+	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
