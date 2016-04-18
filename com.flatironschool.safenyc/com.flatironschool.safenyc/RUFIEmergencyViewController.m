@@ -27,7 +27,7 @@
 @property (strong, nonatomic) DKCircleButton *currentPerson;
 @property (strong, nonatomic) DKCircleButton *backButton;
 @property (strong, nonatomic) DKCircleButton *infoButton;
-@property (strong, nonatomic) UITextField *holdUntillTextField;
+//@property (strong, nonatomic) UITextField *holdUntillTextField;
 
 @property (strong, nonatomic) Contact *contact1;
 @property (strong, nonatomic) Contact *contact2;
@@ -45,6 +45,8 @@
 @property (nonatomic) RUFIContactStore *localContactStore;
 @property (strong, nonatomic) NSArray *localContacts;
 @property (strong, nonatomic) NSArray *recipients;
+@property (nonatomic) BOOL isSix;
+@property (nonatomic) NSUInteger widthOfTheImage;
 
 @end
 
@@ -56,7 +58,6 @@
     [self displayViewBackground];
     [self displayEmergencyImageView];
     [self displayButtons];
-    [self displayHoldUntillTextField];
     
     self.localContactStore = [RUFIContactStore sharedContactStore];
     [self.localContactStore fetchData];
@@ -175,8 +176,17 @@
     
     self.widthOfTheScreen = self.view.frame.size.width;
     self.heightOfTheScreen = self.view.frame.size.height;
-    
-    self.emergencyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, self.widthOfTheScreen/2-45, self.widthOfTheScreen-20, self.widthOfTheScreen-20)];
+    self.widthOfTheImage = 375;
+    if(self.view.frame.size.width <= 375){
+        //iPhone 6 and less
+        self.isSix = NO;
+        self.emergencyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, self.widthOfTheScreen/2-45, self.widthOfTheImage-20, self.widthOfTheImage-20)];
+    } else {
+        //iPhone6 Plus
+        NSLog(@"iPhone Six");
+        self.isSix = YES;
+        self.emergencyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, self.widthOfTheScreen/2-45, self.widthOfTheImage-40, self.widthOfTheImage-40)];
+    }
     [self.view addSubview:self.emergencyImageView];
     UIImage *image = [UIImage new];
     image = [UIImage imageNamed:@"emergencyImageView"];
@@ -189,16 +199,27 @@
 
 - (void) displayButtons {
     
-    self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-80, 140, 140)];
-    self.person1 = [[DKCircleButton alloc] initWithFrame:CGRectMake(43, 20, 87, 87)];
-    self.person2 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-150, 20, 87, 87)];
-    self.person3 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-107, self.widthOfTheScreen/2-53, 87, 87)];
-    self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-152, self.widthOfTheScreen-127, 87, 87)];
-    self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(43, self.widthOfTheScreen-128, 87, 87)];
-    self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(-1, self.widthOfTheScreen/2-54, 87, 87)];
     self.backButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 30, 50, 50)];
     self.infoButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 90, 50, 50)];
     
+    if(self.isSix){
+        self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage/2-89, self.widthOfTheImage/2-90, 139, 139)];
+        self.person1 = [[DKCircleButton alloc] initWithFrame:CGRectMake(39, 17, 86, 86)];
+        self.person2 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-164, 17, 86, 86)];
+        self.person3 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-124, self.widthOfTheImage/2-62, 86, 86)];
+        self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-166, self.widthOfTheImage-144, 86, 86)];
+        self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(39, self.widthOfTheImage-144, 86, 86)];
+        self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(-2, self.widthOfTheImage/2-63, 86, 86)];
+
+    } else {
+        self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage/2-80, self.widthOfTheImage/2-80, 140, 140)];
+        self.person1 = [[DKCircleButton alloc] initWithFrame:CGRectMake(43, 20, 87, 87)];
+        self.person2 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-150, 20, 87, 87)];
+        self.person3 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-107, self.widthOfTheImage/2-53, 87, 87)];
+        self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-152, self.widthOfTheImage-127, 87, 87)];
+        self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(43, self.widthOfTheImage-128, 87, 87)];
+        self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(-1, self.widthOfTheImage/2-54, 87, 87)];
+    }
     NSArray *buttons = @[self.emergencyButton, self.person1, self.person2, self.person3, self.person4, self.person5, self.person6, self.backButton, self.infoButton];
     
     for(DKCircleButton *button in buttons){
@@ -421,13 +442,13 @@
     }
 }
 
-
+/*
 -(void) displayHoldUntillTextField {
     self.holdUntillTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.widthOfTheScreen/2-150, 80, 300, 20)];
     [self.view addSubview:self.holdUntillTextField];
     self.holdUntillTextField.text = @"Hold Red Button Untill Safe!";
     self.holdUntillTextField.font = [UIFont systemFontOfSize:22];
-}
+}*/
 
 
 #pragma mark - Transition to Size
@@ -436,23 +457,52 @@
     BOOL isLandscape = size.width > size.height;
     
     [UIView animateWithDuration:0.3f animations:^{
-        if(isPortrait){
+        
+       if (isPortrait){
             
-            self.backgroundImage.frame = CGRectMake(0, 0, self.widthOfTheScreen, self.heightOfTheScreen);
-            self.emergencyImageView.frame = CGRectMake(10, self.widthOfTheScreen/2-45, self.widthOfTheScreen-20, self.widthOfTheScreen-20);
-            self.emergencyButton.frame = CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-80, 140, 140);
-            self.backButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
-            self.infoButton.frame = CGRectMake(self.widthOfTheScreen-60, 90, 50, 50);
-            self.holdUntillTextField.frame = CGRectMake(self.widthOfTheScreen/2-150, 80, 300, 20);
+           self.backgroundImage.frame = CGRectMake(0, 0, self.widthOfTheScreen, self.heightOfTheScreen);
+           if (self.isSix & isPortrait ){
+              
+               self.emergencyImageView.frame = CGRectMake(40, self.widthOfTheScreen/2-45, self.widthOfTheImage-20, self.widthOfTheImage-20);
+               self.person1.frame = CGRectMake(42, 20, 88, 88);
+               self.person2.frame = CGRectMake(self.widthOfTheImage-151, 20, 88, 88);
+               self.person3.frame = CGRectMake(self.widthOfTheImage-107, self.widthOfTheImage/2-53, 88, 88);
+               self.person4.frame = CGRectMake(self.widthOfTheImage-152, self.widthOfTheImage-128, 88, 88);
+               self.person5.frame = CGRectMake(43, self.widthOfTheImage-128, 88, 88);
+               self.person6.frame = CGRectMake(-2, self.widthOfTheImage/2-55, 88, 88);
+           
+           } else {
+              
+               self.emergencyImageView.frame = CGRectMake(10, self.widthOfTheImage/2-45, self.widthOfTheImage-20, self.widthOfTheImage-20);
+           
+           }
+           self.emergencyButton.frame = CGRectMake(self.widthOfTheImage/2-80, self.widthOfTheImage/2-80, 140, 140);
+           self.backButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
+           self.infoButton.frame = CGRectMake(self.widthOfTheScreen-60, 90, 50, 50);
+            //self.holdUntillTextField.frame = CGRectMake(self.widthOfTheScreen/2-150, 80, 300, 20);
             
         } else if (isLandscape) {
             
             self.backgroundImage.frame = CGRectMake(0, 0, self.heightOfTheScreen, self.widthOfTheScreen);
-            self.emergencyButton.frame = CGRectMake(self.widthOfTheScreen/2-80, self.widthOfTheScreen/2-80, 140, 140);
-            self.emergencyImageView.frame = CGRectMake(self.widthOfTheScreen/2-31, 0, self.widthOfTheScreen-20, self.widthOfTheScreen-20);
+            self.emergencyButton.frame = CGRectMake(self.widthOfTheImage/2-80, self.widthOfTheImage/2-80, 140, 140);
+            if (self.isSix){
+                
+                self.emergencyImageView.frame = CGRectMake(self.widthOfTheScreen/2-11, 20, self.widthOfTheImage-20, self.widthOfTheImage-20);
+                self.person1.frame = CGRectMake(42, 20, 88, 88);
+                self.person2.frame = CGRectMake(self.widthOfTheImage-151, 20, 88, 88);
+                self.person3.frame = CGRectMake(self.widthOfTheImage-107, self.widthOfTheImage/2-53, 88, 88);
+                self.person4.frame = CGRectMake(self.widthOfTheImage-152, self.widthOfTheImage-128, 88, 88);
+                self.person5.frame = CGRectMake(43, self.widthOfTheImage-128, 88, 88);
+                self.person6.frame = CGRectMake(-2, self.widthOfTheImage/2-55, 89, 89);
+            
+            } else {
+               
+                self.emergencyImageView.frame = CGRectMake(self.widthOfTheImage/2-31, 0, self.widthOfTheImage-20, self.widthOfTheImage-20);
+            
+            }
             self.backButton.frame = CGRectMake(self.heightOfTheScreen-60, 30, 50, 50);
             self.infoButton.frame = CGRectMake(self.heightOfTheScreen-60, 90, 50, 50);
-            self.holdUntillTextField.frame = CGRectMake(10, self.widthOfTheScreen-30, 300, 20);
+            //self.holdUntillTextField.frame = CGRectMake(10, self.widthOfTheScreen-30, 300, 20);
 
         }
         [self.view layoutIfNeeded];

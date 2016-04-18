@@ -90,10 +90,6 @@
         [self updateMapAfterSetttingsChange];
     }
 
-//    [self updateCurrentMap];
-    
-//    [self animateMap];
-
 }
 
 - (void)didReceiveMemoryWarning {
