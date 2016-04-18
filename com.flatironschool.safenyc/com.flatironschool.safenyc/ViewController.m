@@ -45,6 +45,8 @@
 
     [super viewDidLoad];
     
+    
+    
 //    self.latitude = 40.705412;
 //    self.longitude = -74.02;
     
@@ -75,6 +77,7 @@
     [self createMapWithCoordinates];
     [self updateCurrentMap];
     [self setUpButtons];
+    [self disableAllButtons];
     
 }
 
@@ -222,7 +225,7 @@
             
             else {
                 
-                NSLog(@"\n\n\n\n\n\n\n\n\nNOTHING ACTIVE\n\n\n\n\n\n\n\n\n");
+                NSLog(@"\n\n\n\n\n\n\n\n\nNOTHIING ACTIVE\n\n\n\n\n\n\n\n\n");
                 
                 
                 [self disableAllButtons];
@@ -275,7 +278,6 @@
         }
         
         NSLog(@"reenabled!!!!!");
-        
     }
     else{
     

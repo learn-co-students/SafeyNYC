@@ -265,6 +265,8 @@
         
     }else if (button == self.infoButton){
         
+                [self performSegueWithIdentifier:@"contactsInfoButton" sender:nil];
+        
         //TODO: show the info about the emergency button
         //      - how to add friend
         //      - how to change the default message
