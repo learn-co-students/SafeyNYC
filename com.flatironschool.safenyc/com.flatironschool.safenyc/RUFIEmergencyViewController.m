@@ -7,6 +7,7 @@
 //
 
 #import "RUFIEmergencyViewController.h"
+#import "RUFITutorialViewController.h"
 #import <ContactsUI/ContactsUI.h>
 #import <Contacts/Contacts.h>
 #import <DKCircleButton/DKCircleButton.h>
@@ -264,6 +265,21 @@
         [self dismissViewControllerAnimated:YES completion:nil];
         
     }else if (button == self.infoButton){
+        
+        RUFITutorialViewController * contributeViewController = [[RUFITutorialViewController alloc] init];
+        UIBlurEffect * blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+        UIVisualEffectView *beView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        beView.frame = self.view.bounds;
+        
+        contributeViewController.view.frame = self.view.bounds;
+        contributeViewController.view.backgroundColor = [UIColor clearColor];
+        [contributeViewController.view insertSubview:beView atIndex:0];
+        contributeViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        
+        [self presentViewController:contributeViewController animated:YES completion:nil];
+
+//        RUFITutorialViewController *modalVC = [[RUFITutorialViewController alloc]init];
+//        [self presentViewController:modalVC animated:YES completion:nil];
         
         //TODO: show the info about the emergency button
         //      - how to add friend
