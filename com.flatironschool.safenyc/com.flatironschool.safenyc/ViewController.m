@@ -73,6 +73,7 @@
                                                  name:@"Reload Map"
                                                object:nil];
     self.marker = [[GMSMarker alloc]init];
+    self.currentLocationButton.enabled = YES;
     [self createMapWithCoordinates];
     [self updateCurrentMap];
     [self setUpButtons];
@@ -92,7 +93,7 @@
     
         [self updateMapAfterSetttingsChange];
     }
-
+    
 //    [self updateCurrentMap];
     
 //    [self animateMap];
@@ -221,7 +222,7 @@
         
         else {
             
-        NSLog(@"\n\n\n\n\n\n\n\n\nNOTHING ACTIVE\n\n\n\n\n\n\n\n\n");
+        NSLog(@"\n\n\n\n\n\n\n\n\nNOTHIING ACTIVE\n\n\n\n\n\n\n\n\n");
         
         
         [self disableAllButtons];
@@ -257,9 +258,9 @@
         
     } else if (button == self.dissmissPoliceMapButton){
         NSLog(@"BUTTON TAPPED");
-        self.dissmissPoliceMapButton.hidden = YES;
-        self.policeStationActiveBool = NO;
-        [self removeClosetPoliceLocation];
+
+//        [self dissmissPoliceMapButton];
+        [self dissmissPoliceMap];
         
         GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
                                                                     longitude: self.longitude
@@ -276,6 +277,13 @@
     NSLog(@"reenabled!!!!!");
 }
 
+-(void)dissmissPoliceMap{
+
+    self.dissmissPoliceMapButton.hidden = YES;
+    self.policeStationActiveBool = NO;
+    [self removeClosetPoliceLocation];
+
+}
 
 -(void)openGooglePlacePicker {
     GMSAutocompleteViewController *acController = [[GMSAutocompleteViewController alloc] init];
@@ -322,22 +330,28 @@
                     NSLog(@"MADE A NEW MAP");
 
                 }
+                else if(!success) {
+                
+                    [self endSpinner];
+                    [self failedToGetLocation];
+                
+                
+                }
                 else{
                     
                     
                     [self.datastore getCrimeDataWithCompletion:^(BOOL finished) {
                         
-
                         [self startSpinner];
 
                         [self.mapView clear];
+                        
                         [self.dissmissPoliceMapButton setHidden: YES];
-                        
-                      
-                        
+                    
                         [self animateMap];
 
                         [self updateFaceMarker];
+                        
                         [self updateMapWithCrimeLocations:self.datastore.crimeDataArray];
                         
                         [self endSpinner];
@@ -364,6 +378,23 @@
 
 }
 
+-(void)failedToGetLocation{
+
+    [self disableAllButtons];
+    self.currentLocationButton.enabled = YES;
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+                                                                   message:@"Oh NO! Something weird happened. \nPlease make sure your connected to the internet or \nhave Wi-Fi enabled"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler: nil];
+    
+    [alert addAction:defaultAction];
+
+    [self presentViewController:alert animated:YES completion:nil];
+
+}
+
 - (NSString *)getLocationErrorDescription:(INTULocationStatus)status
 {
     
@@ -379,7 +410,7 @@
     if (status == INTULocationStatusServicesDisabled) {
         return @"Location services are turned off for all apps on this device.\nGo to settings > Privacy > Location Services and switch on";
     }
-    return @"An unknown error occurred.\n(Are you using iOS Simulator with location set to 'None'?)";
+    return @"An unknown error occurred. Please make sure you have internet enabled.";
 }
 
 - (void)updateCurrentLocationCoordinatesWithBlock:(void (^) (BOOL success))block {
@@ -407,6 +438,10 @@
             block(YES);
 
         }
+        else if(status == INTULocationStatusServicesNotDetermined || !self.mapView){
+        
+            block(NO);
+        }
         else{
             
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
@@ -420,6 +455,7 @@
                                                                           
                                                                               if(self.mapView == nil){
                                                                                   [self createMapWithCoordinates];
+                                                                                  [self reenableAllButtons];
                                                                               }
                                                                               else{
                                                                                   [self animateMap];
@@ -448,10 +484,9 @@
             
         }
         
-        block(NO);
     }];
+    
 }
-
 
 
 -(void)createMapWithCoordinates{
@@ -616,9 +651,33 @@ didFailAutocompleteWithError:(NSError *)error {
 
                         [self endSpinner];
                     }
+                    
                 }];
         
         }
+        else if([store getCurrentPoliceLocationsCount] == 0){
+            
+            [self reenableAllButtons];
+            [self dissmissPoliceMap];
+            [self endSpinner];
+            
+                UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"No Locations Found"
+                                                                               message:@"No police locations nearby"
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler: nil];
+                
+                [alert addAction:defaultAction];
+                
+                [self presentViewController:alert animated:YES completion:nil];
+
+            }
+            else{
+            
+                [self endSpinner];
+                [self failedToGetLocation];
+
+            }
         
     }];
      
@@ -666,7 +725,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                          NSLog(@"here is the error object: %@", error);
-            
+    
         completionBlock(NO);
     }];
 }
@@ -743,6 +802,7 @@ didFailAutocompleteWithError:(NSError *)error {
    [self.mapView moveCamera: [GMSCameraUpdate fitBounds: bounds withPadding: 100.0f]];
 
 }
+
 
 
 -(void)removeClosetPoliceLocation{
@@ -828,27 +888,43 @@ didFailAutocompleteWithError:(NSError *)error {
                                     });
                                 } else {
                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                        
-                                        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"The Access Is Denied!"
-                                                                                                       message:@"Emergency button is only for the owner of the phone."
-                                                                                                preferredStyle:UIAlertControllerStyleAlert];
-                                        
-                                        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                                              handler:^(UIAlertAction * action) {}];
-                                        
-                                        [alert addAction:defaultAction];
-                                        [self presentViewController:alert animated:YES completion:nil];
+
+                                        //check type of error here
+                                        switch (error.code) {
+                                                
+                                            case LAErrorAuthenticationFailed:
+                                                
+                                                NSLog(@"Authentication Failed");
+                                                
+                                                break;
+                                                
+                                            case LAErrorUserCancel:
+                                                NSLog(@"User pressed Cancel button");
+                                                break;
+                                                
+                                            case LAErrorUserFallback:
+                                                [self alertWithPasswordEntry];
+                                                NSLog(@"User pressed \"Enter Password\"");
+                                                break;
+                                                
+                                            default:
+                                                NSLog(@"Touch ID is not configured");
+                                                break;
+                                        }
+
                                     });
                                 }
                             }];
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Wrong password."
-                                                                           message:@"Try again!"
+                                                                           message:@"Please try again!"
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-                                                                  handler:^(UIAlertAction * action) {}];
+            UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style: UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      [self alertWithPasswordEntry];
+                                                                  }];
             
             [alert addAction:defaultAction];
             [self presentViewController:alert animated:YES completion:nil];
@@ -856,6 +932,122 @@ didFailAutocompleteWithError:(NSError *)error {
     }
 }
 
+-(void)alertWithPasswordEntry{
+    
+    NSString *passwordMessage = @"Please enter your password: ";
+    BOOL passwordExists = [self checkPasswordFieldExsists];
+    
+    if(!passwordExists){
+        
+        passwordMessage = @"Let's setup your password.\n Please input a password.\n";
+        
+    }
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Enter Password"
+                                                                   message: passwordMessage
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Password";
+        textField.secureTextEntry = YES;
+    }];
+    
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action) {
+                                                         
+                                                         NSString *userPassword = alert.textFields.firstObject.text;
+                                                         
+                                                         [self checkForPassword: userPassword];
+
+                                                     }];
+    [alert addAction: okAction];
+    
+
+    [self presentViewController:alert animated:YES completion:nil];
+
+
+}
+
+-(BOOL)checkPasswordFieldExsists{
+
+    BOOL hasPasswordField = NO;
+    
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC"];
+    
+    NSArray *allKeys = keychain.allKeys;
+    
+    for (NSString *key in allKeys) {
+        
+        if ([key isEqualToString: @"password"]) {
+            hasPasswordField = YES;
+            break;
+        }
+    }
+    
+    return hasPasswordField;
+}
+
+-(void)checkForPassword:(NSString *)userPassword{
+
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC"];
+    NSString *passwordCheck;
+
+    if([self checkPasswordFieldExsists]){
+
+            [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                  authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+        
+        passwordCheck = keychain[@"password"];
+        
+        if ([passwordCheck isEqualToString: userPassword]) {
+            NSLog(@"correct password entered!!!");
+            [self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+
+        }
+        else{
+            //password doesnt exsist....handle this.......
+            NSLog(@"NOOOOOOOOO....incorrect password");
+            [self incorrectPasswordPrompt];
+        
+        }
+
+    }
+    else if(![self checkPasswordFieldExsists]){
+
+            [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                  authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+
+            //create the password key
+            keychain[@"password"] = userPassword;
+            NSLog(@"password doesn't exsist\nwe SAVED it\ngoing to segue\n");
+            [self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+    
+    }
+
+}
+
+
+-(void)incorrectPasswordPrompt{
+
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Incorrect Password"
+                                                                   message: @"Incorrect password, please try again"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action) {
+
+                                                         [self alertWithPasswordEntry];
+                                                     }];
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:nil];
+    
+    [alert addAction: okAction];
+    [alert addAction: cancelAction];
+
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
 
 -(void)updateFaceMarker {
     
@@ -1006,6 +1198,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
     if (self.spinner.isAnimating) {
         [self.spinner removeFromSuperview];
+        self.spinner = nil;
         NSLog(@"spinner destoryed");
     }
 }

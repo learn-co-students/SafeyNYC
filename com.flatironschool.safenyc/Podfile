@@ -14,7 +14,7 @@ target 'com.flatironschool.safenyc' do
   pod 'VBPieChart', :git => 'https://github.com/rtaraboo/VBPieChart.git'
   pod 'THContactPicker', '~> 2.0'
   pod 'GraphKit', :git => 'https://github.com/rtaraboo/GraphKit.git'
-
+  pod 'UICKeyChainStore', '~> 2.1'
 
 end
 
