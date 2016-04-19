@@ -23,10 +23,21 @@
                     <navigationItem key="navigationItem" title="Emegency" id="nSo-gW-Xq7"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <segue destination="KP9-8r-NUw" kind="show" identifier="contactsInfoButton" id="f6E-hh-TCg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iL8-GH-z2d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1263" y="384"/>
+        </scene>
+        <!--buttonInfoStoryBoard-->
+        <scene sceneID="9cG-6k-MdN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="buttonInfoStoryBoard" id="KP9-8r-NUw" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NsM-nP-esW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1565.5" y="312"/>
         </scene>
     </scenes>
 </document>

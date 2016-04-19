@@ -7,6 +7,7 @@
 //
 
 #import "RUFIEmergencyViewController.h"
+#import "RUFITutorialViewController.h"
 #import <ContactsUI/ContactsUI.h>
 #import <Contacts/Contacts.h>
 #import <DKCircleButton/DKCircleButton.h>
@@ -60,7 +61,7 @@
 
 - (void)viewDidLoad {
     
-    self.messageString = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location";
+    self.messageString = [NSString stringWithFormat:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
     self.composeVC.body = self.messageString;
 
     [super viewDidLoad];
@@ -295,6 +296,25 @@
         
     } else if (button == self.infoButton){
         
+        RUFITutorialViewController * contributeViewController = [[RUFITutorialViewController alloc] init];
+        UIBlurEffect * blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
+        UIVisualEffectView *beView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        beView.frame = self.view.bounds;
+        
+        contributeViewController.view.frame = self.view.bounds;
+        contributeViewController.view.backgroundColor = [UIColor clearColor];
+        [contributeViewController.view insertSubview:beView atIndex:0];
+        contributeViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        
+        [self presentViewController:contributeViewController animated:YES completion:nil];
+
+//        RUFITutorialViewController *modalVC = [[RUFITutorialViewController alloc]init];
+//        [self presentViewController:modalVC animated:YES completion:nil];
+        
+        // commenting out the below method in a merge conflict
+//warning Commented out below method in merge with  Yuchi's branch
+        // [self performSegueWithIdentifier:@"contactsInfoButton" sender:nil];
+        
         //TODO: show the info about the emergency button
         //      - how to add friend
         //      - how to change the default message
@@ -500,14 +520,16 @@
     
     //BODY MESSAGE
     self.composeVC.body = self.messageString;
-    //self.composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location";
-    
+    //self.composeVC.body = [NSString stringWithFormat:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
+        
     NSLog(@"%f, %f", self.myCurrnetLatitude, self.myCurrnetLongitude);
-    BOOL addedAttachment = [self addLocationAttachmentToComposeViewController:self.composeVC displayName:@"My Location" location:CLLocationCoordinate2DMake(self.myCurrnetLongitude, self.myCurrnetLatitude)];
+//    BOOL addedAttachment = [self addLocationAttachmentToComposeViewController:self.composeVC displayName:@"My Location" location:CLLocationCoordinate2DMake(self.myCurrnetLongitude, self.myCurrnetLatitude)];
+//    
+//    if(!addedAttachment) {
+//        NSLog(@"Seems there was an issue adding the attachment :(");
+//    }
     
-    if(!addedAttachment) {
-        NSLog(@"Seems there was an issue adding the attachment :(");
-    }
+
     
     [self showViewController:self.composeVC sender:nil];
 

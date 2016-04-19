@@ -21,8 +21,7 @@
     
 //    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?type=police&location=%f,%f&radius=%@&key=%@", latitude, longitude, radius,GOOGLE_PLACES_API_KEY];
     
-    
-    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?name=%@&location=%f,%f&rankby=distance&key=%@",@"new+york+city+police+department",latitude, longitude, GOOGLE_PLACES_API_KEY];
+        NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?name=%@&location=%f,%f&rankby=distance&key=%@",@"police+department",latitude, longitude, GOOGLE_PLACES_API_KEY];
     
 //    NSLog(@"here's the get request: %@", urlString); 
     
@@ -33,16 +32,22 @@
 //        NSLog(@"lat: %f", latitude);
 //        NSLog(@"long: %f", longitude);
         NSArray *results = responseObject[@"results"];
-//        NSLog(@"and here are the results =======> : %@", results);
+        NSLog(@"and here are the results =======> : %@", results);
         
         completionBlock(results);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"here is the error object: %@", error);
         
+        //pass the error string from the completion block 
+        completionBlock(@[error.localizedDescription]);
+
+        
     }];
 
 
 }
+
+
 @end
 

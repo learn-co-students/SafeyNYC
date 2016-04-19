@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "emergencyx1.png",
+      "filename" : "ebx1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "emergencyx2.png",
+      "filename" : "ebx2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "emergencyx3.png",
+      "filename" : "ebx3.png",
       "scale" : "3x"
     }
   ],
