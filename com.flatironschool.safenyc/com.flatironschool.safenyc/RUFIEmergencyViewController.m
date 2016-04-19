@@ -7,7 +7,6 @@
 //
 
 #import "RUFIEmergencyViewController.h"
-#import "RUFIMessageSettingViewController.h"
 #import <ContactsUI/ContactsUI.h>
 #import <Contacts/Contacts.h>
 #import <DKCircleButton/DKCircleButton.h>
@@ -52,6 +51,7 @@
 @property (nonatomic) NSUInteger widthOfTheImage;
 @property (strong, nonatomic) NSString *messageString;
 @property (strong, nonatomic) UIView *defaultMessageChange;
+@property (strong, nonatomic) UIView *infoView;
 @property (strong, nonatomic) UITextView *messageTextView;
 
 @end
@@ -299,6 +299,7 @@
         //      - how to add friend
         //      - how to change the default message
         //      - can we delete contact???
+        [self showInfo];
         
     } else if (button == self.settingsButton){
         
@@ -358,7 +359,6 @@
     self.defaultMessageChange = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.emergencyImageView.frame.size.width, self.emergencyImageView.frame.size.width)];
     self.defaultMessageChange.layer.cornerRadius = 5;
     self.defaultMessageChange.backgroundColor = [UIColor whiteColor];
-    self.defaultMessageChange.alpha = 0.9;
     
     //Image Message
     UIImage *image = [UIImage imageNamed:@"message"];
@@ -379,14 +379,14 @@
     [UIView animateWithDuration:0.5 animations:^(void) {
         self.defaultMessageChange.alpha = 0;
         
-    [UIView transitionWithView:self.defaultMessageChange duration:3
-                       options:UIViewAnimationOptionTransitionFlipFromRight
-                    animations:^{
-                        [self.emergencyImageView addSubview:self.defaultMessageChange];
-                    }
-                    completion:^(BOOL finished){
-                        
-                    }];
+        [UIView transitionWithView:self.defaultMessageChange duration:3
+                           options:UIViewAnimationOptionTransitionFlipFromRight
+                        animations:^{
+                            [self.emergencyImageView addSubview:self.defaultMessageChange];
+                        }
+                        completion:^(BOOL finished){
+                            
+                        }];
         
         self.defaultMessageChange.alpha = 0.95;
     }];
@@ -430,6 +430,54 @@
     self.backButton.enabled = YES;
     self.infoButton.enabled = YES;
     self.settingsButton.enabled = YES;
+    
+}
+
+# pragma mark - Show Info
+-(void)showInfo {
+    self.infoView = [[UIView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width-40, self.view.frame.size.height-40)];
+    self.infoView.layer.cornerRadius = 5;
+    self.infoView.backgroundColor = [UIColor whiteColor];
+    [UIView animateWithDuration:0.5 animations:^(void) {
+        self.infoView.alpha = 0;
+        
+        [UIView transitionWithView:self.infoView duration:3
+                           options:UIViewAnimationOptionTransitionFlipFromRight
+                        animations:^{
+                            [self.view addSubview:self.infoView];
+                        }
+                        completion:^(BOOL finished){
+                            
+                        }];
+        
+        self.infoView.alpha = 0.8;
+    }];
+    self.backButton.enabled = NO;
+    self.infoButton.enabled = NO;
+    self.settingsButton.enabled = NO;
+    self.cancelButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.infoView.frame.size.width-60, 30, 50, 50)];
+    [self.infoView addSubview:self.cancelButton];
+    self.cancelButton.backgroundColor = [UIColor clearColor];
+    self.cancelButton.borderColor = [UIColor whiteColor];
+    UIImage *image = [UIImage new];
+    image = [UIImage imageNamed:@"back"];
+    [self.cancelButton setImage:image forState:UIControlStateNormal];
+    [self.cancelButton setContentMode:UIViewContentModeScaleAspectFill];
+    [self.cancelButton addTarget:self action:@selector(pressedCancelButton:) forControlEvents:UIControlEventTouchUpInside];
+
+}
+
+-(void)pressedCancelButton:(DKCircleButton *)button {
+    
+    button.animateTap = YES;
+    [UIView animateWithDuration:0.5 animations:^(void) {
+        self.infoView.alpha = 0.5;
+        self.infoView.alpha = 0;
+    }];
+    self.backButton.enabled = YES;
+    self.infoButton.enabled = YES;
+    self.settingsButton.enabled = YES;
+    
 }
 
 # pragma mark - Message
