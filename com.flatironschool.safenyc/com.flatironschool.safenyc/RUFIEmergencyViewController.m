@@ -282,8 +282,8 @@
 //        [self presentViewController:modalVC animated:YES completion:nil];
         
         // commenting out the below method in a merge conflict
-#warning Commented out below method in merge with Yuchi's branch
-               // [self performSegueWithIdentifier:@"contactsInfoButton" sender:nil];
+//warning Commented out below method in merge with  Yuchi's branch
+        // [self performSegueWithIdentifier:@"contactsInfoButton" sender:nil];
         
         //TODO: show the info about the emergency button
         //      - how to add friend
