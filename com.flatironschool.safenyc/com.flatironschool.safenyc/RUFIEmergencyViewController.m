@@ -30,6 +30,7 @@
 @property (strong, nonatomic) DKCircleButton *infoButton;
 @property (strong, nonatomic) DKCircleButton *settingsButton;
 @property (strong, nonatomic) DKCircleButton *cancelButton;
+@property (strong, nonatomic) DKCircleButton *cancelChanegeMsgButton;
 @property (strong, nonatomic) DKCircleButton *okButton;
 
 @property (strong, nonatomic) Contact *contact1;
@@ -108,7 +109,6 @@
         }
     }
 }
-
 
 -(void)setContact1:(Contact *)contact1{
     _contact1 = contact1;
@@ -295,7 +295,8 @@
         [self dismissViewControllerAnimated:YES completion:nil];
         
     } else if (button == self.infoButton){
-        
+       
+        /*
         RUFITutorialViewController * contributeViewController = [[RUFITutorialViewController alloc] init];
         UIBlurEffect * blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
         UIVisualEffectView *beView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
@@ -306,7 +307,7 @@
         [contributeViewController.view insertSubview:beView atIndex:0];
         contributeViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         
-        [self presentViewController:contributeViewController animated:YES completion:nil];
+        [self presentViewController:contributeViewController animated:YES completion:nil];*/
 
 //        RUFITutorialViewController *modalVC = [[RUFITutorialViewController alloc]init];
 //        [self presentViewController:modalVC animated:YES completion:nil];
@@ -387,13 +388,14 @@
     [self.defaultMessageChange addSubview:imageView];
     
     //Text View Default Message
-    self.messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 100, self.defaultMessageChange.frame.size.width-80, 120)];
+    self.messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 100, self.defaultMessageChange.frame.size.width-80, 180)];
     self.messageTextView.text= self.messageString;
     self.messageTextView.backgroundColor = [UIColor whiteColor];
     self.messageTextView.alpha = 1;
     self.messageTextView.layer.borderWidth = 1;
     self.messageTextView.layer.borderColor = [[[UIColor grayColor]colorWithAlphaComponent:0.5]CGColor];
     self.messageTextView.layer.cornerRadius = 5;
+    [self.messageTextView setFont:[UIFont systemFontOfSize:17]];
     [self.defaultMessageChange addSubview:self.messageTextView];
     
     [UIView animateWithDuration:0.5 animations:^(void) {
@@ -413,13 +415,13 @@
 
     self.backButton.enabled = NO;
     self.infoButton.enabled = NO;
-    self.settingsButton.enabled = NO;
+    self.settingsButton.hidden = YES;
     
     [self.messageTextView becomeFirstResponder];
     
-    self.cancelButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.emergencyImageView.frame.size.height-50, 100, 50, 50)];
+    self.cancelChanegeMsgButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.emergencyImageView.frame.size.height-50, 100, 50, 50)];
     self.okButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.emergencyImageView.frame.size.height-50, 160, 50, 50)];
-    NSArray *buttons = @[self.cancelButton, self.okButton];
+    NSArray *buttons = @[self.cancelChanegeMsgButton, self.okButton];
     for(DKCircleButton *button in buttons){
         [self.defaultMessageChange addSubview:button];
         button.backgroundColor = [UIColor clearColor];
@@ -449,13 +451,13 @@
     }];
     self.backButton.enabled = YES;
     self.infoButton.enabled = YES;
-    self.settingsButton.enabled = YES;
+    self.settingsButton.hidden = NO;
     
 }
 
 # pragma mark - Show Info
 -(void)showInfo {
-    self.infoView = [[UIView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width-40, self.view.frame.size.height-40)];
+    self.infoView = [[UIView alloc] initWithFrame:CGRectMake(10, 20, self.view.frame.size.width-20, self.view.frame.size.height-40)];
     self.infoView.layer.cornerRadius = 5;
     self.infoView.backgroundColor = [UIColor whiteColor];
     [UIView animateWithDuration:0.5 animations:^(void) {
@@ -541,7 +543,7 @@
         picker.delegate = self;
         picker.predicateForEnablingContact = [NSPredicate predicateWithFormat:@"phoneNumbers.@count > 0"];
         [self presentViewController:picker animated:YES completion:nil];
-        //picker.displayedPropertyKeys = @[@[CNContactImageDataKey], @[CNContactGivenNameKey], @[CNContactFamilyNameKey], @[CNLabelPhoneNumberMain]];
+
 }
 
 #pragma mark - Contact Picker
@@ -614,7 +616,7 @@
     [UIView animateWithDuration:0.3f animations:^{
         
        if (isPortrait){
-            
+           NSLog(@"Portrait mode");
            self.backgroundImage.frame = CGRectMake(0, 0, self.widthOfTheScreen, self.heightOfTheScreen);
            if (self.isSix & isPortrait ){
               
@@ -635,6 +637,8 @@
            self.backButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
            self.infoButton.frame = CGRectMake(self.widthOfTheScreen-60, 90, 50, 50);
            self.settingsButton.frame = CGRectMake(self.widthOfTheScreen-60, 150, 50, 50);
+           self.infoView.frame = CGRectMake(10, 20, self.widthOfTheScreen-20, self.heightOfTheScreen-40);
+           self.cancelButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
             
         } else if (isLandscape) {
             
@@ -658,6 +662,8 @@
             self.backButton.frame = CGRectMake(self.heightOfTheScreen-60, 30, 50, 50);
             self.infoButton.frame = CGRectMake(self.heightOfTheScreen-60, 90, 50, 50);
             self.settingsButton.frame = CGRectMake(self.heightOfTheScreen-60, 150, 50, 50);
+            self.infoView.frame = CGRectMake(10, 20, self.heightOfTheScreen-20, self.widthOfTheScreen-40);
+            self.cancelButton.frame = CGRectMake(self.heightOfTheScreen-80, 30, 50, 50);
         
         }
         [self.view layoutIfNeeded];
