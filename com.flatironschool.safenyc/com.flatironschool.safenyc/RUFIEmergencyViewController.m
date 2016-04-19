@@ -295,7 +295,8 @@
         [self dismissViewControllerAnimated:YES completion:nil];
         
     } else if (button == self.infoButton){
-        
+       
+        /*
         RUFITutorialViewController * contributeViewController = [[RUFITutorialViewController alloc] init];
         UIBlurEffect * blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
         UIVisualEffectView *beView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
@@ -306,7 +307,7 @@
         [contributeViewController.view insertSubview:beView atIndex:0];
         contributeViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         
-        [self presentViewController:contributeViewController animated:YES completion:nil];
+        [self presentViewController:contributeViewController animated:YES completion:nil];*/
 
 //        RUFITutorialViewController *modalVC = [[RUFITutorialViewController alloc]init];
 //        [self presentViewController:modalVC animated:YES completion:nil];
@@ -455,7 +456,7 @@
 
 # pragma mark - Show Info
 -(void)showInfo {
-    self.infoView = [[UIView alloc] initWithFrame:CGRectMake(20, 20, self.view.frame.size.width-40, self.view.frame.size.height-40)];
+    self.infoView = [[UIView alloc] initWithFrame:CGRectMake(10, 20, self.view.frame.size.width-20, self.view.frame.size.height-40)];
     self.infoView.layer.cornerRadius = 5;
     self.infoView.backgroundColor = [UIColor whiteColor];
     [UIView animateWithDuration:0.5 animations:^(void) {
@@ -614,7 +615,7 @@
     [UIView animateWithDuration:0.3f animations:^{
         
        if (isPortrait){
-            
+           NSLog(@"Portrait mode");
            self.backgroundImage.frame = CGRectMake(0, 0, self.widthOfTheScreen, self.heightOfTheScreen);
            if (self.isSix & isPortrait ){
               
@@ -635,6 +636,10 @@
            self.backButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
            self.infoButton.frame = CGRectMake(self.widthOfTheScreen-60, 90, 50, 50);
            self.settingsButton.frame = CGRectMake(self.widthOfTheScreen-60, 150, 50, 50);
+           
+           //NSLog(@"View frame: %lu, %lu", self.view.frame.size.width-20, self.view.frame.size.height-40);
+           self.infoView.frame = CGRectMake(10, 20, self.widthOfTheScreen-20, self.heightOfTheScreen-40);
+           self.cancelButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
             
         } else if (isLandscape) {
             
@@ -658,6 +663,8 @@
             self.backButton.frame = CGRectMake(self.heightOfTheScreen-60, 30, 50, 50);
             self.infoButton.frame = CGRectMake(self.heightOfTheScreen-60, 90, 50, 50);
             self.settingsButton.frame = CGRectMake(self.heightOfTheScreen-60, 150, 50, 50);
+            self.infoView.frame = CGRectMake(10, 20, self.heightOfTheScreen-20, self.widthOfTheScreen-40);
+            self.cancelButton.frame = CGRectMake(self.heightOfTheScreen-80, 30, 50, 50);
         
         }
         [self.view layoutIfNeeded];
