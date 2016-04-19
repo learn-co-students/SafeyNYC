@@ -7,6 +7,7 @@
 //
 
 #import "RUFIEmergencyViewController.h"
+#import "RUFIMessageSettingViewController.h"
 #import <ContactsUI/ContactsUI.h>
 #import <Contacts/Contacts.h>
 #import <DKCircleButton/DKCircleButton.h>
@@ -28,7 +29,8 @@
 @property (strong, nonatomic) DKCircleButton *backButton;
 @property (strong, nonatomic) DKCircleButton *infoButton;
 @property (strong, nonatomic) DKCircleButton *settingsButton;
-//@property (strong, nonatomic) UITextField *holdUntillTextField;
+@property (strong, nonatomic) DKCircleButton *cancelButton;
+@property (strong, nonatomic) DKCircleButton *okButton;
 
 @property (strong, nonatomic) Contact *contact1;
 @property (strong, nonatomic) Contact *contact2;
@@ -48,12 +50,18 @@
 @property (strong, nonatomic) NSArray *recipients;
 @property (nonatomic) BOOL isSix;
 @property (nonatomic) NSUInteger widthOfTheImage;
+@property (strong, nonatomic) NSString *messageString;
+@property (strong, nonatomic) UIView *defaultMessageChange;
+@property (strong, nonatomic) UITextView *messageTextView;
 
 @end
 
 @implementation RUFIEmergencyViewController
 
 - (void)viewDidLoad {
+    
+    self.messageString = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location";
+    self.composeVC.body = self.messageString;
 
     [super viewDidLoad];
     [self displayViewBackground];
@@ -285,12 +293,16 @@
         
         [self dismissViewControllerAnimated:YES completion:nil];
         
-    }else if (button == self.infoButton){
+    } else if (button == self.infoButton){
         
         //TODO: show the info about the emergency button
         //      - how to add friend
         //      - how to change the default message
         //      - can we delete contact???
+        
+    } else if (button == self.settingsButton){
+        
+        [self changeDeafaultMessage];
         
     } else {
         
@@ -340,6 +352,86 @@
     }
 }
 
+# pragma mark - Change the message view
+-(void)changeDeafaultMessage{
+   
+    self.defaultMessageChange = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.emergencyImageView.frame.size.width, self.emergencyImageView.frame.size.width)];
+    self.defaultMessageChange.layer.cornerRadius = 5;
+    self.defaultMessageChange.backgroundColor = [UIColor whiteColor];
+    self.defaultMessageChange.alpha = 0.9;
+    
+    //Image Message
+    UIImage *image = [UIImage imageNamed:@"message"];
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
+    imageView.frame = CGRectMake(0, 0, self.defaultMessageChange.frame.size.width, 80);
+    [self.defaultMessageChange addSubview:imageView];
+    
+    //Text View Default Message
+    self.messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 100, self.defaultMessageChange.frame.size.width-80, 120)];
+    self.messageTextView.text= self.messageString;
+    self.messageTextView.backgroundColor = [UIColor whiteColor];
+    self.messageTextView.alpha = 1;
+    self.messageTextView.layer.borderWidth = 1;
+    self.messageTextView.layer.borderColor = [[[UIColor grayColor]colorWithAlphaComponent:0.5]CGColor];
+    self.messageTextView.layer.cornerRadius = 5;
+    [self.defaultMessageChange addSubview:self.messageTextView];
+    
+    [UIView animateWithDuration:0.5 animations:^(void) {
+        self.defaultMessageChange.alpha = 0;
+        
+    [UIView transitionWithView:self.defaultMessageChange duration:3
+                       options:UIViewAnimationOptionTransitionFlipFromRight
+                    animations:^{
+                        [self.emergencyImageView addSubview:self.defaultMessageChange];
+                    }
+                    completion:^(BOOL finished){
+                        
+                    }];
+        
+        self.defaultMessageChange.alpha = 0.95;
+    }];
+
+    self.backButton.enabled = NO;
+    self.infoButton.enabled = NO;
+    self.settingsButton.enabled = NO;
+    
+    [self.messageTextView becomeFirstResponder];
+    
+    self.cancelButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.emergencyImageView.frame.size.height-50, 100, 50, 50)];
+    self.okButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.emergencyImageView.frame.size.height-50, 160, 50, 50)];
+    NSArray *buttons = @[self.cancelButton, self.okButton];
+    for(DKCircleButton *button in buttons){
+        [self.defaultMessageChange addSubview:button];
+        button.backgroundColor = [UIColor clearColor];
+        button.borderColor = [UIColor whiteColor];
+        UIImage *image = [UIImage new];
+        if(button == self.okButton){
+            image = [UIImage imageNamed:@"ok"];
+        } else {
+            image = [UIImage imageNamed:@"back"];
+        }
+        [button setImage:image forState:UIControlStateNormal];
+        [button setContentMode:UIViewContentModeScaleAspectFill];
+        [button addTarget:self action:@selector(pressedButtonInMessageSettings:) forControlEvents:UIControlEventTouchUpInside];
+    }
+}
+
+-(void)pressedButtonInMessageSettings:(DKCircleButton *)button {
+    
+    button.animateTap = YES;
+    if(button == self.okButton) {
+        self.messageString = self.messageTextView.text;
+        NSLog(@"Message was updated: %@", self.messageString);
+    }
+    [UIView animateWithDuration:0.5 animations:^(void) {
+        self.defaultMessageChange.alpha = 1;
+        self.defaultMessageChange.alpha = 0;
+    }];
+    self.backButton.enabled = YES;
+    self.infoButton.enabled = YES;
+    self.settingsButton.enabled = YES;
+}
+
 # pragma mark - Message
 -(void) emergencyMessage{
     
@@ -359,8 +451,8 @@
     self.composeVC.recipients = self.recipients;
     
     //BODY MESSAGE
-    
-    self.composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location";
+    self.composeVC.body = self.messageString;
+    //self.composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location";
     
     NSLog(@"%f, %f", self.myCurrnetLatitude, self.myCurrnetLongitude);
     BOOL addedAttachment = [self addLocationAttachmentToComposeViewController:self.composeVC displayName:@"My Location" location:CLLocationCoordinate2DMake(self.myCurrnetLongitude, self.myCurrnetLatitude)];
@@ -443,14 +535,6 @@
     }
 }
 
-/*
--(void) displayHoldUntillTextField {
-    self.holdUntillTextField = [[UITextField alloc] initWithFrame:CGRectMake(self.widthOfTheScreen/2-150, 80, 300, 20)];
-    [self.view addSubview:self.holdUntillTextField];
-    self.holdUntillTextField.text = @"Hold Red Button Untill Safe!";
-    self.holdUntillTextField.font = [UIFont systemFontOfSize:22];
-}*/
-
 
 #pragma mark - Transition to Size
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
@@ -481,7 +565,6 @@
            self.backButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
            self.infoButton.frame = CGRectMake(self.widthOfTheScreen-60, 90, 50, 50);
            self.settingsButton.frame = CGRectMake(self.widthOfTheScreen-60, 150, 50, 50);
-            //self.holdUntillTextField.frame = CGRectMake(self.widthOfTheScreen/2-150, 80, 300, 20);
             
         } else if (isLandscape) {
             
@@ -505,16 +588,15 @@
             self.backButton.frame = CGRectMake(self.heightOfTheScreen-60, 30, 50, 50);
             self.infoButton.frame = CGRectMake(self.heightOfTheScreen-60, 90, 50, 50);
             self.settingsButton.frame = CGRectMake(self.heightOfTheScreen-60, 150, 50, 50);
-            //self.holdUntillTextField.frame = CGRectMake(10, self.widthOfTheScreen-30, 300, 20);
-
+        
         }
         [self.view layoutIfNeeded];
     }];
 }
 
 # pragma mark - Emergency Button -> MESSAGE
--(BOOL)addLocationAttachmentToComposeViewController:(MFMessageComposeViewController *)composeVC displayName:(NSString *)displayName location:(CLLocationCoordinate2D)location
-{
+-(BOOL)addLocationAttachmentToComposeViewController:(MFMessageComposeViewController *)composeVC displayName:(NSString *)displayName location:(CLLocationCoordinate2D)location {
+    
     NSURL *templateURL = [[NSBundle mainBundle] URLForResource:@"location_template" withExtension:@"loc.vcf"];
     
     NSError *error = nil;
@@ -531,8 +613,7 @@
     [template replaceOccurrencesOfString:@"$displayname$" withString:displayName options:0 range:NSMakeRange(0, template.length)];
     [template replaceOccurrencesOfString:@"$lat$" withString:latString options:0 range:NSMakeRange(0, template.length)];
     [template replaceOccurrencesOfString:@"$long$" withString:longString options:0 range:NSMakeRange(0, template.length)];
-    
-    
+
     NSData *vcardData = [template dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     NSString *filename = [NSString stringWithFormat:@"%@.loc.vcf", displayName];
     return [composeVC addAttachmentData:vcardData typeIdentifier:(NSString *)kUTTypeVCard filename:filename];

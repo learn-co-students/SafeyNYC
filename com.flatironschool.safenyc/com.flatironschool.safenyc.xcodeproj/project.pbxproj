@@ -35,6 +35,8 @@
 		A7FC9AE31CBC540A00DCE76B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7FC9AE21CBC540A00DCE76B /* CoreData.framework */; };
 		A7FFEC2B1CBE92BC00C18FD6 /* Contact+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FFEC281CBE92BC00C18FD6 /* Contact+CoreDataProperties.m */; };
 		A7FFEC2C1CBE92BC00C18FD6 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FFEC2A1CBE92BC00C18FD6 /* Contact.m */; };
+		A7FFEC2E1CC524F900C18FD6 /* RUFIMessageSettings.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7FFEC2D1CC524F900C18FD6 /* RUFIMessageSettings.xib */; };
+		A7FFEC311CC52A3200C18FD6 /* RUFIMessageSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FFEC301CC52A3200C18FD6 /* RUFIMessageSettingViewController.m */; };
 		C28C689C1CBC20FF003BAA2A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C28C689B1CBC20FF003BAA2A /* Default-568h@2x.png */; };
 		C2AEB5E81CB8281D00D6C055 /* YuchiStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */; };
 		C2D0AD521CB8418C00C96C57 /* PoliceDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D0AD4D1CB8418C00C96C57 /* PoliceDataStore.m */; };
@@ -112,6 +114,9 @@
 		A7FFEC281CBE92BC00C18FD6 /* Contact+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Contact+CoreDataProperties.m"; sourceTree = "<group>"; };
 		A7FFEC291CBE92BC00C18FD6 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		A7FFEC2A1CBE92BC00C18FD6 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		A7FFEC2D1CC524F900C18FD6 /* RUFIMessageSettings.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RUFIMessageSettings.xib; sourceTree = "<group>"; };
+		A7FFEC2F1CC52A3200C18FD6 /* RUFIMessageSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIMessageSettingViewController.h; sourceTree = "<group>"; };
+		A7FFEC301CC52A3200C18FD6 /* RUFIMessageSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIMessageSettingViewController.m; sourceTree = "<group>"; };
 		C28C689B1CBC20FF003BAA2A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = YuchiStoryboard.storyboard; sourceTree = "<group>"; };
 		C2D0AD4C1CB8418C00C96C57 /* PoliceDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceDataStore.h; sourceTree = "<group>"; };
@@ -225,6 +230,9 @@
 				A707E4D11CAB0239002F37C5 /* Settings.storyboard */,
 				A726002F1CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard */,
 				730665511CAD88B100FBB7DA /* rosarioStoryboard.storyboard */,
+				A7FFEC2D1CC524F900C18FD6 /* RUFIMessageSettings.xib */,
+				A7FFEC2F1CC52A3200C18FD6 /* RUFIMessageSettingViewController.h */,
+				A7FFEC301CC52A3200C18FD6 /* RUFIMessageSettingViewController.m */,
 				7361C9DC1CBC168F00F69CC3 /* RUFIDefinitionsViewController.h */,
 				7361C9DD1CBC168F00F69CC3 /* RUFIDefinitionsViewController.m */,
 				C2AEB5E71CB8281D00D6C055 /* YuchiStoryboard.storyboard */,
@@ -388,6 +396,7 @@
 				7361C9E01CBD643900F69CC3 /* introStoryboard.storyboard in Resources */,
 				C2D936811CB4693F00D109C6 /* location_template.loc.vcf in Resources */,
 				A707E4DB1CAB0239002F37C5 /* LaunchScreen.storyboard in Resources */,
+				A7FFEC2E1CC524F900C18FD6 /* RUFIMessageSettings.xib in Resources */,
 				C28C689C1CBC20FF003BAA2A /* Default-568h@2x.png in Resources */,
 				C2AEB5E81CB8281D00D6C055 /* YuchiStoryboard.storyboard in Resources */,
 				A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */,
@@ -476,6 +485,7 @@
 				A72600361CB1E216001D9D0F /* RUFISettingsViewController.m in Sources */,
 				730665441CAD57C900FBB7DA /* PieChartDataViewController.m in Sources */,
 				C2D0AD531CB8418C00C96C57 /* PoliceLocation.m in Sources */,
+				A7FFEC311CC52A3200C18FD6 /* RUFIMessageSettingViewController.m in Sources */,
 				C2D0AD541CB8418C00C96C57 /* PoliceLocatorAPI.m in Sources */,
 				A707E4CA1CAB0239002F37C5 /* main.m in Sources */,
 				C2D9367A1CB4691000D109C6 /* RUFIConstants.m in Sources */,
