@@ -85,19 +85,13 @@
 -(void)viewDidAppear:(BOOL)animated{
 
     [super viewDidAppear:YES];
-
-        if (self.datastore.settingsChanged){
-            
-            [self disableAllButtons];
-            
-            [self updateMapAfterSetttingsChange];
-        }
-
-
     
-//    [self updateCurrentMap];
+    if (self.datastore.settingsChanged){
+        
+        [self disableAllButtons];
     
-//    [self animateMap];
+        [self updateMapAfterSetttingsChange];
+    }
 
 }
 
