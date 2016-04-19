@@ -15,6 +15,8 @@
 #import "RUFIEmergencyViewController.h"
 #import <UICKeyChainStore/UICKeyChainStore.h>
 #import <GoogleMaps/GoogleMaps.h>
+#import "Utils.h"
+
 
 @import GoogleMaps;
 @interface ViewController : UIViewController<CLLocationManagerDelegate, GMSMapViewDelegate>

@@ -45,6 +45,7 @@
 		C2D0AD531CB8418C00C96C57 /* PoliceLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D0AD4F1CB8418C00C96C57 /* PoliceLocation.m */; };
 		C2D0AD541CB8418C00C96C57 /* PoliceLocatorAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D0AD511CB8418C00C96C57 /* PoliceLocatorAPI.m */; };
 		C2D936811CB4693F00D109C6 /* location_template.loc.vcf in Resources */ = {isa = PBXBuildFile; fileRef = C2D936801CB4693F00D109C6 /* location_template.loc.vcf */; };
+		EB1177271CC566500003A7D6 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EB1177261CC566500003A7D6 /* Utils.m */; };
 		EB55C3C11CAB1F460020C1CD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +131,8 @@
 		C2D0AD501CB8418C00C96C57 /* PoliceLocatorAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoliceLocatorAPI.h; sourceTree = "<group>"; };
 		C2D0AD511CB8418C00C96C57 /* PoliceLocatorAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoliceLocatorAPI.m; sourceTree = "<group>"; };
 		C2D936801CB4693F00D109C6 /* location_template.loc.vcf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = location_template.loc.vcf; sourceTree = "<group>"; };
+		EB1177251CC566500003A7D6 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		EB1177261CC566500003A7D6 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		EB55C3C01CAB1F460020C1CD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -207,6 +210,8 @@
 			children = (
 				A707E4CE1CAB0239002F37C5 /* ViewController.h */,
 				A707E4CF1CAB0239002F37C5 /* ViewController.m */,
+				EB1177251CC566500003A7D6 /* Utils.h */,
+				EB1177261CC566500003A7D6 /* Utils.m */,
 				C2D0AD4C1CB8418C00C96C57 /* PoliceDataStore.h */,
 				C2D0AD4D1CB8418C00C96C57 /* PoliceDataStore.m */,
 				C2D0AD4E1CB8418C00C96C57 /* PoliceLocation.h */,
@@ -482,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A707E4D61CAB0239002F37C5 /* com_flatironschool_safenyc.xcdatamodeld in Sources */,
+				EB1177271CC566500003A7D6 /* Utils.m in Sources */,
 				A707E4D01CAB0239002F37C5 /* ViewController.m in Sources */,
 				A7FC9AD81CBC2C9E00DCE76B /* RUFIContact.xcdatamodeld in Sources */,
 				A7FC9AE11CBC485500DCE76B /* RUFIContactStore.m in Sources */,
