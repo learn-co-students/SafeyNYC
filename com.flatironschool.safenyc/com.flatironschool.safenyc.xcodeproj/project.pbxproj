@@ -208,6 +208,8 @@
 		A707E4C71CAB0239002F37C5 /* com.flatironschool.safenyc */ = {
 			isa = PBXGroup;
 			children = (
+				A707E4CB1CAB0239002F37C5 /* AppDelegate.h */,
+				A707E4CC1CAB0239002F37C5 /* AppDelegate.m */,
 				A707E4CE1CAB0239002F37C5 /* ViewController.h */,
 				A707E4CF1CAB0239002F37C5 /* ViewController.m */,
 				EB1177251CC566500003A7D6 /* Utils.h */,
@@ -218,8 +220,6 @@
 				C2D0AD4F1CB8418C00C96C57 /* PoliceLocation.m */,
 				C2D0AD501CB8418C00C96C57 /* PoliceLocatorAPI.h */,
 				C2D0AD511CB8418C00C96C57 /* PoliceLocatorAPI.m */,
-				A707E4CB1CAB0239002F37C5 /* AppDelegate.h */,
-				A707E4CC1CAB0239002F37C5 /* AppDelegate.m */,
 				A707E4FE1CAB02FE002F37C5 /* RUFIConstants.h */,
 				C2C785811CC51BCD0092EEE7 /* RUFIConstants.m */,
 				732269761CAC129E00FCBAB1 /* RUFICrimes.h */,

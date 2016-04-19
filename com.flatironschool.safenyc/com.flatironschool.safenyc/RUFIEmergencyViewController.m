@@ -50,12 +50,14 @@
 @property (strong, nonatomic) NSArray *localContacts;
 @property (strong, nonatomic) NSArray *recipients;
 @property (nonatomic) BOOL isSix;
+@property (nonatomic) BOOL isSmallPhone;
 @property (nonatomic) NSUInteger widthOfTheImage;
 @property (strong, nonatomic) NSString *messageString;
+@property (strong, nonatomic) NSString *fullString;
 @property (strong, nonatomic) UIView *defaultMessageChange;
 @property (strong, nonatomic) UIView *infoView;
 @property (strong, nonatomic) UITextView *messageTextView;
-@property (nonatomic) BOOL addLocation;
+@property (nonatomic) BOOL isLocationAttached;
 @property (strong, nonatomic) UIButton *checkbox;
 
 @end
@@ -64,8 +66,11 @@
 
 - (void)viewDidLoad {
     
-    self.addLocation = YES;
-    self.messageString = [NSString stringWithFormat:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me."];
+    //self.addLocation = YES;
+    self.messageString = [[NSUserDefaults standardUserDefaults] objectForKey:@"textMessage"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me." forKey:@"textMessage"];
+    //self.messageString = [NSString stringWithFormat:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me."];
+    self.isLocationAttached= [[NSUserDefaults standardUserDefaults] objectForKey:@"textMessage"];
     self.composeVC.body = self.messageString;
 
     [super viewDidLoad];
@@ -190,11 +195,18 @@
     self.widthOfTheScreen = self.view.frame.size.width;
     self.heightOfTheScreen = self.view.frame.size.height;
     self.widthOfTheImage = 375;
-    if(self.view.frame.size.width <= 375){
+    if(self.view.frame.size.width == 375){
         self.isSix = NO;
+        self.isSmallPhone =NO;
         self.emergencyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, self.widthOfTheScreen/2-45, self.widthOfTheImage-20, self.widthOfTheImage-20)];
-    } else {
+    } else if (self.view.frame.size.width < 375){
+        self.isSix = NO;
+        self.isSmallPhone = YES;
+        self.widthOfTheImage = 320;
+        self.emergencyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, self.widthOfTheScreen/2-45, self.widthOfTheImage-20, self.widthOfTheImage-20)];
+    }else {
         self.isSix = YES;
+        self.isSmallPhone =NO;
         self.emergencyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, self.widthOfTheScreen/2-45, self.widthOfTheImage-40, self.widthOfTheImage-40)];
     }
     [self.view addSubview:self.emergencyImageView];
@@ -221,6 +233,16 @@
         self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-166, self.widthOfTheImage-144, 86, 86)];
         self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(39, self.widthOfTheImage-144, 86, 86)];
         self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(-2, self.widthOfTheImage/2-63, 86, 86)];
+
+    } else if (self.isSmallPhone){
+        
+        self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage/2-72, self.widthOfTheImage/2-72, 120, 120)];
+        self.person1 = [[DKCircleButton alloc] initWithFrame:CGRectMake(35, 16, 76, 76)];
+        self.person2 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-132, 16, 76, 76)];
+        self.person3 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-95, self.widthOfTheImage/2-49, 76, 76)];
+        self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-133, self.widthOfTheImage-112, 76, 76)];
+        self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(35, self.widthOfTheImage-112, 76, 76)];
+        self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(-2, self.widthOfTheImage/2-49, 76, 76)];
 
     } else {
         self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage/2-80, self.widthOfTheImage/2-80, 140, 140)];
@@ -377,7 +399,7 @@
     }
 }
 
-# pragma mark - Change default message view 
+# pragma mark - Change default message view
 -(void)changeDeafaultMessage{
    
     self.defaultMessageChange = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.emergencyImageView.frame.size.width, self.emergencyImageView.frame.size.width)];
@@ -467,8 +489,12 @@
 }
 
 -(void)pressedCheckBox:(id)sender {
-    self.addLocation = !self.addLocation; /* Toggle */
-    [self.checkbox setSelected:self.addLocation];
+    if(self.isLocationAttached){
+        self.isLocationAttached = NO;
+    } else {
+        self.isLocationAttached = YES;
+    }
+    [self.checkbox setSelected:self.isLocationAttached];
 }
 
 -(void)pressedButtonInMessageSettings:(DKCircleButton *)button {
@@ -536,7 +562,7 @@
     
 }
 
-# pragma mark - Message
+# pragma mark - Send Message
 -(void) emergencyMessage{
     
     if(![MFMessageComposeViewController canSendText]) {
@@ -555,14 +581,15 @@
     self.composeVC.recipients = self.recipients;
     
     //BODY MESSAGE
-    
-    if(self.addLocation){
-        NSString *myLocation = [NSString stringWithFormat:@"My location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
-        self.messageString = [self.messageString stringByAppendingString:myLocation];
+    NSString *myLocation = [NSString stringWithFormat:@"My location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
+    if(self.isLocationAttached){
+        self.fullString = [self.messageString stringByAppendingString:myLocation];
+    } else {
+        self.fullString = self.messageString;
     }
     
     
-    self.composeVC.body = self.messageString;
+    self.composeVC.body = self.fullString;
     //self.composeVC.body = [NSString stringWithFormat:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me. this is my location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
         
     NSLog(@"%f, %f", self.myCurrnetLatitude, self.myCurrnetLongitude);
@@ -667,7 +694,7 @@
                self.person4.frame = CGRectMake(self.widthOfTheImage-152, self.widthOfTheImage-128, 88, 88);
                self.person5.frame = CGRectMake(43, self.widthOfTheImage-128, 88, 88);
                self.person6.frame = CGRectMake(-2, self.widthOfTheImage/2-55, 88, 88);
-           
+        
            } else {
               
                self.emergencyImageView.frame = CGRectMake(10, self.widthOfTheImage/2-45, self.widthOfTheImage-20, self.widthOfTheImage-20);
