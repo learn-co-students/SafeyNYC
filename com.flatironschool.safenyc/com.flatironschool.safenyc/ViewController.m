@@ -411,7 +411,23 @@
 
 - (NSString *)getLocationErrorDescription:(INTULocationStatus)status
 {
-    
+
+//    INTULocationStatusSuccess = 0,
+//    /** Got a location, but the desired accuracy level was not reached before timeout. (Not applicable to subscriptions.) */
+//    INTULocationStatusTimedOut,
+//    
+//    // These statuses indicate some sort of error, and will accompany a nil location.
+//    /** User has not yet responded to the dialog that grants this app permission to access location services. */
+//    INTULocationStatusServicesNotDetermined,
+//    /** User has explicitly denied this app permission to access location services. */
+//    INTULocationStatusServicesDenied,
+//    /** User does not have ability to enable location services (e.g. parental controls, corporate policy, etc). */
+//    INTULocationStatusServicesRestricted,
+//    /** User has turned off location services device-wide (for all apps) from the system Settings app. */
+//    INTULocationStatusServicesDisabled,
+//    /** An error occurred while using the system location services. */
+//    INTULocationStatusError
+//    
     if (status == INTULocationStatusServicesNotDetermined) {
         return @"User has not responded to the permissions alert.";
     }
@@ -424,6 +440,10 @@
     if (status == INTULocationStatusServicesDisabled) {
         return @"Location services are turned off for all apps on this device.\nGo to settings > Privacy > Location Services and switch on";
     }
+    if (status == INTULocationStatusError) {
+        return @"An error occured while using your devices location services.\nPlease check your location services.\nGo to settings > Privacy > Location Services and switch on";
+    }
+    
     return @"An unknown error occurred. Please make sure you have internet enabled.";
 }
 
@@ -454,6 +474,10 @@
         }
         else if(status == INTULocationStatusServicesNotDetermined || !self.mapView){
         
+            block(NO);
+        }
+        else if(status == INTULocationStatusError){
+            
             block(NO);
         }
         else{
