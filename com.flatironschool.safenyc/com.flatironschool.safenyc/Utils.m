@@ -13,7 +13,7 @@
 + (BOOL)isNetworkAvailable
 {
     CFNetDiagnosticRef dReference;
-    dReference = CFNetDiagnosticCreateWithURL (NULL, (__bridge CFURLRef)[NSURL URLWithString:@"www.apple.com"]);
+    dReference = CFNetDiagnosticCreateWithURL (kCFAllocatorDefault, (__bridge CFURLRef)[NSURL URLWithString:@"www.apple.com"]);
     
     CFNetDiagnosticStatus status;
     status = CFNetDiagnosticCopyNetworkStatusPassively (dReference, NULL);

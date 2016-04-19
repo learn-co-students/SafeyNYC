@@ -209,8 +209,7 @@
             }
             
             else if (self.searchLocation) {
-                
-                
+
                 NSLog(@"\n\n\n\n\n\n\n\n\nSEARCH ACTIVE\n\n\n\n\n\n\n\n\n");
                 
                 [self disableAllButtons];
@@ -234,9 +233,7 @@
             }
             
         } else if (button == self.policeMapButton){
-            
-            
-            
+  
             NSLog(@"BUTTON TAPPED");
             [self disableAllButtons];
             
@@ -247,14 +244,16 @@
             self.dissmissPoliceMapButton.hidden = NO;
             
             
-        } else if (button == self.emergencyButton){
-            
+        }
+            else if (button == self.emergencyButton){
+
             NSLog(@"BUTTON TAPPED");
             
             [self checkForFingerPrint];
             //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
             
-        } else if (button == self.pieChartButton){
+        }
+        else if (button == self.pieChartButton){
             NSLog(@"BUTTON TAPPED");
             [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
             
@@ -276,13 +275,19 @@
             
         }
         
-        NSLog(@"reenabled!!!!!");
-    }
-    else{
+            NSLog(@"reenabled!!!!!");
+        
+        } else if (button == self.emergencyButton){
     
-        [self failedToGetLocation];
+                NSLog(@"BUTTON TAPPED");
     
-    }
+                [self checkForFingerPrint];
+                //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+    
+        } else{
+    
+                [self failedToGetLocation];
+        }
     
     
 }
@@ -391,7 +396,6 @@
 -(void)failedToGetLocation{
 
     [self disableAllButtons];
-    self.currentLocationButton.enabled = YES;
     
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
                                                                    message:@"Oh NO! Something weird happened. \nPlease make sure your connected to the internet or \nhave Wi-Fi enabled"
@@ -627,6 +631,8 @@ didFailAutocompleteWithError:(NSError *)error {
 -(void)updateMapWithPoliceLocation{
    
     [self startSpinner];
+    
+    [self disableAllButtons];
     
     [self.mapView clear];
     
@@ -1085,8 +1091,8 @@ didFailAutocompleteWithError:(NSError *)error {
 //    
 //}
 
--(void)setupUserPasswordVerification{
-    
+//-(void)setupUserPasswordVerification{
+
 //
 //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 //    BOOL userCreated = [defaults boolForKey: @"userCreated"];
@@ -1106,9 +1112,9 @@ didFailAutocompleteWithError:(NSError *)error {
 
 
 
-}
+//}
 
--(void)presentQuestions{
+//-(void)presentQuestions{
 
 //
 //    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Security Questions"
@@ -1145,7 +1151,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
 
 
-}
+//}
 
 
 
@@ -1395,9 +1401,9 @@ didFailAutocompleteWithError:(NSError *)error {
     self.searchButton.enabled = NO;
     self.searchButton.enabled = NO;
     self.settingsButton.enabled = NO;
-    self.currentLocationButton.enabled = NO;
+//    self.currentLocationButton.enabled = NO;
     self.policeMapButton.enabled = NO;
-    self.emergencyButton.enabled = NO;
+//    self.emergencyButton.enabled = NO;
     self.pieChartButton.enabled = NO;
     self.dissmissPoliceMapButton.enabled = NO;
     
@@ -1407,9 +1413,9 @@ didFailAutocompleteWithError:(NSError *)error {
     
     self.searchButton.enabled = YES;
     self.settingsButton.enabled = YES;
-    self.currentLocationButton.enabled = YES;
+//    self.currentLocationButton.enabled = YES;
     self.policeMapButton.enabled = YES;
-    self.emergencyButton.enabled = YES;
+//    self.emergencyButton.enabled = YES;
     self.pieChartButton.enabled = YES;
     self.dissmissPoliceMapButton.enabled = YES;
     

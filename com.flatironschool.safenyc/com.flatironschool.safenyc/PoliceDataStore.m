@@ -104,7 +104,7 @@
 
 -(void)filterPoliceLocations{
 
-    NSArray *filterStrings = @[@"New York City Police Department", @"Police Department"];
+    NSArray *filterStrings = @[@"New York City Police Department", @"police"];
     NSString *filter = @"%K CONTAINS[cd] %@";
     NSPredicate *filterUsingThisPredicate = [[NSPredicate alloc]init];
     NSUInteger countOfLocationsInNY;
@@ -116,11 +116,15 @@
         
         if (countOfLocationsInNY > 0) {
             
+            NSLog(@"found NY locations!!!!!!!!");
+            
             filterUsingThisPredicate = testPredicate;
             
         }
         else {
         
+            NSLog(@"going to show results for places outside of the country");
+            
             filterUsingThisPredicate = [NSPredicate predicateWithFormat:filter, @"locationName", filterStrings[1]];
         
         }
