@@ -928,8 +928,8 @@ didFailAutocompleteWithError:(NSError *)error {
                             }];
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Wrong password."
-                                                                           message:@"Please try again!"
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Enter Password"
+                                                                           message:@"Please try entering your password"
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style: UIAlertActionStyleDefault
@@ -971,72 +971,72 @@ didFailAutocompleteWithError:(NSError *)error {
                                                          [self checkForPassword: userPassword];
 
                                                      }];
-    
-    UIAlertAction* forgotPassAction = [UIAlertAction actionWithTitle:@"Forgot Password" style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * action) {
-
-                                                         //insert code to handle password
-                                                         [self forgotPassword];
-                                                         
-                                                     }];
+//    
+//    UIAlertAction* forgotPassAction = [UIAlertAction actionWithTitle:@"Forgot Password" style:UIAlertActionStyleDefault
+//                                                     handler:^(UIAlertAction * action) {
+//
+//                                                         //insert code to handle password
+//                                                         [self forgotPassword];
+//                                                         
+//                                                     }];
     
     [alert addAction: okAction];
     
-    if (passwordExists) {
-        [alert addAction: forgotPassAction];
-    }
+//    if (passwordExists) {
+//        [alert addAction: forgotPassAction];
+//    }
     
     [self presentViewController:alert animated:YES completion:nil];
 
 
 }
 
--(void)forgotPassword{
-
-    //will present a few questions for the user to answer for the purpose of
-    //recovering a password
-    
-//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//        BOOL userCreated = [defaults boolForKey: @"userCreated"];
+//-(void)forgotPassword{
+//
+//    //will present a few questions for the user to answer for the purpose of
+//    //recovering a password
 //    
-//        if (!userCreated) {
+////        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+////        BOOL userCreated = [defaults boolForKey: @"userCreated"];
+////    
+////        if (!userCreated) {
+////    
+////            [defaults setBool: YES forKey: @"userCreated"];
+////            
+////            
+////            
+////        }
 //    
-//            [defaults setBool: YES forKey: @"userCreated"];
-//            
-//            
-//            
-//        }
-    
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Question1"
-                                                                   message: @"what's your fucking name?"
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = @"enter your fucking name";
-    }]; 
-    
-    UIAlertAction* nextAction = [UIAlertAction actionWithTitle:@"next question" style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction * action) {
-                                                         
-                                                         
-                                                         
-                                                     }];
-    
-    UIAlertAction* forgotPassAction = [UIAlertAction actionWithTitle:@"Forgot Password" style:UIAlertActionStyleDefault
-                                                             handler:^(UIAlertAction * action) {
-                                                                 
-                                                                 //insert code to handle password
-                                                                 [self forgotPassword];
-                                                                 
-                                                             }];
-    
-    [alert addAction: okAction];
-    
-    [self presentViewController:alert animated:YES completion:nil];
-
-    
-    
-}
+//    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Question1"
+//                                                                   message: @"what's your fucking name?"
+//                                                            preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+//        textField.placeholder = @"enter your fucking name";
+//    }]; 
+//    
+//    UIAlertAction* nextAction = [UIAlertAction actionWithTitle:@"next question" style:UIAlertActionStyleDefault
+//                                                     handler:^(UIAlertAction * action) {
+//                                                         
+//                                                         
+//                                                         
+//                                                     }];
+//    
+//    UIAlertAction* forgotPassAction = [UIAlertAction actionWithTitle:@"Forgot Password" style:UIAlertActionStyleDefault
+//                                                             handler:^(UIAlertAction * action) {
+//                                                                 
+//                                                                 //insert code to handle password
+//                                                                 [self forgotPassword];
+//                                                                 
+//                                                             }];
+//    
+//    [alert addAction: okAction];
+//    
+//    [self presentViewController:alert animated:YES completion:nil];
+//
+//    
+//    
+//}
 
 -(void)setupUserPasswordVerification{
     
