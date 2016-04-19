@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Select Contacts View Controller-->
+        <!--Tutorial View Controller-->
         <scene sceneID="ub2-rm-Etc">
             <objects>
-                <viewController id="WX5-Cz-q7j" customClass="SelectContactsViewController" sceneMemberID="viewController">
+                <viewController id="WX5-Cz-q7j" customClass="RUFITutorialViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6uv-6g-CoB"/>
                         <viewControllerLayoutGuide type="bottom" id="qua-7Z-91P"/>
@@ -16,20 +16,8 @@
                     <view key="view" contentMode="scaleToFill" id="J4c-7c-hBT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGD-Cj-xq5">
-                                <rect key="frame" x="231" y="216" width="30" height="30"/>
-                                <state key="normal" title="Add"/>
-                                <connections>
-                                    <action selector="addItem:" destination="WX5-Cz-q7j" eventType="touchUpInside" id="sxu-fa-0M2"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <outlet property="contactButton1" destination="HGD-Cj-xq5" id="Fn1-jd-AAV"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4vw-Zu-ywU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

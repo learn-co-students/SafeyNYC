@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "contactsCircle-2.png",
+      "filename" : "message1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "contactsCircle.png",
+      "filename" : "messagex2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "contactsCircle-1.png",
+      "filename" : "messagex3.png",
       "scale" : "3x"
     }
   ],
