@@ -450,7 +450,7 @@
 - (void)updateCurrentLocationCoordinatesWithBlock:(void (^) (BOOL success))block {
     INTULocationManager *locMgr = [INTULocationManager sharedInstance];
     
-    [locMgr requestLocationWithDesiredAccuracy: INTULocationAccuracyRoom timeout: 1.5 delayUntilAuthorized: YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+    [locMgr requestLocationWithDesiredAccuracy: INTULocationAccuracyRoom timeout: 1.5 delayUntilAuthorized: NO block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         
         if (status == INTULocationStatusSuccess) {
             
