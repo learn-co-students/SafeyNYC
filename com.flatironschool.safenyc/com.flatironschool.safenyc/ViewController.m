@@ -180,8 +180,8 @@
     
     NSLog(@"disabled!!!!!");
     
-    if ([self haveInternetConnection]) {
-        
+//    if ([self haveInternetConnection]) {
+    
         if(button == self.searchButton){
             
             NSLog(@"BUTTON TAPPED");
@@ -277,17 +277,18 @@
         
             NSLog(@"reenabled!!!!!");
         
-        } else if (button == self.emergencyButton){
-    
-                NSLog(@"BUTTON TAPPED");
-    
-                [self checkForFingerPrint];
-                //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
-    
-        } else{
-    
-                [self failedToGetLocation];
-        }
+//        }
+//else if (button == self.emergencyButton){
+//    
+//                NSLog(@"BUTTON TAPPED");
+//    
+//                [self checkForFingerPrint];
+//                //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+//    
+//        } else{
+//    
+//                [self failedToGetLocation];
+//        }
     
     
 }
@@ -986,13 +987,14 @@ didFailAutocompleteWithError:(NSError *)error {
         [textField addTarget:self
                       action:@selector(alertTextFieldDidChange:)
             forControlEvents:UIControlEventEditingChanged];
+        [textField becomeFirstResponder];
     }];
     
     UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * action) {
                                                          
                                                          NSString *userPassword = alert.textFields.firstObject.text;
-                                                         
+
                                                          if ([self passwordIsValid: userPassword]) {
                                                              [self savePassword: userPassword];
 
@@ -1001,9 +1003,10 @@ didFailAutocompleteWithError:(NSError *)error {
                                                              [self alertWithPasswordEntryForFirstTime];
                                                          }
 
-                                                         
+                                                         [alert.textFields.firstObject resignFirstResponder]; 
                                                      }];
     [alert addAction: okAction];
+    
     
     
     [self presentViewController:alert animated:YES completion:nil];
@@ -1425,9 +1428,9 @@ didFailAutocompleteWithError:(NSError *)error {
     self.searchButton.enabled = NO;
     self.searchButton.enabled = NO;
     self.settingsButton.enabled = NO;
-//    self.currentLocationButton.enabled = NO;
+    self.currentLocationButton.enabled = NO;
     self.policeMapButton.enabled = NO;
-//    self.emergencyButton.enabled = NO;
+    self.emergencyButton.enabled = NO;
     self.pieChartButton.enabled = NO;
     self.dissmissPoliceMapButton.enabled = NO;
     
@@ -1437,9 +1440,9 @@ didFailAutocompleteWithError:(NSError *)error {
     
     self.searchButton.enabled = YES;
     self.settingsButton.enabled = YES;
-//    self.currentLocationButton.enabled = YES;
+    self.currentLocationButton.enabled = YES;
     self.policeMapButton.enabled = YES;
-//    self.emergencyButton.enabled = YES;
+    self.emergencyButton.enabled = YES;
     self.pieChartButton.enabled = YES;
     self.dissmissPoliceMapButton.enabled = YES;
     
