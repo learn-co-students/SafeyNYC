@@ -39,7 +39,7 @@
 @property (strong, nonatomic) Contact *contact4;
 @property (strong, nonatomic) Contact *contact5;
 @property (strong, nonatomic) Contact *contact6;
-@property (strong, nonatomic) Contact *tappedContact; // FIXME: rename to tappedContact
+@property (strong, nonatomic) Contact *tappedContact; 
 
 @property (nonatomic) NSUInteger tappedContactIndex;
 
@@ -473,16 +473,15 @@
 
     self.checkbox = [[UIButton alloc] initWithFrame:CGRectMake(20, 170, 20, 20)];
     NSString *imgName = @"";
+
     if (self.isLocationAttached) {
         imgName = @"selectedcheckbox.png";
-    }
-    else {
+    } else {
         imgName = @"notselectedcheckbox.png";
     }
     [self.checkbox setBackgroundImage:[UIImage imageNamed:imgName]
                         forState:UIControlStateNormal];
-//    [self.checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"]
-//                        forState:UIControlStateHighlighted];
+
     self.checkbox.adjustsImageWhenHighlighted=YES;
     [self.checkbox addTarget:self action:@selector(pressedCheckBox:) forControlEvents:UIControlEventTouchUpInside];
     [self.defaultMessageChange addSubview:self.checkbox];
