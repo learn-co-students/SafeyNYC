@@ -39,7 +39,9 @@
 @property (strong, nonatomic) Contact *contact4;
 @property (strong, nonatomic) Contact *contact5;
 @property (strong, nonatomic) Contact *contact6;
-@property (strong, nonatomic) Contact *tappedContact; 
+@property (strong, nonatomic) Contact *tappedContact;
+
+@property (nonatomic,strong) UILongPressGestureRecognizer *longPressDeleteContact1;
 
 @property (nonatomic) NSUInteger tappedContactIndex;
 
@@ -80,9 +82,18 @@
     self.localContactStore = [RUFIContactStore sharedContactStore];
     [self.localContactStore fetchData];
     self.localContacts = self.localContactStore.contacts;
-    NSLog(@"\n %@ ", self.localContacts);
     
     [self setupContactButtons];
+    
+//    self.longPressDeleteContact1 = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGestures:)];
+//    self.longPressDeleteContact1.minimumPressDuration = 1.0f;
+//    self.longPressDeleteContact1.allowableMovement = 100.0f;
+//    
+//    [self.person1 addGestureRecognizer:self.longPressDeleteContact1];
+}
+
+-(void)handleLongPressGestures:(id)sender{
+    NSLog(@" HERE!!!! Long Gesture: %@", sender);
 }
 
 -(void)viewDidAppear:(BOOL)animated {

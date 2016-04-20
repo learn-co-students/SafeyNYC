@@ -83,7 +83,6 @@
         [self alertWithPasswordEntryForFirstTime];
     }
     
-    
 }
 
 
@@ -244,8 +243,7 @@
             self.dissmissPoliceMapButton.hidden = NO;
             
             
-        }
-            else if (button == self.emergencyButton){
+        }  else if (button == self.emergencyButton){
 
             NSLog(@"BUTTON TAPPED");
             
@@ -987,7 +985,6 @@ didFailAutocompleteWithError:(NSError *)error {
         [textField addTarget:self
                       action:@selector(alertTextFieldDidChange:)
             forControlEvents:UIControlEventEditingChanged];
-        [textField becomeFirstResponder];
     }];
     
     UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
@@ -1002,8 +999,6 @@ didFailAutocompleteWithError:(NSError *)error {
                                                          else{
                                                              [self alertWithPasswordEntryForFirstTime];
                                                          }
-
-                                                         [alert.textFields.firstObject resignFirstResponder]; 
                                                      }];
     [alert addAction: okAction];
     
