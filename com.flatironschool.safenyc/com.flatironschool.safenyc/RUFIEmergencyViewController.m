@@ -39,7 +39,7 @@
 @property (strong, nonatomic) Contact *contact4;
 @property (strong, nonatomic) Contact *contact5;
 @property (strong, nonatomic) Contact *contact6;
-@property (strong, nonatomic) Contact *currentContact; // FIXME: rename to tappedContact
+@property (strong, nonatomic) Contact *tappedContact; // FIXME: rename to tappedContact
 
 @property (nonatomic) NSUInteger tappedContactIndex;
 
@@ -66,11 +66,10 @@
 
 - (void)viewDidLoad {
     
-    //self.addLocation = YES;
     self.messageString = [[NSUserDefaults standardUserDefaults] objectForKey:@"textMessage"];
     [[NSUserDefaults standardUserDefaults] setObject:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me." forKey:@"textMessage"];
-    //self.messageString = [NSString stringWithFormat:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me."];
-    self.isLocationAttached= [[NSUserDefaults standardUserDefaults] objectForKey:@"textMessage"];
+
+    self.isLocationAttached = [[NSUserDefaults standardUserDefaults] boolForKey:@"boolIsLocationAttached"];
     self.composeVC.body = self.messageString;
 
     [super viewDidLoad];
@@ -361,39 +360,39 @@
         
             NSLog(@"Person 1!");
             self.tappedContactIndex = 1;
-            self.currentContact = self.contact1;
-            NSLog(@"Contact 1: %@; Person 1 (current contact): %@", self.contact1, self.currentContact);
+            self.tappedContact = self.contact1;
+            NSLog(@"Contact 1: %@; Person 1 (current contact): %@", self.contact1, self.tappedContact);
             [self displayImageOrInitialsOfTheContact:self.contact1 onTheButton:self.person1];
             
         } else if (button == self.person2){
             
             NSLog(@"Person 2!");
             self.tappedContactIndex = 2;
-            self.currentContact = self.contact2;
+            self.tappedContact = self.contact2;
             
         } else if (button == self.person3){
             
             NSLog(@"Person 3!");
             self.tappedContactIndex = 3;
-            self.currentContact = self.contact3;
+            self.tappedContact = self.contact3;
             
         } else if (button == self.person4){
             
             NSLog(@"Person 4!");
             self.tappedContactIndex = 4;
-            self.currentContact = self.contact4;
+            self.tappedContact = self.contact4;
         
         } else if (button == self.person5){
             
             NSLog(@"Person 5!");
             self.tappedContactIndex = 5;
-            self.currentContact = self.contact5;
+            self.tappedContact = self.contact5;
        
         } else if (button == self.person6){
             
             NSLog(@"Person 6!");
             self.tappedContactIndex = 6;
-            self.currentContact = self.contact6;
+            self.tappedContact = self.contact6;
        
         }
     }
@@ -473,12 +472,17 @@
 -(void)addCheckBoxForMyLocation{
 
     self.checkbox = [[UIButton alloc] initWithFrame:CGRectMake(20, 170, 20, 20)];
-    [self.checkbox setBackgroundImage:[UIImage imageNamed:@"notselectedcheckbox.png"]
+    NSString *imgName = @"";
+    if (self.isLocationAttached) {
+        imgName = @"selectedcheckbox.png";
+    }
+    else {
+        imgName = @"notselectedcheckbox.png";
+    }
+    [self.checkbox setBackgroundImage:[UIImage imageNamed:imgName]
                         forState:UIControlStateNormal];
-    [self.checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"]
-                        forState:UIControlStateSelected];
-    [self.checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"]
-                        forState:UIControlStateHighlighted];
+//    [self.checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"]
+//                        forState:UIControlStateHighlighted];
     self.checkbox.adjustsImageWhenHighlighted=YES;
     [self.checkbox addTarget:self action:@selector(pressedCheckBox:) forControlEvents:UIControlEventTouchUpInside];
     [self.defaultMessageChange addSubview:self.checkbox];
@@ -491,10 +495,14 @@
 -(void)pressedCheckBox:(id)sender {
     if(self.isLocationAttached){
         self.isLocationAttached = NO;
+        [self.checkbox setBackgroundImage:[UIImage imageNamed:@"notselectedcheckbox.png"]
+                                 forState:UIControlStateNormal];
     } else {
         self.isLocationAttached = YES;
+        [self.checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"]
+                                 forState:UIControlStateNormal];
     }
-    [self.checkbox setSelected:self.isLocationAttached];
+    [[NSUserDefaults standardUserDefaults] setBool:self.isLocationAttached forKey:@"boolIsLocationAttached"];
 }
 
 -(void)pressedButtonInMessageSettings:(DKCircleButton *)button {
@@ -582,6 +590,7 @@
     
     //BODY MESSAGE
     NSString *myLocation = [NSString stringWithFormat:@"My location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
+    
     if(self.isLocationAttached){
         self.fullString = [self.messageString stringByAppendingString:myLocation];
     } else {
@@ -624,9 +633,9 @@
         
         RUFIContactStore *localContactStore = [RUFIContactStore sharedContactStore];
         
-        if (self.currentContact) {
-            [localContactStore deleteContact:self.currentContact];
-            self.currentContact = nil;
+        if (self.tappedContact) {
+            [localContactStore deleteContact:self.tappedContact];
+            self.tappedContact = nil;
         }
         
         Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:localContactStore.managedObjectContext];
