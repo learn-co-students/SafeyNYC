@@ -268,7 +268,7 @@
             
             [self.mapView animateToCameraPosition:camera];
             [self.mapView animateToViewingAngle:65];
-            
+            [self updateCurrentMap];
             
             //        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
             
@@ -396,6 +396,7 @@
 -(void)failedToGetLocation{
 
     [self disableAllButtons];
+    self.currentLocationButton.enabled = YES; 
     
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
                                                                    message:@"Oh NO! Something weird happened. \nPlease make sure your connected to the internet or \nhave Wi-Fi enabled"
@@ -479,6 +480,25 @@
         else if(status == INTULocationStatusError){
             
             block(NO);
+        }
+        else if(currentLocation == NULL){
+        
+        [self updateCurrentLocationCoordinatesWithBlock:^(BOOL success) {
+            if(success){
+                
+                if(self.mapView == nil){
+                    [self createMapWithCoordinates];
+                    [self reenableAllButtons];
+                }
+                else{
+                    [self animateMap];
+                }
+            }
+        }];
+
+            
+        
+        
         }
         else{
             
