@@ -497,25 +497,6 @@
             
             block(NO);
         }
-        else if(currentLocation == NULL){
-        
-        [self updateCurrentLocationCoordinatesWithBlock:^(BOOL success) {
-            if(success){
-                
-                if(self.mapView == nil){
-                    [self createMapWithCoordinates];
-                    [self reenableAllButtons];
-                }
-                else{
-                    [self animateMap];
-                }
-            }
-        }];
-
-            
-        
-        
-        }
         else{
             
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
