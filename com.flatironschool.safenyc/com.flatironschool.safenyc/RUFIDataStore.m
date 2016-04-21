@@ -35,6 +35,7 @@
         _yearsAgo = [NSString new];
         _distanceValue = [NSString new];
         _settingsChanged = NO;
+
     }
     return self;
 }

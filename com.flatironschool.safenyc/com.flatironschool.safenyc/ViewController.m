@@ -43,6 +43,10 @@
 
     [super viewDidLoad];
     
+
+    
+    
+    
     
     
 //    self.latitude = 40.705412;
@@ -87,6 +91,18 @@
 -(void)viewDidAppear:(BOOL)animated{
 
     [super viewDidAppear:YES];
+
+    
+    BOOL hasLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLoggedIn"];
+    
+    
+    NSLog(@"\n\n\n\n\n\n\n\n\nHAS LOGGED IN %d \n\n\n\n\n\n\n\n", hasLoggedIn);
+    if (hasLoggedIn == NO) {
+        
+        [self performSegueWithIdentifier:@"introSegue" sender:nil];
+        
+    }
+
     
     if (self.datastore.settingsChanged){
         
@@ -462,7 +478,7 @@
 
         }
         else if(status == INTULocationStatusServicesNotDetermined || !self.mapView){
-        
+            [self failedToGetLocation];
             block(NO);
         }
         else if(status == INTULocationStatusError){
