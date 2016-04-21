@@ -72,7 +72,8 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me." forKey:@"textMessage"];
 
     self.isLocationAttached = [[NSUserDefaults standardUserDefaults] boolForKey:@"boolIsLocationAttached"];
-    self.composeVC.body = self.messageString;
+    self.isLocationAttached = YES;
+    self.composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me.";
 
     [super viewDidLoad];
     [self displayViewBackground];
@@ -412,14 +413,14 @@
 # pragma mark - Change default message view
 -(void)changeDeafaultMessage{
    
-    self.defaultMessageChange = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.emergencyImageView.frame.size.width, self.emergencyImageView.frame.size.width)];
+    self.defaultMessageChange = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.emergencyImageView.frame.size.width, 200)];
     self.defaultMessageChange.layer.cornerRadius = 5;
     self.defaultMessageChange.backgroundColor = [UIColor whiteColor];
     
     //Image Message
     UIImage *image = [UIImage imageNamed:@"message"];
     UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-    imageView.frame = CGRectMake(30, 0, self.defaultMessageChange.frame.size.width-100, 50);
+    imageView.frame = CGRectMake(35, 0, self.defaultMessageChange.frame.size.width-110, 50);
     [self.defaultMessageChange addSubview:imageView];
     
     //Text View Default Message
@@ -460,6 +461,7 @@
 }
 
 -(void)addOkAndCancelButton {
+    
     self.cancelChanegeMsgButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.emergencyImageView.frame.size.height-50, 50, 50, 50)];
     self.okButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.emergencyImageView.frame.size.height-50, 110, 50, 50)];
     NSArray *buttons = @[self.cancelChanegeMsgButton, self.okButton];
@@ -505,6 +507,9 @@
 -(void)pressedCheckBox:(id)sender {
     if(self.isLocationAttached){
         self.isLocationAttached = NO;
+    
+        //[self.isLocationAttached setObject:NO forKey:@"boolIsLocationAttached"];
+        
         [self.checkbox setBackgroundImage:[UIImage imageNamed:@"notselectedcheckbox.png"]
                                  forState:UIControlStateNormal];
     } else {
@@ -599,16 +604,23 @@
     self.composeVC.recipients = self.recipients;
     
     //BODY MESSAGE
-    NSString *myLocation = [NSString stringWithFormat:@"My location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
+    NSString *myLocation = [NSString stringWithFormat:@" My location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
+    self.fullString = [self.messageString stringByAppendingString:myLocation];
+    NSLog(@"1. FULL STRING: %@ ", self.fullString);
     
     if(self.isLocationAttached){
+        NSLog(@"Message without location: %@", self.messageString);
         self.fullString = [self.messageString stringByAppendingString:myLocation];
+        NSLog(@"2. FULL STRING: %@ ", self.fullString);
     } else {
         self.fullString = self.messageString;
+        NSLog(@"MESSAGE without attachment: %@", self.fullString);
+        NSLog(@"3. FULL STRING: %@ ", self.fullString);
     }
     
     
     self.composeVC.body = self.fullString;
+    NSLog(@"COMPOSE VS STRING: %@ ", self.composeVC.body);
     //self.composeVC.body = [NSString stringWithFormat:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me. this is my location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
         
     NSLog(@"%f, %f", self.myCurrnetLatitude, self.myCurrnetLongitude);
