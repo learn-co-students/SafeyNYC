@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RUFIDataStore.h"
 
 @interface RUFIIntroViewController : UIViewController
+
+@property (nonatomic, strong) RUFIDataStore *dataStore;
+@property (nonatomic) NSUserDefaults *agreementAccepted;
 
 @end
