@@ -26,7 +26,6 @@
 @property (strong, nonatomic) DKCircleButton *policeMapButton;
 @property (strong, nonatomic) DKCircleButton *emergencyButton;
 @property (strong, nonatomic) DKCircleButton *pieChartButton;
-//@property (strong, nonatomic) DKCircleButton *infoButton;
 @property (strong, nonatomic) DKCircleButton *dissmissPoliceMapButton;
 @property (nonatomic) NSUInteger widthConstrain;
 @property (nonatomic) NSUInteger heightConstrain;
@@ -39,7 +38,6 @@
 
 
 @implementation ViewController
-
 
 - (void)viewDidLoad {
 
@@ -79,9 +77,9 @@
     [self setUpButtons];
     [self disableAllButtons];
     
-    if (![self checkPasswordFieldExsists]) {
-        [self alertWithPasswordEntryForFirstTime];
-    }
+//    if (![self checkPasswordFieldExsists]) {
+//        [self alertWithPasswordEntryForFirstTime];
+//    }
     
 }
 
@@ -164,15 +162,6 @@
     }
 }
 
-//-(void)toggleButtonInteractions{
-//
-//    NSArray *buttons = @[self.searchButton, self.settingsButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton];
-//
-//    for (DKCircleButton *currentButton in buttons) {
-//        currentButton.userInteractionEnabled = !currentButton.userInteractionEnabled;
-//    }
-//}
-
 -(void)pressedButton:(DKCircleButton *)button {
     
     button.animateTap = YES;
@@ -181,99 +170,100 @@
     
 //    if ([self haveInternetConnection]) {
     
-        if(button == self.searchButton){
+    if(button == self.searchButton){
+        
+        NSLog(@"BUTTON TAPPED");
+        [self openGooglePlacePicker];
+        
+        NSLog(@"Getting to inside the pressed button");
+        
+        
+    } else if (button == self.settingsButton){
+        NSLog(@"BUTTON TAPPED");
+        //[self displayPicker];
+        
+        [self performSegueWithIdentifier:@"settingsSegue" sender:nil];
+        
+    } else if (button == self.currentLocationButton){
+        NSLog(@"BUTTON TAPPED");
+        
+        self.randomInt = arc4random_uniform(1000);
+        
+        if (self.policeStationActiveBool && !self.searchLocation) {
             
-            NSLog(@"BUTTON TAPPED");
-            [self openGooglePlacePicker];
-            
-            NSLog(@"Getting to inside the pressed button");
-            
-            
-        } else if (button == self.settingsButton){
-            NSLog(@"BUTTON TAPPED");
-            
-            [self performSegueWithIdentifier:@"settingsSegue" sender:nil];
-            
-        } else if (button == self.currentLocationButton){
-            NSLog(@"BUTTON TAPPED");
-            
-            self.randomInt = arc4random_uniform(1000);
-            
-            if (self.policeStationActiveBool && !self.searchLocation) {
-                
-                NSLog(@"\n\n\n\n\n\n\n\n\nPOLICE ACTIVE SEARCH NOT\n\n\n\n\n\n\n\n\n");
-                
-                [self updateMapWithPoliceLocation];
-                
-            }
-            
-            else if (self.searchLocation) {
-
-                NSLog(@"\n\n\n\n\n\n\n\n\nSEARCH ACTIVE\n\n\n\n\n\n\n\n\n");
-                
-                [self disableAllButtons];
-                
-                self.searchLocation = NO;
-                self.policeStationActiveBool = NO;
-                
-                [self updateCurrentMap];
-                
-            }
-            
-            else {
-                
-                NSLog(@"\n\n\n\n\n\n\n\n\nNOTHIING ACTIVE\n\n\n\n\n\n\n\n\n");
-                
-                
-                [self disableAllButtons];
-                
-                [self updateCurrentMap];
-                
-            }
-            
-        } else if (button == self.policeMapButton){
-  
-            NSLog(@"BUTTON TAPPED");
-            [self disableAllButtons];
-            
-            self.policeStationActiveBool = YES;
+            NSLog(@"\n\n\n\n\n\n\n\n\nPOLICE ACTIVE SEARCH NOT\n\n\n\n\n\n\n\n\n");
             
             [self updateMapWithPoliceLocation];
             
-            self.dissmissPoliceMapButton.hidden = NO;
-            
-            
-        }  else if (button == self.emergencyButton){
-
-            NSLog(@"BUTTON TAPPED");
-            
-            [self checkForFingerPrint];
-            //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
-            
         }
-        else if (button == self.pieChartButton){
-            NSLog(@"BUTTON TAPPED");
-            [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
+        
+        else if (self.searchLocation) {
+
+            NSLog(@"\n\n\n\n\n\n\n\n\nSEARCH ACTIVE\n\n\n\n\n\n\n\n\n");
             
-        } else if (button == self.dissmissPoliceMapButton){
-            NSLog(@"BUTTON TAPPED");
+            [self disableAllButtons];
             
-            //        [self dissmissPoliceMapButton];
-            [self dissmissPoliceMap];
+            self.searchLocation = NO;
+            self.policeStationActiveBool = NO;
             
-            GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
-                                                                    longitude: self.longitude
-                                                                         zoom: 17];
-            
-            [self.mapView animateToCameraPosition:camera];
-            [self.mapView animateToViewingAngle:65];
-            
-            
-            //        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+            [self updateCurrentMap];
             
         }
         
-            NSLog(@"reenabled!!!!!");
+        else {
+            
+            NSLog(@"\n\n\n\n\n\n\n\n\nNOTHIING ACTIVE\n\n\n\n\n\n\n\n\n");
+            
+            
+            [self disableAllButtons];
+            
+            [self updateCurrentMap];
+            
+        }
+        
+    } else if (button == self.policeMapButton){
+
+        NSLog(@"BUTTON TAPPED");
+        [self disableAllButtons];
+        
+        self.policeStationActiveBool = YES;
+        
+        [self updateMapWithPoliceLocation];
+        
+        self.dissmissPoliceMapButton.hidden = NO;
+        
+        
+    }  else if (button == self.emergencyButton){
+
+        NSLog(@"BUTTON TAPPED");
+        
+        [self checkForFingerPrint];
+        //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+        
+    }
+    else if (button == self.pieChartButton){
+        NSLog(@"BUTTON TAPPED");
+        [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
+        
+    } else if (button == self.dissmissPoliceMapButton){
+        NSLog(@"BUTTON TAPPED");
+        
+        //        [self dissmissPoliceMapButton];
+        [self dissmissPoliceMap];
+        
+        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
+                                                                longitude: self.longitude
+                                                                     zoom: 17];
+        
+        [self.mapView animateToCameraPosition:camera];
+        [self.mapView animateToViewingAngle:65];
+        
+        
+        //        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+        
+    }
+    
+    NSLog(@"reenabled!!!!!");
         
 //        }
 //else if (button == self.emergencyButton){
@@ -1469,6 +1459,39 @@ didFailAutocompleteWithError:(NSError *)error {
 
 }
 
+/*
+# pragma mark - Settings
+-(void) displayPicker {
+    
+    UIStoryboard *settingsStoryboard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
+    RUFISettingsViewController *settingsVC = [settingsStoryboard instantiateInitialViewController];
+    settingsVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:settingsVC animated:YES completion:nil];
+//    
+//    UIView *pickerView = [[UIView alloc] initWithFrame:CGRectMake(20, 185, self.widthConstrain+20, 200)];
+//
+//    pickerView.backgroundColor = [UIColor whiteColor];
+//    pickerView.layer.cornerRadius = 20;
+//    
+//    [UIView animateWithDuration:0.5 animations:^(void) {
+//        pickerView.alpha = 0;
+//        
+//        [UIView transitionWithView:pickerView duration:3
+//                           options:UIViewAnimationOptionTransitionFlipFromRight
+//                        animations:^{
+//                            [self.view addSubview:pickerView];
+//                        }
+//                        completion:^(BOOL finished){
+//                            
+//                        }];
+//        
+//        pickerView.alpha = 0.8;
+//    }];
+//    pickerView.userInteractionEnabled = YES;
+//    
+//    [self disableAllButtons];
+
+}*/
 
 
 @end
