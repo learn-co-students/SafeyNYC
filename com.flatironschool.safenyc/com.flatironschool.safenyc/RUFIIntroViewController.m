@@ -9,6 +9,7 @@
 #import "RUFIIntroViewController.h"
 #import <DKCircleButton/DKCircleButton.h>
 
+
 @interface RUFIIntroViewController ()
 @property (strong, nonatomic) IBOutlet DKCircleButton *yesButtonOutlet;
 @property (strong, nonatomic) IBOutlet DKCircleButton *noButtonOutlet;
@@ -19,6 +20,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+//    self.dataStore = [RUFIDataStore sharedDataStore];
+    
+    self.agreementAccepted = [NSUserDefaults standardUserDefaults];
     
     
     self.yesButtonOutlet.backgroundColor = [UIColor whiteColor];
@@ -41,7 +46,13 @@
 }
 - (IBAction)yesButtonAction:(id)sender {
     
-    [self performSegueWithIdentifier:@"irinaStoryBoard" sender:nil];
+    [self.agreementAccepted setBool:YES forKey:@"hasLoggedIn"];
+    
+    [self.agreementAccepted synchronize];
+    
+    [self dismissViewControllerAnimated:nil completion:nil];
+    
+  
 
     
 }
