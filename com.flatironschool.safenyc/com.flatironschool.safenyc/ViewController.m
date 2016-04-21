@@ -79,10 +79,10 @@
     [self setUpButtons];
     [self disableAllButtons];
     
+
 //    if (![self checkPasswordFieldExsists]) {
 //        [self alertWithPasswordEntryForFirstTime];
 //    }
-
     
 }
 
@@ -1007,6 +1007,7 @@ didFailAutocompleteWithError:(NSError *)error {
             forControlEvents:UIControlEventEditingChanged];
 //        [textField becomeFirstResponder];
 
+    }];
     
     UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * action) {
@@ -1017,8 +1018,8 @@ didFailAutocompleteWithError:(NSError *)error {
                                                             [self savePassword: userPassword];
                                                          }
 
-
 //                                                         [alert.textFields.firstObject resignFirstResponder]; 
+
                                                      }];
     [alert addAction: okAction];
     
