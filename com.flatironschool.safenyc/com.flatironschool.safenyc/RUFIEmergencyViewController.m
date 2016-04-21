@@ -173,7 +173,7 @@
     if (!contact.imageData && contact.initials) {
         
         [button setImage:nil forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor blueColor]];
+        [button setBackgroundColor:[self randomColor]];
         [button setTitle:contact.initials forState:UIControlStateNormal];
         
     } else if (contact.imageData) {
@@ -190,6 +190,17 @@
         [button setTitle:@"?" forState:UIControlStateNormal];
     }
     
+}
+
+# pragma mark - Random Color
+
+- (UIColor *)randomColor {
+    NSInteger aRedValue = arc4random()%255;
+    NSInteger aGreenValue = arc4random()%255;
+    NSInteger aBlueValue = arc4random()%255;
+    
+    UIColor *randColor = [UIColor colorWithRed:aRedValue/255.0f green:aGreenValue/255.0f blue:aBlueValue/255.0f alpha:1.0f];
+    return randColor;
 }
 
 - (void)didReceiveMemoryWarning {
