@@ -91,7 +91,14 @@
 -(void)viewDidAppear:(BOOL)animated{
 
     [super viewDidAppear:YES];
+    
+    NSLog(@"AgreementBool %d", self.datastore.agreementBool);
+    
+    if (self.datastore.agreementBool) {
+        [self updateCurrentMap];
+        self.datastore.agreementBool = NO;
 
+    };
     
     BOOL hasLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLoggedIn"];
     
@@ -187,7 +194,7 @@
 //    if ([self haveInternetConnection]) {
     
     if(button == self.searchButton){
-        
+    
         NSLog(@"BUTTON TAPPED");
         [self openGooglePlacePicker];
         
@@ -401,6 +408,7 @@
 -(void)failedToGetLocation{
 
     [self disableAllButtons];
+    self.currentLocationButton.enabled = YES; 
     
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
                                                                    message:@"Oh NO! Something weird happened. \nPlease make sure your connected to the internet or \nhave Wi-Fi enabled"

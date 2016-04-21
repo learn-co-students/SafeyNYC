@@ -104,7 +104,7 @@
 
 -(void)filterPoliceLocations{
 
-    NSArray *filterStrings = @[@"New York City Police Department", @"police"];
+    NSArray *filterStrings = @[@"Police Department", @"police"];
     NSString *filter = @"%K CONTAINS[cd] %@";
     NSPredicate *filterUsingThisPredicate = [[NSPredicate alloc]init];
     NSUInteger countOfLocationsInNY;
