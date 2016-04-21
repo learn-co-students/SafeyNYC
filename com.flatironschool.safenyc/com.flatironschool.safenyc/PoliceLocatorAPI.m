@@ -21,9 +21,9 @@
     
 //    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?type=police&location=%f,%f&radius=%@&key=%@", latitude, longitude, radius,GOOGLE_PLACES_API_KEY];
     
-        NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?name=%@&location=%f,%f&rankby=distance&key=%@",@"police+department",latitude, longitude, GOOGLE_PLACES_API_KEY];
+        NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?name=%@&location=%f,%f&rankby=distance&key=%@",@"police",latitude, longitude, GOOGLE_PLACES_API_KEY];
     
-//    NSLog(@"here's the get request: %@", urlString); 
+    NSLog(@"here's the get request: %@\n\n\n\n\n\n", urlString); 
     
     AFHTTPSessionManager *sessionManger = [AFHTTPSessionManager manager];
     
@@ -32,6 +32,7 @@
 //        NSLog(@"lat: %f", latitude);
 //        NSLog(@"long: %f", longitude);
         NSArray *results = responseObject[@"results"];
+        NSLog(@"\n\n\nhere is the get request: %@\n\n\n", responseObject);
         NSLog(@"and here are the results =======> : %@", results);
         
         completionBlock(results);

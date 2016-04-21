@@ -83,12 +83,18 @@
     [self setUpButtons];
     [self disableAllButtons];
     
+
+//    if (![self checkPasswordFieldExsists]) {
+//        [self alertWithPasswordEntryForFirstTime];
+//    }
+    
 }
 
 
 -(void)viewDidAppear:(BOOL)animated{
 
     [super viewDidAppear:YES];
+
     
     BOOL hasLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLoggedIn"];
     
@@ -108,10 +114,6 @@
         [self updateMapAfterSetttingsChange];
     }
     
-//    [self updateCurrentMap];
-    
-//    [self animateMap];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -194,101 +196,116 @@
     
     NSLog(@"disabled!!!!!");
     
-    if(button == self.searchButton){
-        
-        NSLog(@"BUTTON TAPPED");
-        [self openGooglePlacePicker];
-        
-        NSLog(@"Getting to inside the pressed button");
-
-        
-    } else if (button == self.settingsButton){
-        NSLog(@"BUTTON TAPPED");
-        
-        [self performSegueWithIdentifier:@"settingsSegue" sender:nil];
-
-    } else if (button == self.currentLocationButton){
-        NSLog(@"BUTTON TAPPED");
-        
-        self.randomInt = arc4random_uniform(1000);
-        
-        if (self.policeStationActiveBool && !self.searchLocation) {
+//    if ([self haveInternetConnection]) {
+    
+        if(button == self.searchButton){
             
-            NSLog(@"\n\n\n\n\n\n\n\n\nPOLICE ACTIVE SEARCH NOT\n\n\n\n\n\n\n\n\n");
+            NSLog(@"BUTTON TAPPED");
+            [self openGooglePlacePicker];
+            
+            NSLog(@"Getting to inside the pressed button");
+            
+            
+        } else if (button == self.settingsButton){
+            NSLog(@"BUTTON TAPPED");
+            
+            [self performSegueWithIdentifier:@"settingsSegue" sender:nil];
+            
+        } else if (button == self.currentLocationButton){
+            NSLog(@"BUTTON TAPPED");
+            
+            self.randomInt = arc4random_uniform(1000);
+            
+            if (self.policeStationActiveBool && !self.searchLocation) {
+                
+                NSLog(@"\n\n\n\n\n\n\n\n\nPOLICE ACTIVE SEARCH NOT\n\n\n\n\n\n\n\n\n");
+                
+                [self updateMapWithPoliceLocation];
+                
+            }
+            
+            else if (self.searchLocation) {
+
+                NSLog(@"\n\n\n\n\n\n\n\n\nSEARCH ACTIVE\n\n\n\n\n\n\n\n\n");
+                
+                [self disableAllButtons];
+                
+                self.searchLocation = NO;
+                self.policeStationActiveBool = NO;
+                
+                [self updateCurrentMap];
+                
+            }
+            
+            else {
+                
+                NSLog(@"\n\n\n\n\n\n\n\n\nNOTHIING ACTIVE\n\n\n\n\n\n\n\n\n");
+                
+                
+                [self disableAllButtons];
+                
+                [self updateCurrentMap];
+                
+            }
+            
+        } else if (button == self.policeMapButton){
+  
+            NSLog(@"BUTTON TAPPED");
+            [self disableAllButtons];
+            
+            self.policeStationActiveBool = YES;
             
             [self updateMapWithPoliceLocation];
             
-        }
-        
-        else if (self.searchLocation) {
+            self.dissmissPoliceMapButton.hidden = NO;
             
             
-            NSLog(@"\n\n\n\n\n\n\n\n\nSEARCH ACTIVE\n\n\n\n\n\n\n\n\n");
-            
-            [self disableAllButtons];
-            
-            self.searchLocation = NO;
-            self.policeStationActiveBool = NO;
-            
-            [self updateCurrentMap];
-            
-        }
-        
-        else {
-            
-        NSLog(@"\n\n\n\n\n\n\n\n\nNOTHIING ACTIVE\n\n\n\n\n\n\n\n\n");
-        
-        
-        [self disableAllButtons];
-        
-        [self updateCurrentMap];
-        
-        }
-        
-    } else if (button == self.policeMapButton){
-        
-        
-        
-        NSLog(@"BUTTON TAPPED");
-        [self disableAllButtons];
-        
-        self.policeStationActiveBool = YES;
-        
-        [self updateMapWithPoliceLocation];
+        }  else if (button == self.emergencyButton){
 
-        self.dissmissPoliceMapButton.hidden = NO;
-        
-        
-    } else if (button == self.emergencyButton){
-        
-        NSLog(@"BUTTON TAPPED");
-        
-        [self checkForFingerPrint];
-        //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
-    
-    } else if (button == self.pieChartButton){
-        NSLog(@"BUTTON TAPPED");
-        [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
-        
-    } else if (button == self.dissmissPoliceMapButton){
-        NSLog(@"BUTTON TAPPED");
-
-//        [self dissmissPoliceMapButton];
-        [self dissmissPoliceMap];
-        
-        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
+            NSLog(@"BUTTON TAPPED");
+            
+            [self checkForFingerPrint];
+            //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+            
+        }
+        else if (button == self.pieChartButton){
+            NSLog(@"BUTTON TAPPED");
+            [self performSegueWithIdentifier:@"newSBSegue" sender:nil];
+            
+        } else if (button == self.dissmissPoliceMapButton){
+            NSLog(@"BUTTON TAPPED");
+            
+            //        [self dissmissPoliceMapButton];
+            [self dissmissPoliceMap];
+            
+            GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude: self.latitude
                                                                     longitude: self.longitude
                                                                          zoom: 17];
+            
+            [self.mapView animateToCameraPosition:camera];
+            [self.mapView animateToViewingAngle:65];
+            
+            
+            //        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
+            
+        }
         
-        [self.mapView animateToCameraPosition:camera];
-        [self.mapView animateToViewingAngle:65];
-
+            NSLog(@"reenabled!!!!!");
         
-//        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];
-
-    }
+//        }
+//else if (button == self.emergencyButton){
+//    
+//                NSLog(@"BUTTON TAPPED");
+//    
+//                [self checkForFingerPrint];
+//                //[self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+//    
+//        } else{
+//    
+//                [self failedToGetLocation];
+//        }
     
-    NSLog(@"reenabled!!!!!");
+    
 }
 
 -(void)dissmissPoliceMap{
@@ -395,7 +412,6 @@
 -(void)failedToGetLocation{
 
     [self disableAllButtons];
-    self.currentLocationButton.enabled = YES;
     
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
                                                                    message:@"Oh NO! Something weird happened. \nPlease make sure your connected to the internet or \nhave Wi-Fi enabled"
@@ -411,7 +427,23 @@
 
 - (NSString *)getLocationErrorDescription:(INTULocationStatus)status
 {
-    
+
+//    INTULocationStatusSuccess = 0,
+//    /** Got a location, but the desired accuracy level was not reached before timeout. (Not applicable to subscriptions.) */
+//    INTULocationStatusTimedOut,
+//    
+//    // These statuses indicate some sort of error, and will accompany a nil location.
+//    /** User has not yet responded to the dialog that grants this app permission to access location services. */
+//    INTULocationStatusServicesNotDetermined,
+//    /** User has explicitly denied this app permission to access location services. */
+//    INTULocationStatusServicesDenied,
+//    /** User does not have ability to enable location services (e.g. parental controls, corporate policy, etc). */
+//    INTULocationStatusServicesRestricted,
+//    /** User has turned off location services device-wide (for all apps) from the system Settings app. */
+//    INTULocationStatusServicesDisabled,
+//    /** An error occurred while using the system location services. */
+//    INTULocationStatusError
+//    
     if (status == INTULocationStatusServicesNotDetermined) {
         return @"User has not responded to the permissions alert.";
     }
@@ -424,13 +456,17 @@
     if (status == INTULocationStatusServicesDisabled) {
         return @"Location services are turned off for all apps on this device.\nGo to settings > Privacy > Location Services and switch on";
     }
+    if (status == INTULocationStatusError) {
+        return @"An error occured while using your devices location services.\nPlease check your location services.\nGo to settings > Privacy > Location Services and switch on";
+    }
+    
     return @"An unknown error occurred. Please make sure you have internet enabled.";
 }
 
 - (void)updateCurrentLocationCoordinatesWithBlock:(void (^) (BOOL success))block {
     INTULocationManager *locMgr = [INTULocationManager sharedInstance];
     
-    [locMgr requestLocationWithDesiredAccuracy: INTULocationAccuracyRoom timeout: 1.5 delayUntilAuthorized: YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+    [locMgr requestLocationWithDesiredAccuracy: INTULocationAccuracyRoom timeout: 1.5 delayUntilAuthorized: NO block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         
         if (status == INTULocationStatusSuccess) {
             
@@ -454,6 +490,10 @@
         }
         else if(status == INTULocationStatusServicesNotDetermined || !self.mapView){
             [self failedToGetLocation];
+            block(NO);
+        }
+        else if(status == INTULocationStatusError){
+            
             block(NO);
         }
         else{
@@ -631,6 +671,8 @@ didFailAutocompleteWithError:(NSError *)error {
 -(void)updateMapWithPoliceLocation{
    
     [self startSpinner];
+    
+    [self disableAllButtons];
     
     [self.mapView clear];
     
@@ -917,7 +959,12 @@ didFailAutocompleteWithError:(NSError *)error {
                                                 break;
                                                 
                                             case LAErrorUserFallback:
-                                                [self alertWithPasswordEntry];
+                                                if ([self checkPasswordFieldExsists]) {
+                                                    [self alertWithPasswordEntry];
+                                                }
+                                                else{
+                                                    [self alertWithPasswordEntryForFirstTime];
+                                                }
                                                 NSLog(@"User pressed \"Enter Password\"");
                                                 break;
                                                 
@@ -931,32 +978,94 @@ didFailAutocompleteWithError:(NSError *)error {
                             }];
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
-            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Wrong password."
-                                                                           message:@"Please try again!"
+            UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Enter Password"
+                                                                           message:@"Would you like to enter a password?"
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style: UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {
-                                                                      [self alertWithPasswordEntry];
+                                                                      if ([self checkPasswordFieldExsists]) {
+                                                                          [self alertWithPasswordEntry];
+                                                                      }
+                                                                      else{
+                                                                          [self alertWithPasswordEntryForFirstTime];
+                                                                      }
                                                                   }];
             
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style: UIAlertActionStyleDestructive
+                                                                  handler:^(UIAlertAction * action) {
+
+                                                                  }];
+
+            
             [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+
+            [alert.view setNeedsLayout];
             [self presentViewController:alert animated:YES completion:nil];
         });
     }
 }
 
+-(void)alertWithPasswordEntryForFirstTime{
+
+    NSString *passwordMessage = @"Safey NYC uses TouchID for accessing our messaging feature.\nPlease enter a password as an alternative means of access.\n(Password must be at least 4 characters)\n";
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Setup Password"
+                                                                   message: passwordMessage
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Password";
+        textField.secureTextEntry = YES;
+        [textField addTarget:self
+                      action:@selector(alertTextFieldDidChange:)
+            forControlEvents:UIControlEventEditingChanged];
+//        [textField becomeFirstResponder];
+
+    }];
+    
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action) {
+                                                         
+                                                         NSString *userPassword = alert.textFields.firstObject.text;
+                                                         
+                                                         if (![self checkPasswordFieldExsists]) {
+                                                            [self savePassword: userPassword];
+                                                         }
+
+//                                                         [alert.textFields.firstObject resignFirstResponder]; 
+
+                                                     }];
+    [alert addAction: okAction];
+    
+    
+    [alert.view setNeedsLayout];
+    [self presentViewController:alert animated:YES completion:nil];
+
+}
+
+- (void)alertTextFieldDidChange:(UITextField *)sender
+{
+    UIAlertController *alertController = (UIAlertController *)self.presentedViewController;
+    if (alertController)
+    {
+        UIAlertAction *okAction = alertController.actions.lastObject;
+        okAction.enabled = sender.text.length > 3;
+    }
+}
+
+-(BOOL)passwordIsValid:(NSString *)userPassword{
+
+    BOOL passwordValid = (userPassword.length > 3) && userPassword;
+    
+    return passwordValid;
+
+}
+
 -(void)alertWithPasswordEntry{
     
     NSString *passwordMessage = @"Please enter your password: ";
-    BOOL passwordExists = [self checkPasswordFieldExsists];
-    
-    if(!passwordExists){
-        
-        passwordMessage = @"Let's setup your password.\n Please input a password.\n";
-        
-    }
-    
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Enter Password"
                                                                    message: passwordMessage
                                                             preferredStyle:UIAlertControllerStyleAlert];
@@ -971,28 +1080,161 @@ didFailAutocompleteWithError:(NSError *)error {
                                                          
                                                          NSString *userPassword = alert.textFields.firstObject.text;
                                                          
-                                                         [self checkForPassword: userPassword];
+                                                         if ([self checkPasswordFieldExsists]) {
+                                                             [self checkForPassword: userPassword];
+
+                                                         }
 
                                                      }];
+//    
+//    UIAlertAction* forgotPassAction = [UIAlertAction actionWithTitle:@"Forgot Password" style:UIAlertActionStyleDefault
+//                                                     handler:^(UIAlertAction * action) {
+//
+//                                                         //insert code to handle password
+//                                                         [self forgotPassword];
+//                                                         
+//                                                     }];
+    
     [alert addAction: okAction];
     
-
+//    if (passwordExists) {
+//        [alert addAction: forgotPassAction];
+//    }
+    [alert.view setNeedsLayout];
     [self presentViewController:alert animated:YES completion:nil];
 
 
 }
 
+//-(void)forgotPassword{
+//
+//    //will present a few questions for the user to answer for the purpose of
+//    //recovering a password
+//    
+////        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+////        BOOL userCreated = [defaults boolForKey: @"userCreated"];
+////    
+////        if (!userCreated) {
+////    
+////            [defaults setBool: YES forKey: @"userCreated"];
+////            
+////            
+////            
+////        }
+//    
+//    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Question1"
+//                                                                   message: @"what's your fucking name?"
+//                                                            preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+//        textField.placeholder = @"enter your fucking name";
+//    }]; 
+//    
+//    UIAlertAction* nextAction = [UIAlertAction actionWithTitle:@"next question" style:UIAlertActionStyleDefault
+//                                                     handler:^(UIAlertAction * action) {
+//                                                         
+//                                                         
+//                                                         
+//                                                     }];
+//    
+//    UIAlertAction* forgotPassAction = [UIAlertAction actionWithTitle:@"Forgot Password" style:UIAlertActionStyleDefault
+//                                                             handler:^(UIAlertAction * action) {
+//                                                                 
+//                                                                 //insert code to handle password
+//                                                                 [self forgotPassword];
+//                                                                 
+//                                                             }];
+//    
+//    [alert addAction: okAction];
+//    
+//    [self presentViewController:alert animated:YES completion:nil];
+//
+//    
+//    
+//}
+
+//-(void)setupUserPasswordVerification{
+
+//
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    BOOL userCreated = [defaults boolForKey: @"userCreated"];
+//    
+//    if (!userCreated) {
+//        
+//        [defaults setBool: forKey: @"userCreated"];
+//        [defaults setValue: @"" forKey: @"question1"];
+//        [defaults setValue: @"" forKey: @"question2"];
+//        [defaults setValue: @"" forKey: @"question3"];
+//        
+//    }
+//
+//
+//    
+//    [defaults synchronize];
+
+
+
+//}
+
+//-(void)presentQuestions{
+
+//
+//    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Security Questions"
+//                                                                   message:
+//                                                            preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+//        textField.placeholder = @"Password";
+//        textField.secureTextEntry = YES;
+//    }];
+//    
+//    UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+//                                                     handler:^(UIAlertAction * action) {
+//                                                         
+//                                                         NSString *userPassword = alert.textFields.firstObject.text;
+//                                                         
+//                                                         [self checkForPassword: userPassword];
+//                                                         
+//                                                     }];
+//    
+//    UIAlertAction* forgotPassAction = [UIAlertAction actionWithTitle:@"Forgot Password" style:UIAlertActionStyleDefault
+//                                                             handler:^(UIAlertAction * action) {
+//                                                                 
+//                                                                 //insert code to handle password
+//                                                                 
+//                                                                 
+//                                                             }];
+//    [alert addAction: okAction];
+//    [alert addAction: forgotPassAction];
+//    
+//    
+//    [self presentViewController:alert animated:YES completion:nil];
+//
+
+
+
+//}
+
+
+
 -(BOOL)checkPasswordFieldExsists{
+    
+    NSLog(@"\n\n\nUP IN HURRRRRRRRRRRRR\n\n\n");
 
     BOOL hasPasswordField = NO;
     
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC"];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC1"];
+    keychain.accessibility = UICKeyChainStoreAccessibilityWhenUnlocked;
+
     
+    NSLog(@"\n\n\nabout to check them keys boy......\n\n\n");
     NSArray *allKeys = keychain.allKeys;
+    NSLog(@"\n\n\n\nhere's what's in the keychain%@", keychain);
     
     for (NSString *key in allKeys) {
         
-        if ([key isEqualToString: @"password"]) {
+        if ([key isEqualToString: @"password1"]) {
+            NSLog(@"found the damn key in keychain!!!!!!");
             hasPasswordField = YES;
             break;
         }
@@ -1001,42 +1243,89 @@ didFailAutocompleteWithError:(NSError *)error {
     return hasPasswordField;
 }
 
+-(void)savePassword:(NSString *)userPassword{
+
+    if(![self checkPasswordFieldExsists]){
+        
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC1"];
+        keychain.accessibility = UICKeyChainStoreAccessibilityWhenUnlocked;
+
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            //[keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                  //authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+            
+            [[NSOperationQueue mainQueue]addOperationWithBlock:^{
+                
+                keychain[@"password1"] = userPassword;
+                NSLog(@"we just saved the password!!!!!");
+                
+                
+            }];
+            
+        });
+
+        
+//        [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+//              authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+//        
+//        //create the password key
+//        keychain[@"password"] = userPassword;
+//        NSLog(@"we just saved the password!!!!!");
+        
+    }
+    
+    
+    
+   
+
+}
+
 -(void)checkForPassword:(NSString *)userPassword{
 
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC"];
-    NSString *passwordCheck;
-
     if([self checkPasswordFieldExsists]){
-
-            [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                  authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
         
-        passwordCheck = keychain[@"password"];
-        
-        if ([passwordCheck isEqualToString: userPassword]) {
-            NSLog(@"correct password entered!!!");
-            [self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC1"];
+        keychain.accessibility = UICKeyChainStoreAccessibilityWhenUnlocked;
 
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            //[keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                 // authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+            
+            [[NSOperationQueue mainQueue]addOperationWithBlock:^{
+                
+                NSString *passwordCheck = keychain[@"password1"];
+                NSLog(@"entered password: %@", passwordCheck);
+                NSLog(@"actual password is: %@", keychain[@"password1"]);
+                
+                if ([passwordCheck isEqualToString: userPassword]) {
+                    NSLog(@"correct password entered!!!");
+                    [self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+                    
+                }
+                else{
+                    //password doesnt exsist....handle this.......
+                    NSLog(@"NOOOOOOOOO....incorrect password");
+                    [self incorrectPasswordPrompt];
+                }
+
+            }];
+            
+        });
+        
+        
+//        if ([passwordCheck isEqualToString: userPassword]) {
+//            NSLog(@"correct password entered!!!");
+//            [self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+//
+//        }
+//        else{
+//            //password doesnt exsist....handle this.......
+//            NSLog(@"NOOOOOOOOO....incorrect password");
+//            [self incorrectPasswordPrompt];
+        
         }
-        else{
-            //password doesnt exsist....handle this.......
-            NSLog(@"NOOOOOOOOO....incorrect password");
-            [self incorrectPasswordPrompt];
-        
-        }
-
-    }
-    else if(![self checkPasswordFieldExsists]){
-
-            [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                  authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-
-            //create the password key
-            keychain[@"password"] = userPassword;
-            NSLog(@"password doesn't exsist\nwe SAVED it\ngoing to segue\n");
-            [self performSegueWithIdentifier:@"emergencySegue" sender:nil];
-    
-    }
 
 }
 
@@ -1059,6 +1348,7 @@ didFailAutocompleteWithError:(NSError *)error {
     [alert addAction: okAction];
     [alert addAction: cancelAction];
 
+    [alert.view setNeedsLayout];
     [self presentViewController:alert animated:YES completion:nil];
     
 }
@@ -1262,7 +1552,12 @@ didFailAutocompleteWithError:(NSError *)error {
     self.faceMarker.map = self.mapView;
 }
 
+-(BOOL)haveInternetConnection{
 
+    return [Utils isNetworkAvailable];
+    
+
+}
 
 
 

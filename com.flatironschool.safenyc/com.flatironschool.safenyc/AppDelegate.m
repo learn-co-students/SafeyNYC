@@ -23,9 +23,9 @@
     [GMSServices provideAPIKey:GOOGLE_API_KEY];
     
 
-    
-    
     return YES;
+    
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
