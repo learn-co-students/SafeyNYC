@@ -66,25 +66,36 @@
 @property (strong, nonatomic) UIView *defaultMessageChange;
 @property (strong, nonatomic) UIView *infoView;
 @property (strong, nonatomic) UITextView *messageTextView;
-@property (nonatomic) BOOL isLocationAttached;
+//@property (nonatomic) NSUserDefaults *isLocationAttached;
+@property (nonatomic) BOOL isMyLocationAttached;
 @property (strong, nonatomic) UIButton *checkbox;
+@property (nonatomic) NSUserDefaults *defaults;
 
 @end
 
 @implementation RUFIEmergencyViewController
 
 - (void)viewDidLoad {
-    
+    [super viewDidLoad];
+
+    self.defaults = [NSUserDefaults standardUserDefaults];
     self.messageString = [[NSUserDefaults standardUserDefaults] objectForKey:@"textMessage"];
     [[NSUserDefaults standardUserDefaults] setObject:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me." forKey:@"textMessage"];
     
-    self.isLocationAttached = [[NSUserDefaults standardUserDefaults] boolForKey:@"boolIsLocationAttached"];
+    //self.isMyLocationAttached = YES;
+    //[self.defaults setBool:self.isMyLocationAttached forKey:@"isMyLocationAttached"];
+    [self.defaults synchronize];
+   // NSLog(@"DEFAULTS: %@", [self.defaults objectForKey:@"isMyLocationAttached"]);
+    
+    //self.isLocationAttached = [NSUserDefaults standardUserDefaults];
+    //self.isMyLocationAttached = self.isLocationAttached;
+    
+//    NSLog(@"\n\n\n\n\n\nAT LOAD Location Attached %@\n\n\n\n\n\n\n\n", self.isLocationAttached);
 
-    self.isLocationAttached = YES;
-    self.composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me.";
+//    [self.isLocationAttached setBool:YES forKey:@"locationChecked"];
+    //self.composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me.";
     self.composeVC.body = self.messageString;
     
-    [super viewDidLoad];
     [self displayViewBackground];
     [self displayEmergencyImageView];
     [self displayButtons];
@@ -432,6 +443,7 @@
 
 # pragma mark - Change default message view
 -(void)changeDeafaultMessage{
+    
     self.defaultMessageChange = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.emergencyImageView.frame.size.width, 200)];
     self.defaultMessageChange.layer.cornerRadius = 5;
     self.defaultMessageChange.backgroundColor = [UIColor whiteColor];
@@ -503,10 +515,14 @@
 
 -(void)addCheckBoxForMyLocation{
     
+    
+    
     self.checkbox = [[UIButton alloc] initWithFrame:CGRectMake(20, 170, 20, 20)];
     NSString *imgName = @"";
     
-    if (self.isLocationAttached) {
+    BOOL shouldWeIncludeCheckmark = [[NSUserDefaults standardUserDefaults] boolForKey:@"isMyLocationAttached"];
+    
+    if (shouldWeIncludeCheckmark ) {
         imgName = @"selectedcheckbox.png";
     } else {
         imgName = @"notselectedcheckbox.png";
@@ -524,19 +540,26 @@
 }
 
 -(void)pressedCheckBox:(id)sender {
-    if(self.isLocationAttached){
-        self.isLocationAttached = NO;
     
-        //[self.isLocationAttached setObject:NO forKey:@"boolIsLocationAttached"];
+    //BOOL checkBox = [[NSUserDefaults standardUserDefaults] boolForKey:@"locationChecked"];
+    self.defaults = [NSUserDefaults standardUserDefaults];
+    self.isMyLocationAttached = [self.defaults boolForKey:@"isMyLocationAttached"];
+    
+    if(self.isMyLocationAttached){
+
+        [self.defaults setBool:NO forKey:@"isMyLocationAttached"];
+        [self.defaults synchronize];
         
         [self.checkbox setBackgroundImage:[UIImage imageNamed:@"notselectedcheckbox.png"]
                                  forState:UIControlStateNormal];
     } else {
-        self.isLocationAttached = YES;
+        
+        [self.defaults setBool:YES forKey:@"isMyLocationAttached"];
+        [self.defaults synchronize];
         [self.checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"]
                                  forState:UIControlStateNormal];
     }
-    [[NSUserDefaults standardUserDefaults] setBool:self.isLocationAttached forKey:@"boolIsLocationAttached"];
+    //[[NSUserDefaults standardUserDefaults] setBool:self.isLocationAttached forKey:@"boolIsLocationAttached"];
 }
 
 -(void)pressedButtonInMessageSettings:(DKCircleButton *)button {
@@ -612,12 +635,6 @@
     self.contactTutorialLabel.alpha = 0;
     self.contactDetailTutorialLabel.alpha = 0;
 }
-//    @property (strong, nonatomic) UILabel *emergencyTutorialLabel;
-//    @property (strong, nonatomic) UILabel *emergencyDetailTutorialLabel;
-//    @property (strong, nonatomic) UILabel *contactTutorialLabel;
-//    @property (strong, nonatomic) UILabel *contactDetailTutorialLabel;
-//    @property (strong, nonatomic) UILabel *settingTutorialLabel;
-//    @property (strong, nonatomic) UILabel *settingDetailTutorialLabel;}
 
 
 #pragma mark - Tutorials
@@ -642,8 +659,8 @@
     self.contactDetailTutorialLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.widthOfTheScreen/2-150, 80, 300, 320)];
     [self.view addSubview:self.contactDetailTutorialLabel];
     self.contactDetailTutorialLabel.adjustsFontSizeToFitWidth = YES;
-    self.contactDetailTutorialLabel.text = @"To delete, hold contact button for 2 seconds";
-    
+    //self.contactDetailTutorialLabel.text = @"To delete, hold contact button for 2 seconds";
+    self.contactDetailTutorialLabel.text = @"To reset the contact, presee the contact button";
     
 }
 
@@ -711,16 +728,19 @@
     //BODY MESSAGE
     NSString *myLocation = [NSString stringWithFormat:@" My location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
     self.fullString = [self.messageString stringByAppendingString:myLocation];
-    NSLog(@"1. FULL STRING: %@ ", self.fullString);
+    NSLog(@"1 MSG. FULL STRING: %@ ", self.fullString);
     
-    if(self.isLocationAttached){
-        NSLog(@"Message without location: %@", self.messageString);
+    self.isMyLocationAttached = [self.defaults boolForKey:@"isMyLocationAttached"];
+    //self.messageString = [self.messageString ]
+    
+    NSLog(@"  ATTACHED???  : %d ", self.isMyLocationAttached );
+    
+    if(self.isMyLocationAttached){
         self.fullString = [self.messageString stringByAppendingString:myLocation];
-        NSLog(@"2. FULL STRING: %@ ", self.fullString);
+        NSLog(@"2 MSG. Message AND LOCATION: %@ ", self.fullString);
     } else {
         self.fullString = self.messageString;
-        NSLog(@"MESSAGE without attachment: %@", self.fullString);
-        NSLog(@"3. FULL STRING: %@ ", self.fullString);
+        NSLog(@"3 MSG. MESSAGE ALONE: %@ ", self.fullString);
     }
     
     

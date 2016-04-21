@@ -22,6 +22,19 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [GMSServices provideAPIKey:GOOGLE_API_KEY];
     
+    
+    NSNumber *firstTimeThrough = [[NSUserDefaults standardUserDefaults] objectForKey:@"firstLoad"];
+    if (!firstTimeThrough) {
+        [[NSUserDefaults standardUserDefaults] setObject:@(YES) forKey:@"firstLoad"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isMyLocationAttached"];
+        NSLog(@"FIRST TIME THROUGH!");
+    }
+    
+    
+    
+    
+    
+    
 
     return YES;
     
