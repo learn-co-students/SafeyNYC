@@ -129,14 +129,12 @@
     
     self.widthConstrain = self.view.frame.size.width - 60;
     self.heightConstrain = self.view.frame.size.height - 60;
-    NSLog(@"Width: %lu", self.widthConstrain);
     self.searchButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 35, 47, 47)];
     self.currentLocationButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 95, 47, 47)];
     self.policeMapButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 155, 47, 47)];
     self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 215, 47, 47)];
     self.pieChartButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 275, 47, 47)];
     self.settingsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 335, 47, 47)];
-    //self.infoButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, 395, 47, 47)];
     self.dissmissPoliceMapButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthConstrain, self.heightConstrain, 47, 47)];
     
     NSArray *buttons = @[self.searchButton, self.currentLocationButton, self.policeMapButton, self.emergencyButton, self.pieChartButton, self.settingsButton, self.dissmissPoliceMapButton];
@@ -171,13 +169,10 @@
         } else if (button == self.settingsButton){
             image = [UIImage imageNamed:@"settings.png"];
             
-        } /*else if (button == self.infoButton){
-            image = [UIImage imageNamed:@"info"];
-            
-        }*/
+        }
+        
         button.imageEdgeInsets = UIEdgeInsetsMake(3, 3, 3, 3);
         [button setImage:image forState:UIControlStateNormal];
-        //[button setContentMode:UIViewContentModeScaleAspectFit];
 
         button.animateTap = NO;
         self.dissmissPoliceMapButton.hidden = YES;
@@ -280,6 +275,7 @@
         
         [self.mapView animateToCameraPosition:camera];
         [self.mapView animateToViewingAngle:65];
+        [self updateCurrentMap];
         
         
         //        [self.mapView animateToLocation: CLLocationCoordinate2DMake(self.latitude, self.longitude)];

@@ -18,9 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg15" translatesAutoresizingMaskIntoConstraints="NO" id="2B6-rV-DUZ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                            </imageView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bql-NE-nAm">
                                 <rect key="frame" x="20" y="333" width="374" height="70"/>
                                 <constraints>
@@ -59,7 +56,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bg15" width="540" height="960"/>
         <image name="distanceTime3" width="977" height="107"/>
     </resources>
 </document>

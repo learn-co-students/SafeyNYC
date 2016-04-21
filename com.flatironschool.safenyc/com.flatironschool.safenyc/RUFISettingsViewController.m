@@ -37,7 +37,7 @@
     [super viewDidLoad];
     
     self.dataStore = [RUFIDataStore sharedDataStore];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor clearColor];
 
     self.radiusArray = @[[UIImage imageNamed:@"18mile"], [UIImage imageNamed:@"14mile"], [UIImage imageNamed:@"12mile"], [UIImage imageNamed:@"34mile"], [UIImage imageNamed:@"1mile"]];
     self.yearsArray = @[[UIImage imageNamed:@"oneYear"], [UIImage imageNamed:@"twoYears"]];
@@ -60,12 +60,12 @@
 }
 
 - (void)displayViewBackground {
-    //CGFloat width = self.view.frame.size.width;
-    //CGRect halfFrame = CGRectMake(20, 185, width+20, 200);
+    
+    //CGRect smallFrame = CGRectMake(20, 185, self.screenWidth+20, 200);
     self.backgroundImage = [[UIImageView alloc] initWithFrame:self.view.frame];
-    //self.backgroundImage = [[UIImageView alloc] initWithFrame:halfFrame];
-    // self.backgroundImage.backgroundColor = [UIColor clearColor];
-    [self.backgroundImage setImage:[UIImage imageNamed:@"bg25"]];
+    //self.backgroundImage = [[UIImageView alloc] initWithFrame:smallFrame];
+    self.backgroundImage.backgroundColor = [UIColor clearColor];
+    [self.backgroundImage setImage:[UIImage imageNamed:@"bg15"]];
     [self.backgroundImage setContentMode:UIViewContentModeScaleAspectFill];
     
     [self.view addSubview:self.backgroundImage];

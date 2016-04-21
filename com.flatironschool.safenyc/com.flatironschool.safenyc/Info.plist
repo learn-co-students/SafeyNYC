@@ -33,7 +33,7 @@
 		<string>Show your location on the map</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string>IrinaStoryboard</string>
 	<key>UIMainStoryboardFile</key>
 	<string>IrinaStoryboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
