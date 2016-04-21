@@ -26,6 +26,7 @@
 @property (assign, nonatomic) NSUInteger grandLarcenyMVCount;
 @property (assign, nonatomic) NSUInteger burglaryCount;
 @property (nonatomic, assign) BOOL settingsChanged;
+//@property (nonatomic) BOOL agreementBool;
 + (instancetype)sharedDataStore;
 
 -(void)getCrimeDataWithCompletion:(void (^)(BOOL finished))completionBlock;

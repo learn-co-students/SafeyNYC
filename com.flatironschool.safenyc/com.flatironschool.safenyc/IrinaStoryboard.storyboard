@@ -38,6 +38,7 @@
                         <segue destination="w5R-Ix-IF7" kind="presentation" identifier="newSBSegue" id="mpg-tK-N7M"/>
                         <segue destination="Dap-5G-nrq" kind="presentation" identifier="emergencySegue" id="XSX-h5-nyp"/>
                         <segue destination="MrP-uN-2CS" kind="presentation" identifier="settingsSegue" id="9e9-9v-f4d"/>
+                        <segue destination="EXN-za-3pu" kind="presentation" identifier="introSegue" id="Ycj-UY-OQW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K1Q-DQ-UUk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -50,7 +51,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="4347" y="175"/>
+            <point key="canvasLocation" x="4294" y="167"/>
         </scene>
         <!--rosarioStoryboard-->
         <scene sceneID="Ebm-97-KbB">
@@ -68,6 +69,14 @@
             </objects>
             <point key="canvasLocation" x="4744.5" y="225"/>
         </scene>
+        <!--introStoryboard-->
+        <scene sceneID="Gmk-qo-mhZ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="introStoryboard" id="EXN-za-3pu" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gYc-op-AVw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4725.5" y="303"/>
+        </scene>
         <!--Settings-->
         <scene sceneID="lN2-ev-GwR">
             <objects>
@@ -79,7 +88,7 @@
         <!--Navigation Controller-->
         <scene sceneID="SAb-pn-x1P">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="GT1-TS-Ci7" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="openingNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="GT1-TS-Ci7" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ctl-Ib-HNh">
