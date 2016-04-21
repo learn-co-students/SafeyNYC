@@ -79,10 +79,9 @@
     [self setUpButtons];
     [self disableAllButtons];
     
-    if (![self checkPasswordFieldExsists]) {
-        [self alertWithPasswordEntryForFirstTime];
-    }
-    
+//    if (![self checkPasswordFieldExsists]) {
+//        [self alertWithPasswordEntryForFirstTime];
+//    }
     
 }
 
@@ -97,7 +96,7 @@
     
         [self updateMapAfterSetttingsChange];
     }
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -944,7 +943,12 @@ didFailAutocompleteWithError:(NSError *)error {
                                                 break;
                                                 
                                             case LAErrorUserFallback:
-                                                [self alertWithPasswordEntry];
+                                                if ([self checkPasswordFieldExsists]) {
+                                                    [self alertWithPasswordEntry];
+                                                }
+                                                else{
+                                                    [self alertWithPasswordEntryForFirstTime];
+                                                }
                                                 NSLog(@"User pressed \"Enter Password\"");
                                                 break;
                                                 
@@ -959,15 +963,29 @@ didFailAutocompleteWithError:(NSError *)error {
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Enter Password"
-                                                                           message:@"Please try entering your password"
+                                                                           message:@"Would you like to enter a password?"
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style: UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {
-                                                                      [self alertWithPasswordEntry];
+                                                                      if ([self checkPasswordFieldExsists]) {
+                                                                          [self alertWithPasswordEntry];
+                                                                      }
+                                                                      else{
+                                                                          [self alertWithPasswordEntryForFirstTime];
+                                                                      }
                                                                   }];
             
+            UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style: UIAlertActionStyleDestructive
+                                                                  handler:^(UIAlertAction * action) {
+
+                                                                  }];
+
+            
             [alert addAction:defaultAction];
+            [alert addAction:cancelAction];
+
+            [alert.view setNeedsLayout];
             [self presentViewController:alert animated:YES completion:nil];
         });
     }
@@ -987,28 +1005,24 @@ didFailAutocompleteWithError:(NSError *)error {
         [textField addTarget:self
                       action:@selector(alertTextFieldDidChange:)
             forControlEvents:UIControlEventEditingChanged];
-        [textField becomeFirstResponder];
+//        [textField becomeFirstResponder];
     }];
     
     UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * action) {
                                                          
                                                          NSString *userPassword = alert.textFields.firstObject.text;
-
-                                                         if ([self passwordIsValid: userPassword]) {
-                                                             [self savePassword: userPassword];
-
-                                                         }
-                                                         else{
-                                                             [self alertWithPasswordEntryForFirstTime];
+                                                         
+                                                         if (![self checkPasswordFieldExsists]) {
+                                                            [self savePassword: userPassword];
                                                          }
 
-                                                         [alert.textFields.firstObject resignFirstResponder]; 
+//                                                         [alert.textFields.firstObject resignFirstResponder]; 
                                                      }];
     [alert addAction: okAction];
     
     
-    
+    [alert.view setNeedsLayout];
     [self presentViewController:alert animated:YES completion:nil];
 
 }
@@ -1048,7 +1062,10 @@ didFailAutocompleteWithError:(NSError *)error {
                                                          
                                                          NSString *userPassword = alert.textFields.firstObject.text;
                                                          
-                                                         [self checkForPassword: userPassword];
+                                                         if ([self checkPasswordFieldExsists]) {
+                                                             [self checkForPassword: userPassword];
+
+                                                         }
 
                                                      }];
 //    
@@ -1065,7 +1082,7 @@ didFailAutocompleteWithError:(NSError *)error {
 //    if (passwordExists) {
 //        [alert addAction: forgotPassAction];
 //    }
-    
+    [alert.view setNeedsLayout];
     [self presentViewController:alert animated:YES completion:nil];
 
 
@@ -1183,16 +1200,23 @@ didFailAutocompleteWithError:(NSError *)error {
 
 
 -(BOOL)checkPasswordFieldExsists{
+    
+    NSLog(@"\n\n\nUP IN HURRRRRRRRRRRRR\n\n\n");
 
     BOOL hasPasswordField = NO;
     
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC"];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC1"];
+    keychain.accessibility = UICKeyChainStoreAccessibilityWhenUnlocked;
+
     
+    NSLog(@"\n\n\nabout to check them keys boy......\n\n\n");
     NSArray *allKeys = keychain.allKeys;
+    NSLog(@"\n\n\n\nhere's what's in the keychain%@", keychain);
     
     for (NSString *key in allKeys) {
         
-        if ([key isEqualToString: @"password"]) {
+        if ([key isEqualToString: @"password1"]) {
+            NSLog(@"found the damn key in keychain!!!!!!");
             hasPasswordField = YES;
             break;
         }
@@ -1205,16 +1229,37 @@ didFailAutocompleteWithError:(NSError *)error {
 
     if(![self checkPasswordFieldExsists]){
         
-        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC"];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC1"];
+        keychain.accessibility = UICKeyChainStoreAccessibilityWhenUnlocked;
+
         
-        [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-              authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            //[keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                  //authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+            
+            [[NSOperationQueue mainQueue]addOperationWithBlock:^{
+                
+                keychain[@"password1"] = userPassword;
+                NSLog(@"we just saved the password!!!!!");
+                
+                
+            }];
+            
+        });
+
         
-        //create the password key
-        keychain[@"password"] = userPassword;
-        NSLog(@"we just saved the password!!!!!");
+//        [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+//              authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+//        
+//        //create the password key
+//        keychain[@"password"] = userPassword;
+//        NSLog(@"we just saved the password!!!!!");
         
     }
+    
+    
+    
+   
 
 }
 
@@ -1222,29 +1267,50 @@ didFailAutocompleteWithError:(NSError *)error {
 
     if([self checkPasswordFieldExsists]){
         
-        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC"];
-        NSString *passwordCheck;
-        
-        [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-              authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-        
-        passwordCheck = keychain[@"password"];
-        
-        if ([passwordCheck isEqualToString: userPassword]) {
-            NSLog(@"correct password entered!!!");
-            [self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"SafeyNYC1"];
+        keychain.accessibility = UICKeyChainStoreAccessibilityWhenUnlocked;
 
-        }
-        else{
-            //password doesnt exsist....handle this.......
-            NSLog(@"NOOOOOOOOO....incorrect password");
-            [self incorrectPasswordPrompt];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            //[keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                 // authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+            
+            [[NSOperationQueue mainQueue]addOperationWithBlock:^{
+                
+                NSString *passwordCheck = keychain[@"password1"];
+                NSLog(@"entered password: %@", passwordCheck);
+                NSLog(@"actual password is: %@", keychain[@"password1"]);
+                
+                if ([passwordCheck isEqualToString: userPassword]) {
+                    NSLog(@"correct password entered!!!");
+                    [self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+                    
+                }
+                else{
+                    //password doesnt exsist....handle this.......
+                    NSLog(@"NOOOOOOOOO....incorrect password");
+                    [self incorrectPasswordPrompt];
+                }
+
+            }];
+            
+        });
+        
+        
+//        if ([passwordCheck isEqualToString: userPassword]) {
+//            NSLog(@"correct password entered!!!");
+//            [self performSegueWithIdentifier:@"emergencySegue" sender:nil];
+//
+//        }
+//        else{
+//            //password doesnt exsist....handle this.......
+//            NSLog(@"NOOOOOOOOO....incorrect password");
+//            [self incorrectPasswordPrompt];
         
         }
 
-    }
-    
 }
+
 
 -(void)incorrectPasswordPrompt{
 
@@ -1264,6 +1330,7 @@ didFailAutocompleteWithError:(NSError *)error {
     [alert addAction: okAction];
     [alert addAction: cancelAction];
 
+    [alert.view setNeedsLayout];
     [self presentViewController:alert animated:YES completion:nil];
     
 }
