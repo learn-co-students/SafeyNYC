@@ -41,7 +41,6 @@
                                 <state key="normal" title="Button" image="yesButton"/>
                                 <connections>
                                     <action selector="yesButtonAction:" destination="ay2-W3-FJh" eventType="touchUpInside" id="7us-BW-Lhz"/>
-                                    <segue destination="xGq-i9-NVQ" kind="show" identifier="irinaStoryBoard" id="Xks-Tu-Cdi"/>
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xEx-sK-aht">
@@ -179,14 +178,6 @@ VBPieChart by Tristan Himmelman - Licensed under: MIT Licensed</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NSi-vv-Hve" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="306" y="342"/>
-        </scene>
-        <!--IrinaStoryboard-->
-        <scene sceneID="Qr6-dd-DYR">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="irinaStoryboard" storyboardName="IrinaStoryboard" id="xGq-i9-NVQ" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6pA-7J-WRB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="773" y="145"/>
         </scene>
     </scenes>
     <resources>
