@@ -66,7 +66,6 @@
 @property (strong, nonatomic) UIView *defaultMessageChange;
 @property (strong, nonatomic) UIView *infoView;
 @property (strong, nonatomic) UITextView *messageTextView;
-//@property (nonatomic) NSUserDefaults *isLocationAttached;
 @property (nonatomic) BOOL isMyLocationAttached;
 @property (strong, nonatomic) UIButton *checkbox;
 @property (nonatomic) NSUserDefaults *defaults;
@@ -81,20 +80,10 @@
     self.defaults = [NSUserDefaults standardUserDefaults];
     self.messageString = [[NSUserDefaults standardUserDefaults] objectForKey:@"textMessage"];
     [[NSUserDefaults standardUserDefaults] setObject:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me." forKey:@"textMessage"];
-    
-    //self.isMyLocationAttached = YES;
-    //[self.defaults setBool:self.isMyLocationAttached forKey:@"isMyLocationAttached"];
-    [self.defaults synchronize];
-   // NSLog(@"DEFAULTS: %@", [self.defaults objectForKey:@"isMyLocationAttached"]);
-    
-    //self.isLocationAttached = [NSUserDefaults standardUserDefaults];
-    //self.isMyLocationAttached = self.isLocationAttached;
-    
-//    NSLog(@"\n\n\n\n\n\nAT LOAD Location Attached %@\n\n\n\n\n\n\n\n", self.isLocationAttached);
 
-//    [self.isLocationAttached setBool:YES forKey:@"locationChecked"];
-    //self.composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me.";
-    self.composeVC.body = self.messageString;
+    [self.defaults synchronize];
+
+    self.composeVC.body = @"Hey! I am concerned about the neighboorhood I am in. Please check in on me.";
     
     [self displayViewBackground];
     [self displayEmergencyImageView];
@@ -363,31 +352,7 @@
         
     } else if (button == self.infoButton){
         
-        /*
-         RUFITutorialViewController * contributeViewController = [[RUFITutorialViewController alloc] init];
-         UIBlurEffect * blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
-         UIVisualEffectView *beView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-         beView.frame = self.view.bounds;
-         
-         contributeViewController.view.frame = self.view.bounds;
-         contributeViewController.view.backgroundColor = [UIColor clearColor];
-         [contributeViewController.view insertSubview:beView atIndex:0];
-         contributeViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-         
-         [self presentViewController:contributeViewController animated:YES completion:nil];*/
-        
-        //        RUFITutorialViewController *modalVC = [[RUFITutorialViewController alloc]init];
-        //        [self presentViewController:modalVC animated:YES completion:nil];
-        
-        // commenting out the below method in a merge conflict
-        //warning Commented out below method in merge with  Yuchi's branch
-        // [self performSegueWithIdentifier:@"contactsInfoButton" sender:nil];
-        
-        //TODO: show the info about the emergency button
-        //      - how to add friend
-        //      - how to change the default message
-        //      - can we delete contact???
-        [self showInfo];
+         [self showInfo];
         
     } else if (button == self.settingsButton){
         
@@ -401,39 +366,32 @@
         
         if (button == self.person1){
             
-            NSLog(@"Person 1!");
             self.tappedContactIndex = 1;
             self.tappedContact = self.contact1;
-            NSLog(@"Contact 1: %@; Person 1 (current contact): %@", self.contact1, self.tappedContact);
             [self displayImageOrInitialsOfTheContact:self.contact1 onTheButton:self.person1];
             
         } else if (button == self.person2){
             
-            NSLog(@"Person 2!");
             self.tappedContactIndex = 2;
             self.tappedContact = self.contact2;
             
         } else if (button == self.person3){
             
-            NSLog(@"Person 3!");
             self.tappedContactIndex = 3;
             self.tappedContact = self.contact3;
             
         } else if (button == self.person4){
             
-            NSLog(@"Person 4!");
             self.tappedContactIndex = 4;
             self.tappedContact = self.contact4;
             
         } else if (button == self.person5){
             
-            NSLog(@"Person 5!");
             self.tappedContactIndex = 5;
             self.tappedContact = self.contact5;
             
         } else if (button == self.person6){
             
-            NSLog(@"Person 6!");
             self.tappedContactIndex = 6;
             self.tappedContact = self.contact6;
             
@@ -515,8 +473,6 @@
 
 -(void)addCheckBoxForMyLocation{
     
-    
-    
     self.checkbox = [[UIButton alloc] initWithFrame:CGRectMake(20, 170, 20, 20)];
     NSString *imgName = @"";
     
@@ -559,7 +515,6 @@
         [self.checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"]
                                  forState:UIControlStateNormal];
     }
-    //[[NSUserDefaults standardUserDefaults] setBool:self.isLocationAttached forKey:@"boolIsLocationAttached"];
 }
 
 -(void)pressedButtonInMessageSettings:(DKCircleButton *)button {
@@ -839,7 +794,7 @@
     [UIView animateWithDuration:0.3f animations:^{
         
         if (isPortrait){
-            NSLog(@"Portrait mode");
+
             self.backgroundImage.frame = CGRectMake(0, 0, self.widthOfTheScreen, self.heightOfTheScreen);
             if (self.isSix & isPortrait ){
                 
