@@ -21,9 +21,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.dataStore = [RUFIDataStore sharedDataStore];
+    self.dataStore = [RUFIDataStore sharedDataStore];
     
     self.agreementAccepted = [NSUserDefaults standardUserDefaults];
+    
+
     
     
     self.yesButtonOutlet.backgroundColor = [UIColor whiteColor];
@@ -45,6 +47,12 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)yesButtonAction:(id)sender {
+    
+
+    self.dataStore.agreementBool = YES;
+    
+    NSLog(@"AGREEMENT BOOL IN INTRO %d", self.dataStore.agreementBool);
+    
     
     [self.agreementAccepted setBool:YES forKey:@"hasLoggedIn"];
     
