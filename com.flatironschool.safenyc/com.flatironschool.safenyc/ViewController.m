@@ -94,7 +94,14 @@
 -(void)viewDidAppear:(BOOL)animated{
 
     [super viewDidAppear:YES];
+    
+    NSLog(@"AgreementBool %d", self.datastore.agreementBool);
+    
+    if (self.datastore.agreementBool) {
+        [self updateCurrentMap];
+        self.datastore.agreementBool = NO;
 
+    };
     
     BOOL hasLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLoggedIn"];
     
