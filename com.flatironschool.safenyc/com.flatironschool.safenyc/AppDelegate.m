@@ -24,6 +24,7 @@
     
     BOOL hasLoggedIn = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLoggedIn"];
     if (hasLoggedIn) {
+        
         // means that its stored as YES
         // meaning dont show the alert
     } else {
@@ -33,6 +34,8 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLoggedIn"];
     }
     return YES;
+    
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

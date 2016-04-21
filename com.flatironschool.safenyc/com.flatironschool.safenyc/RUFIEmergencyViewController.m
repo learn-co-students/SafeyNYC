@@ -39,7 +39,9 @@
 @property (strong, nonatomic) Contact *contact4;
 @property (strong, nonatomic) Contact *contact5;
 @property (strong, nonatomic) Contact *contact6;
-@property (strong, nonatomic) Contact *currentContact; // FIXME: rename to tappedContact
+@property (strong, nonatomic) Contact *tappedContact;
+
+@property (nonatomic,strong) UILongPressGestureRecognizer *longPressDeleteContact1;
 
 @property (nonatomic) NSUInteger tappedContactIndex;
 
@@ -50,11 +52,15 @@
 @property (strong, nonatomic) NSArray *localContacts;
 @property (strong, nonatomic) NSArray *recipients;
 @property (nonatomic) BOOL isSix;
+@property (nonatomic) BOOL isSmallPhone;
 @property (nonatomic) NSUInteger widthOfTheImage;
 @property (strong, nonatomic) NSString *messageString;
+@property (strong, nonatomic) NSString *fullString;
 @property (strong, nonatomic) UIView *defaultMessageChange;
 @property (strong, nonatomic) UIView *infoView;
 @property (strong, nonatomic) UITextView *messageTextView;
+@property (nonatomic) BOOL isLocationAttached;
+@property (strong, nonatomic) UIButton *checkbox;
 
 @end
 
@@ -62,7 +68,10 @@
 
 - (void)viewDidLoad {
     
-    self.messageString = [NSString stringWithFormat:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
+    self.messageString = [[NSUserDefaults standardUserDefaults] objectForKey:@"textMessage"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me." forKey:@"textMessage"];
+
+    self.isLocationAttached = [[NSUserDefaults standardUserDefaults] boolForKey:@"boolIsLocationAttached"];
     self.composeVC.body = self.messageString;
 
     [super viewDidLoad];
@@ -73,9 +82,18 @@
     self.localContactStore = [RUFIContactStore sharedContactStore];
     [self.localContactStore fetchData];
     self.localContacts = self.localContactStore.contacts;
-    NSLog(@"\n %@ ", self.localContacts);
     
     [self setupContactButtons];
+    
+//    self.longPressDeleteContact1 = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPressGestures:)];
+//    self.longPressDeleteContact1.minimumPressDuration = 1.0f;
+//    self.longPressDeleteContact1.allowableMovement = 100.0f;
+//    
+//    [self.person1 addGestureRecognizer:self.longPressDeleteContact1];
+}
+
+-(void)handleLongPressGestures:(id)sender{
+    NSLog(@" HERE!!!! Long Gesture: %@", sender);
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -187,11 +205,18 @@
     self.widthOfTheScreen = self.view.frame.size.width;
     self.heightOfTheScreen = self.view.frame.size.height;
     self.widthOfTheImage = 375;
-    if(self.view.frame.size.width <= 375){
+    if(self.view.frame.size.width == 375){
         self.isSix = NO;
+        self.isSmallPhone =NO;
         self.emergencyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, self.widthOfTheScreen/2-45, self.widthOfTheImage-20, self.widthOfTheImage-20)];
-    } else {
+    } else if (self.view.frame.size.width < 375){
+        self.isSix = NO;
+        self.isSmallPhone = YES;
+        self.widthOfTheImage = 320;
+        self.emergencyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, self.widthOfTheScreen/2-45, self.widthOfTheImage-20, self.widthOfTheImage-20)];
+    }else {
         self.isSix = YES;
+        self.isSmallPhone =NO;
         self.emergencyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, self.widthOfTheScreen/2-45, self.widthOfTheImage-40, self.widthOfTheImage-40)];
     }
     [self.view addSubview:self.emergencyImageView];
@@ -207,8 +232,8 @@
 - (void) displayButtons {
     
     self.backButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 30, 50, 50)];
-    self.infoButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 90, 50, 50)];
-    self.settingsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 150, 50, 50)];
+    self.settingsButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 90, 50, 50)];
+    self.infoButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheScreen-60, 150, 50, 50)];
     
     if(self.isSix){
         self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage/2-89, self.widthOfTheImage/2-90, 139, 139)];
@@ -218,6 +243,16 @@
         self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-166, self.widthOfTheImage-144, 86, 86)];
         self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(39, self.widthOfTheImage-144, 86, 86)];
         self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(-2, self.widthOfTheImage/2-63, 86, 86)];
+
+    } else if (self.isSmallPhone){
+        
+        self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage/2-72, self.widthOfTheImage/2-72, 120, 120)];
+        self.person1 = [[DKCircleButton alloc] initWithFrame:CGRectMake(35, 16, 76, 76)];
+        self.person2 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-132, 16, 76, 76)];
+        self.person3 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-95, self.widthOfTheImage/2-49, 76, 76)];
+        self.person4 = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage-133, self.widthOfTheImage-112, 76, 76)];
+        self.person5 = [[DKCircleButton alloc] initWithFrame:CGRectMake(35, self.widthOfTheImage-112, 76, 76)];
+        self.person6 = [[DKCircleButton alloc] initWithFrame:CGRectMake(-2, self.widthOfTheImage/2-49, 76, 76)];
 
     } else {
         self.emergencyButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.widthOfTheImage/2-80, self.widthOfTheImage/2-80, 140, 140)];
@@ -266,7 +301,7 @@
         } else if (button == self.settingsButton){
         
             UIImage *image = [UIImage new];
-            image = [UIImage imageNamed:@"settings.png"];
+            image = [UIImage imageNamed:@"messageSettings"];
             [button setImage:image forState:UIControlStateNormal];
             [button setContentMode:UIViewContentModeScaleAspectFit];
             
@@ -336,45 +371,45 @@
         
             NSLog(@"Person 1!");
             self.tappedContactIndex = 1;
-            self.currentContact = self.contact1;
-            NSLog(@"Contact 1: %@; Person 1 (current contact): %@", self.contact1, self.currentContact);
+            self.tappedContact = self.contact1;
+            NSLog(@"Contact 1: %@; Person 1 (current contact): %@", self.contact1, self.tappedContact);
             [self displayImageOrInitialsOfTheContact:self.contact1 onTheButton:self.person1];
             
         } else if (button == self.person2){
             
             NSLog(@"Person 2!");
             self.tappedContactIndex = 2;
-            self.currentContact = self.contact2;
+            self.tappedContact = self.contact2;
             
         } else if (button == self.person3){
             
             NSLog(@"Person 3!");
             self.tappedContactIndex = 3;
-            self.currentContact = self.contact3;
+            self.tappedContact = self.contact3;
             
         } else if (button == self.person4){
             
             NSLog(@"Person 4!");
             self.tappedContactIndex = 4;
-            self.currentContact = self.contact4;
+            self.tappedContact = self.contact4;
         
         } else if (button == self.person5){
             
             NSLog(@"Person 5!");
             self.tappedContactIndex = 5;
-            self.currentContact = self.contact5;
+            self.tappedContact = self.contact5;
        
         } else if (button == self.person6){
             
             NSLog(@"Person 6!");
             self.tappedContactIndex = 6;
-            self.currentContact = self.contact6;
+            self.tappedContact = self.contact6;
        
         }
     }
 }
 
-# pragma mark - Change the message view
+# pragma mark - Change default message view
 -(void)changeDeafaultMessage{
    
     self.defaultMessageChange = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.emergencyImageView.frame.size.width, self.emergencyImageView.frame.size.width)];
@@ -384,11 +419,11 @@
     //Image Message
     UIImage *image = [UIImage imageNamed:@"message"];
     UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-    imageView.frame = CGRectMake(0, 0, self.defaultMessageChange.frame.size.width, 80);
+    imageView.frame = CGRectMake(30, 0, self.defaultMessageChange.frame.size.width-100, 50);
     [self.defaultMessageChange addSubview:imageView];
     
     //Text View Default Message
-    self.messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 100, self.defaultMessageChange.frame.size.width-80, 180)];
+    self.messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(20, 50, self.defaultMessageChange.frame.size.width-80, 110)];
     self.messageTextView.text= self.messageString;
     self.messageTextView.backgroundColor = [UIColor whiteColor];
     self.messageTextView.alpha = 1;
@@ -414,13 +449,19 @@
     }];
 
     self.backButton.enabled = NO;
-    self.infoButton.enabled = NO;
-    self.settingsButton.hidden = YES;
+    self.settingsButton.enabled = NO;
+    self.infoButton.hidden = YES;
     
     [self.messageTextView becomeFirstResponder];
     
-    self.cancelChanegeMsgButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.emergencyImageView.frame.size.height-50, 100, 50, 50)];
-    self.okButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.emergencyImageView.frame.size.height-50, 160, 50, 50)];
+    [self addOkAndCancelButton];
+    
+    [self addCheckBoxForMyLocation];
+}
+
+-(void)addOkAndCancelButton {
+    self.cancelChanegeMsgButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.emergencyImageView.frame.size.height-50, 50, 50, 50)];
+    self.okButton = [[DKCircleButton alloc] initWithFrame:CGRectMake(self.emergencyImageView.frame.size.height-50, 110, 50, 50)];
     NSArray *buttons = @[self.cancelChanegeMsgButton, self.okButton];
     for(DKCircleButton *button in buttons){
         [self.defaultMessageChange addSubview:button];
@@ -436,10 +477,47 @@
         [button setContentMode:UIViewContentModeScaleAspectFill];
         [button addTarget:self action:@selector(pressedButtonInMessageSettings:) forControlEvents:UIControlEventTouchUpInside];
     }
+
+}
+
+-(void)addCheckBoxForMyLocation{
+
+    self.checkbox = [[UIButton alloc] initWithFrame:CGRectMake(20, 170, 20, 20)];
+    NSString *imgName = @"";
+
+    if (self.isLocationAttached) {
+        imgName = @"selectedcheckbox.png";
+    } else {
+        imgName = @"notselectedcheckbox.png";
+    }
+    [self.checkbox setBackgroundImage:[UIImage imageNamed:imgName]
+                        forState:UIControlStateNormal];
+
+    self.checkbox.adjustsImageWhenHighlighted=YES;
+    [self.checkbox addTarget:self action:@selector(pressedCheckBox:) forControlEvents:UIControlEventTouchUpInside];
+    [self.defaultMessageChange addSubview:self.checkbox];
+
+    UILabel *addMyLocationToCheckBox = [[UILabel alloc] initWithFrame:CGRectMake(50, 170, 150, 20)];
+    addMyLocationToCheckBox.text = @"Add my location";
+    [self.defaultMessageChange addSubview:addMyLocationToCheckBox];
+}
+
+-(void)pressedCheckBox:(id)sender {
+    if(self.isLocationAttached){
+        self.isLocationAttached = NO;
+        [self.checkbox setBackgroundImage:[UIImage imageNamed:@"notselectedcheckbox.png"]
+                                 forState:UIControlStateNormal];
+    } else {
+        self.isLocationAttached = YES;
+        [self.checkbox setBackgroundImage:[UIImage imageNamed:@"selectedcheckbox.png"]
+                                 forState:UIControlStateNormal];
+    }
+    [[NSUserDefaults standardUserDefaults] setBool:self.isLocationAttached forKey:@"boolIsLocationAttached"];
 }
 
 -(void)pressedButtonInMessageSettings:(DKCircleButton *)button {
     
+    [self.messageTextView resignFirstResponder];
     button.animateTap = YES;
     if(button == self.okButton) {
         self.messageString = self.messageTextView.text;
@@ -450,8 +528,8 @@
         self.defaultMessageChange.alpha = 0;
     }];
     self.backButton.enabled = YES;
-    self.infoButton.enabled = YES;
-    self.settingsButton.hidden = NO;
+    self.settingsButton.enabled = YES;
+    self.infoButton.hidden = NO;
     
 }
 
@@ -497,12 +575,12 @@
         self.infoView.alpha = 0;
     }];
     self.backButton.enabled = YES;
-    self.infoButton.enabled = YES;
     self.settingsButton.enabled = YES;
+    self.infoButton.enabled = YES;
     
 }
 
-# pragma mark - Message
+# pragma mark - Send Message
 -(void) emergencyMessage{
     
     if(![MFMessageComposeViewController canSendText]) {
@@ -521,17 +599,25 @@
     self.composeVC.recipients = self.recipients;
     
     //BODY MESSAGE
-    self.composeVC.body = self.messageString;
-    //self.composeVC.body = [NSString stringWithFormat:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me, this is my location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
+    NSString *myLocation = [NSString stringWithFormat:@"My location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
+    
+    if(self.isLocationAttached){
+        self.fullString = [self.messageString stringByAppendingString:myLocation];
+    } else {
+        self.fullString = self.messageString;
+    }
+    
+    
+    self.composeVC.body = self.fullString;
+    //self.composeVC.body = [NSString stringWithFormat:@"Hey! I am concerned about the neighboorhood I am in. Please check in on me. this is my location: http://maps.google.com/maps?q=%.8f,%.8f", self.myCurrnetLongitude, self.myCurrnetLatitude];
         
     NSLog(@"%f, %f", self.myCurrnetLatitude, self.myCurrnetLongitude);
+
 //    BOOL addedAttachment = [self addLocationAttachmentToComposeViewController:self.composeVC displayName:@"My Location" location:CLLocationCoordinate2DMake(self.myCurrnetLongitude, self.myCurrnetLatitude)];
 //    
 //    if(!addedAttachment) {
 //        NSLog(@"Seems there was an issue adding the attachment :(");
 //    }
-    
-
     
     [self showViewController:self.composeVC sender:nil];
 
@@ -557,9 +643,9 @@
         
         RUFIContactStore *localContactStore = [RUFIContactStore sharedContactStore];
         
-        if (self.currentContact) {
-            [localContactStore deleteContact:self.currentContact];
-            self.currentContact = nil;
+        if (self.tappedContact) {
+            [localContactStore deleteContact:self.tappedContact];
+            self.tappedContact = nil;
         }
         
         Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:localContactStore.managedObjectContext];
@@ -627,7 +713,7 @@
                self.person4.frame = CGRectMake(self.widthOfTheImage-152, self.widthOfTheImage-128, 88, 88);
                self.person5.frame = CGRectMake(43, self.widthOfTheImage-128, 88, 88);
                self.person6.frame = CGRectMake(-2, self.widthOfTheImage/2-55, 88, 88);
-           
+        
            } else {
               
                self.emergencyImageView.frame = CGRectMake(10, self.widthOfTheImage/2-45, self.widthOfTheImage-20, self.widthOfTheImage-20);
@@ -635,8 +721,8 @@
            }
            self.emergencyButton.frame = CGRectMake(self.widthOfTheImage/2-80, self.widthOfTheImage/2-80, 140, 140);
            self.backButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
-           self.infoButton.frame = CGRectMake(self.widthOfTheScreen-60, 90, 50, 50);
-           self.settingsButton.frame = CGRectMake(self.widthOfTheScreen-60, 150, 50, 50);
+           self.settingsButton.frame = CGRectMake(self.widthOfTheScreen-60, 90, 50, 50);
+           self.infoButton.frame = CGRectMake(self.widthOfTheScreen-60, 150, 50, 50);
            self.infoView.frame = CGRectMake(10, 20, self.widthOfTheScreen-20, self.heightOfTheScreen-40);
            self.cancelButton.frame = CGRectMake(self.widthOfTheScreen-60, 30, 50, 50);
             
@@ -660,8 +746,8 @@
             
             }
             self.backButton.frame = CGRectMake(self.heightOfTheScreen-60, 30, 50, 50);
-            self.infoButton.frame = CGRectMake(self.heightOfTheScreen-60, 90, 50, 50);
-            self.settingsButton.frame = CGRectMake(self.heightOfTheScreen-60, 150, 50, 50);
+            self.settingsButton.frame = CGRectMake(self.heightOfTheScreen-60, 90, 50, 50);
+            self.infoButton.frame = CGRectMake(self.heightOfTheScreen-60, 150, 50, 50);
             self.infoView.frame = CGRectMake(10, 20, self.heightOfTheScreen-20, self.widthOfTheScreen-40);
             self.cancelButton.frame = CGRectMake(self.heightOfTheScreen-80, 30, 50, 50);
         
