@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fAF-z8-dqt">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="yHx-9S-ow3">
+            <objects>
+                <viewController id="fAF-z8-dqt" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qjR-SA-7yK"/>
+                        <viewControllerLayoutGuide type="bottom" id="zvb-3T-0NP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="w4P-L3-Doe">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg15" translatesAutoresizingMaskIntoConstraints="NO" id="Flc-X0-4ik">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Ndw-pS-ngQ">
+                                <rect key="frame" x="168" y="133.5" width="264" height="333"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="333" id="Ex0-BW-uD6"/>
+                                    <constraint firstAttribute="width" constant="264" id="bUV-Az-1Zx"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Flc-X0-4ik" firstAttribute="top" secondItem="w4P-L3-Doe" secondAttribute="topMargin" id="1Iq-9B-qMu"/>
+                            <constraint firstItem="Flc-X0-4ik" firstAttribute="leading" secondItem="w4P-L3-Doe" secondAttribute="leadingMargin" constant="-20" id="5Mc-00-jrX"/>
+                            <constraint firstItem="zvb-3T-0NP" firstAttribute="top" secondItem="Flc-X0-4ik" secondAttribute="bottom" id="5cf-8P-vWW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Flc-X0-4ik" secondAttribute="trailing" constant="-20" id="6Cr-er-rws"/>
+                            <constraint firstItem="Ndw-pS-ngQ" firstAttribute="centerX" secondItem="w4P-L3-Doe" secondAttribute="centerX" id="7Bq-71-6ru"/>
+                            <constraint firstItem="Ndw-pS-ngQ" firstAttribute="centerY" secondItem="w4P-L3-Doe" secondAttribute="centerY" id="hAT-qm-7Ng"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tiQ-nz-S5t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="176" y="224"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bg15" width="540" height="960"/>
+        <image name="logo" width="710" height="1104"/>
+    </resources>
+</document>

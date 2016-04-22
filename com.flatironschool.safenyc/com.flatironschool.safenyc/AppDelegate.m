@@ -20,7 +20,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [GMSServices provideAPIKey:GOOGLE_API_KEY];
+    [GMSServices provideAPIKey:GOOGLE_PLACES_API_KEY];
     
     
     NSNumber *firstTimeThrough = [[NSUserDefaults standardUserDefaults] objectForKey:@"firstLoad"];

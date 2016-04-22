@@ -19,6 +19,7 @@
 		7361C9E01CBD643900F69CC3 /* introStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7361C9DF1CBD643900F69CC3 /* introStoryboard.storyboard */; };
 		7361C9E31CBD658600F69CC3 /* RUFIIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7361C9E21CBD658600F69CC3 /* RUFIIntroViewController.m */; };
 		739E4EC91CBFE8BB00F3DCBD /* IrinaStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 739E4EC81CBFE8BB00F3DCBD /* IrinaStoryboard.storyboard */; };
+		73D0E7431CC9B310002838C1 /* newLaunch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73D0E7421CC9B310002838C1 /* newLaunch.storyboard */; };
 		A707E4CA1CAB0239002F37C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4C91CAB0239002F37C5 /* main.m */; };
 		A707E4CD1CAB0239002F37C5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4CC1CAB0239002F37C5 /* AppDelegate.m */; };
 		A707E4D01CAB0239002F37C5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A707E4CF1CAB0239002F37C5 /* ViewController.m */; };
@@ -88,6 +89,7 @@
 		7361C9E11CBD658600F69CC3 /* RUFIIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RUFIIntroViewController.h; sourceTree = "<group>"; };
 		7361C9E21CBD658600F69CC3 /* RUFIIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RUFIIntroViewController.m; sourceTree = "<group>"; };
 		739E4EC81CBFE8BB00F3DCBD /* IrinaStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IrinaStoryboard.storyboard; sourceTree = "<group>"; };
+		73D0E7421CC9B310002838C1 /* newLaunch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = newLaunch.storyboard; sourceTree = "<group>"; };
 		A707E4C51CAB0238002F37C5 /* com.flatironschool.safenyc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = com.flatironschool.safenyc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A707E4C91CAB0239002F37C5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A707E4CB1CAB0239002F37C5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				A7FFEC2A1CBE92BC00C18FD6 /* Contact.m */,
 				A707E4D71CAB0239002F37C5 /* Assets.xcassets */,
 				A707E4D91CAB0239002F37C5 /* LaunchScreen.storyboard */,
+				73D0E7421CC9B310002838C1 /* newLaunch.storyboard */,
 				7361C9DF1CBD643900F69CC3 /* introStoryboard.storyboard */,
 				C2D936801CB4693F00D109C6 /* location_template.loc.vcf */,
 				A707E4DC1CAB0239002F37C5 /* Info.plist */,
@@ -363,6 +366,7 @@
 				TargetAttributes = {
 					A707E4C41CAB0238002F37C5 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = KXY9EDFTF5;
 					};
 					A707E4E01CAB0239002F37C5 = {
 						CreatedOnToolsVersion = 7.3;
@@ -407,6 +411,7 @@
 				A707E4DB1CAB0239002F37C5 /* LaunchScreen.storyboard in Resources */,
 				C28C689C1CBC20FF003BAA2A /* Default-568h@2x.png in Resources */,
 				C2AEB5E81CB8281D00D6C055 /* YuchiStoryboard.storyboard in Resources */,
+				73D0E7431CC9B310002838C1 /* newLaunch.storyboard in Resources */,
 				A72600301CB1DA7C001D9D0F /* EmergencyStoryboard.storyboard in Resources */,
 				7319FA2E1CC11D980068B806 /* buttonInfoStoryBoard.storyboard in Resources */,
 				A707E4D81CAB0239002F37C5 /* Assets.xcassets in Resources */,
@@ -654,7 +659,7 @@
 				INFOPLIST_FILE = com.flatironschool.safenyc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "self.edu.irina.com-flatironschool-safenyc";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-hamburger";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -670,7 +675,7 @@
 				INFOPLIST_FILE = com.flatironschool.safenyc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "self.edu.irina.com-flatironschool-safenyc";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-hamburger";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

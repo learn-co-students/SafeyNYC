@@ -61,7 +61,7 @@
             }
             
             [self filterPoliceLocations];
-            NSLog(@"Police Locations array contains: %lu locations!!!!!!", self.policeLocationsArray.count);
+            NSLog(@"Police Locations array contains: %lu locations!!!!!!", (unsigned long)self.policeLocationsArray.count);
             
             if ([self getCurrentPoliceLocationsCount] > 0) {
                 

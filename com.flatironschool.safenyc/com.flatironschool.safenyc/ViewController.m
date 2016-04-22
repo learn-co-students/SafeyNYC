@@ -609,7 +609,7 @@ didAutocompleteWithPlace:(GMSPlace *)place {
 - (void)viewController:(GMSAutocompleteViewController *)viewController
 didFailAutocompleteWithError:(NSError *)error {
     // TODO: handle the error.
-    NSLog(@"error: %li", [error code]);
+    NSLog(@"error: %li", (long)[error code]);
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -1537,7 +1537,7 @@ didFailAutocompleteWithError:(NSError *)error {
 
     self.faceMarker.title = sayings[superHeroInt];
     
-    NSLog(@"%lu", superHeroInt);
+    NSLog(@"%lu", (unsigned long)superHeroInt);
     
     self.faceMarker.snippet = [NSString stringWithFormat:@"Total Felonies: %lu", (unsigned long)self.datastore.crimeDataArray.count];
     

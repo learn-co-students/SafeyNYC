@@ -615,7 +615,7 @@
     [self.view addSubview:self.contactDetailTutorialLabel];
     self.contactDetailTutorialLabel.adjustsFontSizeToFitWidth = YES;
     //self.contactDetailTutorialLabel.text = @"To delete, hold contact button for 2 seconds";
-    self.contactDetailTutorialLabel.text = @"To reset the contact, presee the contact button";
+    self.contactDetailTutorialLabel.text = @"To replace a contact, presse the contact button";
     
 }
 

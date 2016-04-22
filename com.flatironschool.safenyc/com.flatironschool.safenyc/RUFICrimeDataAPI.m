@@ -21,7 +21,7 @@
     NSLog(@"LADITUDE IN API %@", latitude);
     NSLog(@"LONGITUDE IN API %@", longitude);
     NSLog(@"LADITUDE IN Radius %@", radius);
-    NSLog(@"LONGITUDE IN Years %li", years);
+    NSLog(@"LONGITUDE IN Years %li", (long)years);
 
     
     NSDate *now = [NSDate date];
